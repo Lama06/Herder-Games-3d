@@ -51,9 +51,11 @@ namespace HerderGames.AI
 
         private (GoalBase, int) GetGoalWithHigherPriorityThatCanStart()
         {
-            for (var i = 0; i < Goals.Length; i++)
+            var priority = -1;
+            for (var i = Goals.Length - 1; i >= 0; i--)
             {
-                if (i <= CurrentGoalPriority)
+                priority++;
+                if (priority <= CurrentGoalPriority)
                 {
                     continue;
                 }
@@ -65,10 +67,10 @@ namespace HerderGames.AI
                     continue;
                 }
 
-                return (goal, i);
+                return (goal, priority);
             }
 
-            return (null, 0);
+            return (null, GoalPriorityNoGoal);
         }
     }
 }

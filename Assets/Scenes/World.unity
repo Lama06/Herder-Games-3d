@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeSpeed: 0.05
   CurrentWochentag: 0
-  CurrentTime: 8
+  CurrentTime: 6
 --- !u!4 &71110097
 Transform:
   m_ObjectHideFlags: 0
@@ -408,6 +408,9 @@ GameObject:
   - component: {fileID: 717419515}
   - component: {fileID: 717419514}
   - component: {fileID: 717419513}
+  - component: {fileID: 717419523}
+  - component: {fileID: 717419522}
+  - component: {fileID: 717419521}
   m_Layer: 0
   m_Name: Schulten
   m_TagString: Untagged
@@ -575,13 +578,66 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717419512}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.47, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &717419521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717419512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08b5b653c6747588def0101d6b72f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ausgang: {fileID: 1634404110}
+--- !u!114 &717419522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717419512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da026d5742014bdbb93bbf021da74b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Eingang: {fileID: 1634404110}
+--- !u!114 &717419523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717419512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eaf0bb5d9944ec193d1b660ea290c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 71110096}
+  InDerSchule: 1
+  ZeitInDerSchule:
+    Wochentage:
+    - AuswahlArt: 3
+      Manuell: 
+      Zeitspannen:
+      - Anfang:
+          RelativZu: 1
+          RelativZuN: 0
+          Zeit: -0.5
+        Ende:
+          RelativZu: 2
+          RelativZuN: 0
+          Zeit: 0.25
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
