@@ -1,4 +1,3 @@
-using HerderGames.Time.Stundenplan;
 using UnityEngine;
 
 namespace HerderGames.Time
@@ -6,9 +5,15 @@ namespace HerderGames.Time
     public class TimeManager : MonoBehaviour
     {
         [SerializeField] private float TimeSpeed;
-        [SerializeField] private Wochentag CurrentWochentag = Wochentag.Montag;
-        [SerializeField] private float CurrentTime = StundenPlanRaster.SchuleBeginn;
+        private int CurrentKalenderwoche = 1;
+        private Wochentag CurrentWochentag = Wochentag.Montag;
+        private float CurrentTime = StundenPlanRaster.SchuleBeginn;
 
+        public int GetCurrentKalenderwoche()
+        {
+            return CurrentKalenderwoche;
+        }
+        
         public Wochentag GetCurrentWochentag()
         {
             return CurrentWochentag;
@@ -19,13 +24,29 @@ namespace HerderGames.Time
             return CurrentTime;
         }
 
+        public Zeitpunkt GetCurrentZeitpunkt()
+        {
+            return new Zeitpunkt
+            {
+                Kalenderwoche = CurrentKalenderwoche,
+                Wochentag = CurrentWochentag,
+                Time = CurrentTime
+            };
+        }
+
         private void Update()
         {
             CurrentTime += TimeSpeed * UnityEngine.Time.deltaTime;
             if (CurrentTime > StundenPlanRaster.EndeDesTages)
             {
                 CurrentTime = 0;
-                CurrentWochentag = CurrentWochentag.GetNextWochentag();
+                CurrentWochentag += 1;
+            }
+
+            if (!CurrentWochentag.IsValid())
+            {
+                CurrentKalenderwoche++;
+                CurrentWochentag = Wochentag.Montag;
             }
         }
     }

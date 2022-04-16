@@ -1,5 +1,4 @@
 using HerderGames.Time;
-using HerderGames.Time.Data;
 using UnityEngine;
 
 namespace HerderGames.AI.Goals
@@ -9,7 +8,7 @@ namespace HerderGames.AI.Goals
     {
         public TimeManager TimeManager;
         public bool InDerSchule;
-        public Zeitspanne ZeitInDerSchule;
+        public WoechentlicheZeitspannen ZeitInDerSchule;
 
         private MeshRenderer Renderer;
 

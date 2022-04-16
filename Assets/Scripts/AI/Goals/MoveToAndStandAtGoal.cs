@@ -1,5 +1,4 @@
 using HerderGames.Time;
-using HerderGames.Time.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +9,7 @@ namespace HerderGames.AI.Goals
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform Position;
-        [SerializeField] private Zeitspanne Wann;
+        [SerializeField] private WoechentlicheZeitspannen Wann;
 
         private NavMeshAgent Agent;
 

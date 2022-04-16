@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using HerderGames.Time.Stundenplan;
 
-namespace HerderGames.Time.Data
+namespace HerderGames.Time
 {
     [System.Serializable]
-    public class Zeitpunkt
+    public class WoechentlicheZeitpunkte
     {
         public WochentagEintrag[] Wochentage;
 

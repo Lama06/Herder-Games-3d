@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using HerderGames.Time.Stundenplan;
 
-namespace HerderGames.Time.Data
+namespace HerderGames.Time
 {
     public enum WochentagAuswahlArt
     {

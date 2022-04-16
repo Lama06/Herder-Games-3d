@@ -1,6 +1,6 @@
 using System;
 
-namespace HerderGames.Time.Stundenplan
+namespace HerderGames.Time
 {
     public enum StundenType
     {

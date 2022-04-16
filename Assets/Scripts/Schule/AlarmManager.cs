@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace HerderGames
+namespace HerderGames.Schule
 {
     public class AlarmManager : MonoBehaviour
     {
-        public bool Alarm;
+        public bool Alarm { get; set; }
     }
 }

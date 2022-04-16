@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HerderGames.Time.Stundenplan
+namespace HerderGames.Time
 {
     public static class StundenPlanRaster
     {

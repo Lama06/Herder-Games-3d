@@ -1,6 +1,6 @@
 using System;
 
-namespace HerderGames.Time.Stundenplan
+namespace HerderGames.Time
 {
     public enum Wochentag
     {
@@ -30,6 +30,11 @@ namespace HerderGames.Time.Stundenplan
         public static Wochentag GetNextWochentag(this Wochentag tag)
         {
             return (Wochentag) ((int) (tag + 1) % 7);
+        }
+
+        public static bool IsValid(this Wochentag tag)
+        {
+            return (int) tag <= 6 && (int) tag >= 0;
         }
 
         public static bool IsSchultag(this Wochentag tag)

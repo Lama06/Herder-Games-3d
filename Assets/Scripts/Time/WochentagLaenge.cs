@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HerderGames.Time.Stundenplan
+namespace HerderGames.Time
 {
     public enum WochentagLaenge
     {

@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using HerderGames.Time.Stundenplan;
 
-namespace HerderGames.Time.Data
+namespace HerderGames.Time
 {
     [System.Serializable]
-    public class Zeitspanne
+    public class WoechentlicheZeitspannen
     {
+        public bool Immer;
         public WochentagEintrag[] Wochentage;
         
-        public IList<(Wochentag, float, float)> Resolve()
+        private IList<(Wochentag, float, float)> Resolve()
         {
             var result = new List<(Wochentag, float, float)>();
             
@@ -22,6 +22,11 @@ namespace HerderGames.Time.Data
 
         public bool IsInside(Wochentag tag, float time)
         {
+            if (Immer)
+            {
+                return true;
+            }
+            
             foreach (var (wochentag, start, end) in Resolve())
             {
                 if (wochentag != tag)
