@@ -2,7 +2,7 @@ using System;
 
 namespace HerderGames.Player
 {
-    public class InteractionsMenuEintrag
+    public class InteraktionsMenuEintrag
     {
         public string Name;
         public Action<int> Callback;

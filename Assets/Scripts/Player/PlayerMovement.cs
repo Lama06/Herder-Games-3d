@@ -7,7 +7,8 @@ namespace HerderGames.Player
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float Speed;
-
+        [SerializeField] private UiOverlay Overlay;
+        
         private CharacterController Controller;
 
         private void Awake()
@@ -17,6 +18,11 @@ namespace HerderGames.Player
 
         private void Update()
         {
+            if (Overlay.GetIsFocused())
+            {
+                return;
+            }
+            
             var x = Input.GetAxis("Horizontal");
             var y = Input.GetAxis("Vertical");
 

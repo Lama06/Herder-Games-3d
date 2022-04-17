@@ -31,7 +31,6 @@ namespace HerderGames
             }
 
             var laengeDerAktuellenErkrankung = ZeitpunktDerErkrankung.Diff(TimeManager.GetCurrentZeitpunkt());
-            return LaengeDerErkrankung.IsLongerThan(laengeDerAktuellenErkrankung);
-        }
+            return LaengeDerErkrankung.IsLongerThan(laengeDerAktuellenErkrankung); }
     }
 }

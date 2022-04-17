@@ -1,72 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace HerderGames.Player
 {
-    [RequireComponent(typeof(UIDocument))]
+    [RequireComponent(typeof(Player))]
     public class InteraktionsMenu : MonoBehaviour
     {
         private int CurrentEintragId;
+        public Dictionary<int, InteraktionsMenuEintrag> Eintraege { get; } = new();
 
-        private UIDocument UI;
-
-        private void Awake()
-        {
-            UI = GetComponent<UIDocument>();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                SwitchUIDisplayStyle();
-            }
-        }
-
-        public int AddEintrag(InteractionsMenuEintrag eintrag)
+        public int AddEintrag(InteraktionsMenuEintrag eintrag)
         {
             var id = CurrentEintragId++;
-            
-            var button = new Button(() => eintrag.Callback(id))
-            {
-                text = eintrag.Name
-            };
-            button.AddToClassList("button");
-            button.userData = id;
-            GetRoot().Add(button);
+            Eintraege.Add(id, eintrag);
             return id;
         }
 
         public void RemoveEintrag(int eintrag)
         {
-            var root = GetRoot();
-            
-            var buttons = root.Query(null, new[] {"button"});
-            buttons.ForEach(btn =>
-            {
-                if ((int) btn.userData == eintrag)
-                {
-                    root.Remove(btn);
-                }
-            });
-        }
-
-        private VisualElement GetRoot()
-        {
-            return UI.rootVisualElement.Q("Root");
-        }
-
-        private void SwitchUIDisplayStyle()
-        {
-            switch (GetRoot().style.display.value)
-            {
-                case DisplayStyle.Flex:
-                    GetRoot().style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-                    break;
-                case DisplayStyle.None:
-                    GetRoot().style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
-                    break;
-            }
+            Eintraege.Remove(eintrag);
         }
     }
 }

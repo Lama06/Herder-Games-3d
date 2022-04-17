@@ -17,14 +17,9 @@ namespace HerderGames.AI.Goals
             Agent = GetComponent<NavMeshAgent>();
         }
 
-        public override bool CanStart()
+        public override bool ShouldRun(bool currentlyRunning)
         {
             return AlarmManager.Alarm;
-        }
-
-        public override bool ShouldContinue()
-        {
-            return CanStart();
         }
 
         public override void OnStarted()

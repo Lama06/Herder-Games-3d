@@ -20,26 +20,15 @@ namespace HerderGames.AI.Goals
             Agent = GetComponent<NavMeshAgent>();
         }
 
-        public override bool CanStart()
+        public override bool ShouldRun(bool currentlyRunning)
         {
-            return Essen.Status == VergiftungsStatus.VergiftetBemerkt &&
-                   Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Essen.Status == VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
-        public override bool ShouldContinue()
-        {
-            return CanStart();
-        }
-
-        public override void OnStarted()
-        {
-            StartCoroutine(Execute());
-        }
-
-        private IEnumerator Execute()
+        public override IEnumerator Execute()
         {
             Agent.destination = Essen.GetStandpunkt();
-            yield return new WaitUntil(() => !Agent.hasPath && !Agent.pathPending);
+            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Agent);
             Essen.Status = VergiftungsStatus.NichtVergiftet;
         }
     }

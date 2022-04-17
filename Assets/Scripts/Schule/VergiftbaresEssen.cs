@@ -6,7 +6,6 @@ namespace HerderGames.Schule
     public class VergiftbaresEssen : MonoBehaviour
     {
         [SerializeField] private Transform Standpunkt;
-        [SerializeField] private InteraktionsMenu InteraktionsMenu;
         [SerializeField] private string InteraktionsMenuName;
 
         public VergiftungsStatus Status { get; set; }
@@ -20,7 +19,14 @@ namespace HerderGames.Schule
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<Player.Player>() == null)
+            var chat = other.GetComponent<Chat>();
+            if (chat != null)
+            {
+                chat.SendChatMessage("Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. Öffne dazu das Interaktionsmenu");
+            }
+            
+            var interaktionsMenu = other.GetComponent<InteraktionsMenu>();
+            if (interaktionsMenu == null)
             {
                 return;
             }
@@ -30,25 +36,26 @@ namespace HerderGames.Schule
                 return;
             }
 
-            InteraktionsmenuEintragId = InteraktionsMenu.AddEintrag(new InteractionsMenuEintrag
+            InteraktionsmenuEintragId = interaktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
                 Callback = (id) =>
                 {
                     Status = VergiftungsStatus.VergiftetNichtBemerkt;
-                    InteraktionsMenu.RemoveEintrag(id);
+                    interaktionsMenu.RemoveEintrag(id);
                 },
             });
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.GetComponent<Player.Player>() == null)
+            var interaktionsMenu = other.GetComponent<InteraktionsMenu>();
+            if (interaktionsMenu == null)
             {
                 return;
             }
 
-            InteraktionsMenu.RemoveEintrag(InteraktionsmenuEintragId);
+            interaktionsMenu.RemoveEintrag(InteraktionsmenuEintragId);
         }
     }
 

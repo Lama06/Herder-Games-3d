@@ -13,14 +13,9 @@ namespace HerderGames.AI.Goals
             Krankheit = GetComponent<Krankheit>();
         }
 
-        public override bool CanStart()
+        public override bool ShouldRun(bool currentlyRunning)
         {
             return Krankheit.IsKrank();
-        }
-
-        public override bool ShouldContinue()
-        {
-            return CanStart();
         }
 
         public override void OnStarted()

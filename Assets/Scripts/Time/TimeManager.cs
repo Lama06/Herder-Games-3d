@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 namespace HerderGames.Time
@@ -32,6 +33,15 @@ namespace HerderGames.Time
                 Wochentag = CurrentWochentag,
                 Time = CurrentTime
             };
+        }
+
+        public string GetDisplayText()
+        {
+            var builder = new StringBuilder();
+            builder.Append("Woche: ").Append(CurrentKalenderwoche).Append("\n");
+            builder.Append("Wochentag: ").Append(CurrentWochentag).Append("\n");
+            builder.Append("Zeit: ").Append(CurrentTime).Append("\n");
+            return builder.ToString();
         }
 
         private void Update()

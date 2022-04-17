@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace HerderGames.AI
@@ -5,20 +6,33 @@ namespace HerderGames.AI
     [RequireComponent(typeof(AiController))]
     public abstract class GoalBase : MonoBehaviour
     {
-        public abstract bool CanStart();
+        private Coroutine Coroutine;
+        
+        public abstract bool ShouldRun(bool currentlyRunning);
 
-        public abstract bool ShouldContinue();
-
+        public void StartGoal()
+        {
+            Coroutine = StartCoroutine(Execute());
+            OnStarted();
+        }
+        
         public virtual void OnStarted()
         {
         }
 
-        public virtual void OnTick()
+        public void EndGoal(GoalEndReason reason)
         {
+            StopCoroutine(Coroutine);
+            OnEnd(reason);
         }
 
         public virtual void OnEnd(GoalEndReason reason)
         {
+        }
+
+        public virtual IEnumerator Execute()
+        {
+            yield return null;
         }
     }
 }

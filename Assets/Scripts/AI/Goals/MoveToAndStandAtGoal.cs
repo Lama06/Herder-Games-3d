@@ -18,12 +18,7 @@ namespace HerderGames.AI.Goals
             Agent = GetComponent<NavMeshAgent>();
         }
 
-        public override bool CanStart()
-        {
-            return Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
-        }
-
-        public override bool ShouldContinue()
+        public override bool ShouldRun(bool currentlyRunning)
         {
             return Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }

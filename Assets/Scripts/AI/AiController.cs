@@ -17,22 +17,13 @@ namespace HerderGames.AI
 
         private void Update()
         {
-            SelectNewGoal();
-            if (CurrentGoal != null)
+            if (CurrentGoal != null && !CurrentGoal.ShouldRun(true))
             {
-                CurrentGoal.OnTick();
-            }
-        }
-
-        private void SelectNewGoal()
-        {
-            if (CurrentGoal != null && !CurrentGoal.ShouldContinue())
-            {
-                CurrentGoal.OnEnd(GoalEndReason.GoalCannotContinue);
+                CurrentGoal.EndGoal(GoalEndReason.GoalCannotContinue);
                 CurrentGoal = null;
                 CurrentGoalPriority = GoalPriorityNoGoal;
             }
-            
+
             var (newGoal, newGoalPriority) = GetGoalWithHigherPriorityThatCanStart();
             if (newGoal == null)
             {
@@ -41,11 +32,11 @@ namespace HerderGames.AI
 
             if (CurrentGoal != null)
             {
-                CurrentGoal.OnEnd(GoalEndReason.OtherGoalWithHigherPriority);
+                CurrentGoal.EndGoal(GoalEndReason.OtherGoalWithHigherPriority);
             }
 
             CurrentGoal = newGoal;
-            CurrentGoal.OnStarted();
+            CurrentGoal.StartGoal();
             CurrentGoalPriority = newGoalPriority;
         }
 
@@ -62,7 +53,7 @@ namespace HerderGames.AI
 
                 var goal = Goals[i];
 
-                if (!goal.CanStart())
+                if (!goal.ShouldRun(false))
                 {
                     continue;
                 }

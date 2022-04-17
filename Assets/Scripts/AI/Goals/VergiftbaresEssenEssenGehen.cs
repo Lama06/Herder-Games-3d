@@ -1,5 +1,4 @@
 using System.Collections;
-using HerderGames;
 using HerderGames.Schule;
 using HerderGames.Time;
 using UnityEngine;
@@ -24,30 +23,15 @@ namespace HerderGames.AI.Goals
             Krankheit = GetComponent<Krankheit>();
         }
 
-        public override bool CanStart()
+        public override bool ShouldRun(bool currentlyRunning)
         {
             return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
-        public override bool ShouldContinue()
-        {
-            return CanStart();
-        }
-
-        public override void OnStarted()
-        {
-            StartCoroutine(Execute());
-        }
-
-        public override void OnEnd(GoalEndReason reason)
-        {
-            StopAllCoroutines();
-        }
-
-        private IEnumerator Execute()
+        public override IEnumerator Execute()
         {
             Agent.destination = VergiftbaresEssen.GetStandpunkt();
-            yield return new WaitUntil(() => !Agent.hasPath && !Agent.pathPending);
+            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Agent);
             if (VergiftbaresEssen.Status.IsVergiftet())
             {
                 Krankheit.Erkranken(VergiftbaresEssen);
