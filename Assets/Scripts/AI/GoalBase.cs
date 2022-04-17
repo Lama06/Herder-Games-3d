@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HerderGames.AI
 {
-    [RequireComponent(typeof(AiController))]
+    [RequireComponent(typeof(AIController))]
     public abstract class GoalBase : MonoBehaviour
     {
         private Coroutine Coroutine;

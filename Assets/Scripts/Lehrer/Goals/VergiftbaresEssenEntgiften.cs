@@ -1,34 +1,35 @@
 using System.Collections;
+using HerderGames.AI;
 using HerderGames.Schule;
 using HerderGames.Time;
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace HerderGames.AI.Goals
+namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Lehrer))]
     public class VergiftbaresEssenEntgiften : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private WoechentlicheZeitspannen Wann;
         [SerializeField] private VergiftbaresEssen Essen;
 
-        private NavMeshAgent Agent;
+        private Lehrer Lehrer;
 
         private void Awake()
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Lehrer = GetComponent<Lehrer>();
         }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Essen.Status == VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Essen.Status == VergiftungsStatus.VergiftetBemerkt &&
+                   Wann.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(),
+                       Lehrer.GetTimeManager().GetCurrentTime());
         }
 
         public override IEnumerator Execute()
         {
-            Agent.destination = Essen.GetStandpunkt();
-            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Agent);
+            Lehrer.GetAgent().destination = Essen.GetStandpunkt();
+            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.GetAgent());
             Essen.Status = VergiftungsStatus.NichtVergiftet;
         }
     }

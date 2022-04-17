@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace HerderGames.AI
 {
-    public class AiController : MonoBehaviour
+    public class AIController : MonoBehaviour
     {
         private const int GoalPriorityNoGoal = -1;
         

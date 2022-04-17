@@ -3,12 +3,21 @@ using UnityEngine;
 
 namespace HerderGames.Player
 {
-    public class Verbrechen : MonoBehaviour
+    [RequireComponent(typeof(Player))]
+    public class VerbrechenManager : MonoBehaviour
     {
         public bool BegehtGeradeEinVerbrechen { get; private set; }
         public float TimeRemaining { get; private set; }
-        private Action Callback;
         public float Schwere { get; private set; }
+        private Action Callback;
+        private int LastProgressMessage;
+
+        private Player Player;
+
+        private void Awake()
+        {
+            Player = GetComponent<Player>();
+        }
 
         private void Update()
         {
@@ -17,7 +26,19 @@ namespace HerderGames.Player
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                BegehtGeradeEinVerbrechen = false;
+                TimeRemaining = 0;
+                Schwere = 0;
+                Callback = null;
+                LastProgressMessage = 0;
+                Player.GetChat().SendChatMessage("Verbrechen abgebrochen");
+                return;
+            }
+
             TimeRemaining -= UnityEngine.Time.deltaTime;
+
             if (TimeRemaining <= 0)
             {
                 Callback();
@@ -25,6 +46,12 @@ namespace HerderGames.Player
                 TimeRemaining = 0;
                 Callback = null;
                 Schwere = 0;
+                Player.GetChat().SendChatMessage("Verbrechen wurde beendet");
+            }
+            else if ((int) TimeRemaining < LastProgressMessage)
+            {
+                LastProgressMessage = (int) TimeRemaining;
+                Player.GetChat().SendChatMessage($"Verbrechen ist in {LastProgressMessage} Sekunden beendet");
             }
         }
 
@@ -32,7 +59,9 @@ namespace HerderGames.Player
         {
             BegehtGeradeEinVerbrechen = true;
             TimeRemaining = time;
+            Schwere = schwere;
             Callback = callback;
+            LastProgressMessage = ((int) time) + 1;
         }
 
         public void VerbrechenAbbrechen()

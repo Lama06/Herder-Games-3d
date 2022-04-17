@@ -1,4 +1,4 @@
-using System;
+using HerderGames.UI;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -7,7 +7,8 @@ namespace HerderGames.Player
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float Speed;
-        [SerializeField] private UiOverlay Overlay;
+        [SerializeField] private UIOverlay Overlay;
+        [SerializeField] private Player Player;
         
         private CharacterController Controller;
 
@@ -18,7 +19,7 @@ namespace HerderGames.Player
 
         private void Update()
         {
-            if (Overlay.GetIsFocused())
+            if (Overlay.GetIsFocused() || Player.GetVerbrechenManager().BegehtGeradeEinVerbrechen)
             {
                 return;
             }

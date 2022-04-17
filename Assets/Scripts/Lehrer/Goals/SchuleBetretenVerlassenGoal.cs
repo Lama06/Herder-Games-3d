@@ -1,27 +1,23 @@
 using System.Collections;
+using HerderGames.AI;
 using HerderGames.Time;
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace HerderGames.AI.Goals
+namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(Lehrer))]
     public class SchuleBetretenVerlassenGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform Eingang;
         [SerializeField] private Transform Ausgang;
         [SerializeField] private WoechentlicheZeitspannen ZeitInDerSchule;
         [SerializeField] private bool InDerSchule = true;
 
-        private NavMeshAgent Agent;
-        private Renderer Renderer;
-        
+        private Lehrer Lehrer;
+
         private void Awake()
         {
-            Agent = GetComponent<NavMeshAgent>();
-            Renderer = GetComponent<Renderer>();
+            Lehrer = GetComponent<Lehrer>();
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -31,12 +27,8 @@ namespace HerderGames.AI.Goals
 
         private bool ShouldBeInSchool()
         {
-            return ZeitInDerSchule.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
-        }
-
-        public override void OnStarted()
-        {
-            Debug.Log("Started");
+            return ZeitInDerSchule.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(),
+                Lehrer.GetTimeManager().GetCurrentTime()) && !Lehrer.GetKrankheit().IsKrankMitSymtomen();
         }
 
         public override IEnumerator Execute()
@@ -45,26 +37,31 @@ namespace HerderGames.AI.Goals
             {
                 if (InDerSchule && !ShouldBeInSchool())
                 {
-                    Agent.destination = Ausgang.position;
-                    Debug.Log("Losgehen");
-                    yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Agent);
+                    Lehrer.GetAgent().destination = Ausgang.position;
+                    yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.GetAgent());
                     SetVisible(false);
                     InDerSchule = false;
                 }
 
                 if (!InDerSchule && ShouldBeInSchool())
                 {
-                    Agent.Warp(Eingang.position);
+                    Lehrer.GetAgent().Warp(Eingang.position);
                     SetVisible(true);
                     InDerSchule = true;
                 }
+
                 yield return null;
             }
         }
 
         private void SetVisible(bool visible)
         {
-            Renderer.enabled = visible;
+            Lehrer.GetRenderer().enabled = visible;
+        }
+
+        public bool IsInDerSchule()
+        {
+            return InDerSchule;
         }
     }
 }

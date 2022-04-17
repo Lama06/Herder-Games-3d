@@ -7,42 +7,42 @@ namespace HerderGames.Schule
     {
         [SerializeField] private Transform Standpunkt;
         [SerializeField] private string InteraktionsMenuName;
+        [SerializeField] private float ZeitZumVergiften;
+        [SerializeField] private float SchwereDesVerbrechens;
 
         public VergiftungsStatus Status { get; set; }
+        private int InteraktionsmenuEintragId;
 
         public Vector3 GetStandpunkt()
         {
             return Standpunkt.position;
         }
 
-        private int InteraktionsmenuEintragId;
-
         private void OnTriggerEnter(Collider other)
         {
-            var chat = other.GetComponent<Chat>();
-            if (chat != null)
+            var player = other.GetComponent<Player.Player>();
+            if (player == null)
             {
-                chat.SendChatMessage("Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. Öffne dazu das Interaktionsmenu");
+                return;
+            }
+
+            if (Status.IsVergiftet() || player.GetVerbrechenManager().BegehtGeradeEinVerbrechen)
+            {
+                return;
             }
             
-            var interaktionsMenu = other.GetComponent<InteraktionsMenu>();
-            if (interaktionsMenu == null)
-            {
-                return;
-            }
+            player.GetChat()
+                .SendChatMessage(
+                    "Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. Öffne dazu das Interaktionsmenu");
 
-            if (Status.IsVergiftet())
-            {
-                return;
-            }
-
-            InteraktionsmenuEintragId = interaktionsMenu.AddEintrag(new InteraktionsMenuEintrag
+            InteraktionsmenuEintragId = player.GetInteraktionsMenu().AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
-                Callback = (id) =>
+                Callback = id =>
                 {
-                    Status = VergiftungsStatus.VergiftetNichtBemerkt;
-                    interaktionsMenu.RemoveEintrag(id);
+                    player.GetVerbrechenManager().VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens,
+                        () => { Status = VergiftungsStatus.VergiftetNichtBemerkt; });
+                    player.GetInteraktionsMenu().RemoveEintrag(id);
                 },
             });
         }

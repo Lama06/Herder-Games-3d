@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace HerderGames.Time
@@ -8,9 +9,19 @@ namespace HerderGames.Time
         public bool Immer;
         public WochentagEintrag[] Wochentage;
         
-        private IList<(Wochentag, float, float)> Resolve()
+        public IList<(Wochentag, float, float)> Resolve()
         {
             var result = new List<(Wochentag, float, float)>();
+
+            if (Immer)
+            {
+                foreach (var wochentag in Enum.GetValues(typeof(Wochentag)))
+                {
+                    result.Add(((Wochentag) wochentag, 0, 24));
+                }
+
+                return result;
+            }
             
             foreach (var wochentagEintrag in Wochentage)
             {
@@ -22,11 +33,6 @@ namespace HerderGames.Time
 
         public bool IsInside(Wochentag tag, float time)
         {
-            if (Immer)
-            {
-                return true;
-            }
-            
             foreach (var (wochentag, start, end) in Resolve())
             {
                 if (wochentag != tag)

@@ -1,16 +1,17 @@
+using System.Collections.Generic;
+using HerderGames.Player;
 using HerderGames.Time;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
-namespace HerderGames.Player
+namespace HerderGames.UI
 {
-    public class UiOverlay : MonoBehaviour
+    public class UIOverlay : MonoBehaviour
     {
         [SerializeField] private UIDocument Document;
         [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private InteraktionsMenu InteraktionsMenu;
-        [SerializeField] private Chat Chat;
+        [SerializeField] private Player.Player Player;
 
         private bool IsFocused;
 
@@ -21,7 +22,7 @@ namespace HerderGames.Player
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleFocus();
             }
@@ -44,15 +45,32 @@ namespace HerderGames.Player
 
         private void UpdateInteraktionsMenu()
         {
+            // Es dürfen nicht in jedem Frame alle Buttons entfernt und komplett neu generiert werden,
+            // weil sonst das Klicken auf die Buttons nicht funktioniert
+            
             var interaktionsMenu = GetInteraktionsMenu();
-            interaktionsMenu.Query<Button>().ForEach(btn => interaktionsMenu.Remove(btn));
-            foreach (var (eintragId, eintrag) in InteraktionsMenu.Eintraege)
+            var fehlendeEintraege = new Dictionary<int, InteraktionsMenuEintrag>(Player.GetInteraktionsMenu().Eintraege);
+
+            foreach (var button in interaktionsMenu.Query<Button>().ToList())
             {
-                var button = new Button(() => eintrag.Callback(eintragId))
+                var id = (int) button.userData;
+                if (!Player.GetInteraktionsMenu().Eintraege.ContainsKey(id))
                 {
+                    interaktionsMenu.Remove(button);
+                    continue;
+                }
+
+                fehlendeEintraege.Remove(id);
+            }
+            
+            foreach (var (id, eintrag) in fehlendeEintraege)
+            {
+                var newButton = new Button(() => eintrag.Callback(id))
+                {
+                    userData = id,
                     text = eintrag.Name
                 };
-                interaktionsMenu.Add(button);
+                interaktionsMenu.Add(newButton);
             }
         }
 
@@ -60,7 +78,7 @@ namespace HerderGames.Player
         {
             var chat = GetChatWindow();
             chat.Clear();
-            foreach (var message in Chat.GetMessages())
+            foreach (var message in Player.GetChat().GetMessages())
             {
                 var label = new Label(message);
                 chat.Add(label);

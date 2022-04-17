@@ -1,3 +1,4 @@
+using HerderGames.UI;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -6,8 +7,8 @@ namespace HerderGames.Player
     {
         [SerializeField] private float Sensitivity;
         [SerializeField] private Transform PlayerBody;
-        [SerializeField] private UiOverlay Overlay;
-        
+        [SerializeField] private UIOverlay Overlay;
+
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;

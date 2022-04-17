@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HerderGames
+namespace HerderGames.Lehrer
 {
     public class Reputation : MonoBehaviour
     {

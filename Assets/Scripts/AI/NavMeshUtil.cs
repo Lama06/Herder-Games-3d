@@ -7,7 +7,12 @@ namespace HerderGames.AI
     {
         public static CustomYieldInstruction WaitForNavMeshAgentToArrive(NavMeshAgent agent)
         {
-            return new WaitUntil(() => !agent.hasPath && !agent.pathPending);
+            return new WaitUntil(() => HasReachedDestionation(agent));
+        }
+
+        public static bool HasReachedDestionation(NavMeshAgent agent)
+        {
+            return !agent.hasPath && !agent.pathPending;
         }
     }
 }

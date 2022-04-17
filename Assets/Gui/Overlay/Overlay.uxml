@@ -3,10 +3,8 @@
         <ui:VisualElement name="Oben" style="flex-direction: row; align-items: flex-start; justify-content: space-between; height: auto;">
             <ui:Label text="Woche 1\nMontag\n8:00" display-tooltip-when-elided="true" name="Zeit" />
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1">
-                <ui:VisualElement name="Interaktionsmenu">
+                <ui:VisualElement name="Interaktionsmenu" style="display: none;">
                     <ui:Label text="Interaktionsmenu" display-tooltip-when-elided="true" name="Header" style="-unity-font-style: bold; font-size: 30px;" />
-                    <ui:Button text="Button" display-tooltip-when-elided="true" />
-                    <ui:Button text="Button" display-tooltip-when-elided="true" />
                 </ui:VisualElement>
             </ui:ScrollView>
             <ui:VisualElement name="Chat">

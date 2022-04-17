@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace HerderGames.Player
     public class Chat : MonoBehaviour
     {
         [SerializeField] private float MaxMessageTime;
-        private List<Message> Messages = new();
+        private readonly List<Message> Messages = new();
 
         public void SendChatMessage(string msg)
         {

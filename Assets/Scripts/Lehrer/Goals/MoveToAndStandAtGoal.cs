@@ -1,31 +1,31 @@
+using HerderGames.AI;
 using HerderGames.Time;
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace HerderGames.AI.Goals
+namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Lehrer))]
     public class MoveToAndStandAtGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform Position;
         [SerializeField] private WoechentlicheZeitspannen Wann;
 
-        private NavMeshAgent Agent;
+        private Lehrer Lehrer;
 
         private void Awake()
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Lehrer = GetComponent<Lehrer>();
         }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Wann.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(),
+                Lehrer.GetTimeManager().GetCurrentTime());
         }
 
         public override void OnStarted()
         {
-            Agent.destination = Position.position;
+            Lehrer.GetAgent().destination = Position.position;
         }
     }
 }
