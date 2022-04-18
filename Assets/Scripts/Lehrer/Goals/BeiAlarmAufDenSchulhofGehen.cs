@@ -19,7 +19,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return AlarmManager.Alarm;
+            return AlarmManager.IsAlarm();
         }
 
         public override void OnStarted()

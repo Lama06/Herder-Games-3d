@@ -30,10 +30,12 @@ namespace HerderGames.Schule
             {
                 return;
             }
-            
+
             player.GetChat()
                 .SendChatMessage(
-                    "Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. Öffne dazu das Interaktionsmenu");
+                    "Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. " +
+                    "Lehrer, die davon regelmäßig essen, werden dann für ein paar Tage nicht mehr in die Schule kommen. " +
+                    "Öffne dazu das Interaktionsmenu");
 
             InteraktionsmenuEintragId = player.GetInteraktionsMenu().AddEintrag(new InteraktionsMenuEintrag
             {

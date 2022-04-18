@@ -4,7 +4,7 @@ namespace HerderGames.Lehrer
 {
     public class Reputation : MonoBehaviour
     {
-        public float ReputationsWert;
+        public float ReputationsWert { get; set; }
         [SerializeField] private float Misstrauen;
         [SerializeField] private float Gutmuetigkeit;
 
@@ -22,7 +22,7 @@ namespace HerderGames.Lehrer
 
             ReputationsWert += amount;
         }
-        
+
         public bool ShouldGoToSchulleitung()
         {
             return ReputationsWert <= -1;

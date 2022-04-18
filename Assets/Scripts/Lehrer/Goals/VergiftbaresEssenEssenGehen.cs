@@ -1,10 +1,8 @@
 using System.Collections;
 using HerderGames.AI;
-using HerderGames.Lehrer;
 using HerderGames.Schule;
 using HerderGames.Time;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace HerderGames.Lehrer.Goals
 {

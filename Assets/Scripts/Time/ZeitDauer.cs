@@ -14,33 +14,33 @@ namespace HerderGames.Time
 
         public float ToSekunden()
         {
-            return ToFloat() / (60 * 60);
+            return ToStunden() / (60 * 60);
         }
         
-        public float ToFloat()
+        public float ToStunden()
         {
-            return ((float) Wochen * 24f * 7f) + ((float) Tage) * 24f + Time;
+            return Wochen * 24f * 7f + Tage * 24f + Time;
         }
         
-        public static ZeitDauer FromFloat(float total)
+        public static ZeitDauer FromStunden(float total)
         {
-            var wochen = total % 24f * 7f;
+            var wochen = (int) (total / (24f * 7f));
             total -= wochen * 24f * 7f;
-            var tage = total % 24f;
-            total -= tage * 24;
+            var tage = (int) (total / 24f);
+            total -= tage * 24f;
             var stunden = total;
 
             return new ZeitDauer
             {
-                Wochen = (int) wochen,
-                Tage = (int) tage,
+                Wochen = wochen,
+                Tage = tage,
                 Time = stunden
             };
         }
 
         public bool IsLongerThan(ZeitDauer other)
         {
-            return ToFloat() > other.ToFloat();
+            return ToStunden() > other.ToStunden();
         }
     }
 }
