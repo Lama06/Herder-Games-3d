@@ -6,7 +6,6 @@ namespace HerderGames.AI.Sensors
     {
         [SerializeField] private Transform EyeLocation;
         [SerializeField] private float MaxViewDistance;
-        [SerializeField] private float FieldOfView;
 
         public bool CanSee(GameObject other)
         {

@@ -14,6 +14,11 @@ namespace HerderGames.Player
             Messages.Add(new Message {Text = msg});
         }
 
+        public void SendChatMessage(Lehrer.Lehrer sender, string msg)
+        {
+            Messages.Add(new Message { Text = $"[{sender.GetName()}] {msg}"});
+        }
+        
         public IEnumerable<string> GetMessages()
         {
             var strings = new List<string>();

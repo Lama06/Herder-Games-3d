@@ -1,5 +1,4 @@
 using HerderGames.AI;
-using HerderGames.Time;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +11,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(AIController))]
     public class Lehrer : MonoBehaviour
     {
-        [SerializeField] private TimeManager TimeManager;
+        [SerializeField] private string Name;
         
         private KrankheitsManager Krankheit;
         private Reputation Reputation;
@@ -47,9 +46,9 @@ namespace HerderGames.Lehrer
             return Renderer;
         }
 
-        public TimeManager GetTimeManager()
+        public string GetName()
         {
-            return TimeManager;
+            return name;
         }
     }
 }

@@ -6,22 +6,15 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class VergiftbaresEssenEssenGehen : GoalBase
+    public class VergiftbaresEssenEssenGehen : LehrerGoalBase
     {
+        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private VergiftbaresEssen VergiftbaresEssen;
         [SerializeField] private WoechentlicheZeitspannen Wann;
 
-        private Lehrer Lehrer;
-
-        private void Awake()
-        {
-            Lehrer = GetComponent<Lehrer>();
-        }
-
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(), Lehrer.GetTimeManager().GetCurrentTime());
+            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
         public override IEnumerator Execute()

@@ -1,4 +1,3 @@
-using HerderGames.Time;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -6,26 +5,22 @@ namespace HerderGames.Player
     [RequireComponent(typeof(Chat))]
     [RequireComponent(typeof(InteraktionsMenu))]
     [RequireComponent(typeof(VerbrechenManager))]
+    [RequireComponent(typeof(Verwarnungen))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] private TimeManager TimeManager;
-        
         private Chat Chat;
         private InteraktionsMenu InteraktionsMenu;
         private VerbrechenManager VerbrechenManager;
+        private Verwarnungen Verwarnungen;
 
         private void Awake()
         {
             Chat = GetComponent<Chat>();
             InteraktionsMenu = GetComponent<InteraktionsMenu>();
             VerbrechenManager = GetComponent<VerbrechenManager>();
+            Verwarnungen = GetComponent<Verwarnungen>();
         }
-        
-        public TimeManager GetTimeManager()
-        {
-            return TimeManager;
-        }
-        
+
         public Chat GetChat()
         {
             return Chat;
@@ -39,6 +34,11 @@ namespace HerderGames.Player
         public VerbrechenManager GetVerbrechenManager()
         {
             return VerbrechenManager;
+        }
+
+        public Verwarnungen GetVerwarnungen()
+        {
+            return Verwarnungen;
         }
     }
 }

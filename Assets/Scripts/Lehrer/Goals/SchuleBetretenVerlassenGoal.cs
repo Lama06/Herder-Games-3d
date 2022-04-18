@@ -5,20 +5,13 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class SchuleBetretenVerlassenGoal : GoalBase
+    public class SchuleBetretenVerlassenGoal : LehrerGoalBase
     {
+        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform Eingang;
         [SerializeField] private Transform Ausgang;
         [SerializeField] private WoechentlicheZeitspannen ZeitInDerSchule;
         [SerializeField] private bool InDerSchule = true;
-
-        private Lehrer Lehrer;
-
-        private void Awake()
-        {
-            Lehrer = GetComponent<Lehrer>();
-        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -27,8 +20,8 @@ namespace HerderGames.Lehrer.Goals
 
         private bool ShouldBeInSchool()
         {
-            return ZeitInDerSchule.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(),
-                Lehrer.GetTimeManager().GetCurrentTime()) && !Lehrer.GetKrankheit().IsKrankMitSymtomen();
+            return ZeitInDerSchule.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime()) &&
+                   !Lehrer.GetKrankheit().IsKrankMitSymtomen();
         }
 
         public override IEnumerator Execute()

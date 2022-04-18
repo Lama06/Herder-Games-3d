@@ -1,25 +1,17 @@
-using HerderGames.AI;
 using HerderGames.Time;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class Unterrichten : GoalBase
+    public class Unterrichten : LehrerGoalBase
     {
+        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform UnterrichtsRaum;
         [SerializeField] private WoechentlicheZeitspannen Wann;
 
-        private Lehrer Lehrer;
-
-        private void Awake()
-        {
-            Lehrer = GetComponent<Lehrer>();
-        }
-
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Wann.IsInside(Lehrer.GetTimeManager().GetCurrentWochentag(), Lehrer.GetTimeManager().GetCurrentTime());
+            return Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
         public override void OnStarted()

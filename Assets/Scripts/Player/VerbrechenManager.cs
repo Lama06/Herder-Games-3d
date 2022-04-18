@@ -28,11 +28,7 @@ namespace HerderGames.Player
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                BegehtGeradeEinVerbrechen = false;
-                TimeRemaining = 0;
-                Schwere = 0;
-                Callback = null;
-                LastProgressMessage = 0;
+                VerbrechenAbbrechen();
                 Player.GetChat().SendChatMessage("Verbrechen abgebrochen");
                 return;
             }
@@ -68,7 +64,9 @@ namespace HerderGames.Player
         {
             BegehtGeradeEinVerbrechen = false;
             TimeRemaining = 0;
+            Schwere = 0;
             Callback = null;
+            LastProgressMessage = 0;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Lehrer))]
     public class KrankheitsManager : MonoBehaviour
     {
+        [SerializeField] private TimeManager TimeManager;
         [SerializeField] private ZeitDauer LaengeDerErkrankung;
 
         private Lehrer Lehrer;
@@ -31,7 +32,7 @@ namespace HerderGames.Lehrer
 
         public void Erkranken(VergiftbaresEssen grund)
         {
-            ZeitpunktDerErkrankung = Lehrer.GetTimeManager().GetCurrentZeitpunkt();
+            ZeitpunktDerErkrankung = TimeManager.GetCurrentZeitpunkt();
             GrundDerErkrankung = grund;
         }
         
@@ -42,12 +43,12 @@ namespace HerderGames.Lehrer
                 return false;
             }
 
-            if (ZeitpunktDerErkrankung.IstAmSelbenTagWie(Lehrer.GetTimeManager().GetCurrentZeitpunkt()))
+            if (ZeitpunktDerErkrankung.IstAmSelbenTagWie(TimeManager.GetCurrentZeitpunkt()))
             {
                 return false;
             }
 
-            var laengeDerAktuellenErkrankung = ZeitpunktDerErkrankung.Diff(Lehrer.GetTimeManager().GetCurrentZeitpunkt());
+            var laengeDerAktuellenErkrankung = ZeitpunktDerErkrankung.Diff(TimeManager.GetCurrentZeitpunkt());
             return LaengeDerErkrankung.IsLongerThan(laengeDerAktuellenErkrankung); }
     }
 }
