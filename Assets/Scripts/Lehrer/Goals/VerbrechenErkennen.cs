@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.AI.Sensors;
+using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
@@ -8,7 +9,8 @@ namespace HerderGames.Lehrer.Goals
     public class VerbrechenErkennen : LehrerGoalBase
     {
         [SerializeField] private Player.Player Player;
-        
+        [SerializeField] private Saetze Reaktion;
+
         private VisionSensor Vision;
 
         protected override void Awake()
@@ -19,16 +21,17 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Vision.CanSee(Player.gameObject) && Player.GetVerbrechenManager().BegehtGeradeEinVerbrechen;
+            return Vision.CanSee(Player.gameObject) && Player.VerbrechenManager.BegehtGeradeEinVerbrechen;
         }
 
         public override IEnumerator Execute()
         {
-            Player.GetChat().SendChatMessage(Lehrer, "Hey? Was machst du da?");
-            Player.GetChat().SendChatMessage("Du wurdest von einem Lehrer erkannt und hast bei diesem Lehrer Reputationspunkte verloren." +
-                                             "Sei vorsichtig, dass er dich nicht bei der Schulleitubg meldet!");
-            Lehrer.GetReputation().AddReputation(-Player.GetVerbrechenManager().Schwere);
-            Player.GetVerbrechenManager().VerbrechenAbbrechen();
+            Lehrer.Sprache.SayRandomNow(Reaktion);
+            Player.Chat.SendChatMessage(
+                "Du wurdest von einem Lehrer erkannt und hast bei diesem Lehrer Reputationspunkte verloren." +
+                "Sei vorsichtig, dass er dich nicht bei der Schulleitubg meldet!");
+            Lehrer.Reputation.AddReputation(-Player.VerbrechenManager.Schwere);
+            Player.VerbrechenManager.VerbrechenAbbrechen();
             yield return null;
         }
     }

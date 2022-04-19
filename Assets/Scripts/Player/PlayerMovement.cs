@@ -19,7 +19,7 @@ namespace HerderGames.Player
 
         private void Update()
         {
-            if (Overlay.GetIsFocused() || Player.GetVerbrechenManager().BegehtGeradeEinVerbrechen)
+            if (Overlay.GetIsFocused() || Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
             }

@@ -12,7 +12,7 @@ namespace HerderGames.AI
 
         public static bool HasReachedDestionation(NavMeshAgent agent)
         {
-            return !agent.hasPath && !agent.pathPending;
+            return !agent.pathPending && !agent.hasPath;
         }
     }
 }

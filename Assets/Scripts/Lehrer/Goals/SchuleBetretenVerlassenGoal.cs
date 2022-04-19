@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.AI;
+using HerderGames.Lehrer.Sprache;
 using HerderGames.Time;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace HerderGames.Lehrer.Goals
         [SerializeField] private Transform Ausgang;
         [SerializeField] private WoechentlicheZeitspannen ZeitInDerSchule;
         [SerializeField] private bool InDerSchule = true;
+        [SerializeField] private Saetze SaetzeBeimVerlassen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -21,7 +23,7 @@ namespace HerderGames.Lehrer.Goals
         private bool ShouldBeInSchool()
         {
             return ZeitInDerSchule.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime()) &&
-                   !Lehrer.GetKrankheit().IsKrankMitSymtomen();
+                   !Lehrer.Krankheit.IsKrankMitSymtomen();
         }
 
         public override IEnumerator Execute()
@@ -30,17 +32,20 @@ namespace HerderGames.Lehrer.Goals
             {
                 if (InDerSchule && !ShouldBeInSchool())
                 {
-                    Lehrer.GetAgent().destination = Ausgang.position;
-                    yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.GetAgent());
+                    Lehrer.Sprache.SetSatzSource(SaetzeBeimVerlassen);
+                    Lehrer.Agent.destination = Ausgang.position;
+                    yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
                     SetVisible(false);
                     InDerSchule = false;
+                    Lehrer.Sprache.SetSatzSource(null);
                 }
 
                 if (!InDerSchule && ShouldBeInSchool())
                 {
-                    Lehrer.GetAgent().Warp(Eingang.position);
+                    Lehrer.Agent.Warp(Eingang.position);
                     SetVisible(true);
                     InDerSchule = true;
+                    Lehrer.Sprache.SetSatzSource(null);
                 }
 
                 yield return null;
@@ -49,7 +54,7 @@ namespace HerderGames.Lehrer.Goals
 
         private void SetVisible(bool visible)
         {
-            Lehrer.GetRenderer().enabled = visible;
+            Lehrer.Renderer.enabled = visible;
         }
 
         public bool IsInDerSchule()

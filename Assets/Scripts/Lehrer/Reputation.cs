@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
+    [RequireComponent(typeof(Lehrer))]
     public class Reputation : MonoBehaviour
     {
         public float ReputationsWert { get; set; }

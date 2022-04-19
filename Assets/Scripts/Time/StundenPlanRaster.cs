@@ -78,6 +78,11 @@ namespace HerderGames.Time
             return GetTagesAblauf(wochentag)[index];
         }
 
+        public static StundenPlanEintrag GetCurrentStundenPlanEintrag(TimeManager timeManager)
+        {
+            return GetStundenPlanEintragForTime(timeManager.GetCurrentWochentag(), timeManager.GetCurrentTime());
+        }
+
         public static StundenPlanEintrag GetNaechstenStundenPlanEintragWithType(Wochentag wochentag, float time,
             StundenType type)
         {

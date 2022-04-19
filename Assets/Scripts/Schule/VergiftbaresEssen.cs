@@ -26,25 +26,25 @@ namespace HerderGames.Schule
                 return;
             }
 
-            if (Status.IsVergiftet() || player.GetVerbrechenManager().BegehtGeradeEinVerbrechen)
+            if (Status.IsVergiftet() || player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
             }
 
-            player.GetChat()
+            player.Chat
                 .SendChatMessage(
                     "Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. " +
                     "Lehrer, die davon regelmäßig essen, werden dann für ein paar Tage nicht mehr in die Schule kommen. " +
                     "Öffne dazu das Interaktionsmenu");
 
-            InteraktionsmenuEintragId = player.GetInteraktionsMenu().AddEintrag(new InteraktionsMenuEintrag
+            InteraktionsmenuEintragId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
                 Callback = id =>
                 {
-                    player.GetVerbrechenManager().VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens,
+                    player.VerbrechenManager.VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens,
                         () => { Status = VergiftungsStatus.VergiftetNichtBemerkt; });
-                    player.GetInteraktionsMenu().RemoveEintrag(id);
+                    player.InteraktionsMenu.RemoveEintrag(id);
                 },
             });
         }

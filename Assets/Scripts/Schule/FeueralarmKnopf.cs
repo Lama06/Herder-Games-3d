@@ -15,22 +15,22 @@ namespace HerderGames.Schule
         private void OnTriggerEnter(Collider other)
         {
             var player = other.GetComponent<Player.Player>();
-            if (player == null || player.GetVerbrechenManager().BegehtGeradeEinVerbrechen)
+            if (player == null || player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
             }
             
-            player.GetChat().SendChatMessage("Tipp: Du kannst bei dem Alarm Knopf einen Feueralarm auslösen." +
-                                             "Die meisten Lehrer werden dann auf den Schulhof gehen");
+            player.Chat.SendChatMessage("Tipp: Du kannst bei dem Alarm Knopf einen Feueralarm auslösen." +
+                                        "Die meisten Lehrer werden dann auf den Schulhof gehen");
 
-            InteraktionsMenuId = player.GetInteraktionsMenu().AddEintrag(new InteraktionsMenuEintrag
+            InteraktionsMenuId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
                 Callback = id =>
                 {
-                    player.GetVerbrechenManager()
+                    player.VerbrechenManager
                         .VerbrechenStarten(ZeitZumDruecken, Schwere, () => { AlarmManager.AlarmStarten(); });
-                    player.GetInteraktionsMenu().RemoveEintrag(id);
+                    player.InteraktionsMenu.RemoveEintrag(id);
                 }
             });
         }
@@ -43,7 +43,7 @@ namespace HerderGames.Schule
                 return;
             }
 
-            player.GetInteraktionsMenu().RemoveEintrag(InteraktionsMenuId);
+            player.InteraktionsMenu.RemoveEintrag(InteraktionsMenuId);
         }
     }
 }

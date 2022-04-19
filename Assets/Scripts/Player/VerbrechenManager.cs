@@ -29,7 +29,7 @@ namespace HerderGames.Player
             if (Input.GetKeyDown(KeyCode.C))
             {
                 VerbrechenAbbrechen();
-                Player.GetChat().SendChatMessage("Verbrechen abgebrochen");
+                Player.Chat.SendChatMessage("Verbrechen abgebrochen");
                 return;
             }
 
@@ -42,12 +42,12 @@ namespace HerderGames.Player
                 TimeRemaining = 0;
                 Callback = null;
                 Schwere = 0;
-                Player.GetChat().SendChatMessage("Verbrechen wurde beendet");
+                Player.Chat.SendChatMessage("Verbrechen wurde beendet");
             }
             else if ((int) TimeRemaining < LastProgressMessage)
             {
                 LastProgressMessage = (int) TimeRemaining;
-                Player.GetChat().SendChatMessage($"Verbrechen ist in {LastProgressMessage} Sekunden beendet");
+                Player.Chat.SendChatMessage($"Verbrechen ist in {LastProgressMessage} Sekunden beendet");
             }
         }
 

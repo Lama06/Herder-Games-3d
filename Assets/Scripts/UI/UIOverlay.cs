@@ -49,12 +49,12 @@ namespace HerderGames.UI
             // weil sonst das Klicken auf die Buttons nicht funktioniert
             
             var interaktionsMenu = GetInteraktionsMenu();
-            var fehlendeEintraege = new Dictionary<int, InteraktionsMenuEintrag>(Player.GetInteraktionsMenu().Eintraege);
+            var fehlendeEintraege = new Dictionary<int, InteraktionsMenuEintrag>(Player.InteraktionsMenu.Eintraege);
 
             foreach (var button in interaktionsMenu.Query<Button>().ToList())
             {
                 var id = (int) button.userData;
-                if (!Player.GetInteraktionsMenu().Eintraege.ContainsKey(id))
+                if (!Player.InteraktionsMenu.Eintraege.ContainsKey(id))
                 {
                     interaktionsMenu.Remove(button);
                     continue;
@@ -78,7 +78,7 @@ namespace HerderGames.UI
         {
             var chat = GetChatWindow();
             chat.Clear();
-            foreach (var message in Player.GetChat().GetMessages())
+            foreach (var message in Player.Chat.GetMessages())
             {
                 var label = new Label(message);
                 chat.Add(label);

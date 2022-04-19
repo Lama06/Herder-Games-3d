@@ -7,8 +7,8 @@
                     <ui:Label text="Interaktionsmenu" display-tooltip-when-elided="true" name="Header" style="-unity-font-style: bold; font-size: 30px;" />
                 </ui:VisualElement>
             </ui:ScrollView>
-            <ui:VisualElement name="Chat">
-                <ui:Label text="Hier werden Nachrichten stehen" display-tooltip-when-elided="true" />
+            <ui:VisualElement name="Chat" style="max-width: 50%;">
+                <ui:Label text="Hier wernden Nachrichten stehen" display-tooltip-when-elided="true" style="white-space: normal;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Unten" />

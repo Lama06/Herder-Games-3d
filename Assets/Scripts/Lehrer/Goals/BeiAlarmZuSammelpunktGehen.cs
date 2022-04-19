@@ -1,3 +1,4 @@
+using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace HerderGames.Lehrer.Goals
     {
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Transform Sammelpunkt;
+        [SerializeField] private Saetze Saetze;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -15,7 +17,8 @@ namespace HerderGames.Lehrer.Goals
 
         public override void OnStarted()
         {
-            Lehrer.GetAgent().destination = Sammelpunkt.position;
+            Lehrer.Agent.destination = Sammelpunkt.position;
+            Lehrer.Sprache.SetSatzSource(Saetze);
         }
     }
 }

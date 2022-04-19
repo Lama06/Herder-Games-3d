@@ -1,4 +1,5 @@
 using HerderGames.AI;
+using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,15 +9,17 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(SpracheManager))]
     [RequireComponent(typeof(AIController))]
     public class Lehrer : MonoBehaviour
     {
         [SerializeField] private string Name;
         
-        private KrankheitsManager Krankheit;
-        private Reputation Reputation;
-        private NavMeshAgent Agent;
-        private Renderer Renderer;
+        public KrankheitsManager Krankheit { get; private set; }
+        public Reputation Reputation { get; private set; }
+        public NavMeshAgent Agent { get; private set; }
+        public Renderer Renderer { get; private set; }
+        public SpracheManager Sprache { get; private set; }
 
         private void Awake()
         {
@@ -24,31 +27,12 @@ namespace HerderGames.Lehrer
             Reputation = GetComponent<Reputation>();
             Agent = GetComponent<NavMeshAgent>();
             Renderer = GetComponent<Renderer>();
-        }
-        
-        public KrankheitsManager GetKrankheit()
-        {
-            return Krankheit;
-        }
-
-        public Reputation GetReputation()
-        {
-            return Reputation;
-        }
-
-        public NavMeshAgent GetAgent()
-        {
-            return Agent;
-        }
-
-        public Renderer GetRenderer()
-        {
-            return Renderer;
+            Sprache = GetComponent<SpracheManager>();
         }
 
         public string GetName()
         {
-            return name;
+            return Name;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.AI;
+using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
 using HerderGames.Time;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace HerderGames.Lehrer.Goals
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private WoechentlicheZeitspannen Wann;
         [SerializeField] private VergiftbaresEssen Essen;
+        [SerializeField] private Saetze SaetzeWeg;
+        [SerializeField] private Saetze SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -20,9 +23,11 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.GetAgent().destination = Essen.GetStandpunkt();
-            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.GetAgent());
+            Lehrer.Sprache.SetSatzSource(SaetzeWeg);
+            Lehrer.Agent.destination = Essen.GetStandpunkt();
+            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Essen.Status = VergiftungsStatus.NichtVergiftet;
+            Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
         }
     }
 }
