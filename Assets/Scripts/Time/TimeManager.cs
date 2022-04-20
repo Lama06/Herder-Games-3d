@@ -5,10 +5,10 @@ namespace HerderGames.Time
 {
     public class TimeManager : MonoBehaviour
     {
-        [SerializeField] private float TimeSpeed;
+        [SerializeField] private float TimeSpeed = 0.05f;
         private int CurrentKalenderwoche = 1;
         private Wochentag CurrentWochentag = Wochentag.Montag;
-        private float CurrentTime = 9.5f;//StundenPlanRaster.SchuleBeginn;
+        private float CurrentTime = StundenPlanRaster.SchuleBeginn;
 
         public int GetCurrentKalenderwoche()
         {

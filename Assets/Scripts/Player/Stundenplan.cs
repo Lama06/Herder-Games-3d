@@ -20,7 +20,7 @@ namespace HerderGames.Player
         public Unterrichten GetCurrenttUnterrichtenGoal()
         {
             var eintragCurrent = StundenPlanRaster.GetCurrentStundenPlanEintrag(TimeManager);
-            if (eintragCurrent.Stunde != StundenType.Fach)
+            if (eintragCurrent == null || eintragCurrent.Stunde != StundenType.Fach)
             {
                 return null;
             }
