@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LehrerStandpunkt: {fileID: 1064118858}
+  Name: E202
 --- !u!1 &71110095
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,12 +566,11 @@ GameObject:
   - component: {fileID: 551151927}
   - component: {fileID: 551151926}
   - component: {fileID: 551151925}
-  - component: {fileID: 551151936}
   - component: {fileID: 551151924}
   - component: {fileID: 551151923}
+  - component: {fileID: 551151920}
   - component: {fileID: 551151922}
   - component: {fileID: 551151921}
-  - component: {fileID: 551151920}
   - component: {fileID: 551151919}
   - component: {fileID: 551151934}
   - component: {fileID: 551151935}
@@ -617,6 +617,12 @@ MonoBehaviour:
           RelativZu: 14
           RelativZuN: 0
           Zeit: 0
+  SaetzeWeg:
+    MoeglicheSaetze: []
+    SharedIds: []
+  SaetzeAngekommen:
+    MoeglicheSaetze: []
+    SharedIds: []
 --- !u!114 &551151920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,6 +725,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1572553381}
   SchulleitungsBuero: {fileID: 1634404110}
+  SaetzeWeg:
+    MoeglicheSaetze: []
+    SharedIds: []
+  SaetzeAngekommen:
+    MoeglicheSaetze: []
+    SharedIds: []
 --- !u!114 &551151923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +744,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1572553381}
+  Reaktion:
+    MoeglicheSaetze: []
+    SharedIds: []
 --- !u!114 &551151924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,42 +958,6 @@ MonoBehaviour:
     - text: Hallo Welt
   TimeBetweemRandomSentences: 5
   ReichweiteDerStimme: 10
---- !u!114 &551151936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551151918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a8f7d7ffbd34551949820ec31ac40b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 71110096}
-  Punkte:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Wann:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 2
-      Manuell: 
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 8
-          RelativZuN: 0
-          Zeit: 0
-        Ende:
-          RelativZu: 10
-          RelativZuN: 0
-          Zeit: 0
-  Saetze:
-    MoeglicheSaetze:
-    - text: Nicht auf dem Schulhof Rad fahren. AUch nicht Rollern
-    SharedIds: []
 --- !u!1 &688330406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1605,7 @@ GameObject:
   - component: {fileID: 1572553383}
   - component: {fileID: 1572553385}
   - component: {fileID: 1572553386}
+  - component: {fileID: 1572553387}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1809,6 +1789,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b76a8d3ad014f80a8ab20efddf22317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1572553387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572553373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a533aed03a41a9a7f7a1d47ed0141f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 71110096}
 --- !u!1 &1603018412
 GameObject:
   m_ObjectHideFlags: 0

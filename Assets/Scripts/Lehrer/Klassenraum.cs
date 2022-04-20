@@ -5,6 +5,7 @@ namespace HerderGames.Lehrer
     public class Klassenraum : MonoBehaviour
     {
         [SerializeField] private Transform LehrerStandpunkt;
+        [SerializeField] private string Name;
         
         public bool PlayerInside { get; private set; }
         
@@ -27,6 +28,11 @@ namespace HerderGames.Lehrer
         public Transform GetLehrerStandpunkt()
         {
             return LehrerStandpunkt;
+        }
+
+        public string GetName()
+        {
+            return Name;
         }
     }
 }

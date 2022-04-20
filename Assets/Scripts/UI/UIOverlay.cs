@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using HerderGames.Player;
 using HerderGames.Time;
 using UnityEngine;
@@ -40,7 +41,11 @@ namespace HerderGames.UI
 
         private void UpdateZeit()
         {
-            GetZeit().text = TimeManager.GetDisplayText();
+            var text = new StringBuilder();
+            text.Append(TimeManager.GetDisplayText());
+            text.Append("\n");
+            text.Append(Player.Stundenplan.GetDisplayText());
+            GetZeit().text = text.ToString();
         }
 
         private void UpdateInteraktionsMenu()

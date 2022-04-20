@@ -6,6 +6,7 @@ namespace HerderGames.Player
     [RequireComponent(typeof(InteraktionsMenu))]
     [RequireComponent(typeof(VerbrechenManager))]
     [RequireComponent(typeof(Verwarnungen))]
+    [RequireComponent(typeof(Stundenplan))]
     public class Player : MonoBehaviour
     {
         public Chat Chat { get; private set; }

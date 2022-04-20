@@ -4,7 +4,7 @@ namespace HerderGames.Lehrer.Goals
 {
     public abstract class LehrerGoalBase : GoalBase
     {
-        protected Lehrer Lehrer;
+        public Lehrer Lehrer { get; private set; }
 
         protected virtual void Awake()
         {

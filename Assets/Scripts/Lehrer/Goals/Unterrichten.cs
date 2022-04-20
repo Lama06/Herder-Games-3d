@@ -215,6 +215,21 @@ namespace HerderGames.Lehrer.Goals
             return result;
         }
 
+        public FachType GetFach()
+        {
+            return Fach;
+        }
+
+        public Klassenraum GetKlassenraum()
+        {
+            return UnterrichtsRaum;
+        }
+
+        public StundenData[] GetStunden()
+        {
+            return Stunden;
+        }
+
         [System.Serializable]
         public class StundenData
         {
