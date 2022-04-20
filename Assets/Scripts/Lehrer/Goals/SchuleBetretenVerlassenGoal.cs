@@ -13,7 +13,7 @@ namespace HerderGames.Lehrer.Goals
         [SerializeField] private Transform Ausgang;
         [SerializeField] private WoechentlicheZeitspannen ZeitInDerSchule;
         [SerializeField] private bool InDerSchule = true;
-        [SerializeField] private SaetzeMehrmals SaetzeBeimVerlassen;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {

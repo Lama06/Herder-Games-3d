@@ -17,9 +17,9 @@ namespace HerderGames.Lehrer.Goals
         [Header("Allgemein")] [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private FachType Fach;
 
-        [Header("Sätze")] [SerializeField] private SaetzeMehrmals SaetzeAufDemWegZumRaum;
-        [SerializeField] private SaetzeMehrmals SaetzeWaehrendUnterricht;
-        [SerializeField] private SaetzeEinmalig SaetzeBegruessung;
+        [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
+        [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
 
         [Header("Wann")] [SerializeField] private StundenData Stunde;
         [SerializeField] private float ZeitPufferVorher;

@@ -13,9 +13,9 @@ namespace HerderGames.Lehrer
         [SerializeField] private string InteraktionsMenuName;
         [SerializeField] private float AnnahmeWahrscheinlichkeit;
         [SerializeField] private float ReputationsGewinn;
-        [SerializeField] private SaetzeEinmalig AnnahmeAntworten;
+        [SerializeField] private SaetzeMoeglichkeitenEinmalig AnnahmeAntworten;
         [SerializeField] private float ReputationsVerlust;
-        [SerializeField] private SaetzeEinmalig AblehnenAntworten;
+        [SerializeField] private SaetzeMoeglichkeitenEinmalig AblehnenAntworten;
 
         protected Lehrer Lehrer;
 

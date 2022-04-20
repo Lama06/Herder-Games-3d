@@ -13,7 +13,7 @@ namespace HerderGames.Lehrer.Sprache
         [SerializeField] private int DefaultDelay = 10;
 
         private Lehrer Lehrer;
-        private SaetzeMehrmals Source;
+        private SaetzeMoeglichkeitenMehrmals Source;
         private float TimeSinceLastSatz;
 
         private void Awake()
@@ -49,13 +49,13 @@ namespace HerderGames.Lehrer.Sprache
             TimeSinceLastSatz = 0;
         }
 
-        public void SayRandomNow(SaetzeEinmalig source)
+        public void SayRandomNow(SaetzeMoeglichkeitenEinmalig source)
         {
             var moeglichkeiten = ResolveSaetze(source.MoeglicheSaetze, source.SharedIds);
             Say(moeglichkeiten);
         }
 
-        public void SetSatzSource(SaetzeMehrmals soruce)
+        public void SetSatzSource(SaetzeMoeglichkeitenMehrmals soruce)
         {
             Source = soruce;
         }

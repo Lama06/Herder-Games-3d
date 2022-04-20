@@ -9,8 +9,8 @@ namespace HerderGames.Lehrer.Goals
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private Transform SchulleitungsBuero;
-        [SerializeField] private SaetzeMehrmals SaetzeWeg;
-        [SerializeField] private SaetzeMehrmals SaetzeAngekommen;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
