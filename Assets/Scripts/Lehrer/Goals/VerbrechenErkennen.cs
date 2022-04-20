@@ -9,7 +9,7 @@ namespace HerderGames.Lehrer.Goals
     public class VerbrechenErkennen : LehrerGoalBase
     {
         [SerializeField] private Player.Player Player;
-        [SerializeField] private Saetze Reaktion;
+        [SerializeField] private SaetzeEinmalig Reaktion;
 
         private VisionSensor Vision;
 

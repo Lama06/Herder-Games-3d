@@ -10,36 +10,22 @@ namespace HerderGames.Player
     {
         [SerializeField] private TimeManager TimeManager;
 
+        private Lehrer.Lehrer[] AlleLehrer;
         private Unterrichten[] UnterrichtenGoals;
 
         private void Awake()
         {
+            AlleLehrer = FindObjectsOfType<Lehrer.Lehrer>();
             UnterrichtenGoals = FindObjectsOfType<Unterrichten>();
         }
 
         public Unterrichten GetCurrenttUnterrichtenGoal()
         {
-            var eintragCurrent = StundenPlanRaster.GetCurrentStundenPlanEintrag(TimeManager);
-            if (eintragCurrent == null || eintragCurrent.Stunde != StundenType.Fach)
+            foreach (var lehrer in AlleLehrer)
             {
-                return null;
-            }
-
-            foreach (var goal in UnterrichtenGoals)
-            {
-                foreach (var stunde in goal.GetStunden())
+                if (lehrer.AI.CurrentGoal is Unterrichten {SchuelerFreigestelltDieseStunde: false} unterrichten)
                 {
-                    if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
-                    {
-                        continue;
-                    }
-
-                    if (eintragCurrent.FachIndex != stunde.FachIndex)
-                    {
-                        continue;
-                    }
-
-                    return goal;
+                    return unterrichten;
                 }
             }
 
@@ -58,30 +44,29 @@ namespace HerderGames.Player
 
             foreach (var goal in UnterrichtenGoals)
             {
-                foreach (var stunde in goal.GetStunden())
+                var stunde = goal.GetStunde();
+                
+                if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
                 {
-                    if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
-                    {
-                        continue;
-                    }
-
-                    if (eintragNext.FachIndex != stunde.FachIndex)
-                    {
-                        continue;
-                    }
-
-                    return goal;
+                    continue;
                 }
+
+                if (eintragNext.FachIndex != stunde.FachIndex)
+                {
+                    continue;
+                }
+
+                return goal;
             }
-            
-            return null; 
+
+            return null;
         }
 
         public string GetDisplayText()
         {
             var current = GetCurrenttUnterrichtenGoal();
             var next = GetNextUnterrichtenGoal();
-            
+
             var builder = new StringBuilder();
 
             void AppendFach(Unterrichten goal)
@@ -97,10 +82,10 @@ namespace HerderGames.Player
                     builder.Append(" (bei ").Append(goal.Lehrer.GetName()).Append(")");
                 }
             }
-            
+
             builder.Append("Aktuelle Stunde: ");
             AppendFach(current);
-            
+
             builder.Append("\n");
 
             builder.Append("Nächste Stunde: ");

@@ -8,7 +8,7 @@ namespace HerderGames.Lehrer.Goals
     {
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Transform Sammelpunkt;
-        [SerializeField] private Saetze Saetze;
+        [SerializeField] private SaetzeMehrmals Saetze;
 
         public override bool ShouldRun(bool currentlyRunning)
         {

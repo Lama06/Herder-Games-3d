@@ -11,7 +11,7 @@ namespace HerderGames.Lehrer.Goals
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform[] Punkte;
         [SerializeField] private WoechentlicheZeitspannen Wann;
-        [SerializeField] private Saetze Saetze;
+        [SerializeField] private SaetzeMehrmals Saetze;
         
         public override bool ShouldRun(bool currentlyRunning)
         {

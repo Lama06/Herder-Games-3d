@@ -8,13 +8,19 @@ using Cursor = UnityEngine.Cursor;
 
 namespace HerderGames.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class UIOverlay : MonoBehaviour
     {
-        [SerializeField] private UIDocument Document;
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Player.Player Player;
 
+        private UIDocument Document;
         private bool IsFocused;
+
+        private void Awake()
+        {
+            Document = GetComponent<UIDocument>();
+        }
 
         public bool GetIsFocused()
         {

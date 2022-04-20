@@ -5,11 +5,11 @@ namespace HerderGames.AI
     public class AIController : MonoBehaviour
     {
         private const int GoalPriorityNoGoal = -1;
-        
+
         private GoalBase[] Goals;
         private int CurrentGoalPriority = GoalPriorityNoGoal;
-        private GoalBase CurrentGoal;
-        
+        public GoalBase CurrentGoal { get; private set; }
+
         private void Awake()
         {
             Goals = GetComponents<GoalBase>();

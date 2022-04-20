@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
-using HerderGames.Player;
 using HerderGames.Time;
-using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
@@ -15,37 +13,24 @@ namespace HerderGames.Lehrer.Goals
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Player.Player Player;
-        
-        [Header("Allgemein")]
-        [SerializeField] private Klassenraum UnterrichtsRaum;
+
+        [Header("Allgemein")] [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private FachType Fach;
-        [SerializeField] private Saetze SaetzeAufDemWegZumRaum;
-        [SerializeField] private Saetze SaetzeWaehrendUnterricht;
-        
-        [Header("Wann")]
-        [SerializeField] private StundenData[] Stunden;
+
+        [Header("Sätze")] [SerializeField] private SaetzeMehrmals SaetzeAufDemWegZumRaum;
+        [SerializeField] private SaetzeMehrmals SaetzeWaehrendUnterricht;
+        [SerializeField] private SaetzeEinmalig SaetzeBegruessung;
+
+        [Header("Wann")] [SerializeField] private StundenData Stunde;
         [SerializeField] private float ZeitPufferVorher;
         [SerializeField] private float Ueberziehungszeit;
-        
-        [Header("Reputation")]
-        [SerializeField] private float ReputationsVerlustBeiFehlzeit;
-        
-        [Header("Auf Klo gehen")]
-        [SerializeField] private float ErlaubtKloPercent;
-        [SerializeField] private Saetze KloErlaubtResponse;
-        [SerializeField] private Saetze KloNichtErlaubtResponse;
-        [SerializeField] private float ReputationsVerlustBeiKlo;
-        
-        [Header("Krankheit vortäuschen")]
-        [SerializeField] private float ErlaubtFehlenWegenKrankheitPercent;
-        [SerializeField] private Saetze KrankheitErlaubtResponse;
-        [SerializeField] private Saetze KrankheitNichtErlaubtResponse;
-        [SerializeField] private float ReputationsVerlustBeiKrankheit;
+
+        [Header("Reputation")] [SerializeField]
+        private float ReputationsVerlustBeiFehlzeit;
 
         private WoechentlicheZeitspannen BakedZeitspannen;
-        private bool LehrerArrived;
-        private bool SchuelerFreigestelltDieseStunde;
-        private List<int> InteraktionsMenuIds;
+        public bool LehrerArrived { get; private set; }
+        [NonSerialized] public bool SchuelerFreigestelltDieseStunde;
 
         protected override void Awake()
         {
@@ -62,18 +47,8 @@ namespace HerderGames.Lehrer.Goals
         {
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;
-            InteraktionsMenuIds = new List<int>();
             StartCoroutine(GoToRoom());
             StartCoroutine(CheckAnwesenheit());
-            StartCoroutine(ManageInteraktionsMenu());
-        }
-
-        public override void OnEnd(GoalEndReason reason)
-        {
-            foreach (var id in InteraktionsMenuIds)
-            {
-                Player.InteraktionsMenu.RemoveEintrag(id);
-            }
         }
 
         public IEnumerator GoToRoom()
@@ -81,6 +56,8 @@ namespace HerderGames.Lehrer.Goals
             Lehrer.Sprache.SetSatzSource(SaetzeAufDemWegZumRaum);
             Lehrer.Agent.destination = UnterrichtsRaum.GetLehrerStandpunkt().position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            yield return new WaitForSeconds(5);
+            Lehrer.Sprache.SayRandomNow(SaetzeBegruessung);
             LehrerArrived = true;
             Lehrer.Sprache.SetSatzSource(SaetzeWaehrendUnterricht);
         }
@@ -99,118 +76,37 @@ namespace HerderGames.Lehrer.Goals
             }
         }
 
-        private IEnumerator ManageInteraktionsMenu()
-        {
-            InteraktionsMenuIds = new List<int>();
-            var hasEintraege = false;
-
-            while (true)
-            {
-                if (LehrerArrived && UnterrichtsRaum.PlayerInside && !hasEintraege)
-                {
-                    InteraktionsMenuIds.Add(Player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
-                    {
-                        Name = "Fragen, auf die Toilette gehen zu dürfen",
-                        Callback = id =>
-                        {
-                            if (Utility.TrueWithPercent(ErlaubtKloPercent))
-                            {
-                                SchuelerFreigestelltDieseStunde = true;
-                                Lehrer.Sprache.SayRandomNow(KloErlaubtResponse);
-                            }
-                            else
-                            {
-                                Lehrer.Sprache.SayRandomNow(KloNichtErlaubtResponse);
-                            }
-
-                            Lehrer.Reputation.AddReputation(ReputationsVerlustBeiKlo);
-                        }
-                    }));
-
-                    InteraktionsMenuIds.Add(Player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
-                    {
-                        Name = "Krankheit vortäuschen",
-                        Callback = id =>
-                        {
-                            if (Utility.TrueWithPercent(ErlaubtFehlenWegenKrankheitPercent))
-                            {
-                                SchuelerFreigestelltDieseStunde = true;
-                                Lehrer.Sprache.SayRandomNow(KrankheitErlaubtResponse);
-                            }
-                            else
-                            {
-                                Lehrer.Sprache.SayRandomNow(KrankheitNichtErlaubtResponse);
-                            }
-
-                            Lehrer.Reputation.AddReputation(ReputationsVerlustBeiKrankheit);
-                        }
-                    }));
-
-                    hasEintraege = true;
-                }
-
-                if (!UnterrichtsRaum.PlayerInside && hasEintraege)
-                {
-                    foreach (var id in InteraktionsMenuIds)
-                    {
-                        Player.InteraktionsMenu.RemoveEintrag(id);
-                    }
-
-                    hasEintraege = false;
-                }
-
-                yield return null;
-            }
-        }
-        
         private WoechentlicheZeitspannen BakeZeitspannenFromStundenData()
         {
             var result = new WoechentlicheZeitspannen();
 
-            var wochentageEintraege = new List<WoechentlicheZeitspannen.WochentagEintrag>();
-            foreach (var wochentag in Enum.GetValues(typeof(Wochentag)).Cast<Wochentag>())
+            var wochentagEintrag = new WoechentlicheZeitspannen.WochentagEintrag
             {
-                var wochentagEintrag = new WoechentlicheZeitspannen.WochentagEintrag
-                {
-                    AuswahlArt = WochentagAuswahlArt.Manuell,
-                    Manuell = new[] {wochentag}
-                };
+                AuswahlArt = WochentagAuswahlArt.Manuell,
+                Manuell = new[] {Stunde.Wochentag}
+            };
 
-                var zeitspannen = new List<WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag>();
-                foreach (var stunde in Stunden)
-                {
-                    if (stunde.Wochentag != wochentag)
-                    {
-                        continue;
-                    }
+            var zeitspanne = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag();
 
-                    var zeitspanne = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag();
-                    
-                    var anfang = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
-                    {
-                        RelativZu = ZeitRelativitaet.FachAnfangN,
-                        RelativZuN = stunde.FachIndex,
-                        Zeit = -ZeitPufferVorher
-                    };
-                    zeitspanne.Anfang = anfang;
-                    
-                    var ende = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
-                    {
-                        RelativZu = ZeitRelativitaet.FachEndeN,
-                        RelativZuN = stunde.FachIndex,
-                        Zeit = -Ueberziehungszeit
-                    };
-                    zeitspanne.Ende = ende;
-                    
-                    zeitspannen.Add(zeitspanne);
-                }
+            var anfang = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
+            {
+                RelativZu = ZeitRelativitaet.FachAnfangN,
+                RelativZuN = Stunde.FachIndex,
+                Zeit = -ZeitPufferVorher
+            };
+            zeitspanne.Anfang = anfang;
 
-                wochentagEintrag.Zeitspannen = zeitspannen.ToArray();
+            var ende = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
+            {
+                RelativZu = ZeitRelativitaet.FachEndeN,
+                RelativZuN = Stunde.FachIndex,
+                Zeit = -Ueberziehungszeit
+            };
+            zeitspanne.Ende = ende;
 
-                wochentageEintraege.Add(wochentagEintrag);
-            }
+            wochentagEintrag.Zeitspannen = new[] {zeitspanne};
 
-            result.Wochentage = wochentageEintraege.ToArray();
+            result.Wochentage = new[] {wochentagEintrag};
 
             return result;
         }
@@ -225,12 +121,12 @@ namespace HerderGames.Lehrer.Goals
             return UnterrichtsRaum;
         }
 
-        public StundenData[] GetStunden()
+        public StundenData GetStunde()
         {
-            return Stunden;
+            return Stunde;
         }
 
-        [System.Serializable]
+        [Serializable]
         public class StundenData
         {
             public Wochentag Wochentag;

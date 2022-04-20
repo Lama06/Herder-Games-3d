@@ -9,11 +9,11 @@ namespace HerderGames.Lehrer.Sprache
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private SharedSaetze[] Shared;
-        [SerializeField] private float TimeBetweemRandomSentences;
         [SerializeField] private float ReichweiteDerStimme = 10;
+        [SerializeField] private int DefaultDelay = 10;
 
         private Lehrer Lehrer;
-        private Saetze Source;
+        private SaetzeMehrmals Source;
         private float TimeSinceLastSatz;
 
         private void Awake()
@@ -24,9 +24,9 @@ namespace HerderGames.Lehrer.Sprache
         private void Update()
         {
             TimeSinceLastSatz += UnityEngine.Time.deltaTime;
-            if (TimeSinceLastSatz >= TimeBetweemRandomSentences && Source != null)
+            if (Source != null && TimeSinceLastSatz >= (Source.UseDefaultDelay ? DefaultDelay : Source.CustomDelay))
             {
-                var moeglichkeiten = Source.Resolve(this);
+                var moeglichkeiten = ResolveSaetze(Source.MoeglicheSaetze, Source.SharedIds);
                 Say(moeglichkeiten);
             }
         }
@@ -37,42 +37,48 @@ namespace HerderGames.Lehrer.Sprache
             {
                 return;
             }
-            
+
             if (!(Vector3.Distance(transform.position, Player.transform.position) < ReichweiteDerStimme))
             {
                 return;
             }
 
             var msg = moeglichkeiten[Random.Range(0, moeglichkeiten.Count)];
-            
+
             Player.Chat.SendChatMessage(Lehrer, msg.text);
             TimeSinceLastSatz = 0;
         }
 
-        public void SayRandomNow(Saetze source)
+        public void SayRandomNow(SaetzeEinmalig source)
         {
-            var moeglichkeiten = source.Resolve(this);
+            var moeglichkeiten = ResolveSaetze(source.MoeglicheSaetze, source.SharedIds);
             Say(moeglichkeiten);
         }
 
-        public void SetSatzSource(Saetze soruce)
+        public void SetSatzSource(SaetzeMehrmals soruce)
         {
             Source = soruce;
         }
-
-        public Satz[] GetShared(string id)
+        
+        public List<Satz> ResolveSaetze(Satz[] moeglicheSaetze, string[] sharedIds)
         {
-            foreach (var shared in Shared)
+            var result = new List<Satz>();
+            result.AddRange(moeglicheSaetze);
+
+            foreach (var sharedId in sharedIds)
             {
-                if (shared.Id == id)
+                foreach (var sharedSaetze in Shared)
                 {
-                    return shared.Saetze;
+                    if (sharedSaetze.Id == sharedId)
+                    {
+                        result.AddRange(sharedSaetze.Saetze);
+                    }
                 }
             }
 
-            return null;
+            return result;
         }
-        
+
         [System.Serializable]
         public class SharedSaetze
         {

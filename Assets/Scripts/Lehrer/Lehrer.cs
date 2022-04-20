@@ -20,6 +20,7 @@ namespace HerderGames.Lehrer
         public NavMeshAgent Agent { get; private set; }
         public Renderer Renderer { get; private set; }
         public SpracheManager Sprache { get; private set; }
+        public AIController AI { get; private set; }
 
         private void Awake()
         {
@@ -28,6 +29,7 @@ namespace HerderGames.Lehrer
             Agent = GetComponent<NavMeshAgent>();
             Renderer = GetComponent<Renderer>();
             Sprache = GetComponent<SpracheManager>();
+            AI = GetComponent<AIController>();
         }
 
         public string GetName()

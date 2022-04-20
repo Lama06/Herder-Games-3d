@@ -142,12 +142,14 @@ GameObject:
   - component: {fileID: 113679677}
   - component: {fileID: 113679691}
   - component: {fileID: 113679676}
+  - component: {fileID: 113679686}
   - component: {fileID: 113679690}
   - component: {fileID: 113679689}
   - component: {fileID: 113679692}
   - component: {fileID: 113679688}
   - component: {fileID: 113679687}
-  - component: {fileID: 113679686}
+  - component: {fileID: 113679694}
+  - component: {fileID: 113679695}
   m_Layer: 0
   m_Name: Schulten
   m_TagString: Untagged
@@ -181,8 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   Shared: []
-  TimeBetweemRandomSentences: 5
   ReichweiteDerStimme: 10
+  DefaultDelay: 10
 --- !u!195 &113679678
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -344,10 +346,14 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   SchulleitungsBuero: {fileID: 1083303379}
   SaetzeWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: So geht das nicht weiter! Das werde ich melden!
     SharedIds: []
   SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: "Dieser Sch\xFCler verdient eine Verwahnung"
     - text: Vielleicht wird eine Verwahnung ihm helfen
@@ -389,10 +395,14 @@ MonoBehaviour:
           RelativZuN: 0
           Zeit: 0
   SaetzeWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Ein Kafee am Morgen vertreibt Kummer und sorgen
     SharedIds: []
   SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Das tut gut
     SharedIds: []
@@ -413,14 +423,24 @@ MonoBehaviour:
   UnterrichtsRaum: {fileID: 752264926}
   Fach: 0
   SaetzeAufDemWegZumRaum:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: "Ich bin sp\xE4t dran aus dem Weg"
     - text: Guten Tag
     SharedIds: []
   SaetzeWaehrendUnterricht:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: 'Analysiren sie das folgende Zitat: Herr Weber mag Kekse'
     - text: 'Jetzt mal gant ehrlich: Habt ihr euer Hausaufgaben gemacht'
+    SharedIds: []
+  SaetzeBegruessung:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - text: Hallo 9d
     SharedIds: []
   Stunden:
   - Wochentag: 0
@@ -430,29 +450,6 @@ MonoBehaviour:
   ZeitPufferVorher: 0.1
   Ueberziehungszeit: 0.1
   ReputationsVerlustBeiFehlzeit: 0.3
-  ErlaubtKloPercent: 0.5
-  KloErlaubtResponse:
-    MoeglicheSaetze:
-    - text: "Aber beim n\xE4chsten mal f\xFChre ich Liste!"
-    - text: Wenn du meinst
-    SharedIds: []
-  KloNichtErlaubtResponse:
-    MoeglicheSaetze:
-    - text: Es war doch gerade erst Pause!
-    - text: Du kannst auch noch bis zum Ende warten!
-    SharedIds: []
-  ReputationsVerlustBeiKlo: 0.2
-  ErlaubtFehlenWegenKrankheitPercent: 0.3
-  KrankheitErlaubtResponse:
-    MoeglicheSaetze:
-    - text: "Ja, aber warum kommst du \xFCberhaupt Krank zur Schule?"
-    - text: Es ist deine Entscheidung
-    SharedIds: []
-  KrankheitNichtErlaubtResponse:
-    MoeglicheSaetze:
-    - text: Der Unterricht ist wichtiger als deine Gesundheit
-    SharedIds: []
-  ReputationsVerlustBeiKrankheit: 0.3
 --- !u!114 &113679689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   Reaktion:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Hey was machst du da????
     - text: "Stop H\xF6r sofort auf damit!"
@@ -486,6 +485,8 @@ MonoBehaviour:
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 288763062}
   Saetze:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: HILFEEE!
     - text: Rettet mich!
@@ -536,8 +537,52 @@ MonoBehaviour:
           Zeit: 0
   InDerSchule: 1
   SaetzeBeimVerlassen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Endlich frei
+    SharedIds: []
+--- !u!65 &113679694
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113679675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &113679695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113679675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21766632f0284b90844d212ffbe0ea32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Fragen, auf die Toilette zu gehen
+  AnnahmeWahrscheinlichkeit: 0.5
+  ReputationsGewinn: 0
+  AnnahmeAntworten:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - text: Wenn es sein muss
+    SharedIds: []
+  ReputationsVerlust: -2
+  AblehnenAntworten:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - text: Niemals
     SharedIds: []
 --- !u!1 &143305570
 GameObject:
@@ -1004,7 +1049,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752264925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.05, y: 0, z: 18.61}
+  m_LocalPosition: {x: -17.99, y: 0, z: 18.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1024,7 +1069,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
+  m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &801374883
 GameObject:
@@ -1153,7 +1198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2870276e149466996b88630c1d23de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Document: {fileID: 1000830741}
   TimeManager: {fileID: 670363813}
   Player: {fileID: 1538818858}
 --- !u!114 &1000830741
@@ -1236,6 +1280,8 @@ MonoBehaviour:
     Wochentage: []
   InDerSchule: 1
   SaetzeBeimVerlassen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
 --- !u!114 &1049364712
@@ -1267,10 +1313,14 @@ MonoBehaviour:
           RelativZuN: 0
           Zeit: 0
   SaetzeWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Ich brauche Kafee
     SharedIds: []
   SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: "Ich hasse Sch\xFCler"
     SharedIds: []
@@ -1291,12 +1341,21 @@ MonoBehaviour:
   UnterrichtsRaum: {fileID: 143305571}
   Fach: 0
   SaetzeAufDemWegZumRaum:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: "Heute werde ich die Sch\xFCler mal wieder richtig qu\xE4len"
     SharedIds: []
   SaetzeWaehrendUnterricht:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: "Heute machen wir Tongef\xE4\xDFe"
+    SharedIds: []
+  SaetzeBegruessung:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
     SharedIds: []
   Stunden:
   - Wochentag: 0
@@ -1304,24 +1363,6 @@ MonoBehaviour:
   ZeitPufferVorher: 0.2
   Ueberziehungszeit: 0.2
   ReputationsVerlustBeiFehlzeit: 1
-  ErlaubtKloPercent: 0
-  KloErlaubtResponse:
-    MoeglicheSaetze: []
-    SharedIds: []
-  KloNichtErlaubtResponse:
-    MoeglicheSaetze:
-    - text: NEEEEIIIN
-    SharedIds: []
-  ReputationsVerlustBeiKlo: 1
-  ErlaubtFehlenWegenKrankheitPercent: 0
-  KrankheitErlaubtResponse:
-    MoeglicheSaetze: []
-    SharedIds: []
-  KrankheitNichtErlaubtResponse:
-    MoeglicheSaetze:
-    - text: DU TUST DOCH NUR SO
-    SharedIds: []
-  ReputationsVerlustBeiKrankheit: 1
 --- !u!114 &1049364714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,6 +1391,8 @@ MonoBehaviour:
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 747052873}
   Saetze:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Das ist doch bestimmt ein Fehlalarm
     SharedIds: []
@@ -1379,8 +1422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   Shared: []
-  TimeBetweemRandomSentences: 5
   ReichweiteDerStimme: 20
+  DefaultDelay: 10
 --- !u!195 &1049364718
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2045,10 +2088,14 @@ MonoBehaviour:
     Wochentage: []
   Essen: {fileID: 1603995576}
   SaetzeWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Es hat schon wieder jemand die Kaffeemaschine vergiftet
     SharedIds: []
   SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
     MoeglicheSaetze:
     - text: Das werde ich wieder hinkriegen
     SharedIds: []
@@ -2091,8 +2138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   Shared: []
-  TimeBetweemRandomSentences: 4
   ReichweiteDerStimme: 10
+  DefaultDelay: 10
 --- !u!195 &1671606156
 NavMeshAgent:
   m_ObjectHideFlags: 0
