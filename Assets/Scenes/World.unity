@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 113679677}
   - component: {fileID: 113679691}
   - component: {fileID: 113679676}
+  - component: {fileID: 113679696}
   - component: {fileID: 113679686}
   - component: {fileID: 113679690}
   - component: {fileID: 113679689}
@@ -478,13 +479,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 288763062}
-  Saetze:
+  SaetzeWeg:
     UseDefaultDelay: 1
     CustomDelay: 0
-    MoeglicheSaetze:
-    - text: HILFEEE!
-    - text: Rettet mich!
-    - text: "Die armen Deutschb\xFCcher werdem alle verbrennen"
+    MoeglicheSaetze: []
+    SharedIds: []
+  SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
     SharedIds: []
 --- !u!114 &113679691
 MonoBehaviour:
@@ -573,6 +576,40 @@ MonoBehaviour:
   AblehnenAntworten:
     MoeglicheSaetze:
     - text: Niemals
+    SharedIds: []
+--- !u!114 &113679696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113679675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 670363813}
+  Wann:
+    Immer: 0
+    Wochentage:
+    - AuswahlArt: 0
+      Manuell: 01000000
+      Zeitspannen:
+      - Anfang:
+          RelativZu: 0
+          RelativZuN: 0
+          Zeit: 10
+        Ende:
+          RelativZu: 0
+          RelativZuN: 0
+          Zeit: 15
+  Standpunkt: {fileID: 1448891727}
+  Gespraech: {fileID: 1173367251}
+  SaetzeAufDemWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
     SharedIds: []
 --- !u!1 &143305570
 GameObject:
@@ -757,7 +794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288763061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.37, y: 0, z: -18.26}
+  m_LocalPosition: {x: 16.37, y: 0, z: -15.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1158,6 +1195,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801374883}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &917245345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917245346}
+  m_Layer: 0
+  m_Name: Strupat Standpunkt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &917245346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917245345}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2, y: 0, z: 1.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173367252}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929312455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,11 +1435,14 @@ GameObject:
   - component: {fileID: 1049364718}
   - component: {fileID: 1049364717}
   - component: {fileID: 1049364716}
+  - component: {fileID: 1049364727}
+  - component: {fileID: 1049364725}
   - component: {fileID: 1049364715}
   - component: {fileID: 1049364714}
   - component: {fileID: 1049364713}
   - component: {fileID: 1049364712}
   - component: {fileID: 1049364711}
+  - component: {fileID: 1049364726}
   m_Layer: 0
   m_Name: Strupat
   m_TagString: Untagged
@@ -1507,11 +1578,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 747052873}
-  Saetze:
+  SaetzeWeg:
     UseDefaultDelay: 1
     CustomDelay: 0
-    MoeglicheSaetze:
-    - text: Das ist doch bestimmt ein Fehlalarm
+    MoeglicheSaetze: []
+    SharedIds: []
+  SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
     SharedIds: []
 --- !u!114 &1049364716
 MonoBehaviour:
@@ -1674,6 +1749,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1049364725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049364710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 670363813}
+  Wann:
+    Immer: 0
+    Wochentage:
+    - AuswahlArt: 0
+      Manuell: 01000000
+      Zeitspannen:
+      - Anfang:
+          RelativZu: 0
+          RelativZuN: 0
+          Zeit: 0
+        Ende:
+          RelativZu: 0
+          RelativZuN: 0
+          Zeit: 15
+  Standpunkt: {fileID: 917245346}
+  Gespraech: {fileID: 1173367251}
+  SaetzeAufDemWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
+--- !u!114 &1049364726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049364710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Moralfrage stellen
+  AnnahmeWahrscheinlichkeit: 0
+  ReputationsGewinn: 1
+  AnnahmeAntworten:
+    MoeglicheSaetze: []
+    SharedIds: []
+  ReputationsVerlust: 9
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - text: Das gibt einen Schulverweis!!!!!
+    SharedIds: []
+--- !u!114 &1049364727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049364710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  SchulleitungsBuero: {fileID: 0}
+  SaetzeWeg:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
+  SaetzeAngekommen:
+    UseDefaultDelay: 1
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
 --- !u!1 &1083303378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,6 +1957,96 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1173367250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1173367252}
+  - component: {fileID: 1173367251}
+  m_Layer: 0
+  m_Name: "Gespr\xE4ch Schulten Strupat"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1173367251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173367250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54780435dff5484e815a143b3167e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teilnehmer:
+  - {fileID: 113679681}
+  - {fileID: 1049364714}
+  Dialog:
+  - Sprecher: {fileID: 113679681}
+    Satz: Jetzt mal Ganz ehrlich, wir alle steigen nicht gerne Treppen
+  - Sprecher: {fileID: 1049364714}
+    Satz: Hast du Athrose, Monika?
+  - Sprecher: {fileID: 113679681}
+    Satz: Ja
+  - Sprecher: {fileID: 1049364714}
+    Satz: Ich kann dir schwarzen Pfeffer empfehlen. Der soll helfen
+  Delay: 5
+--- !u!4 &1173367252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173367250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.88, y: 0, z: -15.88}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1448891727}
+  - {fileID: 917245346}
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1448891726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448891727}
+  m_Layer: 0
+  m_Name: Schulten Standpunkt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448891727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448891726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 0, z: -1.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173367252}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1528520556

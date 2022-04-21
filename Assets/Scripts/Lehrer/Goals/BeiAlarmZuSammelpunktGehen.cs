@@ -1,3 +1,5 @@
+using System.Collections;
+using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
 using UnityEngine;
@@ -8,17 +10,20 @@ namespace HerderGames.Lehrer.Goals
     {
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Transform Sammelpunkt;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals Saetze;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
             return AlarmManager.IsAlarm();
         }
 
-        public override void OnStarted()
+        public override IEnumerator Execute()
         {
+            Lehrer.Sprache.SetSatzSource(SaetzeWeg);
             Lehrer.Agent.destination = Sammelpunkt.position;
-            Lehrer.Sprache.SetSatzSource(Saetze);
+            yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
         }
     }
 }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Time;
@@ -43,8 +41,9 @@ namespace HerderGames.Lehrer.Goals
             return BakedZeitspannen.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
-        public override void OnStarted()
+        public override void StartGoal()
         {
+            base.StartGoal();
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;
             StartCoroutine(GoToRoom());
@@ -125,7 +124,7 @@ namespace HerderGames.Lehrer.Goals
         {
             return Stunde;
         }
-
+    
         [Serializable]
         public class StundenData
         {

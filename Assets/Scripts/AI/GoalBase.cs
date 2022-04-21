@@ -10,24 +10,14 @@ namespace HerderGames.AI
         
         public abstract bool ShouldRun(bool currentlyRunning);
 
-        public void StartGoal()
+        public virtual void StartGoal()
         {
             Coroutine = StartCoroutine(Execute());
-            OnStarted();
-        }
-        
-        public virtual void OnStarted()
-        {
         }
 
-        public void EndGoal(GoalEndReason reason)
+        public virtual void EndGoal(GoalEndReason reason)
         {
             StopCoroutine(Coroutine);
-            OnEnd(reason);
-        }
-
-        public virtual void OnEnd(GoalEndReason reason)
-        {
         }
 
         public virtual IEnumerator Execute()

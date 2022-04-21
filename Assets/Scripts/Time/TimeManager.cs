@@ -7,7 +7,7 @@ namespace HerderGames.Time
     {
         [SerializeField] private float TimeSpeed = 0.05f;
         private int CurrentKalenderwoche = 1;
-        private Wochentag CurrentWochentag = Wochentag.Montag;
+        private Wochentag CurrentWochentag = Wochentag.Dienstag;
         private float CurrentTime = StundenPlanRaster.SchuleBeginn;
 
         public int GetCurrentKalenderwoche()

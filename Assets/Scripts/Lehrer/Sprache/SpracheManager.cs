@@ -27,32 +27,37 @@ namespace HerderGames.Lehrer.Sprache
             if (Source != null && TimeSinceLastSatz >= (Source.UseDefaultDelay ? DefaultDelay : Source.CustomDelay))
             {
                 var moeglichkeiten = ResolveSaetze(Source.MoeglicheSaetze, Source.SharedIds);
-                Say(moeglichkeiten);
+                SayRandom(moeglichkeiten);
             }
         }
 
-        private void Say(List<Satz> moeglichkeiten)
+        private void SayRandom(List<Satz> moeglichkeiten)
         {
             if (moeglichkeiten.Count == 0)
             {
                 return;
             }
 
+            var satz = moeglichkeiten[Random.Range(0, moeglichkeiten.Count)];
+
+            Say(satz.text);
+        }
+
+        public void Say(string satz)
+        {
             if (!(Vector3.Distance(transform.position, Player.transform.position) < ReichweiteDerStimme))
             {
                 return;
             }
-
-            var msg = moeglichkeiten[Random.Range(0, moeglichkeiten.Count)];
-
-            Player.Chat.SendChatMessage(Lehrer, msg.text);
+            
+            Player.Chat.SendChatMessage(Lehrer, satz);
             TimeSinceLastSatz = 0;
         }
-
+        
         public void SayRandomNow(SaetzeMoeglichkeitenEinmalig source)
         {
             var moeglichkeiten = ResolveSaetze(source.MoeglicheSaetze, source.SharedIds);
-            Say(moeglichkeiten);
+            SayRandom(moeglichkeiten);
         }
 
         public void SetSatzSource(SaetzeMoeglichkeitenMehrmals soruce)
@@ -60,7 +65,7 @@ namespace HerderGames.Lehrer.Sprache
             Source = soruce;
         }
         
-        public List<Satz> ResolveSaetze(Satz[] moeglicheSaetze, string[] sharedIds)
+        private List<Satz> ResolveSaetze(Satz[] moeglicheSaetze, string[] sharedIds)
         {
             var result = new List<Satz>();
             result.AddRange(moeglicheSaetze);

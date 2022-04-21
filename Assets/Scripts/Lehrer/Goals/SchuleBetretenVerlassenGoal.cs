@@ -55,6 +55,7 @@ namespace HerderGames.Lehrer.Goals
         private void SetVisible(bool visible)
         {
             Lehrer.Renderer.enabled = visible;
+            Lehrer.Agent.enabled = visible;
         }
 
         public bool IsInDerSchule()

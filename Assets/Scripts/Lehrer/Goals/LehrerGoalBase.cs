@@ -10,5 +10,10 @@ namespace HerderGames.Lehrer.Goals
         {
             Lehrer = GetComponent<Lehrer>();
         }
+        public override void EndGoal(GoalEndReason reason)
+        {
+            base.EndGoal(reason);
+            Lehrer.Sprache.SetSatzSource(null);
+        }
     }
 }
