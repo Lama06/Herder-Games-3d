@@ -11,19 +11,19 @@ namespace HerderGames.Player
         [SerializeField] private TimeManager TimeManager;
 
         private Lehrer.Lehrer[] AlleLehrer;
-        private Unterrichten[] UnterrichtenGoals;
+        private UnterrichtenGoal[] UnterrichtenGoals;
 
         private void Awake()
         {
             AlleLehrer = FindObjectsOfType<Lehrer.Lehrer>();
-            UnterrichtenGoals = FindObjectsOfType<Unterrichten>();
+            UnterrichtenGoals = FindObjectsOfType<UnterrichtenGoal>();
         }
 
-        public Unterrichten GetCurrenttUnterrichtenGoal()
+        public UnterrichtenGoal GetCurrenttUnterrichtenGoal()
         {
             foreach (var lehrer in AlleLehrer)
             {
-                if (lehrer.AI.CurrentGoal is Unterrichten {SchuelerFreigestelltDieseStunde: false} unterrichten)
+                if (lehrer.AI.CurrentGoal is UnterrichtenGoal {SchuelerFreigestelltDieseStunde: false} unterrichten)
                 {
                     return unterrichten;
                 }
@@ -32,7 +32,7 @@ namespace HerderGames.Player
             return null;
         }
 
-        public Unterrichten GetNextUnterrichtenGoal()
+        public UnterrichtenGoal GetNextUnterrichtenGoal()
         {
             var eintragNext =
                 StundenPlanRaster.GetNaechstenStundenPlanEintragWithType(TimeManager.GetCurrentWochentag(),
@@ -69,7 +69,7 @@ namespace HerderGames.Player
 
             var builder = new StringBuilder();
 
-            void AppendFach(Unterrichten goal)
+            void AppendFach(UnterrichtenGoal goal)
             {
                 if (goal == null)
                 {

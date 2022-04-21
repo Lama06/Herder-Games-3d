@@ -12,7 +12,7 @@ namespace HerderGames.Lehrer
         [SerializeField] private DialogEintrag[] Dialog;
         [SerializeField] private float Delay;
 
-        private HashSet<Lehrer> Anwesend = new();
+        private readonly HashSet<Lehrer> Anwesend = new();
 
         private void Start()
         {
@@ -44,7 +44,7 @@ namespace HerderGames.Lehrer
 
         private bool IsLehrerAngekommen(Lehrer lehrer)
         {
-            if (lehrer.AI.CurrentGoal is not AnGespraechTeilnehmen goal)
+            if (lehrer.AI.CurrentGoal is not AnGespraechTeilnehmenGoal goal)
             {
                 return false;
             }

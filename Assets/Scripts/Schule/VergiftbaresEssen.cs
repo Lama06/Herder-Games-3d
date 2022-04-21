@@ -7,7 +7,7 @@ namespace HerderGames.Schule
     {
         [SerializeField] private Transform Standpunkt;
         [SerializeField] private string InteraktionsMenuName;
-        [SerializeField] private float ZeitZumVergiften;
+        [SerializeField] private int ZeitZumVergiften;
         [SerializeField] private float SchwereDesVerbrechens;
         [SerializeField] private int SchadenFuerDieSchule;
 
@@ -27,7 +27,7 @@ namespace HerderGames.Schule
                 return;
             }
 
-            if (Status.IsVergiftet() || player.VerbrechenManager.BegehtGeradeEinVerbrechen)
+            if (Status.IsVergiftet())
             {
                 return;
             }

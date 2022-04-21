@@ -9,23 +9,19 @@ namespace HerderGames.AI.Sensors
 
         public bool CanSee(GameObject other)
         {
-            var vectorToOther = other.transform.position - transform.position;
+            var distance = Vector3.Distance(EyeLocation.position, other.transform.position);
 
-            if (vectorToOther.magnitude > MaxViewDistance)
+            if (distance > MaxViewDistance)
             {
                 return false;
             }
 
-            if (Physics.Raycast(EyeLocation.position, vectorToOther, out var raycastHit, MaxViewDistance, Physics.AllLayers,
-                    QueryTriggerInteraction.Ignore))
-            {
-                if (!raycastHit.transform.IsChildOf(other.transform))
-                {
-                    return false;
-                }
-            }
+            var vectorToOther = other.transform.position - transform.position;
 
-            return true;
+            var hit = Physics.Raycast(EyeLocation.position, vectorToOther, out var raycastHit, MaxViewDistance,
+                Physics.AllLayers, QueryTriggerInteraction.Ignore);
+
+            return hit && raycastHit.transform.IsChildOf(other.transform);
         }
     }
 }

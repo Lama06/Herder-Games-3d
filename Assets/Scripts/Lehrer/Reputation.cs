@@ -5,19 +5,20 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Lehrer))]
     public class Reputation : MonoBehaviour
     {
+        [SerializeField] private float MisstrauensFaktor = 1;
+        [SerializeField] private float GutmuetigkeitsFaktor = 1;
+        
         public float ReputationsWert { get; set; }
-        [SerializeField] private float Misstrauen = 1;
-        [SerializeField] private float Gutmuetigkeit = 1;
 
         public void AddReputation(float amount)
         {
             switch (amount)
             {
                 case < 0f:
-                    amount *= Misstrauen;
+                    amount *= MisstrauensFaktor;
                     break;
                 case > 0f:
-                    amount *= Gutmuetigkeit;
+                    amount *= GutmuetigkeitsFaktor;
                     break;
             }
 

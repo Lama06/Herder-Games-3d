@@ -7,29 +7,27 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    public class VergiftbaresEssenEssenGehen : LehrerGoalBase
+    public class VergiftbaresEssenEntgiftenGoal : LehrerGoalBase
     {
         [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private VergiftbaresEssen VergiftbaresEssen;
         [SerializeField] private WoechentlicheZeitspannen Wann;
+        [SerializeField] private VergiftbaresEssen Essen;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Essen.Status == VergiftungsStatus.VergiftetBemerkt &&
+                   Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
         }
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SetSatzSource(SaetzeWeg);
-            Lehrer.Agent.destination = VergiftbaresEssen.GetStandpunkt();
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
+            Lehrer.Agent.destination = Essen.GetStandpunkt();
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            if (VergiftbaresEssen.Status.IsVergiftet())
-            {
-                Lehrer.Vergiftung.Vergiften(VergiftbaresEssen);
-            }
-            Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
+            Essen.Status = VergiftungsStatus.NichtVergiftet;
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
     }
 }

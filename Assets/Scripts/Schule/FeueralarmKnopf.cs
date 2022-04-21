@@ -7,7 +7,7 @@ namespace HerderGames.Schule
     {
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private string InteraktionsMenuName;
-        [SerializeField] private float ZeitZumDruecken;
+        [SerializeField] private int ZeitZumDruecken;
         [SerializeField] private float Schwere;
 
         private int InteraktionsMenuId;
@@ -20,6 +20,11 @@ namespace HerderGames.Schule
                 return;
             }
 
+            if (AlarmManager.IsAlarm())
+            {
+                return;
+            }
+            
             InteraktionsMenuId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,

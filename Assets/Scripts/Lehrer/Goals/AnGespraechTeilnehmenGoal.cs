@@ -7,7 +7,7 @@ using UnityEngine;
 namespace HerderGames.Lehrer.Goals
 {
     [RequireComponent(typeof(Lehrer))]
-    public class AnGespraechTeilnehmen : LehrerGoalBase
+    public class AnGespraechTeilnehmenGoal : LehrerGoalBase
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private WoechentlicheZeitspannen Wann;
@@ -24,7 +24,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SetSatzSource(SaetzeAufDemWeg);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.Agent.destination = Standpunkt.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             IsAngekommen = true;

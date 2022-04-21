@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    public class BeiAlarmZuSammelpunktGehen : LehrerGoalBase
+    public class BeiAlarmZuSammelpunktGehenGoal : LehrerGoalBase
     {
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Transform Sammelpunkt;
@@ -20,10 +20,10 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SetSatzSource(SaetzeWeg);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = Sammelpunkt.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
     }
 }

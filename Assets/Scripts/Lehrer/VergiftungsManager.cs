@@ -1,3 +1,4 @@
+using System.Collections;
 using HerderGames.Schule;
 using HerderGames.Time;
 using UnityEngine;
@@ -9,44 +10,60 @@ namespace HerderGames.Lehrer
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Player.Player Player;
-        [SerializeField] private ZeitDauer LaengeDerVergiftung;
+        [SerializeField] private int LaengeDerVergiftung;
         [SerializeField] private int KostenFuerDieSchuleProTagVergiftet;
 
-        public Zeitpunkt ZeitpunktDerVergiftung { get; private set; }
-        public VergiftbaresEssen GrundDerVergiftung { get; private set; }
-        private bool VergiftungGemeldet;
+        private bool Vergiftet;
+        public bool Syntome { get; private set; }
+        private VergiftbaresEssen GrundDerVergiftung;
+        private int TageRemaining;
 
-        private void Update()
+        private void Start()
         {
-            if (IsVergiftetMitSymtomen() && !VergiftungGemeldet)
+            StartCoroutine(ManageVergiftung());
+        }
+
+        private IEnumerator ManageVergiftung()
+        {
+            var currentWochentag = TimeManager.GetCurrentWochentag();
+            while (true)
             {
-                GrundDerVergiftung.Status = VergiftungsStatus.VergiftetBemerkt;
-                VergiftungGemeldet = true;
+                yield return new WaitUntil(() => currentWochentag != TimeManager.GetCurrentWochentag());
+                currentWochentag = TimeManager.GetCurrentWochentag();
+                // Wird immer am Anfang eines neuen Wochentages ausgeführt
+                
+                if (!Vergiftet)
+                {
+                    continue;
+                }
+
+                if (TageRemaining <= 0)
+                {
+                    Vergiftet = false;
+                    Syntome = false;
+                    GrundDerVergiftung = null;
+                    TageRemaining = 0;
+                    continue;
+                }
+                
+                TageRemaining--;
+                
+                if (!Syntome)
+                {
+                    Syntome = true;
+                    GrundDerVergiftung.Status = VergiftungsStatus.VergiftetBemerkt;
+                }
+                
+                Player.Score.SchadenFuerDieSchule += KostenFuerDieSchuleProTagVergiftet;
             }
         }
 
         public void Vergiften(VergiftbaresEssen grund)
         {
-            ZeitpunktDerVergiftung = TimeManager.GetCurrentZeitpunkt();
+            Vergiftet = true;
+            Syntome = false;
             GrundDerVergiftung = grund;
-            Player.Score.SchadenFuerDieSchule +=
-                LaengeDerVergiftung.GetAnzahlTage() * KostenFuerDieSchuleProTagVergiftet;
-        }
-
-        public bool IsVergiftetMitSymtomen()
-        {
-            if (ZeitpunktDerVergiftung == null)
-            {
-                return false;
-            }
-
-            if (ZeitpunktDerVergiftung.IstAmSelbenTagWie(TimeManager.GetCurrentZeitpunkt()))
-            {
-                return false;
-            }
-
-            var laengeDerAktuellenVergiftung = ZeitpunktDerVergiftung.Diff(TimeManager.GetCurrentZeitpunkt());
-            return LaengeDerVergiftung.IsLongerThan(laengeDerAktuellenVergiftung);
+            TageRemaining = LaengeDerVergiftung;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace HerderGames.Player
     public class Chat : MonoBehaviour
     {
         [SerializeField] private float MaxMessageTime;
+        
         private readonly List<Message> Messages = new();
 
         public void SendChatMessage(string msg)

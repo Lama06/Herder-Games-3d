@@ -6,7 +6,7 @@ using UnityEngine;
 namespace HerderGames.Lehrer.Goals
 {
     [RequireComponent(typeof(VisionSensor))]
-    public class VerbrechenErkennen : LehrerGoalBase
+    public class VerbrechenErkennenGoal : LehrerGoalBase
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig Reaktion;
@@ -26,13 +26,13 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SayRandomNow(Reaktion);
-            Player.Chat.SendChatMessage(
-                "Du wurdest von einem Lehrer erkannt und hast bei diesem Lehrer Reputationspunkte verloren." +
-                "Sei vorsichtig, dass er dich nicht bei der Schulleitubg meldet!");
+            Lehrer.Sprache.Say(Reaktion);
+            Player.Chat.SendChatMessage("Achtung: Ein Lehrer hat gemerkt, dass du ein Verbrechen begehen wolltest. " +
+                                        "Pass auf, dass er nicht zur Schulleitung geht und dich meldet. " +
+                                        "Versuche deine Beziehung zum Lehrer wieder zu verbessern.");
             Lehrer.Reputation.AddReputation(-Player.VerbrechenManager.Schwere);
             Player.VerbrechenManager.VerbrechenAbbrechen();
-            yield return null;
+            yield break;
         }
     }
 }

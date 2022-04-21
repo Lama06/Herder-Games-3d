@@ -1,9 +1,11 @@
+using System;
+
 namespace HerderGames.Lehrer.Sprache
 {
-    [System.Serializable]
+    [Serializable]
     public class SaetzeMoeglichkeitenEinmalig
     {
-        public Satz[] MoeglicheSaetze;
+        public SatzMoeglichkeit[] MoeglicheSaetze;
         public string[] SharedIds;
     }
 }

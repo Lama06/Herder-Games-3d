@@ -5,19 +5,17 @@ namespace HerderGames.AI
 {
     [RequireComponent(typeof(AIController))]
     public abstract class GoalBase : MonoBehaviour
-    {
-        private Coroutine Coroutine;
-        
+    { 
         public abstract bool ShouldRun(bool currentlyRunning);
 
         public virtual void StartGoal()
         {
-            Coroutine = StartCoroutine(Execute());
+            StartCoroutine(Execute());
         }
 
         public virtual void EndGoal(GoalEndReason reason)
         {
-            StopCoroutine(Coroutine);
+            StopAllCoroutines();
         }
 
         public virtual IEnumerator Execute()

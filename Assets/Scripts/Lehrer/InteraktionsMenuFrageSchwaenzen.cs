@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(Unterrichten))]
+    [RequireComponent(typeof(UnterrichtenGoal))]
     public class InteraktionsMenuFrageSchwaenzen : InteraktionsMenuFrage
     {
         protected override bool ShouldShowInInteraktionsMenu()
         {
-            return Lehrer.AI.CurrentGoal is Unterrichten {LehrerArrived: true} unterrichten && unterrichten.GetKlassenraum().PlayerInside;
+            return Lehrer.AI.CurrentGoal is UnterrichtenGoal {LehrerArrived: true} unterrichten && unterrichten.GetKlassenraum().PlayerInside;
         }
 
-        protected override void OnSucces()
+        protected override void OnAnnahme()
         {
-            if (Lehrer.AI.CurrentGoal is not Unterrichten unterrichten)
+            if (Lehrer.AI.CurrentGoal is not UnterrichtenGoal unterrichten)
             {
                 return;
             }

@@ -7,28 +7,25 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    public class Unterrichten : LehrerGoalBase
+    public class UnterrichtenGoal : LehrerGoalBase
     {
         [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private Player.Player Player;
 
         [Header("Allgemein")] [SerializeField] private Klassenraum UnterrichtsRaum;
-        [SerializeField] private FachType Fach;
-
-        [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
-        [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
+        [SerializeField] private string Fach;
+        [SerializeField] private float ReputationsAenderungBeiFehlzeit;
 
         [Header("Wann")] [SerializeField] private StundenData Stunde;
         [SerializeField] private float ZeitPufferVorher;
         [SerializeField] private float Ueberziehungszeit;
 
-        [Header("Reputation")] [SerializeField]
-        private float ReputationsVerlustBeiFehlzeit;
+        [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
+        [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
 
         private WoechentlicheZeitspannen BakedZeitspannen;
         public bool LehrerArrived { get; private set; }
-        [NonSerialized] public bool SchuelerFreigestelltDieseStunde;
+        public bool SchuelerFreigestelltDieseStunde { get; set; }
 
         protected override void Awake()
         {
@@ -52,13 +49,13 @@ namespace HerderGames.Lehrer.Goals
 
         public IEnumerator GoToRoom()
         {
-            Lehrer.Sprache.SetSatzSource(SaetzeAufDemWegZumRaum);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWegZumRaum;
             Lehrer.Agent.destination = UnterrichtsRaum.GetLehrerStandpunkt().position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             yield return new WaitForSeconds(5);
-            Lehrer.Sprache.SayRandomNow(SaetzeBegruessung);
+            Lehrer.Sprache.Say(SaetzeBegruessung);
             LehrerArrived = true;
-            Lehrer.Sprache.SetSatzSource(SaetzeWaehrendUnterricht);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWaehrendUnterricht;
         }
 
         private IEnumerator CheckAnwesenheit()
@@ -67,7 +64,7 @@ namespace HerderGames.Lehrer.Goals
             {
                 if (LehrerArrived && !UnterrichtsRaum.PlayerInside && !SchuelerFreigestelltDieseStunde)
                 {
-                    Lehrer.Reputation.AddReputation(ReputationsVerlustBeiFehlzeit);
+                    Lehrer.Reputation.AddReputation(ReputationsAenderungBeiFehlzeit);
                     yield break;
                 }
 
@@ -110,7 +107,7 @@ namespace HerderGames.Lehrer.Goals
             return result;
         }
 
-        public FachType GetFach()
+        public string GetFach()
         {
             return Fach;
         }
@@ -124,7 +121,7 @@ namespace HerderGames.Lehrer.Goals
         {
             return Stunde;
         }
-    
+
         [Serializable]
         public class StundenData
         {

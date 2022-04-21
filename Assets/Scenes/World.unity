@@ -142,11 +142,11 @@ GameObject:
   - component: {fileID: 113679677}
   - component: {fileID: 113679691}
   - component: {fileID: 113679676}
+  - component: {fileID: 113679692}
   - component: {fileID: 113679696}
   - component: {fileID: 113679686}
   - component: {fileID: 113679690}
   - component: {fileID: 113679689}
-  - component: {fileID: 113679692}
   - component: {fileID: 113679688}
   - component: {fileID: 113679687}
   - component: {fileID: 113679694}
@@ -220,8 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Misstrauen: 1
-  Gutmuetigkeit: 1
+  MisstrauensFaktor: 1
+  GutmuetigkeitsFaktor: 1
 --- !u!114 &113679680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,10 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
-  LaengeDerErkrankung:
-    Wochen: 0
-    Tage: 2
-    Time: 0
+  Player: {fileID: 1538818858}
+  LaengeDerVergiftung: 2
+  KostenFuerDieSchuleProTagVergiftet: 100
 --- !u!114 &113679681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,17 +346,17 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   SchulleitungsBuero: {fileID: 1083303379}
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: So geht das nicht weiter! Das werde ich melden!
+    - Text: 
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: "Dieser Sch\xFCler verdient eine Verwahnung"
-    - text: Vielleicht wird eine Verwahnung ihm helfen
+    - Text: 
+    - Text: 
     SharedIds: []
 --- !u!114 &113679687
 MonoBehaviour:
@@ -396,16 +395,16 @@ MonoBehaviour:
           RelativZuN: 0
           Zeit: 0
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Ein Kafee am Morgen vertreibt Kummer und sorgen
+    - Text: 
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Das tut gut
+    - Text: 
     SharedIds: []
 --- !u!114 &113679688
 MonoBehaviour:
@@ -420,33 +419,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
-  Player: {fileID: 1538818858}
   UnterrichtsRaum: {fileID: 752264926}
   Fach: 0
-  SaetzeAufDemWegZumRaum:
-    UseDefaultDelay: 1
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - text: "Ich bin sp\xE4t dran aus dem Weg"
-    - text: Guten Tag
-    SharedIds: []
-  SaetzeWaehrendUnterricht:
-    UseDefaultDelay: 1
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - text: 'Analysiren sie das folgende Zitat: Herr Weber mag Kekse'
-    - text: 'Jetzt mal gant ehrlich: Habt ihr euer Hausaufgaben gemacht'
-    SharedIds: []
-  SaetzeBegruessung:
-    MoeglicheSaetze:
-    - text: Hallo 9d
-    SharedIds: []
+  ReputationsAenderungBeiFehlzeit: 0
   Stunde:
     Wochentag: 0
     FachIndex: 0
   ZeitPufferVorher: 0.1
   Ueberziehungszeit: 0.1
-  ReputationsVerlustBeiFehlzeit: 0.3
+  SaetzeAufDemWegZumRaum:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Test
+    - Text: Test
+    SharedIds: []
+  SaetzeWaehrendUnterricht:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: 
+    - Text: 
+    SharedIds: []
+  SaetzeBegruessung:
+    MoeglicheSaetze:
+    - Text: 
+    SharedIds: []
 --- !u!114 &113679689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,8 +460,8 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   Reaktion:
     MoeglicheSaetze:
-    - text: Hey was machst du da????
-    - text: "Stop H\xF6r sofort auf damit!"
+    - Text: 
+    - Text: 
     SharedIds: []
 --- !u!114 &113679690
 MonoBehaviour:
@@ -480,12 +478,12 @@ MonoBehaviour:
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 288763062}
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -502,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EyeLocation: {fileID: 1786530880}
-  MaxViewDistance: 20
+  MaxViewDistance: 100
 --- !u!114 &113679692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,10 +532,10 @@ MonoBehaviour:
           Zeit: 0
   InDerSchule: 1
   SaetzeBeimVerlassen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Endlich frei
+    - Text: 
     SharedIds: []
 --- !u!65 &113679694
 BoxCollider:
@@ -567,15 +565,15 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Fragen, auf die Toilette zu gehen
   AnnahmeWahrscheinlichkeit: 0.5
-  ReputationsGewinn: 0
+  ReputationsAenderungBeiAnnahme: 0
   AnnahmeAntworten:
     MoeglicheSaetze:
-    - text: Wenn es sein muss
+    - Text: 
     SharedIds: []
-  ReputationsVerlust: -2
+  ReputationsAenderungBeiAblehnen: 0
   AblehnenAntworten:
     MoeglicheSaetze:
-    - text: Niemals
+    - Text: 
     SharedIds: []
 --- !u!114 &113679696
 MonoBehaviour:
@@ -607,7 +605,7 @@ MonoBehaviour:
   Standpunkt: {fileID: 1448891727}
   Gespraech: {fileID: 1173367251}
   SaetzeAufDemWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -1260,7 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteraktionsMenuName: Fahrrad klauen
-  TimeRequired: 5
+  TimeRequired: 0
   Schwere: 0.5
   SchadenFuerDieSchule: 500
   Gewinn: 200
@@ -1470,7 +1468,7 @@ MonoBehaviour:
     Wochentage: []
   InDerSchule: 1
   SaetzeBeimVerlassen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -1503,16 +1501,16 @@ MonoBehaviour:
           RelativZuN: 0
           Zeit: 0
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Ich brauche Kafee
+    - Text: 
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: "Ich hasse Sch\xFCler"
+    - Text: 
     SharedIds: []
 --- !u!114 &1049364713
 MonoBehaviour:
@@ -1527,30 +1525,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
-  Player: {fileID: 1538818858}
   UnterrichtsRaum: {fileID: 143305571}
   Fach: 0
-  SaetzeAufDemWegZumRaum:
-    UseDefaultDelay: 1
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - text: "Heute werde ich die Sch\xFCler mal wieder richtig qu\xE4len"
-    SharedIds: []
-  SaetzeWaehrendUnterricht:
-    UseDefaultDelay: 1
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - text: "Heute machen wir Tongef\xE4\xDFe"
-    SharedIds: []
-  SaetzeBegruessung:
-    MoeglicheSaetze: []
-    SharedIds: []
+  ReputationsAenderungBeiFehlzeit: 0
   Stunde:
     Wochentag: 0
     FachIndex: 1
   ZeitPufferVorher: 0.2
   Ueberziehungszeit: 0.2
-  ReputationsVerlustBeiFehlzeit: 1
+  SaetzeAufDemWegZumRaum:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: 
+    SharedIds: []
+  SaetzeWaehrendUnterricht:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: 
+    SharedIds: []
+  SaetzeBegruessung:
+    MoeglicheSaetze: []
+    SharedIds: []
 --- !u!114 &1049364714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,12 +1576,12 @@ MonoBehaviour:
   AlarmManager: {fileID: 1836436228}
   Sammelpunkt: {fileID: 747052873}
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -1650,8 +1647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Misstrauen: 2
-  Gutmuetigkeit: 1
+  MisstrauensFaktor: 1
+  GutmuetigkeitsFaktor: 1
 --- !u!114 &1049364720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1665,10 +1662,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
-  LaengeDerErkrankung:
-    Wochen: 1
-    Tage: 0
-    Time: 0
+  Player: {fileID: 0}
+  LaengeDerVergiftung: 0
+  KostenFuerDieSchuleProTagVergiftet: 0
 --- !u!136 &1049364721
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1771,7 +1767,7 @@ MonoBehaviour:
       - Anfang:
           RelativZu: 0
           RelativZuN: 0
-          Zeit: 0
+          Zeit: 10
         Ende:
           RelativZu: 0
           RelativZuN: 0
@@ -1779,7 +1775,7 @@ MonoBehaviour:
   Standpunkt: {fileID: 917245346}
   Gespraech: {fileID: 1173367251}
   SaetzeAufDemWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -1798,14 +1794,14 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Moralfrage stellen
   AnnahmeWahrscheinlichkeit: 0
-  ReputationsGewinn: 1
+  ReputationsAenderungBeiAnnahme: 0
   AnnahmeAntworten:
     MoeglicheSaetze: []
     SharedIds: []
-  ReputationsVerlust: 9
+  ReputationsAenderungBeiAblehnen: 0
   AblehnenAntworten:
     MoeglicheSaetze:
-    - text: Das gibt einen Schulverweis!!!!!
+    - Text: 
     SharedIds: []
 --- !u!114 &1049364727
 MonoBehaviour:
@@ -1822,12 +1818,12 @@ MonoBehaviour:
   Player: {fileID: 0}
   SchulleitungsBuero: {fileID: 0}
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
@@ -2099,6 +2095,8 @@ GameObject:
   - component: {fileID: 1538818860}
   - component: {fileID: 1538818859}
   - component: {fileID: 1538818858}
+  - component: {fileID: 1538818865}
+  - component: {fileID: 1538818864}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2279,6 +2277,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxMessageTime: 5
+--- !u!114 &1538818864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538818852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96f0c6e3d5b4a358302d85172dda2fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Geld: 0
+--- !u!114 &1538818865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538818852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d99406dc3a4f979534562de899985d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SchadenFuerDieSchule: 0
 --- !u!1 &1603995575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,8 +2338,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Standpunkt: {fileID: 1740621247}
   InteraktionsMenuName: Kaffeemaschine vergiften
-  ZeitZumVergiften: 7
+  ZeitZumVergiften: 5
   SchwereDesVerbrechens: 0.5
+  SchadenFuerDieSchule: 0
 --- !u!65 &1603995577
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2452,16 +2477,16 @@ MonoBehaviour:
     Wochentage: []
   Essen: {fileID: 1603995576}
   SaetzeWeg:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Es hat schon wieder jemand die Kaffeemaschine vergiftet
+    - Text: 
     SharedIds: []
   SaetzeAngekommen:
-    UseDefaultDelay: 1
+    UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - text: Das werde ich wieder hinkriegen
+    - Text: 
     SharedIds: []
 --- !u!114 &1671606153
 MonoBehaviour:
@@ -2538,8 +2563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Misstrauen: 1
-  Gutmuetigkeit: 1
+  MisstrauensFaktor: 1
+  GutmuetigkeitsFaktor: 1
 --- !u!114 &1671606158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2552,11 +2577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d1d1aca8ab4262922618ecf45385ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 0}
-  LaengeDerErkrankung:
-    Wochen: 0
-    Tage: 2
-    Time: 0
+  TimeManager: {fileID: 670363813}
+  Player: {fileID: 1538818858}
+  LaengeDerVergiftung: 2
+  KostenFuerDieSchuleProTagVergiftet: 100
 --- !u!136 &1671606159
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2728,10 +2752,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
+  Player: {fileID: 1538818858}
   LaengeDesAlarms:
     Wochen: 0
     Tage: 2
     Time: 0
+  SchadenFuerDieSchule: 1000
 --- !u!4 &1836436229
 Transform:
   m_ObjectHideFlags: 0

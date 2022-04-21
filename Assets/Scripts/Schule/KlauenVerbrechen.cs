@@ -6,7 +6,7 @@ namespace HerderGames.Schule
     public class KlauenVerbrechen : MonoBehaviour
     {
         [SerializeField] private string InteraktionsMenuName;
-        [SerializeField] private float TimeRequired;
+        [SerializeField] private int TimeRequired;
         [SerializeField] private float Schwere;
         [SerializeField] private int SchadenFuerDieSchule;
         [SerializeField] private int Gewinn;
@@ -28,9 +28,9 @@ namespace HerderGames.Schule
                 {
                     player.VerbrechenManager.VerbrechenStarten(TimeRequired, Schwere, () =>
                     {
-                        gameObject.SetActive(false);
                         player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
                         player.GeldManager.Geld += Gewinn;
+                        gameObject.SetActive(false);
                     });
                     player.InteraktionsMenu.RemoveEintrag(id);
                 }

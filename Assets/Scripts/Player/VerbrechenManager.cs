@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -7,16 +8,40 @@ namespace HerderGames.Player
     public class VerbrechenManager : MonoBehaviour
     {
         public bool BegehtGeradeEinVerbrechen { get; private set; }
-        public float TimeRemaining { get; private set; }
         public float Schwere { get; private set; }
+        private int TimeRemaining;
         private Action Callback;
-        private int LastProgressMessage;
 
         private Player Player;
 
         private void Awake()
         {
             Player = GetComponent<Player>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(TickTime());
+        }
+
+        private IEnumerator TickTime()
+        {
+            while (true)
+            {
+                while (BegehtGeradeEinVerbrechen)
+                {
+                    yield return new WaitForSeconds(1);
+                    if (!BegehtGeradeEinVerbrechen)
+                    {
+                        break;
+                    }
+                    
+                    TimeRemaining--;
+                    Player.Chat.SendChatMessage($"Verbrechen in {TimeRemaining} Sekunden beendet");
+                }
+
+                yield return null;
+            }
         }
 
         private void Update()
@@ -33,31 +58,23 @@ namespace HerderGames.Player
                 return;
             }
 
-            TimeRemaining -= UnityEngine.Time.deltaTime;
-
             if (TimeRemaining <= 0)
             {
+                Player.Chat.SendChatMessage("Verbrechen wurde beendet");
                 Callback();
                 BegehtGeradeEinVerbrechen = false;
                 TimeRemaining = 0;
                 Callback = null;
                 Schwere = 0;
-                Player.Chat.SendChatMessage("Verbrechen wurde beendet");
-            }
-            else if ((int) TimeRemaining < LastProgressMessage)
-            {
-                LastProgressMessage = (int) TimeRemaining;
-                Player.Chat.SendChatMessage($"Verbrechen ist in {LastProgressMessage} Sekunden beendet");
             }
         }
 
-        public void VerbrechenStarten(float time, float schwere, Action callback)
+        public void VerbrechenStarten(int time, float schwere, Action callback)
         {
             BegehtGeradeEinVerbrechen = true;
             TimeRemaining = time;
             Schwere = schwere;
             Callback = callback;
-            LastProgressMessage = ((int) time) + 1;
         }
 
         public void VerbrechenAbbrechen()
@@ -66,7 +83,6 @@ namespace HerderGames.Player
             TimeRemaining = 0;
             Schwere = 0;
             Callback = null;
-            LastProgressMessage = 0;
         }
     }
 }

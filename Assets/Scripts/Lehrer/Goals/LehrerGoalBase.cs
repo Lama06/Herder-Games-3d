@@ -13,7 +13,8 @@ namespace HerderGames.Lehrer.Goals
         public override void EndGoal(GoalEndReason reason)
         {
             base.EndGoal(reason);
-            Lehrer.Sprache.SetSatzSource(null);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = null;
+            Lehrer.Agent.destination = transform.position;
         }
     }
 }

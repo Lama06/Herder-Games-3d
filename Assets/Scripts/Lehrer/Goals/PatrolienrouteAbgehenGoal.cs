@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    public class PatrolienrouteAbgehen : LehrerGoalBase
+    public class PatrolienrouteAbgehenGoal : LehrerGoalBase
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform[] Punkte;
@@ -20,7 +20,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SetSatzSource(Saetze);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             while (true)
             {
                 foreach (var punkt in Punkte)
@@ -29,6 +29,7 @@ namespace HerderGames.Lehrer.Goals
                     yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
                 }
                 
+                // Den ersten und letzten Punkt überspringen, damit der Lehrer nicht doppelt zum selben Punkt läuft
                 for (var i = Punkte.Length - 2; i >= 1; i--)
                 {
                     Lehrer.Agent.destination = Punkte[i].position;

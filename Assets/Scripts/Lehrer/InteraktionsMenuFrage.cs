@@ -12,16 +12,18 @@ namespace HerderGames.Lehrer
         [SerializeField] private Player.Player Player;
         [SerializeField] private string InteraktionsMenuName;
         [SerializeField] private float AnnahmeWahrscheinlichkeit;
-        [SerializeField] private float ReputationsGewinn;
+
+        [Header("Annahme")] [SerializeField] private float ReputationsAenderungBeiAnnahme;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig AnnahmeAntworten;
-        [SerializeField] private float ReputationsVerlust;
+
+        [Header("Ablehnen")] [SerializeField] private float ReputationsAenderungBeiAblehnen;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig AblehnenAntworten;
 
         protected Lehrer Lehrer;
 
         protected abstract bool ShouldShowInInteraktionsMenu();
 
-        protected virtual void OnSucces()
+        protected virtual void OnAnnahme()
         {
         }
 
@@ -51,21 +53,21 @@ namespace HerderGames.Lehrer
                         {
                             if (Utility.TrueWithPercent(AnnahmeWahrscheinlichkeit))
                             {
-                                OnSucces();
-                                Lehrer.Sprache.SayRandomNow(AnnahmeAntworten);
-                                Lehrer.Reputation.AddReputation(ReputationsGewinn);
+                                OnAnnahme();
+                                Lehrer.Sprache.Say(AnnahmeAntworten);
+                                Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAnnahme);
                             }
                             else
                             {
-                                Lehrer.Sprache.SayRandomNow(AblehnenAntworten);
-                                Lehrer.Reputation.AddReputation(ReputationsVerlust);
+                                Lehrer.Sprache.Say(AblehnenAntworten);
+                                Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAblehnen);
                             }
                         }
                     });
 
                     hasEintrag = true;
                 }
-                
+
                 if (!ShouldShowInInteraktionsMenu() && hasEintrag)
                 {
                     Player.InteraktionsMenu.RemoveEintrag(interaktionsMenuId);

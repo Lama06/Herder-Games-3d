@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Goals
 {
-    public class VerbrechenMelden : LehrerGoalBase
+    public class VerbrechenMeldenGoal : LehrerGoalBase
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private Transform SchulleitungsBuero;
@@ -19,10 +19,10 @@ namespace HerderGames.Lehrer.Goals
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SetSatzSource(SaetzeWeg);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = SchulleitungsBuero.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             yield return new WaitForSeconds(5);
             Player.Verwarnungen.Add();
             Lehrer.Reputation.ResetAfterMelden();

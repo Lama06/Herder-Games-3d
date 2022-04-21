@@ -1,11 +1,13 @@
+using System;
+
 namespace HerderGames.Lehrer.Sprache
 {
-    [System.Serializable]
+    [Serializable]
     public class SaetzeMoeglichkeitenMehrmals
     {
-        public bool UseDefaultDelay = true;
+        public bool UseCustomDelay;
         public float CustomDelay;
-        public Satz[] MoeglicheSaetze;
+        public SatzMoeglichkeit[] MoeglicheSaetze;
         public string[] SharedIds;
     }
 }
