@@ -29,8 +29,10 @@ namespace HerderGames.Schule
                     player.VerbrechenManager.VerbrechenStarten(TimeRequired, Schwere, () =>
                     {
                         gameObject.SetActive(false);
-                        player.InteraktionsMenu.RemoveEintrag(id);
+                        player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
+                        player.GeldManager.Geld += Gewinn;
                     });
+                    player.InteraktionsMenu.RemoveEintrag(id);
                 }
             });
         }

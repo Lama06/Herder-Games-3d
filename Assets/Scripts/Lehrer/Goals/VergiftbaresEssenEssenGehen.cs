@@ -27,7 +27,7 @@ namespace HerderGames.Lehrer.Goals
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             if (VergiftbaresEssen.Status.IsVergiftet())
             {
-                Lehrer.Krankheit.Erkranken(VergiftbaresEssen);
+                Lehrer.Vergiftung.Vergiften(VergiftbaresEssen);
             }
             Lehrer.Sprache.SetSatzSource(SaetzeAngekommen);
         }

@@ -9,6 +9,7 @@ namespace HerderGames.Schule
         [SerializeField] private string InteraktionsMenuName;
         [SerializeField] private float ZeitZumVergiften;
         [SerializeField] private float SchwereDesVerbrechens;
+        [SerializeField] private int SchadenFuerDieSchule;
 
         public VergiftungsStatus Status { get; set; }
         private int InteraktionsmenuEintragId;
@@ -31,19 +32,17 @@ namespace HerderGames.Schule
                 return;
             }
 
-            player.Chat
-                .SendChatMessage(
-                    "Tipp: Du bist in der Nähe eines Essens, das du vergiften kannst. " +
-                    "Lehrer, die davon regelmäßig essen, werden dann für ein paar Tage nicht mehr in die Schule kommen. " +
-                    "Öffne dazu das Interaktionsmenu");
-
             InteraktionsmenuEintragId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
                 Callback = id =>
                 {
                     player.VerbrechenManager.VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens,
-                        () => { Status = VergiftungsStatus.VergiftetNichtBemerkt; });
+                        () =>
+                        {
+                            Status = VergiftungsStatus.VergiftetNichtBemerkt;
+                            player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
+                        });
                     player.InteraktionsMenu.RemoveEintrag(id);
                 },
             });

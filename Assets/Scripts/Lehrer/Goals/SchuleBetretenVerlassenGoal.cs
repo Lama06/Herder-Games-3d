@@ -23,7 +23,7 @@ namespace HerderGames.Lehrer.Goals
         private bool ShouldBeInSchool()
         {
             return ZeitInDerSchule.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime()) &&
-                   !Lehrer.Krankheit.IsKrankMitSymtomen();
+                   !Lehrer.Vergiftung.IsVergiftetMitSymtomen();
         }
 
         public override IEnumerator Execute()

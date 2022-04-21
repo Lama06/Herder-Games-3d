@@ -7,6 +7,8 @@ namespace HerderGames.Player
     [RequireComponent(typeof(VerbrechenManager))]
     [RequireComponent(typeof(Verwarnungen))]
     [RequireComponent(typeof(Stundenplan))]
+    [RequireComponent(typeof(Score))]
+    [RequireComponent(typeof(GeldManager))]
     public class Player : MonoBehaviour
     {
         public Chat Chat { get; private set; }
@@ -14,6 +16,8 @@ namespace HerderGames.Player
         public VerbrechenManager VerbrechenManager { get; private set; }
         public Verwarnungen Verwarnungen { get; private set; }
         public Stundenplan Stundenplan { get; private set; }
+        public Score Score { get; private set; }
+        public GeldManager GeldManager { get; private set; }
         
         private void Awake()
         {
@@ -22,6 +26,8 @@ namespace HerderGames.Player
             VerbrechenManager = GetComponent<VerbrechenManager>();
             Verwarnungen = GetComponent<Verwarnungen>();
             Stundenplan = GetComponent<Stundenplan>();
+            Score = GetComponent<Score>();
+            GeldManager = GetComponent<GeldManager>();
         }
     }
 }

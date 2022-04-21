@@ -1,4 +1,3 @@
-using System;
 using HerderGames.Time;
 using UnityEngine;
 
@@ -7,7 +6,9 @@ namespace HerderGames.Schule
     public class AlarmManager : MonoBehaviour
     {
         [SerializeField] private TimeManager TimeManager;
+        [SerializeField] private Player.Player Player;
         [SerializeField] private ZeitDauer LaengeDesAlarms;
+        [SerializeField] private int SchadenFuerDieSchule;
         
         private bool Alarm;
         private Zeitpunkt AlarmStartZeitpunkt;
@@ -30,6 +31,7 @@ namespace HerderGames.Schule
         {
             Alarm = true;
             AlarmStartZeitpunkt = TimeManager.GetCurrentZeitpunkt();
+            Player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(KrankheitsManager))]
+    [RequireComponent(typeof(VergiftungsManager))]
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Renderer))]
@@ -15,7 +15,7 @@ namespace HerderGames.Lehrer
     {
         [SerializeField] private string Name;
         
-        public KrankheitsManager Krankheit { get; private set; }
+        public VergiftungsManager Vergiftung { get; private set; }
         public Reputation Reputation { get; private set; }
         public NavMeshAgent Agent { get; private set; }
         public Renderer Renderer { get; private set; }
@@ -24,7 +24,7 @@ namespace HerderGames.Lehrer
 
         private void Awake()
         {
-            Krankheit = GetComponent<KrankheitsManager>();
+            Vergiftung = GetComponent<VergiftungsManager>();
             Reputation = GetComponent<Reputation>();
             Agent = GetComponent<NavMeshAgent>();
             Renderer = GetComponent<Renderer>();

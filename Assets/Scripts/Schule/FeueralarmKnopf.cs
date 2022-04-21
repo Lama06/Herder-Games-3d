@@ -19,17 +19,16 @@ namespace HerderGames.Schule
             {
                 return;
             }
-            
-            player.Chat.SendChatMessage("Tipp: Du kannst bei dem Alarm Knopf einen Feueralarm auslösen." +
-                                        "Die meisten Lehrer werden dann auf den Schulhof gehen");
 
             InteraktionsMenuId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
                 Callback = id =>
                 {
-                    player.VerbrechenManager
-                        .VerbrechenStarten(ZeitZumDruecken, Schwere, () => { AlarmManager.AlarmStarten(); });
+                    player.VerbrechenManager.VerbrechenStarten(ZeitZumDruecken, Schwere, () =>
+                    {
+                        AlarmManager.AlarmStarten();
+                    });
                     player.InteraktionsMenu.RemoveEintrag(id);
                 }
             });
