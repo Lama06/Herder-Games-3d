@@ -7,7 +7,7 @@ using UnityEngine;
 namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(Lehrer))]
-    public abstract class ZufaelligeInteraktionsMenuAktion : MonoBehaviour
+    public abstract class InteraktionsMenuFrage : MonoBehaviour
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private string InteraktionsMenuName;

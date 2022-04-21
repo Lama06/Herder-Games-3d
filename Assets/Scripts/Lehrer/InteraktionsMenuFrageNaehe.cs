@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    public class ZufaelligeDialogInteraktionsMenuAktion : ZufaelligeInteraktionsMenuAktion
+    public class InteraktionsMenuFrageNaehe : InteraktionsMenuFrage
     {
         private bool InTriggerCollider;
         

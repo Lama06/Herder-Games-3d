@@ -4,7 +4,7 @@ using UnityEngine;
 namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(Unterrichten))]
-    public class ZufaelligeSchwaenzenInteraktionsMenuAktion : ZufaelligeInteraktionsMenuAktion
+    public class InteraktionsMenuFrageSchwaenzen : InteraktionsMenuFrage
     {
         protected override bool ShouldShowInInteraktionsMenu()
         {
