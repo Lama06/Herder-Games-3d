@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="align-items: center; justify-content: space-around; flex-direction: column; flex-grow: 1; flex-shrink: 0; color: rgb(215, 126, 56); background-color: rgb(86, 158, 205);">
+        <ui:VisualElement name="Top" style="align-items: center;">
+            <ui:Label display-tooltip-when-elided="true" name="Header" text="Game Over" style="font-size: 50px; -unity-font-style: bold;" />
+            <ui:Label text="Du hast drei Verwarnungen erhalten und bist von der Schule gefolgen" display-tooltip-when-elided="true" name="Description" style="font-size: 15px; -unity-font-style: bold;" />
+            <ui:Label text="Schaden für die Schule, der durch dich entstanden ist: Fehler" display-tooltip-when-elided="true" name="Schaden" style="font-size: 15px; margin-top: 30px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom">
+            <ui:Button text="Neu Starten" display-tooltip-when-elided="true" name="Restart" focusable="false" style="font-size: 20px; padding-left: 12px; padding-right: 12px; padding-top: 2px; padding-bottom: 2px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

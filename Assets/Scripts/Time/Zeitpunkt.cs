@@ -1,6 +1,8 @@
+using System;
+
 namespace HerderGames.Time
 {
-    [System.Serializable]
+    [Serializable]
     public class Zeitpunkt
     {
         public int Kalenderwoche;

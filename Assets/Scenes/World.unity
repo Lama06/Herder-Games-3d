@@ -420,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
   UnterrichtsRaum: {fileID: 752264926}
-  Fach: 0
+  Fach: Herr Weber mag Kekse
   ReputationsAenderungBeiFehlzeit: 0
   Stunde:
     Wochentag: 0
@@ -460,8 +460,8 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   Reaktion:
     MoeglicheSaetze:
-    - Text: 
-    - Text: 
+    - Text: E
+    - Text: e
     SharedIds: []
 --- !u!114 &113679690
 MonoBehaviour:
@@ -1364,6 +1364,7 @@ GameObject:
   - component: {fileID: 1000830742}
   - component: {fileID: 1000830741}
   - component: {fileID: 1000830740}
+  - component: {fileID: 1000830743}
   m_Layer: 0
   m_Name: Overlay
   m_TagString: Untagged
@@ -1401,8 +1402,8 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: b1c72e9a71c10a24a9bac69e0d826932, type: 3}
   m_SortingOrder: 0
---- !u!4 &1000830742
-Transform:
+--- !u!224 &1000830742
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1416,6 +1417,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1000830743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000830739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a410b213209442fb15a69799f0240a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1049364710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,8 +1457,8 @@ GameObject:
   - component: {fileID: 1049364714}
   - component: {fileID: 1049364713}
   - component: {fileID: 1049364712}
-  - component: {fileID: 1049364711}
   - component: {fileID: 1049364726}
+  - component: {fileID: 1049364728}
   m_Layer: 0
   m_Name: Strupat
   m_TagString: Untagged
@@ -1448,30 +1466,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1049364711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c5fbe48fc64904aa103c3b80de1ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Eingang: {fileID: 0}
-  Ausgang: {fileID: 0}
-  ZeitInDerSchule:
-    Immer: 1
-    Wochentage: []
-  InDerSchule: 1
-  SaetzeBeimVerlassen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
 --- !u!114 &1049364712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1798,10 +1792,10 @@ MonoBehaviour:
   AnnahmeAntworten:
     MoeglicheSaetze: []
     SharedIds: []
-  ReputationsAenderungBeiAblehnen: 0
+  ReputationsAenderungBeiAblehnen: -1
   AblehnenAntworten:
     MoeglicheSaetze:
-    - Text: 
+    - Text: Ich beantworte keine Moralfragen
     SharedIds: []
 --- !u!114 &1049364727
 MonoBehaviour:
@@ -1815,8 +1809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  SchulleitungsBuero: {fileID: 0}
+  Player: {fileID: 1538818858}
+  SchulleitungsBuero: {fileID: 1083303379}
   SaetzeWeg:
     UseCustomDelay: 0
     CustomDelay: 0
@@ -1827,6 +1821,19 @@ MonoBehaviour:
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
+--- !u!65 &1049364728
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049364710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1083303378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1858,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083303378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.02, y: 0, z: -17.87}
+  m_LocalPosition: {x: -18.17, y: 1.02, z: 17.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2819,7 +2826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335190107e694f4cb0327016c72f4313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 150
+  Sensitivity: 400
   PlayerBody: {fileID: 1538818857}
   Overlay: {fileID: 1000830740}
 --- !u!81 &1860500412

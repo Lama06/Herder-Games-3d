@@ -30,14 +30,12 @@ namespace HerderGames.Player
             {
                 while (BegehtGeradeEinVerbrechen)
                 {
-                    yield return new WaitForSeconds(1);
-                    if (!BegehtGeradeEinVerbrechen)
+                    if (TimeRemaining > 0)
                     {
-                        break;
+                        Player.Chat.SendChatMessage($"Verbrechen in {TimeRemaining} Sekunden beendet");   
                     }
-                    
+                    yield return new WaitForSeconds(1);
                     TimeRemaining--;
-                    Player.Chat.SendChatMessage($"Verbrechen in {TimeRemaining} Sekunden beendet");
                 }
 
                 yield return null;

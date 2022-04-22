@@ -79,7 +79,8 @@ namespace HerderGames.UI
                 var newButton = new Button(() => eintrag.Callback(id))
                 {
                     userData = id,
-                    text = eintrag.Name
+                    text = eintrag.Name,
+                    focusable = false
                 };
                 interaktionsMenu.Add(newButton);
             }

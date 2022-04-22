@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace HerderGames.Time
 {
-    [System.Serializable]
+    [Serializable]
     public class WoechentlicheZeitpunkte
     {
         public WochentagEintrag[] Wochentage;
@@ -19,7 +20,7 @@ namespace HerderGames.Time
             return result;
         }
 
-        [System.Serializable]
+        [Serializable]
         public class WochentagEintrag
         {
             public WochentagAuswahlArt AuswahlArt;
@@ -44,7 +45,7 @@ namespace HerderGames.Time
                 return result;
             }
 
-            [System.Serializable]
+            [Serializable]
             public class ZeitpunktEintrag
             {
                 public ZeitRelativitaet RelativZu;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HerderGames.Time
 {
-    [System.Serializable]
+    [Serializable]
     public class WoechentlicheZeitspannen
     {
         public bool Immer;
@@ -49,7 +49,7 @@ namespace HerderGames.Time
             return false;
         }
         
-        [System.Serializable]
+        [Serializable]
         public class WochentagEintrag
         {
             public WochentagAuswahlArt AuswahlArt;
@@ -74,7 +74,7 @@ namespace HerderGames.Time
                 return result;
             }
             
-            [System.Serializable]
+            [Serializable]
             public class ZeitspanneEintrag
             {
                 public Zeitpunkt Anfang;
@@ -103,7 +103,7 @@ namespace HerderGames.Time
                     return result;
                 }
 
-                [System.Serializable]
+                [Serializable]
                 public class Zeitpunkt
                 {
                     public ZeitRelativitaet RelativZu;

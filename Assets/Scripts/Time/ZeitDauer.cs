@@ -1,11 +1,14 @@
+using System;
+using UnityEngine;
+
 namespace HerderGames.Time
 {
-    [System.Serializable]
+    [Serializable]
     public class ZeitDauer
     {
-        public int Wochen;
-        public int Tage;
-        public float Time;
+        [SerializeField] private int Wochen;
+        [SerializeField] private int Tage;
+        [SerializeField] private float Time;
 
         public int GetAnzahlTage()
         {
