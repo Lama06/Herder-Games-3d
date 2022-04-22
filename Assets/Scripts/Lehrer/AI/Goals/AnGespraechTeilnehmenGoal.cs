@@ -1,16 +1,13 @@
 using System.Collections;
-using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
-using HerderGames.Time;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
     [RequireComponent(typeof(Lehrer))]
-    public class AnGespraechTeilnehmenGoal : LehrerGoalBase
+    public class AnGespraechTeilnehmenGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private WoechentlicheZeitspannen Wann;
+        [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private Transform Standpunkt;
         [SerializeField] private Gespraech Gespraech;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
@@ -19,7 +16,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Trigger.Resolve();
         }
 
         public override IEnumerator Execute()

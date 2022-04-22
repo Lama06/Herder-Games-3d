@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HerderGames.AI
+namespace HerderGames.Lehrer.AI
 {
     public class AIController : MonoBehaviour
     {

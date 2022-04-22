@@ -1,12 +1,12 @@
 using System.Collections;
-using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
-    public class VerbrechenMeldenGoal : LehrerGoalBase
+    public class VerbrechenMeldenGoal : GoalBase
     {
+        [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private Player.Player Player;
         [SerializeField] private Transform SchulleitungsBuero;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
@@ -14,7 +14,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Lehrer.Reputation.ShouldGoToSchulleitung();
+            return Trigger.Resolve() && Lehrer.Reputation.ShouldGoToSchulleitung();
         }
 
         public override IEnumerator Execute()

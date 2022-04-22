@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using HerderGames.Lehrer.Goals;
+using HerderGames.Lehrer.AI.Goals;
 using UnityEngine;
 
 namespace HerderGames.Lehrer

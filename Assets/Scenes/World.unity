@@ -142,15 +142,14 @@ GameObject:
   - component: {fileID: 113679677}
   - component: {fileID: 113679691}
   - component: {fileID: 113679676}
-  - component: {fileID: 113679692}
   - component: {fileID: 113679696}
   - component: {fileID: 113679686}
-  - component: {fileID: 113679690}
   - component: {fileID: 113679689}
   - component: {fileID: 113679688}
   - component: {fileID: 113679687}
   - component: {fileID: 113679694}
   - component: {fileID: 113679695}
+  - component: {fileID: 113679697}
   m_Layer: 0
   m_Name: Schulten
   m_TagString: Untagged
@@ -343,6 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen: []
   Player: {fileID: 1538818858}
   SchulleitungsBuero: {fileID: 1083303379}
   SaetzeWeg:
@@ -370,30 +371,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bf417b86314e90b2f70c27485877f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 7
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 9
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
   VergiftbaresEssen: {fileID: 1603995576}
-  Wann:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 3
-      Manuell: 
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 7
-          RelativZuN: 0
-          Zeit: 0
-        Ende:
-          RelativZu: 9
-          RelativZuN: 0
-          Zeit: 0
-      - Anfang:
-          RelativZu: 13
-          RelativZuN: 0
-          Zeit: 0
-        Ende:
-          RelativZu: 14
-          RelativZuN: 0
-          Zeit: 0
   SaetzeWeg:
     UseCustomDelay: 0
     CustomDelay: 0
@@ -418,15 +417,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103c819fa4d848a4a588fcffaf99d830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
   UnterrichtsRaum: {fileID: 752264926}
   Fach: Herr Weber mag Kekse
-  ReputationsAenderungBeiFehlzeit: 0
-  Stunde:
+  ReputationsAenderungBeiFehlzeit: -1
+  StundeImStundenplan:
     Wochentag: 0
     FachIndex: 0
-  ZeitPufferVorher: 0.1
-  Ueberziehungszeit: 0.1
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 0
+          Manuell: 00000000
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 4
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 6
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
   SaetzeAufDemWegZumRaum:
     UseCustomDelay: 0
     CustomDelay: 0
@@ -457,35 +474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4149b14270a4474c90b4e7dbdbfc92fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen: []
   Player: {fileID: 1538818858}
   Reaktion:
     MoeglicheSaetze:
     - Text: E
     - Text: e
-    SharedIds: []
---- !u!114 &113679690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf23d032abf644b6b6cfcccc2a02ca8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlarmManager: {fileID: 1836436228}
-  Sammelpunkt: {fileID: 288763062}
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
     SharedIds: []
 --- !u!114 &113679691
 MonoBehaviour:
@@ -501,42 +496,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLocation: {fileID: 1786530880}
   MaxViewDistance: 100
---- !u!114 &113679692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c5fbe48fc64904aa103c3b80de1ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Eingang: {fileID: 288763062}
-  Ausgang: {fileID: 288763062}
-  ZeitInDerSchule:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 3
-      Manuell: 
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 1
-          RelativZuN: 0
-          Zeit: 0
-        Ende:
-          RelativZu: 2
-          RelativZuN: 0
-          Zeit: 0
-  InDerSchule: 1
-  SaetzeBeimVerlassen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
 --- !u!65 &113679694
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -587,21 +546,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Wann:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 0
-      Manuell: 01000000
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 0
-          RelativZuN: 0
-          Zeit: 10
-        Ende:
-          RelativZu: 0
-          RelativZuN: 0
-          Zeit: 15
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 0
+          Manuell: 01000000
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 0
+              RelativZuN: 0
+              Zeit: 10
+            Ende:
+              RelativZu: 0
+              RelativZuN: 0
+              Zeit: 15
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
   Standpunkt: {fileID: 1448891727}
   Gespraech: {fileID: 1173367251}
   SaetzeAufDemWeg:
@@ -609,6 +574,19 @@ MonoBehaviour:
     CustomDelay: 0
     MoeglicheSaetze: []
     SharedIds: []
+--- !u!114 &113679697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113679675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 1
 --- !u!1 &143305570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1316,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &929312461
 BoxCollider:
@@ -1415,7 +1393,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1434,406 +1412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a410b213209442fb15a69799f0240a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1049364710
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1049364724}
-  - component: {fileID: 1049364723}
-  - component: {fileID: 1049364722}
-  - component: {fileID: 1049364721}
-  - component: {fileID: 1049364720}
-  - component: {fileID: 1049364719}
-  - component: {fileID: 1049364718}
-  - component: {fileID: 1049364717}
-  - component: {fileID: 1049364716}
-  - component: {fileID: 1049364727}
-  - component: {fileID: 1049364725}
-  - component: {fileID: 1049364715}
-  - component: {fileID: 1049364714}
-  - component: {fileID: 1049364713}
-  - component: {fileID: 1049364712}
-  - component: {fileID: 1049364726}
-  - component: {fileID: 1049364728}
-  m_Layer: 0
-  m_Name: Strupat
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1049364712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9bf417b86314e90b2f70c27485877f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  VergiftbaresEssen: {fileID: 1603995576}
-  Wann:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 3
-      Manuell: 
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 7
-          RelativZuN: 0
-          Zeit: 0
-        Ende:
-          RelativZu: 9
-          RelativZuN: 0
-          Zeit: 0
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
---- !u!114 &1049364713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 103c819fa4d848a4a588fcffaf99d830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  UnterrichtsRaum: {fileID: 143305571}
-  Fach: 0
-  ReputationsAenderungBeiFehlzeit: 0
-  Stunde:
-    Wochentag: 0
-    FachIndex: 1
-  ZeitPufferVorher: 0.2
-  Ueberziehungszeit: 0.2
-  SaetzeAufDemWegZumRaum:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  SaetzeWaehrendUnterricht:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  SaetzeBegruessung:
-    MoeglicheSaetze: []
-    SharedIds: []
---- !u!114 &1049364714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Frau Struuuupat
---- !u!114 &1049364715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf23d032abf644b6b6cfcccc2a02ca8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AlarmManager: {fileID: 1836436228}
-  Sammelpunkt: {fileID: 747052873}
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
---- !u!114 &1049364716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ed5b34c5d174edb9189d337ecc3a856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1049364717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76dad6f66f0d4954b15e191d0484fca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  Shared: []
-  ReichweiteDerStimme: 20
-  DefaultDelay: 10
---- !u!195 &1049364718
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5000001
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &1049364719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
---- !u!114 &1049364720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d1d1aca8ab4262922618ecf45385ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Player: {fileID: 0}
-  LaengeDerVergiftung: 0
-  KostenFuerDieSchuleProTagVergiftet: 0
---- !u!136 &1049364721
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!23 &1049364722
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1049364723
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1049364724
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.52, z: -2.44}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1528520557}
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1049364725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Wann:
-    Immer: 0
-    Wochentage:
-    - AuswahlArt: 0
-      Manuell: 01000000
-      Zeitspannen:
-      - Anfang:
-          RelativZu: 0
-          RelativZuN: 0
-          Zeit: 10
-        Ende:
-          RelativZu: 0
-          RelativZuN: 0
-          Zeit: 15
-  Standpunkt: {fileID: 917245346}
-  Gespraech: {fileID: 1173367251}
-  SaetzeAufDemWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
---- !u!114 &1049364726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Moralfrage stellen
-  AnnahmeWahrscheinlichkeit: 0
-  ReputationsAenderungBeiAnnahme: 0
-  AnnahmeAntworten:
-    MoeglicheSaetze: []
-    SharedIds: []
-  ReputationsAenderungBeiAblehnen: -1
-  AblehnenAntworten:
-    MoeglicheSaetze:
-    - Text: Ich beantworte keine Moralfragen
-    SharedIds: []
---- !u!114 &1049364727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  SchulleitungsBuero: {fileID: 1083303379}
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
---- !u!65 &1049364728
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049364710}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1083303378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,15 +1571,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Teilnehmer:
   - {fileID: 113679681}
-  - {fileID: 1049364714}
+  - {fileID: 0}
   Dialog:
   - Sprecher: {fileID: 113679681}
     Satz: Jetzt mal Ganz ehrlich, wir alle steigen nicht gerne Treppen
-  - Sprecher: {fileID: 1049364714}
+  - Sprecher: {fileID: 0}
     Satz: Hast du Athrose, Monika?
   - Sprecher: {fileID: 113679681}
     Satz: Ja
-  - Sprecher: {fileID: 1049364714}
+  - Sprecher: {fileID: 0}
     Satz: Ich kann dir schwarzen Pfeffer empfehlen. Der soll helfen
   Delay: 5
 --- !u!4 &1173367252
@@ -2019,7 +1597,7 @@ Transform:
   - {fileID: 1448891727}
   - {fileID: 917245346}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448891726
 GameObject:
@@ -2050,37 +1628,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1173367252}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1528520556
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1528520557}
-  m_Layer: 0
-  m_Name: Augen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1528520557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528520556}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.699, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1049364724}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1538818852
@@ -2459,6 +2006,7 @@ GameObject:
   - component: {fileID: 1671606154}
   - component: {fileID: 1671606153}
   - component: {fileID: 1671606152}
+  - component: {fileID: 1671606163}
   m_Layer: 0
   m_Name: Hausmeister
   m_TagString: Untagged
@@ -2478,10 +2026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6654e2c41ab84576a7c3d1f4d6d00c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Wann:
-    Immer: 1
-    Wochentage: []
+  Trigger:
+    Bedingungen: []
   Essen: {fileID: 1603995576}
   SaetzeWeg:
     UseCustomDelay: 0
@@ -2667,6 +2213,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1671606163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671606151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 0
 --- !u!1 &1740621246
 GameObject:
   m_ObjectHideFlags: 0

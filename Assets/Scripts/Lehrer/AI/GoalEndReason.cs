@@ -1,4 +1,4 @@
-namespace HerderGames.AI
+namespace HerderGames.Lehrer.AI
 {
     public enum GoalEndReason
     {

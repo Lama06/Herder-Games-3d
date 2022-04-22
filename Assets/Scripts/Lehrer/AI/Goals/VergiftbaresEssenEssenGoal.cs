@@ -1,18 +1,15 @@
 using System.Collections;
-using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
-using HerderGames.Time;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
     [RequireComponent(typeof(VergiftungsManager))]
-    public class VergiftbaresEssenEssenGoal : LehrerGoalBase
+    public class VergiftbaresEssenEssenGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
+        [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private VergiftbaresEssen VergiftbaresEssen;
-        [SerializeField] private WoechentlicheZeitspannen Wann;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
@@ -26,7 +23,7 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Trigger.Resolve();
         }
 
         public override IEnumerator Execute()
@@ -38,6 +35,7 @@ namespace HerderGames.Lehrer.Goals
             {
                 Vergiftung.Vergiften(VergiftbaresEssen);
             }
+
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace HerderGames.AI
+namespace HerderGames.Lehrer.AI
 {
     public static class NavMeshUtil
     {

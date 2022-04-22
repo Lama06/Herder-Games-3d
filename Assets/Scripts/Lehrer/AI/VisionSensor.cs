@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HerderGames.AI.Sensors
+namespace HerderGames.Lehrer.AI
 {
     public class VisionSensor : MonoBehaviour
     {

@@ -1,24 +1,20 @@
 using System.Collections;
-using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
-using HerderGames.Time;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
-    public class VergiftbaresEssenEntgiftenGoal : LehrerGoalBase
+    public class VergiftbaresEssenEntgiftenGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private WoechentlicheZeitspannen Wann;
+        [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private VergiftbaresEssen Essen;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Essen.Status == VergiftungsStatus.VergiftetBemerkt &&
-                   Wann.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Essen.Status == VergiftungsStatus.VergiftetBemerkt && Trigger.Resolve();
         }
 
         public override IEnumerator Execute()

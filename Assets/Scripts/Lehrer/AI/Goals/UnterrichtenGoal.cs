@@ -1,23 +1,19 @@
 using System;
 using System.Collections;
-using HerderGames.AI;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Time;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
-    public class UnterrichtenGoal : LehrerGoalBase
+    public class UnterrichtenGoal : GoalBase
     {
-        [SerializeField] private TimeManager TimeManager;
-
         [Header("Allgemein")] [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private string Fach;
         [SerializeField] private float ReputationsAenderungBeiFehlzeit;
 
-        [Header("Wann")] [SerializeField] private StundenData Stunde;
-        [SerializeField] private float ZeitPufferVorher;
-        [SerializeField] private float Ueberziehungszeit;
+        [Header("Wann")] [SerializeField] private StundenData StundeImStundenplan;
+        [SerializeField] private Trigger.Trigger Trigger;
 
         [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
@@ -27,20 +23,13 @@ namespace HerderGames.Lehrer.Goals
         public bool LehrerArrived { get; private set; }
         public bool SchuelerFreigestelltDieseStunde { get; set; }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            BakedZeitspannen = BakeZeitspannenFromStundenData();
-        }
-
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return BakedZeitspannen.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Trigger.Resolve();
         }
 
-        public override void StartGoal()
+        public override void OnGoalStart()
         {
-            base.StartGoal();
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;
             StartCoroutine(GoToRoom());
@@ -72,41 +61,6 @@ namespace HerderGames.Lehrer.Goals
             }
         }
 
-        private WoechentlicheZeitspannen BakeZeitspannenFromStundenData()
-        {
-            var result = new WoechentlicheZeitspannen();
-
-            var wochentagEintrag = new WoechentlicheZeitspannen.WochentagEintrag
-            {
-                AuswahlArt = WochentagAuswahlArt.Manuell,
-                Manuell = new[] {Stunde.Wochentag}
-            };
-
-            var zeitspanne = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag();
-
-            var anfang = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
-            {
-                RelativZu = ZeitRelativitaet.FachAnfangN,
-                RelativZuN = Stunde.FachIndex,
-                Zeit = -ZeitPufferVorher
-            };
-            zeitspanne.Anfang = anfang;
-
-            var ende = new WoechentlicheZeitspannen.WochentagEintrag.ZeitspanneEintrag.Zeitpunkt
-            {
-                RelativZu = ZeitRelativitaet.FachEndeN,
-                RelativZuN = Stunde.FachIndex,
-                Zeit = -Ueberziehungszeit
-            };
-            zeitspanne.Ende = ende;
-
-            wochentagEintrag.Zeitspannen = new[] {zeitspanne};
-
-            result.Wochentage = new[] {wochentagEintrag};
-
-            return result;
-        }
-
         public string GetFach()
         {
             return Fach;
@@ -117,9 +71,9 @@ namespace HerderGames.Lehrer.Goals
             return UnterrichtsRaum;
         }
 
-        public StundenData GetStunde()
+        public StundenData GetStundeImStundenplan()
         {
-            return Stunde;
+            return StundeImStundenplan;
         }
 
         [Serializable]

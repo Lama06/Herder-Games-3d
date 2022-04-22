@@ -1,4 +1,4 @@
-using HerderGames.Lehrer.Goals;
+using HerderGames.Lehrer.AI.Goals;
 using UnityEngine;
 
 namespace HerderGames.Lehrer

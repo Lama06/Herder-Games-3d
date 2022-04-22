@@ -1,5 +1,5 @@
 using System.Text;
-using HerderGames.Lehrer.Goals;
+using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Time;
 using UnityEngine;
 
@@ -44,7 +44,7 @@ namespace HerderGames.Player
 
             foreach (var goal in UnterrichtenGoals)
             {
-                var stunde = goal.GetStunde();
+                var stunde = goal.GetStundeImStundenplan();
                 
                 if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
                 {

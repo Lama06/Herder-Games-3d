@@ -1,13 +1,13 @@
 using System.Collections;
-using HerderGames.AI.Sensors;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.Goals
+namespace HerderGames.Lehrer.AI.Goals
 {
     [RequireComponent(typeof(VisionSensor))]
-    public class VerbrechenErkennenGoal : LehrerGoalBase
+    public class VerbrechenErkennenGoal : GoalBase
     {
+        [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private Player.Player Player;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig Reaktion;
 
@@ -21,7 +21,8 @@ namespace HerderGames.Lehrer.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Vision.CanSee(Player.gameObject) && Player.VerbrechenManager.BegehtGeradeEinVerbrechen;
+            return Trigger.Resolve() && Vision.CanSee(Player.gameObject) &&
+                   Player.VerbrechenManager.BegehtGeradeEinVerbrechen;
         }
 
         public override IEnumerator Execute()
