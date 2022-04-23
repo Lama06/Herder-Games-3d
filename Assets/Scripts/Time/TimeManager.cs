@@ -5,10 +5,10 @@ namespace HerderGames.Time
 {
     public class TimeManager : MonoBehaviour
     {
-        [SerializeField] private float TimeSpeed = 0.05f;
+        [SerializeField] private float TimeSpeed;
         private int CurrentKalenderwoche = 1;
         private Wochentag CurrentWochentag = Wochentag.Montag;
-        private float CurrentTime = StundenPlanRaster.SchuleBeginn;
+        private float CurrentTime = 7f;
 
         public int GetCurrentKalenderwoche()
         {
@@ -47,7 +47,7 @@ namespace HerderGames.Time
         private void Update()
         {
             CurrentTime += TimeSpeed * UnityEngine.Time.deltaTime;
-            if (CurrentTime > StundenPlanRaster.EndeDesTages)
+            if (CurrentTime >= StundenPlanRaster.EndeDesTages)
             {
                 CurrentTime = 0;
                 CurrentWochentag += 1;

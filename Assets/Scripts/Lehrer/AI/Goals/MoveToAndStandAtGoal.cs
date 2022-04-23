@@ -9,6 +9,7 @@ namespace HerderGames.Lehrer.AI.Goals
         [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private Transform Position;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -21,6 +22,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = Position.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
     }

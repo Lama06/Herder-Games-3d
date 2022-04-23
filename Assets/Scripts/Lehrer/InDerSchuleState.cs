@@ -5,7 +5,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Lehrer))]
     public class InDerSchuleState : MonoBehaviour
     {
-        [SerializeField] private bool Status;
+        [SerializeField] private bool Status = true;
 
         private Lehrer Lehrer;
 

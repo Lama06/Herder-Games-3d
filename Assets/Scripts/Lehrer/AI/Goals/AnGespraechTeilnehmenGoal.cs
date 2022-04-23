@@ -21,9 +21,11 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override IEnumerator Execute()
         {
+            IsAngekommen = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.Agent.destination = Standpunkt.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             IsAngekommen = true;
         }
 

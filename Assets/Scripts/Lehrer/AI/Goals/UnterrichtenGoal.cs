@@ -16,8 +16,8 @@ namespace HerderGames.Lehrer.AI.Goals
         [SerializeField] private Trigger.Trigger Trigger;
 
         [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
+        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
 
         private WoechentlicheZeitspannen BakedZeitspannen;
         public bool LehrerArrived { get; private set; }

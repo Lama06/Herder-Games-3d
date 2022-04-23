@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 1f49f60ca1c59dc488244d152fa8127a, type: 2}
---- !u!1 &113679675
+--- !u!1 &182248882
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,463 +131,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 113679685}
-  - component: {fileID: 113679684}
-  - component: {fileID: 113679683}
-  - component: {fileID: 113679682}
-  - component: {fileID: 113679681}
-  - component: {fileID: 113679680}
-  - component: {fileID: 113679679}
-  - component: {fileID: 113679678}
-  - component: {fileID: 113679677}
-  - component: {fileID: 113679691}
-  - component: {fileID: 113679676}
-  - component: {fileID: 113679696}
-  - component: {fileID: 113679686}
-  - component: {fileID: 113679689}
-  - component: {fileID: 113679688}
-  - component: {fileID: 113679687}
-  - component: {fileID: 113679694}
-  - component: {fileID: 113679695}
-  - component: {fileID: 113679697}
+  - component: {fileID: 182248883}
   m_Layer: 0
-  m_Name: Schulten
+  m_Name: Schulten Mini Raum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &113679676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ed5b34c5d174edb9189d337ecc3a856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &113679677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76dad6f66f0d4954b15e191d0484fca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  Shared: []
-  ReichweiteDerStimme: 10
-  DefaultDelay: 10
---- !u!195 &113679678
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5000001
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &113679679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
---- !u!114 &113679680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d1d1aca8ab4262922618ecf45385ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Player: {fileID: 1538818858}
-  LaengeDerVergiftung: 2
-  KostenFuerDieSchuleProTagVergiftet: 100
---- !u!114 &113679681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Frau Schulten
---- !u!136 &113679682
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!23 &113679683
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &113679684
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &113679685
+--- !u!4 &182248883
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
+  m_GameObject: {fileID: 182248882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.53, z: 0}
+  m_LocalPosition: {x: -12.48, y: 0, z: 17.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1786530880}
+  - {fileID: 1886186171}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &113679686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Trigger:
-    Bedingungen: []
-  Player: {fileID: 1538818858}
-  SchulleitungsBuero: {fileID: 1083303379}
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    - Text: 
-    SharedIds: []
---- !u!114 &113679687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9bf417b86314e90b2f70c27485877f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Trigger:
-    Bedingungen:
-    - Type: 0
-      Umkehren: 0
-      TimeManager: {fileID: 670363813}
-      Wann:
-        Immer: 0
-        Wochentage:
-        - AuswahlArt: 3
-          Manuell: 
-          Zeitspannen:
-          - Anfang:
-              RelativZu: 7
-              RelativZuN: 0
-              Zeit: 0
-            Ende:
-              RelativZu: 9
-              RelativZuN: 0
-              Zeit: 0
-      Alarm: {fileID: 0}
-      Vergiftung: {fileID: 0}
-  VergiftbaresEssen: {fileID: 1603995576}
-  SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
---- !u!114 &113679688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 103c819fa4d848a4a588fcffaf99d830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnterrichtsRaum: {fileID: 752264926}
-  Fach: Herr Weber mag Kekse
-  ReputationsAenderungBeiFehlzeit: -1
-  StundeImStundenplan:
-    Wochentag: 0
-    FachIndex: 0
-  Trigger:
-    Bedingungen:
-    - Type: 0
-      Umkehren: 0
-      TimeManager: {fileID: 670363813}
-      Wann:
-        Immer: 0
-        Wochentage:
-        - AuswahlArt: 0
-          Manuell: 00000000
-          Zeitspannen:
-          - Anfang:
-              RelativZu: 4
-              RelativZuN: 0
-              Zeit: 0
-            Ende:
-              RelativZu: 6
-              RelativZuN: 0
-              Zeit: 0
-      Alarm: {fileID: 0}
-      Vergiftung: {fileID: 0}
-  SaetzeAufDemWegZumRaum:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: Test
-    - Text: Test
-    SharedIds: []
-  SaetzeWaehrendUnterricht:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    - Text: 
-    SharedIds: []
-  SaetzeBegruessung:
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
---- !u!114 &113679689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4149b14270a4474c90b4e7dbdbfc92fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Trigger:
-    Bedingungen: []
-  Player: {fileID: 1538818858}
-  Reaktion:
-    MoeglicheSaetze:
-    - Text: E
-    - Text: e
-    SharedIds: []
---- !u!114 &113679691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbfb9eb03b6c4c3daa7f0af4181a6ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EyeLocation: {fileID: 1786530880}
-  MaxViewDistance: 100
---- !u!65 &113679694
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &113679695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21766632f0284b90844d212ffbe0ea32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Fragen, auf die Toilette zu gehen
-  AnnahmeWahrscheinlichkeit: 0.5
-  ReputationsAenderungBeiAnnahme: 0
-  AnnahmeAntworten:
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
-  ReputationsAenderungBeiAblehnen: 0
-  AblehnenAntworten:
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
---- !u!114 &113679696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Trigger:
-    Bedingungen:
-    - Type: 0
-      Umkehren: 0
-      TimeManager: {fileID: 670363813}
-      Wann:
-        Immer: 0
-        Wochentage:
-        - AuswahlArt: 0
-          Manuell: 01000000
-          Zeitspannen:
-          - Anfang:
-              RelativZu: 0
-              RelativZuN: 0
-              Zeit: 10
-            Ende:
-              RelativZu: 0
-              RelativZuN: 0
-              Zeit: 15
-      Alarm: {fileID: 0}
-      Vergiftung: {fileID: 0}
-  Standpunkt: {fileID: 1448891727}
-  Gespraech: {fileID: 1173367251}
-  SaetzeAufDemWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze: []
-    SharedIds: []
---- !u!114 &113679697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113679675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Status: 1
---- !u!1 &143305570
+--- !u!1 &187199763
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -595,157 +163,33 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 143305573}
-  - component: {fileID: 143305572}
-  - component: {fileID: 143305571}
+  - component: {fileID: 187199764}
   m_Layer: 0
-  m_Name: Struapt Klassenraum
+  m_Name: Hausmeister Patrolienroute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &143305571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143305570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a447fac1d2444ca90389823896d849, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LehrerStandpunkt: {fileID: 747052873}
-  Name: E001
---- !u!65 &143305572
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143305570}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &143305573
+--- !u!4 &187199764
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143305570}
+  m_GameObject: {fileID: 187199763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.03, y: 0, z: 18.96}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 217665528}
-  - {fileID: 747052873}
+  - {fileID: 1778283531}
+  - {fileID: 555100627}
+  - {fileID: 894633408}
+  - {fileID: 1752098675}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &217665527
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 217665528}
-  - component: {fileID: 217665531}
-  - component: {fileID: 217665530}
-  - component: {fileID: 217665529}
-  m_Layer: 0
-  m_Name: Wand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
-  m_IsActive: 1
---- !u!4 &217665528
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217665527}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: 1.33, z: -2.8}
-  m_LocalScale: {x: 1, y: 5, z: 7}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 143305573}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &217665529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217665527}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &217665530
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217665527}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &217665531
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217665527}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &288763061
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,6 +349,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &555100626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 555100627}
+  m_Layer: 0
+  m_Name: 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &555100627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555100626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.04, y: 0, z: 8.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 187199764}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &670363812
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f6013d1a7a4a32b692692bafa7be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeSpeed: 0.05
+  TimeSpeed: 0.03
 --- !u!4 &670363814
 Transform:
   m_ObjectHideFlags: 0
@@ -980,37 +455,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 752264927}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &747052872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 747052873}
-  m_Layer: 0
-  m_Name: Lehrer Standpunkt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &747052873
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747052872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.36, y: 0, z: -1.51}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 143305573}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752264925
 GameObject:
@@ -1171,7 +615,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801374883}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &917245345
+--- !u!1 &894633407
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1179,28 +623,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 917245346}
+  - component: {fileID: 894633408}
   m_Layer: 0
-  m_Name: Strupat Standpunkt
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &917245346
+--- !u!4 &894633408
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917245345}
+  m_GameObject: {fileID: 894633407}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 1.93}
+  m_LocalPosition: {x: 15.01, y: 0, z: 15.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1173367252}
-  m_RootOrder: 1
+  m_Father: {fileID: 187199764}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929312455
 GameObject:
@@ -1236,7 +680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteraktionsMenuName: Fahrrad klauen
-  TimeRequired: 0
+  TimeRequired: 5
   Schwere: 0.5
   SchadenFuerDieSchule: 500
   Gewinn: 200
@@ -1316,7 +760,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &929312461
 BoxCollider:
@@ -1393,7 +837,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1412,6 +856,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a410b213209442fb15a69799f0240a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1049581641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1049581642}
+  m_Layer: 0
+  m_Name: Augen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1049581642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049581641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.724, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1609019415}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1083303378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,12 +911,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083303378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.17, y: 1.02, z: 17.11}
+  m_LocalPosition: {x: -16.63, y: 1.02, z: -14.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1151798981
 GameObject:
@@ -1540,7 +1015,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1173367250
+--- !u!1 &1269771443
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1548,58 +1023,292 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1173367252}
-  - component: {fileID: 1173367251}
+  - component: {fileID: 1269771444}
   m_Layer: 0
-  m_Name: "Gespr\xE4ch Schulten Strupat"
+  m_Name: Schulten Standpunkt
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1269771444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269771443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.02, y: 0, z: -0.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1991527218}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1358560081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1358560093}
+  - component: {fileID: 1358560092}
+  - component: {fileID: 1358560091}
+  - component: {fileID: 1358560090}
+  - component: {fileID: 1358560089}
+  - component: {fileID: 1358560088}
+  - component: {fileID: 1358560087}
+  - component: {fileID: 1358560086}
+  - component: {fileID: 1358560085}
+  - component: {fileID: 1358560084}
+  - component: {fileID: 1358560083}
+  - component: {fileID: 1358560082}
+  - component: {fileID: 1358560094}
+  m_Layer: 0
+  m_Name: Strupat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1173367251
+--- !u!114 &1358560082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173367250}
+  m_GameObject: {fileID: 1358560081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54780435dff5484e815a143b3167e4a5, type: 3}
+  m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Teilnehmer:
-  - {fileID: 113679681}
-  - {fileID: 0}
-  Dialog:
-  - Sprecher: {fileID: 113679681}
-    Satz: Jetzt mal Ganz ehrlich, wir alle steigen nicht gerne Treppen
-  - Sprecher: {fileID: 0}
-    Satz: Hast du Athrose, Monika?
-  - Sprecher: {fileID: 113679681}
-    Satz: Ja
-  - Sprecher: {fileID: 0}
-    Satz: Ich kann dir schwarzen Pfeffer empfehlen. Der soll helfen
-  Delay: 5
---- !u!4 &1173367252
+  Trigger:
+    Bedingungen: []
+  Player: {fileID: 1538818858}
+  SchulleitungsBuero: {fileID: 1083303379}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Jetzt reichts. Ich gehe zur Schulleitung
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: "Geben sie diesem Sch\xFCler eine Verwarnng"
+    SharedIds: []
+--- !u!114 &1358560083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Moralfrage stellen
+  AnnahmeWahrscheinlichkeit: 0
+  ReputationsAenderungBeiAnnahme: 0
+  AnnahmeAntworten:
+    MoeglicheSaetze: []
+    SharedIds: []
+  ReputationsAenderungBeiAblehnen: -2
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - Text: DAS IST FRAUENFEINDLICH. ICH GEHE ZUR SCHULLEITUNG. DAS GIBT EINEN SCHULVERWEIS!!
+    SharedIds: []
+--- !u!114 &1358560084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Frau Struuuuuuupat
+--- !u!114 &1358560085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed5b34c5d174edb9189d337ecc3a856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1358560086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76dad6f66f0d4954b15e191d0484fca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  Shared: []
+  ReichweiteDerStimme: 10
+  DefaultDelay: 10
+--- !u!114 &1358560087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MisstrauensFaktor: 2
+  GutmuetigkeitsFaktor: 0.5
+--- !u!114 &1358560088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 1
+--- !u!195 &1358560089
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &1358560090
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!23 &1358560091
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1358560092
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1358560093
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173367250}
+  m_GameObject: {fileID: 1358560081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.88, y: 0, z: -15.88}
+  m_LocalPosition: {x: -6.85, y: 1.56, z: 0.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1448891727}
-  - {fileID: 917245346}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1448891726
+--- !u!65 &1358560094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358560081}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &1374375912
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1607,28 +1316,391 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1448891727}
+  - component: {fileID: 1374375927}
+  - component: {fileID: 1374375926}
+  - component: {fileID: 1374375925}
+  - component: {fileID: 1374375924}
+  - component: {fileID: 1374375923}
+  - component: {fileID: 1374375913}
+  - component: {fileID: 1374375922}
+  - component: {fileID: 1374375921}
+  - component: {fileID: 1374375920}
+  - component: {fileID: 1374375919}
+  - component: {fileID: 1374375918}
+  - component: {fileID: 1374375917}
+  - component: {fileID: 1374375916}
+  - component: {fileID: 1374375915}
+  - component: {fileID: 1374375914}
   m_Layer: 0
-  m_Name: Schulten Standpunkt
+  m_Name: Hausmeister
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1448891727
+--- !u!114 &1374375913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Hausmeister
+--- !u!114 &1374375914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8f7d7ffbd34551949820ec31ac40b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 3
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 5
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Punkte:
+  - {fileID: 1778283531}
+  - {fileID: 555100627}
+  - {fileID: 894633408}
+  - {fileID: 1752098675}
+  Saetze:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
+--- !u!114 &1374375915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525fa2e454648ef81cf27122b656007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 7
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 9
+              RelativZuN: 0
+              Zeit: 0
+          - Anfang:
+              RelativZu: 13
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 14
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Position: {fileID: 288763062}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Rauchen am morgen vertreibt Kummer und Sorgen
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Ein paar Zigaretten am Tag haben noch niemandem geschadet
+    SharedIds: []
+--- !u!114 &1374375916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6654e2c41ab84576a7c3d1f4d6d00c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen: []
+  Essen: {fileID: 1603995576}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: "EIn Sch\xFCler hat schon wieder die Kafeemaschine vergiftet"
+    - Text: Dass ich das auch meine alten Tage noch erleben muss
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: "So mal gucken was wir hier machen k\xF6nnen"
+    SharedIds: []
+--- !u!114 &1374375917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 1
+      Umkehren: 0
+      TimeManager: {fileID: 0}
+      Wann:
+        Immer: 0
+        Wochentage: []
+      Alarm: {fileID: 1836436228}
+      Vergiftung: {fileID: 0}
+  Standpunkt: {fileID: 1541920421}
+  Gespraech: {fileID: 1991527217}
+  SaetzeAufDemWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Wahrscheinlich ist es wieder nur ein Fehlalarm
+    SharedIds: []
+--- !u!114 &1374375918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e9b627518a455abd9567989020d0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 1
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: 1
+            Ende:
+              RelativZu: 2
+              RelativZuN: 0
+              Zeit: -1
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Eingang: {fileID: 288763062}
+  Ausgang: {fileID: 288763062}
+  SaetzeBeimVerlassen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
+--- !u!114 &1374375919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed5b34c5d174edb9189d337ecc3a856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1374375920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76dad6f66f0d4954b15e191d0484fca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  Shared: []
+  ReichweiteDerStimme: 20
+  DefaultDelay: 10
+--- !u!114 &1374375921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MisstrauensFaktor: 1
+  GutmuetigkeitsFaktor: 1
+--- !u!114 &1374375922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 1
+--- !u!195 &1374375923
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &1374375924
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!23 &1374375925
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1374375926
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374375912}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1374375927
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448891726}
+  m_GameObject: {fileID: 1374375912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0, z: -1.03}
+  m_LocalPosition: {x: 2.129373, y: 1.55, z: -11.17634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1173367252}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1538818852
 GameObject:
@@ -1755,7 +1827,7 @@ Transform:
   m_Children:
   - {fileID: 1860500410}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1538818858
 MonoBehaviour:
@@ -1830,7 +1902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f814318eb640e1be94a427552202b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxMessageTime: 5
+  MaxMessageTime: 10
 --- !u!114 &1538818864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,6 +1929,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SchadenFuerDieSchule: 0
+--- !u!1 &1541920420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541920421}
+  m_Layer: 0
+  m_Name: Hausmeister Standpunkt
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1541920421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541920420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.04, y: 0, z: 0.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1991527218}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1603995575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1997,7 @@ MonoBehaviour:
   InteraktionsMenuName: Kaffeemaschine vergiften
   ZeitZumVergiften: 5
   SchwereDesVerbrechens: 0.5
-  SchadenFuerDieSchule: 0
+  SchadenFuerDieSchule: 200
 --- !u!65 &1603995577
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1987,7 +2090,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1671606151
+--- !u!1 &1609019403
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1995,100 +2098,167 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1671606162}
-  - component: {fileID: 1671606161}
-  - component: {fileID: 1671606160}
-  - component: {fileID: 1671606159}
-  - component: {fileID: 1671606158}
-  - component: {fileID: 1671606157}
-  - component: {fileID: 1671606156}
-  - component: {fileID: 1671606155}
-  - component: {fileID: 1671606154}
-  - component: {fileID: 1671606153}
-  - component: {fileID: 1671606152}
-  - component: {fileID: 1671606163}
+  - component: {fileID: 1609019415}
+  - component: {fileID: 1609019414}
+  - component: {fileID: 1609019413}
+  - component: {fileID: 1609019412}
+  - component: {fileID: 1609019411}
+  - component: {fileID: 1609019410}
+  - component: {fileID: 1609019409}
+  - component: {fileID: 1609019408}
+  - component: {fileID: 1609019407}
+  - component: {fileID: 1609019418}
+  - component: {fileID: 1609019425}
+  - component: {fileID: 1609019406}
+  - component: {fileID: 1609019430}
+  - component: {fileID: 1609019429}
+  - component: {fileID: 1609019428}
+  - component: {fileID: 1609019427}
+  - component: {fileID: 1609019405}
+  - component: {fileID: 1609019417}
+  - component: {fileID: 1609019426}
+  - component: {fileID: 1609019424}
+  - component: {fileID: 1609019416}
+  - component: {fileID: 1609019423}
+  - component: {fileID: 1609019422}
+  - component: {fileID: 1609019421}
+  - component: {fileID: 1609019404}
+  - component: {fileID: 1609019420}
+  - component: {fileID: 1609019419}
   m_Layer: 0
-  m_Name: Hausmeister
+  m_Name: Schulten
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1671606152
+--- !u!114 &1609019404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6654e2c41ab84576a7c3d1f4d6d00c21, type: 3}
+  m_Script: {fileID: 11500000, guid: 80e9b627518a455abd9567989020d0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Trigger:
-    Bedingungen: []
-  Essen: {fileID: 1603995576}
-  SaetzeWeg:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 1
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: -1
+            Ende:
+              RelativZu: 2
+              RelativZuN: 0
+              Zeit: 0.5
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Eingang: {fileID: 288763062}
+  Ausgang: {fileID: 288763062}
+  SaetzeBeimVerlassen:
     UseCustomDelay: 0
     CustomDelay: 0
     MoeglicheSaetze:
-    - Text: 
+    - Text: Das war ein langer Tag!
+    - Text: Endlich frei!
+    - Text: Jetzt mal ganz ehrlich, wir alle haben auch mal gerne wieder Schulfrei
     SharedIds: []
-  SaetzeAngekommen:
-    UseCustomDelay: 0
-    CustomDelay: 0
-    MoeglicheSaetze:
-    - Text: 
-    SharedIds: []
---- !u!114 &1671606153
+--- !u!114 &1609019405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Hausmeister
---- !u!114 &1671606154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ed5b34c5d174edb9189d337ecc3a856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1671606155
+--- !u!114 &1609019406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c94a74abec04122b2afec30602cab40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Frau Schulten
+--- !u!114 &1609019407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76dad6f66f0d4954b15e191d0484fca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
-  Shared: []
+  Shared:
+  - Id: UnterrichtWeg
+    Saetze:
+    - Text: "Ich hoffe die Sch\xFCler haben schon den Schimmelreiter fertig gelelsen"
+    - Text: "Mmh, welches komsiche Buch lasse ich meine Sch\xFCler als naechstes
+        lesen"
+  - Id: UnterrichtAngekommen
+    Saetze:
+    - Text: Jetzt mal ganz ehrlich, habt ihr das Buch fertig gelsen
+    - Text: Jetzt mal ganz ehrlich, habt ihr eure Hausaufgaben gemacht
   ReichweiteDerStimme: 10
-  DefaultDelay: 10
---- !u!195 &1671606156
+  DefaultDelay: 6
+--- !u!114 &1609019408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MisstrauensFaktor: 1
+  GutmuetigkeitsFaktor: 1
+--- !u!114 &1609019409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 1
+--- !u!195 &1609019410
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5000001
@@ -2104,43 +2274,26 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1671606157
-MonoBehaviour:
+--- !u!65 &1609019411
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
---- !u!114 &1671606158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d1d1aca8ab4262922618ecf45385ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeManager: {fileID: 670363813}
-  Player: {fileID: 1538818858}
-  LaengeDerVergiftung: 2
-  KostenFuerDieSchuleProTagVergiftet: 100
---- !u!136 &1671606159
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!136 &1609019412
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -2148,13 +2301,13 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!23 &1671606160
+--- !u!23 &1609019413
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -2190,42 +2343,556 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1671606161
+--- !u!33 &1609019414
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1671606162
+--- !u!4 &1609019415
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.69, y: 1.49, z: 0}
+  m_LocalPosition: {x: 2.22, y: 1.52, z: 7.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1049581642}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1671606163
+--- !u!114 &1609019416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671606151}
+  m_GameObject: {fileID: 1609019403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbfa9a98a71c4e87b8eafd356e2ddf96, type: 3}
+  m_Script: {fileID: 11500000, guid: 103c819fa4d848a4a588fcffaf99d830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Status: 0
+  UnterrichtsRaum: {fileID: 752264926}
+  Fach: Deutsch
+  ReputationsAenderungBeiFehlzeit: -0.5
+  StundeImStundenplan:
+    Wochentag: 0
+    FachIndex: 0
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 0
+          Manuell: 00000000
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 4
+              RelativZuN: 0
+              Zeit: -0.05
+            Ende:
+              RelativZu: 6
+              RelativZuN: 0
+              Zeit: 0.05
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  SaetzeAufDemWegZumRaum:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds:
+    - UnterrichtWeg
+  SaetzeWaehrendUnterricht:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds:
+    - UnterrichtAngekommen
+  SaetzeBegruessung:
+    MoeglicheSaetze:
+    - Text: Guten Morgen
+    SharedIds: []
+--- !u!114 &1609019417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e9b627518a455abd9567989020d0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 2
+      Umkehren: 0
+      TimeManager: {fileID: 0}
+      Wann:
+        Immer: 0
+        Wochentage: []
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 1609019418}
+  Eingang: {fileID: 288763062}
+  Ausgang: {fileID: 288763062}
+  SaetzeBeimVerlassen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds: []
+--- !u!114 &1609019418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d1d1aca8ab4262922618ecf45385ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 670363813}
+  Player: {fileID: 1538818858}
+  LaengeDerVergiftung: 3
+  KostenFuerDieSchuleProTagVergiftet: 100
+--- !u!114 &1609019419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525fa2e454648ef81cf27122b656007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: -0.5
+            Ende:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Position: {fileID: 288763062}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Ich muss noch mal kurz ein (oder zwei) Rauchen gehen
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Die Zigaretten werden aber auch immer teurer
+    - Text: Huch wo sind denn die ganzen Zigaretten hin?
+    SharedIds: []
+--- !u!114 &1609019420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525fa2e454648ef81cf27122b656007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: -1
+            Ende:
+              RelativZu: 1
+              RelativZuN: 0
+              Zeit: -0.5
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Position: {fileID: 182248883}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Ich muss noch mal kurz in meinen komischen mini raum
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Jetzt mal ganz ehrlich, Ich muss noch eine Rauchen gehen
+    SharedIds: []
+--- !u!114 &1609019421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bf417b86314e90b2f70c27485877f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 7
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 9
+              RelativZuN: 0
+              Zeit: 0
+          - Anfang:
+              RelativZu: 13
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 14
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  VergiftbaresEssen: {fileID: 1603995576}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Kaffee am Morgen vertreibt Kummer und Sorgen
+    - Text: Aus dem Weg ich brauche einen Kaffee
+    - Text: Ich will Kaffee
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: Das schmeckt gut
+    SharedIds: []
+--- !u!114 &1609019422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d580b0d7a0274f0fa7be5a41e35c4d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 7
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 9
+              RelativZuN: 0
+              Zeit: 0
+          - Anfang:
+              RelativZu: 13
+              RelativZuN: 0
+              Zeit: 0
+            Ende:
+              RelativZu: 14
+              RelativZuN: 0
+              Zeit: 0
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Player: {fileID: 1538818858}
+  SchulleitungsBuero: {fileID: 1083303379}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: So kann das nicht weitergehen!
+    SharedIds: []
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: "Eine Verwahnung w\xFCrde nicht Schaden"
+    SharedIds: []
+--- !u!114 &1609019423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525fa2e454648ef81cf27122b656007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 0
+      Umkehren: 0
+      TimeManager: {fileID: 670363813}
+      Wann:
+        Immer: 0
+        Wochentage:
+        - AuswahlArt: 3
+          Manuell: 
+          Zeitspannen:
+          - Anfang:
+              RelativZu: 3
+              RelativZuN: 0
+              Zeit: -0.05
+            Ende:
+              RelativZu: 5
+              RelativZuN: 0
+              Zeit: 0.05
+          - Anfang:
+              RelativZu: 11
+              RelativZuN: 0
+              Zeit: -0.05
+            Ende:
+              RelativZu: 12
+              RelativZuN: 0
+              Zeit: 0.05
+      Alarm: {fileID: 0}
+      Vergiftung: {fileID: 0}
+  Position: {fileID: 696644735}
+  SaetzeWeg:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds:
+    - UnterrichtWeg
+  SaetzeAngekommen:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze: []
+    SharedIds:
+    - UnterrichtAngekommen
+--- !u!114 &1609019424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4149b14270a4474c90b4e7dbdbfc92fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen: []
+  Player: {fileID: 1538818858}
+  Reaktion:
+    MoeglicheSaetze:
+    - Text: Also wirklich!
+    - Text: "Stop H\xF6r sofort auf damit"
+    SharedIds: []
+--- !u!114 &1609019425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfb9eb03b6c4c3daa7f0af4181a6ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EyeLocation: {fileID: 1049581642}
+  MaxViewDistance: 20
+--- !u!114 &1609019426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1960f6eed48415fb564226aa3492d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Trigger:
+    Bedingungen:
+    - Type: 1
+      Umkehren: 0
+      TimeManager: {fileID: 0}
+      Wann:
+        Immer: 0
+        Wochentage: []
+      Alarm: {fileID: 1836436228}
+      Vergiftung: {fileID: 0}
+  Standpunkt: {fileID: 1269771444}
+  Gespraech: {fileID: 1991527217}
+  SaetzeAufDemWeg:
+    UseCustomDelay: 1
+    CustomDelay: 3
+    MoeglicheSaetze:
+    - Text: HILFFFFEEEE
+    - Text: RETTET MICH
+    - Text: ALLLAARRM
+    SharedIds: []
+--- !u!114 &1609019427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21766632f0284b90844d212ffbe0ea32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Anbieten Kreide holen zu gehen
+  AnnahmeWahrscheinlichkeit: 0
+  ReputationsAenderungBeiAnnahme: 0
+  AnnahmeAntworten:
+    MoeglicheSaetze: []
+    SharedIds: []
+  ReputationsAenderungBeiAblehnen: 0
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - Text: Danke aber ich habe in meiner komischen Schublade in E202 noch 10000
+        Kreide gelagert
+    SharedIds: []
+--- !u!114 &1609019428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Beleidigen
+  AnnahmeWahrscheinlichkeit: 0
+  ReputationsAenderungBeiAnnahme: 0
+  AnnahmeAntworten:
+    MoeglicheSaetze: []
+    SharedIds: []
+  ReputationsAenderungBeiAblehnen: -0.6
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - Text: So etwas muss ich mir nicht gefallen lassen!
+    - Text: "Ich bin ersch\xFCttert"
+    SharedIds: []
+--- !u!114 &1609019429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Geldgeschenk anbieten
+  AnnahmeWahrscheinlichkeit: 0.4
+  ReputationsAenderungBeiAnnahme: 0.4
+  AnnahmeAntworten:
+    MoeglicheSaetze:
+    - Text: Danke dir davon kann ich mir Zigaretten kaufen
+    - Text: "Jetzt mal ganz ehrlich wir alle k\xF6nnen etwas Geld immer gut gebrauchen"
+    SharedIds: []
+  ReputationsAenderungBeiAblehnen: -0.4
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - Text: Willst du mich etwa bestechen?
+    - Text: Ich bin reich genug
+    SharedIds: []
+--- !u!114 &1609019430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  InteraktionsMenuName: Zigaretten anbieten
+  AnnahmeWahrscheinlichkeit: 0.7
+  ReputationsAenderungBeiAnnahme: 0.5
+  AnnahmeAntworten:
+    MoeglicheSaetze:
+    - Text: Danke dir meine sind mir gerade ausgegangen
+    SharedIds: []
+  ReputationsAenderungBeiAblehnen: -0.3
+  AblehnenAntworten:
+    MoeglicheSaetze:
+    - Text: Willst du micht etwa bestechen???
+    SharedIds: []
 --- !u!1 &1740621246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,7 +2924,7 @@ Transform:
   m_Father: {fileID: 1603995581}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1786530879
+--- !u!1 &1752098674
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2265,27 +2932,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1786530880}
+  - component: {fileID: 1752098675}
   m_Layer: 0
-  m_Name: Augen
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1786530880
+--- !u!4 &1752098675
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786530879}
+  m_GameObject: {fileID: 1752098674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 16.35, y: 0, z: -14.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 113679685}
+  m_Father: {fileID: 187199764}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1778283530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778283531}
+  m_Layer: 0
+  m_Name: 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1778283531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778283530}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.91, y: 0, z: -15.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 187199764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836436227
@@ -2439,3 +3137,160 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1886186170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1886186171}
+  - component: {fileID: 1886186174}
+  - component: {fileID: 1886186173}
+  - component: {fileID: 1886186172}
+  m_Layer: 0
+  m_Name: Wand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!4 &1886186171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886186170}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.3199997, y: 1.05, z: -0.4699993}
+  m_LocalScale: {x: 1, y: 5, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 182248883}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1886186172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886186170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1886186173
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886186170}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1886186174
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886186170}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1991527216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1991527218}
+  - component: {fileID: 1991527217}
+  m_Layer: 0
+  m_Name: "Gespr\xE4ch Alarm Schulten Hausmeister"
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1991527217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991527216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54780435dff5484e815a143b3167e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Teilnehmer:
+  - {fileID: 1374375913}
+  - {fileID: 1609019406}
+  Dialog:
+  - Sprecher: {fileID: 1374375913}
+    Satz: "Wei\xDFt du wo es brennt Monika?"
+  - Sprecher: {fileID: 1609019406}
+    Satz: Nein wahrscheinlich hat Frau Strupat ein Feuer gelegt weil sie sauer auf
+      die Schueler war
+  - Sprecher: {fileID: 1374375913}
+    Satz: Die alte Hexe ist doch wirklich nicht mehr zu retten
+  - Sprecher: {fileID: 1609019406}
+    Satz: "Ja wahrscheinlich wird sie demn\xE4chst eine Behelrung dar\xFCber anfordern"
+  Delay: 7
+--- !u!4 &1991527218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991527216}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.15, y: 0, z: -14.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1269771444}
+  - {fileID: 1541920421}
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -9,6 +9,7 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         [SerializeField] private Trigger.Trigger Trigger;
         [SerializeField] private Player.Player Player;
+        [SerializeField] private float SchwereMindestens;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig Reaktion;
 
         private VisionSensor Vision;
@@ -22,7 +23,8 @@ namespace HerderGames.Lehrer.AI.Goals
         public override bool ShouldRun(bool currentlyRunning)
         {
             return Trigger.Resolve() && Vision.CanSee(Player.gameObject) &&
-                   Player.VerbrechenManager.BegehtGeradeEinVerbrechen;
+                   Player.VerbrechenManager.BegehtGeradeEinVerbrechen &&
+                   Player.VerbrechenManager.Schwere >= SchwereMindestens;
         }
 
         public override IEnumerator Execute()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace HerderGames.Time
 {
@@ -87,6 +88,11 @@ namespace HerderGames.Time
             StundenType type)
         {
             var currentStundenDataIndex = GetStundenPlanEintragIndexForTime(wochentag, time);
+            if (currentStundenDataIndex == -1)
+            {
+                return null;
+            }
+            
             var ablauf = GetTagesAblauf(wochentag);
 
             for (var i = currentStundenDataIndex + 1; i < ablauf.Count; i++)
