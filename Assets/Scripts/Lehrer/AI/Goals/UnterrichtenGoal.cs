@@ -18,9 +18,12 @@ namespace HerderGames.Lehrer.AI.Goals
         [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
-        
+
         public bool LehrerArrived { get; private set; }
         public bool SchuelerFreigestelltDieseStunde { get; set; }
+
+        private Coroutine GoToRoomCoroutine;
+        private Coroutine CheckAnwesenheitCoroutine;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -31,8 +34,14 @@ namespace HerderGames.Lehrer.AI.Goals
         {
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;
-            StartCoroutine(GoToRoom());
-            StartCoroutine(CheckAnwesenheit());
+            GoToRoomCoroutine = StartCoroutine(GoToRoom());
+            CheckAnwesenheitCoroutine = StartCoroutine(CheckAnwesenheit());
+        }
+
+        public override void OnGoalEnd(GoalEndReason reason)
+        {
+            StopCoroutine(GoToRoomCoroutine);
+            StopCoroutine(CheckAnwesenheitCoroutine);
         }
 
         public IEnumerator GoToRoom()

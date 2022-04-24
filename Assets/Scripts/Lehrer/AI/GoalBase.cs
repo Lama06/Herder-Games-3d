@@ -8,6 +8,8 @@ namespace HerderGames.Lehrer.AI
     {
         public Lehrer Lehrer { get; private set; }
 
+        private Coroutine ExecuteCoroutine;
+        
         protected virtual void Awake()
         {
             Lehrer = GetComponent<Lehrer>();
@@ -17,7 +19,7 @@ namespace HerderGames.Lehrer.AI
 
         public void StartGoal()
         {
-            StartCoroutine(Execute());
+            ExecuteCoroutine = StartCoroutine(Execute());
             OnGoalStart();
         }
 
@@ -28,7 +30,7 @@ namespace HerderGames.Lehrer.AI
         public void EndGoal(GoalEndReason reason)
         {
             OnGoalEnd(reason);
-            StopAllCoroutines();
+            StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             Lehrer.Agent.destination = transform.position;
         }

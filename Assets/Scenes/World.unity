@@ -2186,6 +2186,7 @@ GameObject:
   - component: {fileID: 1609019428}
   - component: {fileID: 1609019427}
   - component: {fileID: 1609019405}
+  - component: {fileID: 1609019431}
   - component: {fileID: 1609019417}
   - component: {fileID: 1609019426}
   - component: {fileID: 1609019424}
@@ -2623,10 +2624,14 @@ MonoBehaviour:
       Vergiftung: {fileID: 0}
   Position: {fileID: 182248883}
   SaetzeWeg:
-    UseCustomDelay: 0
-    CustomDelay: 0
+    UseCustomDelay: 1
+    CustomDelay: 0.5
     MoeglicheSaetze:
     - Text: Ich muss noch mal kurz in meinen komischen mini raum
+    - Text: Ich muss noch mal kurz in meinen komischen mini raum 2
+    - Text: 3
+    - Text: 4
+    - Text: 5
     SharedIds: []
   SaetzeAngekommenEinmalig:
     MoeglicheSaetze: []
@@ -2792,7 +2797,7 @@ MonoBehaviour:
   Position: {fileID: 696644735}
   SaetzeWeg:
     UseCustomDelay: 0
-    CustomDelay: 0
+    CustomDelay: 0.5
     MoeglicheSaetze: []
     SharedIds:
     - UnterrichtWeg
@@ -2973,6 +2978,27 @@ MonoBehaviour:
   AblehnenAntworten:
     MoeglicheSaetze:
     - Text: Willst du micht etwa bestechen???
+    SharedIds: []
+--- !u!114 &1609019431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a83dc4de3e9436386a4c1dbc37a7de0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaximaleDistanzProMinute: 8
+  MaxiamleHoeheProMinute: 8
+  LaengeDerPause: 5
+  Saetze:
+    UseCustomDelay: 0
+    CustomDelay: 0
+    MoeglicheSaetze:
+    - Text: "Jetzt mal ganz ehrlich, wir alles sind irgendwann mal ersch\xF6pft"
     SharedIds: []
 --- !u!1 &1740621246
 GameObject:
