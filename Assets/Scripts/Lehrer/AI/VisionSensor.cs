@@ -5,7 +5,7 @@ namespace HerderGames.Lehrer.AI
     public class VisionSensor : MonoBehaviour
     {
         [SerializeField] private Transform EyeLocation;
-        [SerializeField] private float MaxViewDistance;
+        [SerializeField] private float MaxViewDistance = 20;
 
         public bool CanSee(GameObject other)
         {

@@ -18,8 +18,7 @@ namespace HerderGames.Lehrer.AI.Goals
         [Header("Sätze")] [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
         [SerializeField] private SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
         [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
-
-        private WoechentlicheZeitspannen BakedZeitspannen;
+        
         public bool LehrerArrived { get; private set; }
         public bool SchuelerFreigestelltDieseStunde { get; set; }
 
