@@ -3,23 +3,25 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.AI
 {
-    [RequireComponent(typeof(AIController))]
-    public abstract class GoalBase : MonoBehaviour
+    public abstract class GoalBase
     {
         public Lehrer Lehrer { get; private set; }
-
         private Coroutine ExecuteCoroutine;
-        
-        protected virtual void Awake()
+
+        protected GoalBase(Lehrer lehrer)
         {
-            Lehrer = GetComponent<Lehrer>();
+            Lehrer = lehrer;
+        }
+
+        public virtual void OnGoalEnable()
+        {
         }
 
         public abstract bool ShouldRun(bool currentlyRunning);
 
         public void StartGoal()
         {
-            ExecuteCoroutine = StartCoroutine(Execute());
+            ExecuteCoroutine = Lehrer.StartCoroutine(Execute());
             OnGoalStart();
         }
 
@@ -30,9 +32,9 @@ namespace HerderGames.Lehrer.AI
         public void EndGoal(GoalEndReason reason)
         {
             OnGoalEnd(reason);
-            StopCoroutine(ExecuteCoroutine);
+            Lehrer.StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
-            Lehrer.Agent.destination = transform.position;
+            Lehrer.Agent.destination = Lehrer.transform.position;
         }
 
         public virtual void OnGoalEnd(GoalEndReason reason)
@@ -41,7 +43,7 @@ namespace HerderGames.Lehrer.AI
 
         public virtual IEnumerator Execute()
         {
-            yield return null;
+            yield break;
         }
     }
 }

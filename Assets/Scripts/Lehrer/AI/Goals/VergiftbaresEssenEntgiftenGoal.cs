@@ -1,16 +1,30 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
-using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
 {
     public class VergiftbaresEssenEntgiftenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private VergiftbaresEssen Essen;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly TriggerBase Trigger;
+        private readonly VergiftbaresEssen Essen;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+
+        public VergiftbaresEssenEntgiftenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            VergiftbaresEssen essen,
+            SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenMehrmals saetzeAngekommen
+        ) : base(lehrer)
+        {
+            Trigger = trigger;
+            Essen = essen;
+            SaetzeWeg = saetzeWeg;
+            SaetzeAngekommen = saetzeAngekommen;
+        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {

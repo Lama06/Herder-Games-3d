@@ -11,6 +11,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(SpracheManager))]
     [RequireComponent(typeof(AIController))]
+    [RequireComponent(typeof(BrainBase))]
     public class Lehrer : MonoBehaviour
     {
         [SerializeField] private string Name;
@@ -21,6 +22,7 @@ namespace HerderGames.Lehrer
         public Reputation Reputation { get; private set; }
         public SpracheManager Sprache { get; private set; }
         public AIController AI { get; private set; }
+        public BrainBase Brain { get; private set; }
 
         private void Awake()
         {
@@ -30,6 +32,7 @@ namespace HerderGames.Lehrer
             Reputation = GetComponent<Reputation>();
             Sprache = GetComponent<SpracheManager>();
             AI = GetComponent<AIController>();
+            Brain = GetComponent<BrainBase>();
         }
 
         public string GetName()

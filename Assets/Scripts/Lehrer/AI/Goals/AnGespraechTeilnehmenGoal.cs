@@ -1,18 +1,32 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
 {
-    [RequireComponent(typeof(Lehrer))]
     public class AnGespraechTeilnehmenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private Transform Standpunkt;
-        [SerializeField] private Gespraech Gespraech;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
+        private readonly TriggerBase Trigger;
+        private readonly Vector3 Standpunkt;
+        private readonly Gespraech Gespraech;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
 
         public bool IsAngekommen { get; private set; }
+
+        public AnGespraechTeilnehmenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            Vector3 standpunkt,
+            Gespraech gespraech,
+            SaetzeMoeglichkeitenMehrmals saetzeAufDemWeg
+        ) : base(lehrer)
+        {
+            Trigger = trigger;
+            Standpunkt = standpunkt;
+            Gespraech = gespraech;
+            SaetzeAufDemWeg = saetzeAufDemWeg;
+        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -23,7 +37,7 @@ namespace HerderGames.Lehrer.AI.Goals
         {
             IsAngekommen = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
-            Lehrer.Agent.destination = Standpunkt.position;
+            Lehrer.Agent.destination = Standpunkt;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             IsAngekommen = true;

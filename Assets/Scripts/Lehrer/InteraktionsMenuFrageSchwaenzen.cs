@@ -1,9 +1,7 @@
 using HerderGames.Lehrer.AI.Goals;
-using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(UnterrichtenGoal))]
     public class InteraktionsMenuFrageSchwaenzen : InteraktionsMenuFrage
     {
         protected override bool ShouldShowInInteraktionsMenu()

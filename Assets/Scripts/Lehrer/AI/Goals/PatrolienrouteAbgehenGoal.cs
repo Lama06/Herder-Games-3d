@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -6,10 +8,22 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class PatrolienrouteAbgehenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private Transform[] Punkte;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals Saetze;
-        
+        private readonly Trigger.TriggerBase Trigger;
+        private readonly IList<Vector3> Punkte;
+        private readonly SaetzeMoeglichkeitenMehrmals Saetze;
+
+        public PatrolienrouteAbgehenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            IList<Vector3> punkte,
+            SaetzeMoeglichkeitenMehrmals saetze
+        ) : base(lehrer)
+        {
+            Trigger = trigger;
+            Punkte = punkte;
+            Saetze = saetze;
+        }
+
         public override bool ShouldRun(bool currentlyRunning)
         {
             return Trigger.Resolve();
@@ -22,14 +36,14 @@ namespace HerderGames.Lehrer.AI.Goals
             {
                 foreach (var punkt in Punkte)
                 {
-                    Lehrer.Agent.destination = punkt.position;
+                    Lehrer.Agent.destination = punkt;
                     yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
                 }
-                
+
                 // Den ersten und letzten Punkt überspringen, damit der Lehrer nicht doppelt zum selben Punkt läuft
-                for (var i = Punkte.Length - 2; i >= 1; i--)
+                for (var i = Punkte.Count - 2; i >= 1; i--)
                 {
-                    Lehrer.Agent.destination = Punkte[i].position;
+                    Lehrer.Agent.destination = Punkte[i];
                     yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
                 }
             }

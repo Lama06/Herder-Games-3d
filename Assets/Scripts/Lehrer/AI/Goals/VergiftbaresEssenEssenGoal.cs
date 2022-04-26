@@ -1,31 +1,39 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
-using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
 {
-    [RequireComponent(typeof(VergiftungsManager))]
     public class VergiftbaresEssenEssenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private VergiftbaresEssen VergiftbaresEssen;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly TriggerBase Trigger;
+        private readonly VergiftbaresEssen VergiftbaresEssen;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly VergiftungsManager Vergiftung;
 
-        private VergiftungsManager Vergiftung;
-
-        protected override void Awake()
+        public VergiftbaresEssenEssenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            VergiftbaresEssen vergiftbaresEssen,
+            SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenMehrmals saetzeAngekommen,
+            VergiftungsManager vergiftung
+        ) : base(lehrer)
         {
-            base.Awake();
-            Vergiftung = GetComponent<VergiftungsManager>();
+            Trigger = trigger;
+            VergiftbaresEssen = vergiftbaresEssen;
+            SaetzeWeg = saetzeWeg;
+            SaetzeAngekommen = saetzeAngekommen;
+            Vergiftung = vergiftung;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
             return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Trigger.Resolve();
         }
-
+        
         public override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,14 +8,13 @@ namespace HerderGames.Lehrer.Sprache
     [RequireComponent(typeof(Lehrer))]
     public class SpracheManager : MonoBehaviour
     {
+        private const float DefaultDelay = 10;
+        
         [SerializeField] private Player.Player Player;
-        [SerializeField] private SharedSaetze[] Shared;
         [SerializeField] private float ReichweiteDerStimme = 20;
-        [SerializeField] private float DefaultDelay = 10;
 
         private Lehrer Lehrer;
-        
-        private List<SatzMoeglichkeit> RemainingSaetze;
+        private List<string> RemainingSaetze;
         private SaetzeMoeglichkeitenMehrmals _SaetzeMoeglichkeiten;
         public SaetzeMoeglichkeitenMehrmals SaetzeMoeglichkeiten
         {
@@ -25,7 +23,7 @@ namespace HerderGames.Lehrer.Sprache
                 _SaetzeMoeglichkeiten = value;
                 if (value != null)
                 {
-                    RemainingSaetze = ResolveSaetze(value.MoeglicheSaetze, value.SharedIds);
+                    RemainingSaetze = new List<string>(value.MoeglicheSaetze);
                 }
             }
         }
@@ -53,7 +51,7 @@ namespace HerderGames.Lehrer.Sprache
 
                 if (RemainingSaetze.Count == 0)
                 {
-                    RemainingSaetze = ResolveSaetze(_SaetzeMoeglichkeiten.MoeglicheSaetze, _SaetzeMoeglichkeiten.SharedIds);
+                    RemainingSaetze = new List<string>(_SaetzeMoeglichkeiten.MoeglicheSaetze);
                 }
 
                 if (RemainingSaetze.Count == 0)
@@ -64,7 +62,7 @@ namespace HerderGames.Lehrer.Sprache
                 var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];
                 RemainingSaetze.Remove(satz);
 
-                Say(satz.Text);
+                Say(satz);
 
                 var delay = _SaetzeMoeglichkeiten.UseCustomDelay ? _SaetzeMoeglichkeiten.CustomDelay : DefaultDelay;
                 yield return new WaitForSeconds(delay);
@@ -83,7 +81,12 @@ namespace HerderGames.Lehrer.Sprache
 
         public void Say(SaetzeMoeglichkeitenEinmalig source)
         {
-            var moeglichkeiten = ResolveSaetze(source.MoeglicheSaetze, source.SharedIds);
+            if (source == null)
+            {
+                return;
+            }
+            
+            var moeglichkeiten = source.MoeglicheSaetze;
             if (moeglichkeiten.Count == 0)
             {
                 return;
@@ -91,33 +94,7 @@ namespace HerderGames.Lehrer.Sprache
 
             var satz = moeglichkeiten[Random.Range(0, moeglichkeiten.Count)];
 
-            Say(satz.Text);
-        }
-
-        private List<SatzMoeglichkeit> ResolveSaetze(IEnumerable<SatzMoeglichkeit> moeglicheSaetze, IEnumerable<string> sharedIds)
-        {
-            var result = new List<SatzMoeglichkeit>();
-            result.AddRange(moeglicheSaetze);
-
-            foreach (var sharedId in sharedIds)
-            {
-                foreach (var sharedSaetze in Shared)
-                {
-                    if (sharedSaetze.Id == sharedId)
-                    {
-                        result.AddRange(sharedSaetze.Saetze);
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        [Serializable]
-        public class SharedSaetze
-        {
-            public string Id;
-            public SatzMoeglichkeit[] Saetze;
+            Say(satz);
         }
     }
 }

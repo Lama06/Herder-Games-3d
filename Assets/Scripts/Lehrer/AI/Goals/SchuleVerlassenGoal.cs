@@ -1,4 +1,5 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -6,10 +7,24 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class SchuleVerlassenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private Transform Eingang;
-        [SerializeField] private Transform Ausgang;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
+        private readonly TriggerBase Trigger;
+        private readonly Vector3 Eingang;
+        private readonly Vector3 Ausgang;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
+
+        public SchuleVerlassenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            Vector3 eingang,
+            Vector3 ausgang,
+            SaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen
+        ) : base(lehrer)
+        {
+            Trigger = trigger;
+            Eingang = eingang;
+            Ausgang = ausgang;
+            SaetzeBeimVerlassen = saetzeBeimVerlassen;
+        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -29,7 +44,7 @@ namespace HerderGames.Lehrer.AI.Goals
             }
 
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeBeimVerlassen;
-            Lehrer.Agent.destination = Ausgang.position;
+            Lehrer.Agent.destination = Ausgang;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.InSchule.SetInSchule(false);
         }
@@ -40,8 +55,8 @@ namespace HerderGames.Lehrer.AI.Goals
             {
                 return;
             }
-            
-            Lehrer.Agent.Warp(Eingang.position);
+
+            Lehrer.Agent.Warp(Eingang);
             Lehrer.InSchule.SetInSchule(true);
         }
     }

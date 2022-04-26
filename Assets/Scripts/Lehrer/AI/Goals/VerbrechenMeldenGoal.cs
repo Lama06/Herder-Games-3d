@@ -1,4 +1,5 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -6,11 +7,27 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class VerbrechenMeldenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private Player.Player Player;
-        [SerializeField] private Transform SchulleitungsBuero;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly TriggerBase Trigger;
+        private readonly Player.Player Player;
+        private readonly Transform SchulleitungsBuero;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+
+        public VerbrechenMeldenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            Player.Player player,
+            Transform schulleitungsBuero,
+            SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenMehrmals saetzeAngekommen
+        ) : base(lehrer)
+        {
+            Trigger = trigger;
+            Player = player;
+            SchulleitungsBuero = schulleitungsBuero;
+            SaetzeWeg = saetzeWeg;
+            SaetzeAngekommen = saetzeAngekommen;
+        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {

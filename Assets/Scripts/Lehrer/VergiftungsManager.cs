@@ -1,6 +1,6 @@
 using System.Collections;
 using HerderGames.Schule;
-using HerderGames.Time;
+using HerderGames.Zeit;
 using UnityEngine;
 
 namespace HerderGames.Lehrer

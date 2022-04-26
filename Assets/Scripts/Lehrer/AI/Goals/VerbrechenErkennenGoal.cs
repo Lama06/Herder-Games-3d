@@ -1,25 +1,34 @@
 using System.Collections;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
 {
-    [RequireComponent(typeof(VisionSensor))]
     public class VerbrechenErkennenGoal : GoalBase
     {
-        [SerializeField] private Trigger.Trigger Trigger;
-        [SerializeField] private Player.Player Player;
-        [SerializeField] private float SchwereMindestens;
-        [SerializeField] private SaetzeMoeglichkeitenEinmalig Reaktion;
-
-        private VisionSensor Vision;
+        private readonly TriggerBase Trigger;
+        private readonly Player.Player Player;
+        private readonly float SchwereMindestens;
+        private readonly SaetzeMoeglichkeitenEinmalig Reaktion;
+        private readonly VisionSensor Vision;
 
         private bool GehtGeradeZuTatort;
 
-        protected override void Awake()
+        public VerbrechenErkennenGoal(
+            Lehrer lehrer,
+            TriggerBase trigger,
+            Player.Player player,
+            float schwereMindestens,
+            SaetzeMoeglichkeitenEinmalig reaktion,
+            VisionSensor vision
+        ) : base(lehrer)
         {
-            base.Awake();
-            Vision = GetComponent<VisionSensor>();
+            Trigger = trigger;
+            Player = player;
+            SchwereMindestens = schwereMindestens;
+            Reaktion = reaktion;
+            Vision = vision;
         }
 
         private bool SiehtVerbrechen()

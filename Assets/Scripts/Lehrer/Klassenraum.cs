@@ -25,9 +25,9 @@ namespace HerderGames.Lehrer
             }
         }
 
-        public Transform GetLehrerStandpunkt()
+        public Vector3 GetLehrerStandpunkt()
         {
-            return LehrerStandpunkt;
+            return LehrerStandpunkt.position;
         }
 
         public string GetName()

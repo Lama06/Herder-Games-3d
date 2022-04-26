@@ -8,15 +8,29 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class ErschoepfungGoal : GoalBase
     {
-        [SerializeField] private float MaximaleDistanzProMinute;
-        [SerializeField] private float MaxiamleHoeheProMinute;
-        [SerializeField] private float LaengeDerPause;
-        [SerializeField] private SaetzeMoeglichkeitenMehrmals Saetze;
+        private readonly float MaximaleDistanzProMinute;
+        private readonly float MaxiamleHoeheProMinute;
+        private readonly float LaengeDerPause;
+        private readonly SaetzeMoeglichkeitenMehrmals Saetze;
 
         private Vector3 LastPosition;
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
         private bool MachtGeradePause;
+
+        public ErschoepfungGoal(
+            Lehrer lehrer,
+            float maximaleDistanzProMinute,
+            float maxiamleHoeheProMinute,
+            float laengeDerPause,
+            SaetzeMoeglichkeitenMehrmals saetze
+        ) : base(lehrer)
+        {
+            MaximaleDistanzProMinute = maximaleDistanzProMinute;
+            MaxiamleHoeheProMinute = maxiamleHoeheProMinute;
+            LaengeDerPause = laengeDerPause;
+            Saetze = saetze;
+        }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
@@ -39,23 +53,23 @@ namespace HerderGames.Lehrer.AI.Goals
             MachtGeradePause = false;
         }
 
-        private void Start()
+        public override void OnGoalEnable()
         {
-            StartCoroutine(RecordDistanz());
+            Lehrer.StartCoroutine(RecordDistanz());
         }
-        
+
         public IEnumerator RecordDistanz()
         {
             float GetYDistance(Vector3 pos1, Vector3 pos2)
             {
                 return Mathf.Abs(pos1.y - pos2.y);
             }
-            
+
             float GetXAndZDistance(Vector3 pos1, Vector3 pos2)
             {
                 return Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.z - pos2.z);
             }
-            
+
             void AddEintrag(List<float> liste, float eintrag)
             {
                 if (liste.Count >= 60)
@@ -66,12 +80,12 @@ namespace HerderGames.Lehrer.AI.Goals
                 liste.Add(eintrag);
             }
 
-            LastPosition = transform.position;
+            LastPosition = Lehrer.transform.position;
             yield return null;
 
             while (true)
             {
-                var currentPosition = transform.position;
+                var currentPosition = Lehrer.transform.position;
 
                 var distance = GetXAndZDistance(LastPosition, currentPosition);
                 AddEintrag(DistanzLetzeMinute, distance);
@@ -80,7 +94,7 @@ namespace HerderGames.Lehrer.AI.Goals
                 AddEintrag(HoeheLetzteMinute, hoehe);
 
                 LastPosition = currentPosition;
-                
+
                 yield return new WaitForSeconds(1f);
             }
         }

@@ -1,0 +1,127 @@
+using HerderGames.Lehrer.AI.Goals;
+using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Sprache;
+using HerderGames.Util;
+using HerderGames.Zeit;
+using UnityEngine;
+
+namespace HerderGames.Lehrer.AI.Brains
+{
+    public class SchultenBrain : BrainBase
+    {
+        [SerializeField] private TimeManager TimeManager;
+        [SerializeField] private Klassenraum UnterrichtsRaum;
+        [SerializeField] private Transform SchuleEingang;
+
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWegUnterricht = new(
+            "Ich hoffe meine Schüler haben den Schimmelreiter gelesen"
+        );
+
+        private readonly SaetzeMoeglichkeitenEinmalig SaetzeUnterrichtBegruessung = new(
+            "Gute Tag"    
+        );
+        
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommenUnterricht = new(
+            "Jetzt mal ganz ehrlich, habt ihr den Schimmelreiter gelesen",
+            "Jetzt mal ganz ehrlich, wir müssen jetzt pö a pö mit dem Schimmelreiter weitermachen",
+            "Jetzt mal Hand aus Herz: Ihr findet den Schimmelreiter doch auch spannend"
+        );
+
+        protected override void RegisterGoals(AIController ai)
+        {
+            var zeitInDerSchule = new WoechentlicheZeitspannen(
+                new WoechentlicheZeitspannen.Eintrag(
+                    new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                    new WoechentlicheZeitspannen.Zeitspanne(
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), Utility.MinutesToFloat(-30f)),
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), Utility.MinutesToFloat(30f))
+                    )
+                )
+            );
+            ai.AddGoal(new SchuleVerlassenGoal(
+                lehrer: Lehrer,
+                trigger: new CallbackTrigger(() => !zeitInDerSchule.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime())),
+                eingang: SchuleEingang.position,
+                ausgang: SchuleEingang.position,
+                new SaetzeMoeglichkeitenMehrmals(
+                    "Jetz mal ganz ehrlich wir alle wollen auch mal frei haben"    
+                )
+            ));
+            
+            // Unterrichten
+            ai.AddGoal(new UnterrichtenGoal(
+                lehrer: Lehrer,
+                unterrichtsRaum: UnterrichtsRaum,
+                trigger: new ZeitspanneTrigger(TimeManager, new WoechentlicheZeitspannen(
+                    new WoechentlicheZeitspannen.Eintrag(
+                        new ManuelleWochentagAuswahl(Wochentag.Montag),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Anfang), Utility.MinutesToFloat(-5)),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Ende), Utility.MinutesToFloat(5))
+                        )
+                    )    
+                )),
+                stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch"),
+                reputationsAenderungBeiFehlzeit: -0.1f,
+                saetzeAufDemWegZumRaum: SaetzeWegUnterricht,
+                saetzeBegruessung: SaetzeUnterrichtBegruessung,
+                saetzeWaehrendUnterricht: SaetzeAngekommenUnterricht
+            ));
+            
+            // Zum Unterrichtsraum gehen
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                trigger: new ZeitspanneTrigger(TimeManager, new WoechentlicheZeitspannen(
+                    new WoechentlicheZeitspannen.Eintrag(
+                        new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), 0f),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Ende), 0f)
+                        ),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Anfang), 0f),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Ende), 0f)
+                        )
+                    )    
+                )),
+                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                saetzeAngekommen: SaetzeAngekommenUnterricht,
+                saetzeWeg: SaetzeWegUnterricht,
+                saetzeAngekommenEinmalig: SaetzeUnterrichtBegruessung
+            ));
+            
+            // Rauchen gehen
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                trigger: new ZeitspanneTrigger(TimeManager, new WoechentlicheZeitspannen(
+                    new WoechentlicheZeitspannen.Eintrag(
+                        new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Anfang), 0f),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Ende), 0f)
+                        ),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
+                        ),
+                        new WoechentlicheZeitspannen.Zeitspanne(
+                            new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), Utility.MinutesToFloat(-30f)),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), 0f)
+                        )
+                    )
+                )),
+                position: SchuleEingang.position,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "Hand aufs Herz: Ich kann mir das Rauchen auch einfach pö a pö abgewöhnen",
+                    "Jetzt mal ganz ehrlich, wir alle haben schon einmal geraucht"
+                ),
+                saetzeAngekommenEinmalig: null,
+                saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                    "Rauchen am morgen vertreibt Kummer und sorgen",
+                    "Jetzt mal ganz ehrlich, stoppt ihr die Zeit wie lange Ich rauche",
+                    "Ich rauche nur gelegentlich"
+                )
+            ));
+        }
+    }
+}

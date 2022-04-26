@@ -1,18 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI
 {
+    [RequireComponent(typeof(Lehrer))]
     public class AIController : MonoBehaviour
     {
         private const int GoalPriorityNoGoal = -1;
-
-        private GoalBase[] Goals;
+        
+        public List<GoalBase> Goals { get; } = new();
         private int CurrentGoalPriority = GoalPriorityNoGoal;
         public GoalBase CurrentGoal { get; private set; }
 
-        private void Awake()
+        public void AddGoal(GoalBase goal)
         {
-            Goals = GetComponents<GoalBase>();
+            Goals.Add(goal);
+            goal.OnGoalEnable();
         }
 
         private void Update()
@@ -43,7 +46,7 @@ namespace HerderGames.Lehrer.AI
         private (GoalBase, int) GetGoalWithHigherPriorityThatCanStart()
         {
             var priority = -1;
-            for (var i = Goals.Length - 1; i >= 0; i--)
+            for (var i = Goals.Count - 1; i >= 0; i--)
             {
                 priority++;
                 if (priority <= CurrentGoalPriority)

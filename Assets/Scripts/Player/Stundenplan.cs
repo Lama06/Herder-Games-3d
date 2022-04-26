@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using System.Text;
 using HerderGames.Lehrer.AI.Goals;
-using HerderGames.Time;
+using HerderGames.Zeit;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -11,12 +12,28 @@ namespace HerderGames.Player
         [SerializeField] private TimeManager TimeManager;
 
         private Lehrer.Lehrer[] AlleLehrer;
-        private UnterrichtenGoal[] UnterrichtenGoals;
 
         private void Awake()
         {
             AlleLehrer = FindObjectsOfType<Lehrer.Lehrer>();
-            UnterrichtenGoals = FindObjectsOfType<UnterrichtenGoal>();
+        }
+
+        private IList<UnterrichtenGoal> GetUnterrichtenGoals()
+        {
+            var result = new List<UnterrichtenGoal>();
+            
+            foreach (var lehrer in AlleLehrer)
+            {
+                foreach (var goal in lehrer.AI.Goals)
+                {
+                    if (goal is UnterrichtenGoal unterrichten)
+                    {
+                        result.Add(unterrichten);
+                    }
+                }
+            }
+
+            return result;
         }
 
         public UnterrichtenGoal GetCurrenttUnterrichtenGoal()
@@ -42,7 +59,7 @@ namespace HerderGames.Player
                 return null;
             }
 
-            foreach (var goal in UnterrichtenGoals)
+            foreach (var goal in GetUnterrichtenGoals())
             {
                 var stunde = goal.GetStundeImStundenplan();
                 
@@ -77,7 +94,7 @@ namespace HerderGames.Player
                 }
                 else
                 {
-                    builder.Append(goal.GetFach());
+                    builder.Append(goal.GetStundeImStundenplan().Fach);
                     builder.Append(" (in ").Append(goal.GetKlassenraum().GetName()).Append(")");
                     builder.Append(" (bei ").Append(goal.Lehrer.GetName()).Append(")");
                 }
