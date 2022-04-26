@@ -43,7 +43,7 @@ namespace HerderGames.Lehrer.AI
 
         public virtual IEnumerator Execute()
         {
-            yield break;
+            yield return null;
         }
     }
 }
