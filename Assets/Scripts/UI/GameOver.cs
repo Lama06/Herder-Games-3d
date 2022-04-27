@@ -28,7 +28,7 @@ namespace HerderGames.UI
             };
 
             var schaden = GetSchaden();
-            schaden.text = $"Schaden für die Schule, der durch dich entstanden ist: {SchadenFuerDieSchule}";
+            schaden.text = $"Schaden für die Schule, der durch dich entstanden ist: {SchadenFuerDieSchule}€";
         }
 
         private TextElement GetSchaden()

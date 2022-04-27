@@ -1,8 +1,9 @@
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Player
 {
-    public class GeldManager : MonoBehaviour
+    public class GeldManager : MonoBehaviour, PersistentDataContainer
     {
         public int Geld;
 
@@ -15,6 +16,23 @@ namespace HerderGames.Player
 
             Geld -= amount;
             return true;
+        }
+
+        private const string SaveKey = "player.geld";
+
+        public void SaveData()
+        {
+            PlayerPrefs.SetInt(SaveKey, Geld);
+        }
+
+        public void LoadData()
+        {
+            Geld = PlayerPrefs.GetInt(SaveKey);
+        }
+
+        public void ResetDataAfterGameOver()
+        {
+            Geld = 0;
         }
     }
 }

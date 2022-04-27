@@ -1,3 +1,4 @@
+using System;
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace HerderGames.Lehrer
     public class Lehrer : MonoBehaviour
     {
         [SerializeField] private string Name;
+        [SerializeField] private string Id;
 
         public Renderer Renderer { get; private set; }
         public NavMeshAgent Agent { get; private set; }
@@ -38,6 +40,11 @@ namespace HerderGames.Lehrer
         public string GetName()
         {
             return Name;
+        }
+
+        public string GetId()
+        {
+            return Id;
         }
     }
 }

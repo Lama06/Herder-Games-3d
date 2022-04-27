@@ -1,7 +1,6 @@
 using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
-using HerderGames.Util;
 using HerderGames.Zeit;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ namespace HerderGames.Lehrer.AI.Brains
 {
     public class SchultenBrain : BrainBase
     {
+        [SerializeField] private Player.Player Player;
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private Transform SchuleEingang;
@@ -18,9 +18,9 @@ namespace HerderGames.Lehrer.AI.Brains
         );
 
         private readonly SaetzeMoeglichkeitenEinmalig SaetzeUnterrichtBegruessung = new(
-            "Gute Tag"    
+            "Gute Tag"
         );
-        
+
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommenUnterricht = new(
             "Jetzt mal ganz ehrlich, habt ihr den Schimmelreiter gelesen",
             "Jetzt mal ganz ehrlich, wir müssen jetzt pö a pö mit dem Schimmelreiter weitermachen",
@@ -33,8 +33,8 @@ namespace HerderGames.Lehrer.AI.Brains
                 new WoechentlicheZeitspannen.Eintrag(
                     new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
                     new WoechentlicheZeitspannen.Zeitspanne(
-                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), Utility.MinutesToFloat(-30f)),
-                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), Utility.MinutesToFloat(30f))
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), TimeUtility.MinutesToFloat(-30f)),
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), TimeUtility.MinutesToFloat(30f))
                     )
                 )
             );
@@ -44,10 +44,36 @@ namespace HerderGames.Lehrer.AI.Brains
                 eingang: SchuleEingang.position,
                 ausgang: SchuleEingang.position,
                 new SaetzeMoeglichkeitenMehrmals(
-                    "Jetz mal ganz ehrlich wir alle wollen auch mal frei haben"    
+                    "Jetz mal ganz ehrlich wir alle wollen auch mal frei haben"
                 )
             ));
-            
+
+            ai.AddGoal(new ErschoepfungGoal(
+                lehrer: Lehrer,
+                maximaleDistanzProMinute: 5f,
+                maxiamleHoeheProMinute: 2f,
+                laengeDerPause: 5f,
+                saetze: new SaetzeMoeglichkeitenMehrmals(
+                    "Jetzt mal ganz ehrlich wir alle sind auch mal erschöpft",
+                    "Hand aus Herz, wir alle brauchen auch mal eine Pause"
+                )
+            ));
+
+            ai.AddGoal(new VerbrechenMeldenGoal(
+                lehrer: Lehrer,
+                trigger: new AlwaysTrueTrigger(),
+                player: Player,
+                schulleitungsBuero: SchuleEingang,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "So geht das nicht weiter",
+                    "Das gibt eine Verwarnung"
+                ),
+                saetzeAngekommenEinmalig: null,
+                saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                    "Der Schüler muss gehen"
+                )
+            ));
+
             // Unterrichten
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
@@ -56,10 +82,10 @@ namespace HerderGames.Lehrer.AI.Brains
                     new WoechentlicheZeitspannen.Eintrag(
                         new ManuelleWochentagAuswahl(Wochentag.Montag),
                         new WoechentlicheZeitspannen.Zeitspanne(
-                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Anfang), Utility.MinutesToFloat(-5)),
-                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Ende), Utility.MinutesToFloat(5))
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(-5)),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Ende), TimeUtility.MinutesToFloat(5))
                         )
-                    )    
+                    )
                 )),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch"),
                 reputationsAenderungBeiFehlzeit: -0.1f,
@@ -67,7 +93,7 @@ namespace HerderGames.Lehrer.AI.Brains
                 saetzeBegruessung: SaetzeUnterrichtBegruessung,
                 saetzeWaehrendUnterricht: SaetzeAngekommenUnterricht
             ));
-            
+
             // Zum Unterrichtsraum gehen
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
@@ -82,14 +108,14 @@ namespace HerderGames.Lehrer.AI.Brains
                             new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Anfang), 0f),
                             new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Ende), 0f)
                         )
-                    )    
+                    )
                 )),
                 position: UnterrichtsRaum.GetLehrerStandpunkt(),
                 saetzeAngekommen: SaetzeAngekommenUnterricht,
                 saetzeWeg: SaetzeWegUnterricht,
                 saetzeAngekommenEinmalig: SaetzeUnterrichtBegruessung
             ));
-            
+
             // Rauchen gehen
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
@@ -105,7 +131,7 @@ namespace HerderGames.Lehrer.AI.Brains
                             new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
                         ),
                         new WoechentlicheZeitspannen.Zeitspanne(
-                            new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), Utility.MinutesToFloat(-30f)),
+                            new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), TimeUtility.MinutesToFloat(-30f)),
                             new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), 0f)
                         )
                     )

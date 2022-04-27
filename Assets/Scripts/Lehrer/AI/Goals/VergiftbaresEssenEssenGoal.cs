@@ -10,6 +10,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly VergiftbaresEssen VergiftbaresEssen;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
         private readonly VergiftungsManager Vergiftung;
 
@@ -18,6 +19,7 @@ namespace HerderGames.Lehrer.AI.Goals
             TriggerBase trigger,
             VergiftbaresEssen vergiftbaresEssen,
             SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
             SaetzeMoeglichkeitenMehrmals saetzeAngekommen,
             VergiftungsManager vergiftung
         ) : base(lehrer)
@@ -25,6 +27,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Trigger = trigger;
             VergiftbaresEssen = vergiftbaresEssen;
             SaetzeWeg = saetzeWeg;
+            SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
             Vergiftung = vergiftung;
         }
@@ -33,7 +36,7 @@ namespace HerderGames.Lehrer.AI.Goals
         {
             return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Trigger.Resolve();
         }
-        
+
         public override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
@@ -44,6 +47,7 @@ namespace HerderGames.Lehrer.AI.Goals
                 Vergiftung.Vergiften(VergiftbaresEssen);
             }
 
+            Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
     }

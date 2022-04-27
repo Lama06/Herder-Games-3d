@@ -8,7 +8,7 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class PatrolienrouteAbgehenGoal : GoalBase
     {
-        private readonly Trigger.TriggerBase Trigger;
+        private readonly TriggerBase Trigger;
         private readonly IList<Vector3> Punkte;
         private readonly SaetzeMoeglichkeitenMehrmals Saetze;
 

@@ -1,14 +1,16 @@
 using HerderGames.UI;
+using HerderGames.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace HerderGames.Player
 {
     [RequireComponent(typeof(Player))]
-    public class Verwarnungen : MonoBehaviour
+    public class Verwarnungen : MonoBehaviour, PersistentDataContainer
     {
-        private Player Player;
+        [SerializeField] private PersistentDataManager PersistentDataManager;
         
+        private Player Player;
         private int AnzahlVerwarnungen;
 
         private void Awake()
@@ -21,10 +23,33 @@ namespace HerderGames.Player
             AnzahlVerwarnungen++;
             if (AnzahlVerwarnungen >= 3)
             {
-                Debug.Log("Game Over");
-                GameOver.SchadenFuerDieSchule = Player.Score.SchadenFuerDieSchule;
-                SceneManager.LoadScene("Scenes/GameOver");
+                OnGameOver();
             }
+        }
+
+        private void OnGameOver()
+        {
+            Debug.Log("Game Over");
+            GameOver.SchadenFuerDieSchule = Player.Score.SchadenFuerDieSchule;
+            PersistentDataManager.ResetAfterGameOver();
+            SceneManager.LoadScene("Scenes/GameOver");
+        }
+
+        private const string SaveKey = "player.verwarnungen";
+        
+        public void SaveData()
+        {
+            PlayerPrefs.SetInt(SaveKey, AnzahlVerwarnungen);
+        }
+
+        public void LoadData()
+        {
+            AnzahlVerwarnungen = PlayerPrefs.GetInt(SaveKey);
+        }
+
+        public void ResetDataAfterGameOver()
+        {
+            AnzahlVerwarnungen = 0;
         }
     }
 }

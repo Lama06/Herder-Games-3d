@@ -10,10 +10,6 @@ namespace HerderGames.Lehrer.AI
         private void Awake()
         {
             Lehrer = GetComponent<Lehrer>();
-        }
-
-        private void Start()
-        {
             RegisterGoals(Lehrer.AI);
         }
 

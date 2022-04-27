@@ -221,6 +221,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &462426885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462426887}
+  - component: {fileID: 462426886}
+  m_Layer: 0
+  m_Name: PersistentData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &462426886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462426885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad70168549a4068a8cf358e73ccc5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &462426887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462426885}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503066002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,6 +1223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b76a8d3ad014f80a8ab20efddf22317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PersistentDataManager: {fileID: 462426886}
 --- !u!114 &1538818861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,12 +1431,12 @@ GameObject:
   - component: {fileID: 1609019412}
   - component: {fileID: 1609019411}
   - component: {fileID: 1609019410}
+  - component: {fileID: 1609019406}
   - component: {fileID: 1609019409}
   - component: {fileID: 1609019408}
   - component: {fileID: 1609019407}
   - component: {fileID: 1609019418}
   - component: {fileID: 1609019425}
-  - component: {fileID: 1609019406}
   - component: {fileID: 1609019405}
   - component: {fileID: 1609019430}
   - component: {fileID: 1609019429}
@@ -1430,6 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Frau Schulten
+  Id: schulten
 --- !u!114 &1609019407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1630,6 +1676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Anbieten Kreide holen zu gehen
+  Kosten: 50
   AnnahmeWahrscheinlichkeit: 0
   ReputationsAenderungBeiAnnahme: 0
   AnnahmeAntworten:
@@ -1651,6 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Beleidigen
+  Kosten: 0
   AnnahmeWahrscheinlichkeit: 0
   ReputationsAenderungBeiAnnahme: 0
   AnnahmeAntworten:
@@ -1672,13 +1720,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Geldgeschenk anbieten
-  AnnahmeWahrscheinlichkeit: 0.4
+  Kosten: 50
+  AnnahmeWahrscheinlichkeit: 0
   ReputationsAenderungBeiAnnahme: 0.4
   AnnahmeAntworten:
     MoeglicheSaetze: []
-  ReputationsAenderungBeiAblehnen: -0.4
+  ReputationsAenderungBeiAblehnen: -0.5
   AblehnenAntworten:
-    MoeglicheSaetze: []
+    MoeglicheSaetze:
+    - Ich bitte dich!
 --- !u!114 &1609019430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1693,6 +1743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   InteraktionsMenuName: Zigaretten anbieten
+  Kosten: 0
   AnnahmeWahrscheinlichkeit: 0.7
   ReputationsAenderungBeiAnnahme: 0.5
   AnnahmeAntworten:
@@ -1714,8 +1765,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0390b34da83749c5b7c7dd274353fb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
   TimeManager: {fileID: 670363813}
   UnterrichtsRaum: {fileID: 752264926}
+  SchuleEingang: {fileID: 288763062}
 --- !u!1 &1740621246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2139,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.26
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

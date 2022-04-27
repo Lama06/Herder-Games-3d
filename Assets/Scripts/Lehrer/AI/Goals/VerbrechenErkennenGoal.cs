@@ -11,6 +11,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly Player.Player Player;
         private readonly float SchwereMindestens;
         private readonly SaetzeMoeglichkeitenEinmalig Reaktion;
+        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly VisionSensor Vision;
 
         private bool GehtGeradeZuTatort;
@@ -21,6 +22,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Player.Player player,
             float schwereMindestens,
             SaetzeMoeglichkeitenEinmalig reaktion,
+            SaetzeMoeglichkeitenMehrmals saetzeWeg,
             VisionSensor vision
         ) : base(lehrer)
         {
@@ -28,6 +30,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Player = player;
             SchwereMindestens = schwereMindestens;
             Reaktion = reaktion;
+            SaetzeWeg = saetzeWeg;
             Vision = vision;
         }
 
@@ -50,11 +53,13 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override IEnumerator Execute()
         {
-            GehtGeradeZuTatort = true;
-            Lehrer.Sprache.Say(Reaktion);
             Player.Chat.SendChatMessage("Achtung: Ein Lehrer hat gemerkt, dass du ein Verbrechen begehen wolltest. " +
                                         "Pass auf, dass er nicht zur Schulleitung geht und dich meldet. " +
                                         "Versuche deine Beziehung zum Lehrer wieder zu verbessern.");
+            
+            GehtGeradeZuTatort = true;
+            Lehrer.Sprache.Say(Reaktion);
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Reputation.AddReputation(-Player.VerbrechenManager.Schwere);
             Player.VerbrechenManager.VerbrechenAbbrechen();
             Lehrer.Agent.destination = Player.transform.position;

@@ -9,10 +9,5 @@ namespace HerderGames.Util
             var randomNumber = Random.Range(0f, 1f);
             return randomNumber <= percentForTrue;
         }
-
-        public static float MinutesToFloat(float min)
-        {
-            return min / 60f;
-        }
     }
 }

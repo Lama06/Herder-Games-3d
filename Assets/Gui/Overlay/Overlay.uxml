@@ -1,14 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="Root" style="justify-content: space-between; align-items: stretch; flex-grow: 1;">
         <ui:VisualElement name="Oben" style="flex-direction: row; align-items: flex-start; justify-content: space-between; height: auto;">
-            <ui:Label text="Woche 1\nMontag\n8:00" display-tooltip-when-elided="true" name="Zeit" />
+            <ui:VisualElement name="Links">
+                <ui:Label text="0€" display-tooltip-when-elided="true" name="Geld" style="margin-bottom: 10px;" />
+                <ui:Label text="Woche 1\nMontag\n8:00" display-tooltip-when-elided="true" name="Zeit" style="margin-bottom: 10px;" />
+                <ui:Label text="Aktuelle Stunde:\nNächste Stunde:" display-tooltip-when-elided="true" name="Stundenplan" />
+            </ui:VisualElement>
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1">
                 <ui:VisualElement name="Interaktionsmenu" style="display: none;">
                     <ui:Label text="Interaktionsmenu" display-tooltip-when-elided="true" name="Header" style="-unity-font-style: bold; font-size: 30px;" />
                 </ui:VisualElement>
             </ui:ScrollView>
             <ui:VisualElement name="Chat" style="max-width: 50%;">
-                <ui:Label text="Hier wernden Nachrichten stehen" display-tooltip-when-elided="true" style="white-space: normal;" />
+                <ui:Label text="Hier werden Nachrichten stehenHier werden Nachrichten stehenHier werden Nachrichten stehenHier werden Nachrichten stehenHier werden Nachrichten stehen" display-tooltip-when-elided="true" style="white-space: normal;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Unten" />

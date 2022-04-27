@@ -1,14 +1,21 @@
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(Lehrer))]
-    public class Reputation : MonoBehaviour
+    public class Reputation : MonoBehaviour, PersistentDataContainer
     {
         [SerializeField] private float MisstrauensFaktor = 1;
         [SerializeField] private float GutmuetigkeitsFaktor = 1;
-        
+
+        private Lehrer Lehrer;
         public float ReputationsWert { get; set; }
+
+        private void Awake()
+        {
+            Lehrer = GetComponent<Lehrer>();
+        }
 
         public void AddReputation(float amount)
         {
@@ -33,6 +40,26 @@ namespace HerderGames.Lehrer
         public void ResetAfterMelden()
         {
             ReputationsWert = -0.5f;
+        }
+
+        private string GetSaveKey()
+        {
+            return $"lehrer.{Lehrer.GetId()}.reputation";
+        }
+        
+        public void SaveData()
+        {
+            PlayerPrefs.SetFloat(GetSaveKey(), ReputationsWert);
+        }
+
+        public void LoadData()
+        {
+            ReputationsWert = PlayerPrefs.GetFloat(GetSaveKey());
+        }
+
+        public void ResetDataAfterGameOver()
+        {
+            ReputationsWert = 0f;
         }
     }
 }

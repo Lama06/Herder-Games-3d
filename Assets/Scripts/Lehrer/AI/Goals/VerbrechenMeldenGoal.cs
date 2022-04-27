@@ -11,6 +11,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly Player.Player Player;
         private readonly Transform SchulleitungsBuero;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public VerbrechenMeldenGoal(
@@ -19,6 +20,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Player.Player player,
             Transform schulleitungsBuero,
             SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
             SaetzeMoeglichkeitenMehrmals saetzeAngekommen
         ) : base(lehrer)
         {
@@ -26,6 +28,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Player = player;
             SchulleitungsBuero = schulleitungsBuero;
             SaetzeWeg = saetzeWeg;
+            SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
         }
 
@@ -39,6 +42,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = SchulleitungsBuero.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             yield return new WaitForSeconds(5);
             Player.Verwarnungen.Add();

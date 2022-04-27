@@ -11,6 +11,7 @@ namespace HerderGames.Lehrer
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private string InteraktionsMenuName;
+        [SerializeField] private int Kosten;
         [SerializeField] private float AnnahmeWahrscheinlichkeit;
 
         [Header("Annahme")] [SerializeField] private float ReputationsAenderungBeiAnnahme;
@@ -51,6 +52,12 @@ namespace HerderGames.Lehrer
                         Name = InteraktionsMenuName,
                         Callback = id =>
                         {
+                            if (!Player.GeldManager.Pay(Kosten))
+                            {
+                                Player.Chat.SendChatMessage($"Du benötigst {Kosten}€ um diese Aktion durchzuführen");
+                                return;
+                            }
+                            
                             if (Utility.TrueWithPercent(AnnahmeWahrscheinlichkeit))
                             {
                                 OnAnnahme();

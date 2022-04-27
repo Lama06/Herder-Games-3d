@@ -51,7 +51,7 @@ namespace HerderGames.Zeit
             return result;
         }
 
-        public static int GetStundenPlanEintragIndexForTime(Wochentag wochentag, float time)
+        public static int? GetStundenPlanEintragIndexForTime(Wochentag wochentag, float time)
         {
             var ablauf = GetTagesAblauf(wochentag);
             for (var i = 0; i < ablauf.Count; i++)
@@ -64,18 +64,18 @@ namespace HerderGames.Zeit
                 }
             }
 
-            return -1;
+            return null;
         }
 
         public static StundenPlanEintrag GetStundenPlanEintragForTime(Wochentag wochentag, float time)
         {
             var index = GetStundenPlanEintragIndexForTime(wochentag, time);
-            if (index == -1)
+            if (index == null)
             {
                 return null;
             }
 
-            return GetTagesAblauf(wochentag)[index];
+            return GetTagesAblauf(wochentag)[(int) index];
         }
 
         public static StundenPlanEintrag GetCurrentStundenPlanEintrag(TimeManager timeManager)
@@ -87,16 +87,23 @@ namespace HerderGames.Zeit
             StundenType type)
         {
             var currentStundenDataIndex = GetStundenPlanEintragIndexForTime(wochentag, time);
-            if (currentStundenDataIndex == -1)
+            if (currentStundenDataIndex == null)
             {
-                return null;
+                if (time < SchuleBeginn)
+                {
+                    currentStundenDataIndex = -1;   
+                }
+                else
+                {
+                    return null;
+                }
             }
             
             var ablauf = GetTagesAblauf(wochentag);
 
             for (var i = currentStundenDataIndex + 1; i < ablauf.Count; i++)
             {
-                var stunde = ablauf[i];
+                var stunde = ablauf[(int) i];
                 if (stunde.Stunde == type)
                 {
                     return stunde;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;

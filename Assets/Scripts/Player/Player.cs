@@ -18,7 +18,7 @@ namespace HerderGames.Player
         public Stundenplan Stundenplan { get; private set; }
         public Score Score { get; private set; }
         public GeldManager GeldManager { get; private set; }
-        
+
         private void Awake()
         {
             Chat = GetComponent<Chat>();

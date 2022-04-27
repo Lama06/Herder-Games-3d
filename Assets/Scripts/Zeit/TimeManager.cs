@@ -40,7 +40,7 @@ namespace HerderGames.Zeit
             var builder = new StringBuilder();
             builder.Append("Woche: ").Append(CurrentKalenderwoche).Append("\n");
             builder.Append("Wochentag: ").Append(CurrentWochentag).Append("\n");
-            builder.Append("Zeit: ").Append(CurrentTime).Append("\n");
+            builder.Append("Zeit: ").Append(TimeUtility.FormatTime(CurrentTime));
             return builder.ToString();
         }
 

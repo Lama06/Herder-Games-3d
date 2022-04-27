@@ -10,6 +10,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly VergiftbaresEssen Essen;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public VergiftbaresEssenEntgiftenGoal(
@@ -17,12 +18,14 @@ namespace HerderGames.Lehrer.AI.Goals
             TriggerBase trigger,
             VergiftbaresEssen essen,
             SaetzeMoeglichkeitenMehrmals saetzeWeg,
+            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
             SaetzeMoeglichkeitenMehrmals saetzeAngekommen
         ) : base(lehrer)
         {
             Trigger = trigger;
             Essen = essen;
             SaetzeWeg = saetzeWeg;
+            SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
         }
 
@@ -36,6 +39,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = Essen.GetStandpunkt();
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Essen.Status = VergiftungsStatus.NichtVergiftet;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }
