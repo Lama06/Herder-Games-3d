@@ -4,7 +4,7 @@ using UnityEngine;
 namespace HerderGames.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovementKeyboard : MonoBehaviour
     {
         [SerializeField] private float Speed;
         [SerializeField] private UIOverlay Overlay;
@@ -14,11 +14,14 @@ namespace HerderGames.Player
 
         private void Awake()
         {
+#if UNITY_STANDALONE
             Controller = GetComponent<CharacterController>();
+#endif
         }
 
         private void Update()
         {
+#if UNITY_STANDALONE
             if (Overlay.GetIsFocused() || Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
@@ -30,6 +33,7 @@ namespace HerderGames.Player
             var movement = transform.right * x + transform.forward * y;
 
             Controller.Move(movement * UnityEngine.Time.deltaTime * Speed);
+#endif
         }
     }
 }

@@ -22,17 +22,23 @@ namespace HerderGames.UI
             Document = GetComponent<UIDocument>();
         }
 
-        public bool GetIsFocused()
+        private void Start()
         {
-            return IsFocused;
+#if UNITY_ANDROID || UNITY_IOS
+            var oeffnenBtn = GetInteraktionsMenuOeffnenButton();
+            oeffnenBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+            oeffnenBtn.clicked += ToggleFocus;
+#endif
         }
 
         private void Update()
         {
+#if UNITY_STANDALONE
             if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
             {
                 ToggleFocus();
             }
+#endif
 
             UpdateGeld();
             UpdateZeit();
@@ -45,7 +51,9 @@ namespace HerderGames.UI
         {
             IsFocused = !IsFocused;
             SetElementVisibility(GetInteraktionsMenu(), IsFocused);
+#if UNITY_IOS || UNITY_ANDROID
             Cursor.lockState = IsFocused ? CursorLockMode.None : CursorLockMode.Locked;
+#endif
         }
 
         private void UpdateGeld()
@@ -114,11 +122,16 @@ namespace HerderGames.UI
             }
         }
 
+        public bool GetIsFocused()
+        {
+            return IsFocused;
+        }
+
         private Label GetGeld()
         {
             return Document.rootVisualElement.Q<Label>("Geld");
         }
-        
+
         private Label GetZeit()
         {
             return Document.rootVisualElement.Q<Label>("Zeit");
@@ -131,7 +144,12 @@ namespace HerderGames.UI
 
         private VisualElement GetInteraktionsMenu()
         {
-            return Document.rootVisualElement.Q<VisualElement>("Interaktionsmenu");
+            return Document.rootVisualElement.Q<VisualElement>("InteraktionsMenu");
+        }
+
+        private Button GetInteraktionsMenuOeffnenButton()
+        {
+            return Document.rootVisualElement.Q<Button>("InteraktionsMenuOeffnen");
         }
 
         private VisualElement GetChatWindow()

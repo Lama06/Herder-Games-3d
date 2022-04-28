@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HerderGames.Player
 {
-    public class CameraRotation : MonoBehaviour
+    public class CameraRotationMouse : MonoBehaviour
     {
         [SerializeField] private float Sensitivity;
         [SerializeField] private Transform PlayerBody;
@@ -11,21 +11,25 @@ namespace HerderGames.Player
 
         private void Start()
         {
+#if UNITY_STANDALONE
             Cursor.lockState = CursorLockMode.Locked;
+#endif
         }
 
         private void Update()
         {
+#if UNITY_STANDALONE
             if (Overlay.GetIsFocused())
             {
                 return;
             }
-            
+
             var mouseX = Input.GetAxis("Mouse X") * Sensitivity * UnityEngine.Time.deltaTime;
             var mouseY = Input.GetAxis("Mouse Y") * Sensitivity * UnityEngine.Time.deltaTime;
-            
+
             PlayerBody.Rotate(new Vector3(0, mouseX, 0));
             transform.Rotate(new Vector3(-mouseY, 0, 0));
+#endif
         }
     }
 }

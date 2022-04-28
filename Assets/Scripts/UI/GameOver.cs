@@ -9,7 +9,7 @@ namespace HerderGames.UI
     public class GameOver : MonoBehaviour
     {
         public static int SchadenFuerDieSchule;
-        
+
         private UIDocument Document;
 
         private void Awake()
@@ -19,13 +19,12 @@ namespace HerderGames.UI
 
         private void Start()
         {
+#if UNITY_STANDALONE
             Cursor.lockState = CursorLockMode.None;
-            
+#endif
+
             var restartButton = GetRestartButton();
-            restartButton.clicked += () =>
-            {
-                SceneManager.LoadScene("Scenes/World");
-            };
+            restartButton.clicked += () => { SceneManager.LoadScene("Scenes/World"); };
 
             var schaden = GetSchaden();
             schaden.text = $"Schaden für die Schule, der durch dich entstanden ist: {SchadenFuerDieSchule}€";

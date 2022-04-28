@@ -7,7 +7,7 @@ using Cursor = UnityEngine.Cursor;
 namespace HerderGames.UI
 {
     [RequireComponent(typeof(UIDocument))]
-    public class TitleScreen  : MonoBehaviour
+    public class TitleScreen : MonoBehaviour
     {
         private UIDocument Document;
 
@@ -18,13 +18,12 @@ namespace HerderGames.UI
 
         private void Start()
         {
+#if UNITY_STANDALONE
             Cursor.lockState = CursorLockMode.None;
+#endif
 
             var startButton = GetStartButton();
-            startButton.clicked += () =>
-            {
-                SceneManager.LoadScene("Scenes/World");
-            };
+            startButton.clicked += () => { SceneManager.LoadScene("Scenes/World"); };
         }
 
         private Button GetStartButton()
