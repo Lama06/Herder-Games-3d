@@ -6,7 +6,7 @@ namespace HerderGames.Util
     public class PersistentDataManager : MonoBehaviour
     {
         private readonly List<PersistentDataContainer> Persistent = new();
-        
+
         private void Awake()
         {
             foreach (var component in FindObjectsOfType<MonoBehaviour>())
@@ -26,8 +26,13 @@ namespace HerderGames.Util
             }
         }
 
-        private void OnDestroy()
+        private void OnApplicationFocus(bool hasFocus)
         {
+            if (hasFocus)
+            {
+                return;
+            }
+
             foreach (var persistent in Persistent)
             {
                 persistent.SaveData();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HerderGames.Schule
 {
-    public class KlauenVerbrechen : MonoBehaviour
+    public class EntfernenVerbrechen : MonoBehaviour
     {
         [SerializeField] private string InteraktionsMenuName;
         [SerializeField] private int TimeRequired;

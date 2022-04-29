@@ -51,7 +51,7 @@ namespace HerderGames.UI
         {
             IsFocused = !IsFocused;
             SetElementVisibility(GetInteraktionsMenu(), IsFocused);
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE
             Cursor.lockState = IsFocused ? CursorLockMode.None : CursorLockMode.Locked;
 #endif
         }

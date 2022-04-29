@@ -23,6 +23,14 @@ namespace HerderGames.Lehrer
         {
             Status = inSchule;
             
+            foreach (var collider in GetComponents<Collider>())
+            {
+                if (collider.enabled != inSchule)
+                {
+                    collider.enabled = inSchule;
+                }
+            }
+            
             if (Lehrer.Renderer.enabled != inSchule)
             {
                 Lehrer.Renderer.enabled = inSchule;   
