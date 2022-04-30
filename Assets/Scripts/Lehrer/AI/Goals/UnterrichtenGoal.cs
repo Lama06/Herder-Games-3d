@@ -50,14 +50,14 @@ namespace HerderGames.Lehrer.AI.Goals
         {
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;
-            GoToRoomCoroutine = Lehrer.StartCoroutine(GoToRoom());
-            CheckAnwesenheitCoroutine = Lehrer.StartCoroutine(CheckAnwesenheit());
+            GoToRoomCoroutine = Lehrer.AI.StartCoroutine(GoToRoom());
+            CheckAnwesenheitCoroutine = Lehrer.AI.StartCoroutine(CheckAnwesenheit());
         }
 
         public override void OnGoalEnd(GoalEndReason reason)
         {
-            Lehrer.StopCoroutine(GoToRoomCoroutine);
-            Lehrer.StopCoroutine(CheckAnwesenheitCoroutine);
+            Lehrer.AI.StopCoroutine(GoToRoomCoroutine);
+            Lehrer.AI.StopCoroutine(CheckAnwesenheitCoroutine);
         }
 
         public IEnumerator GoToRoom()

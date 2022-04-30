@@ -49,14 +49,14 @@ namespace HerderGames.Lehrer.Sprache
                     continue;
                 }
 
-                if (RemainingSaetze.Count == 0)
+                if (_SaetzeMoeglichkeiten.MoeglicheSaetze.Count == 0)
                 {
-                    RemainingSaetze = new List<string>(_SaetzeMoeglichkeiten.MoeglicheSaetze);
+                    continue;
                 }
 
                 if (RemainingSaetze.Count == 0)
                 {
-                    continue;
+                    RemainingSaetze = new List<string>(_SaetzeMoeglichkeiten.MoeglicheSaetze);
                 }
 
                 var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];

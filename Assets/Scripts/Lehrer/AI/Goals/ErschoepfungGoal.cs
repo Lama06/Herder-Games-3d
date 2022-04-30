@@ -55,7 +55,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override void OnGoalEnable()
         {
-            Lehrer.StartCoroutine(RecordDistanz());
+            Lehrer.AI.StartCoroutine(RecordDistanz());
         }
 
         public IEnumerator RecordDistanz()

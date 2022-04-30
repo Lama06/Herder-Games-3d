@@ -5,7 +5,7 @@ namespace HerderGames.Lehrer.AI
 {
     public abstract class GoalBase
     {
-        public Lehrer Lehrer { get; private set; }
+        public Lehrer Lehrer { get; }
         private Coroutine ExecuteCoroutine;
 
         protected GoalBase(Lehrer lehrer)
@@ -21,7 +21,7 @@ namespace HerderGames.Lehrer.AI
 
         public void StartGoal()
         {
-            ExecuteCoroutine = Lehrer.StartCoroutine(Execute());
+            ExecuteCoroutine = Lehrer.AI.StartCoroutine(Execute());
             OnGoalStart();
         }
 
@@ -32,7 +32,7 @@ namespace HerderGames.Lehrer.AI
         public void EndGoal(GoalEndReason reason)
         {
             OnGoalEnd(reason);
-            Lehrer.StopCoroutine(ExecuteCoroutine);
+            Lehrer.AI.StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             Lehrer.Agent.destination = Lehrer.transform.position;
         }
