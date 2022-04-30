@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HerderGames.Lehrer
+namespace HerderGames.Schule
 {
     public class Klassenraum : MonoBehaviour
     {

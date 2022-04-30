@@ -6,6 +6,6 @@ namespace HerderGames.Util
 
         public void SaveData();
 
-        public void ResetDataAfterGameOver();
+        public void ResetData();
     }
 }

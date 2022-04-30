@@ -1,5 +1,5 @@
-using System;
 using HerderGames.Lehrer.AI;
+using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +12,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(SpracheManager))]
     [RequireComponent(typeof(AIController))]
+    [RequireComponent(typeof(InteraktionsMenuFragenManager))]
     [RequireComponent(typeof(BrainBase))]
     public class Lehrer : MonoBehaviour
     {
@@ -25,6 +26,7 @@ namespace HerderGames.Lehrer
         public SpracheManager Sprache { get; private set; }
         public AIController AI { get; private set; }
         public BrainBase Brain { get; private set; }
+        public InteraktionsMenuFragenManager FragenManager { get; private set; }
 
         private void Awake()
         {
@@ -35,6 +37,7 @@ namespace HerderGames.Lehrer
             Sprache = GetComponent<SpracheManager>();
             AI = GetComponent<AIController>();
             Brain = GetComponent<BrainBase>();
+            FragenManager = GetComponent<InteraktionsMenuFragenManager>();
         }
 
         public string GetName()

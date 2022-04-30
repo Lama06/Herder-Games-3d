@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,11 +40,19 @@ namespace HerderGames.Util
             }
         }
 
-        public void ResetAfterGameOver()
+        private void OnDestroy()
         {
             foreach (var persistent in Persistent)
             {
-                persistent.ResetDataAfterGameOver();
+                persistent.SaveData();
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (var persistent in Persistent)
+            {
+                persistent.ResetData();
             }
         }
     }

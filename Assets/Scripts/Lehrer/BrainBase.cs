@@ -1,6 +1,8 @@
+using HerderGames.Lehrer.AI;
+using HerderGames.Lehrer.Fragen;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.AI
+namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(Lehrer))]
     public abstract class BrainBase : MonoBehaviour
@@ -11,8 +13,11 @@ namespace HerderGames.Lehrer.AI
         {
             Lehrer = GetComponent<Lehrer>();
             RegisterGoals(Lehrer.AI);
+            RegisterFragen(Lehrer.FragenManager);
         }
 
         protected abstract void RegisterGoals(AIController ai);
+
+        protected abstract void RegisterFragen(InteraktionsMenuFragenManager fragen);
     }
 }

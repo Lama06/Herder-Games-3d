@@ -30,7 +30,7 @@ namespace HerderGames.Player
             Geld = PlayerPrefs.GetInt(SaveKey);
         }
 
-        public void ResetDataAfterGameOver()
+        public void ResetData()
         {
             Geld = 0;
         }

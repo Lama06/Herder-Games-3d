@@ -1,10 +1,13 @@
+using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Schule;
 using HerderGames.Zeit;
 using UnityEngine;
 
-namespace HerderGames.Lehrer.AI.Brains
+namespace HerderGames.Lehrer.Brains
 {
     public class SchultenBrain : BrainBase
     {
@@ -50,8 +53,8 @@ namespace HerderGames.Lehrer.AI.Brains
 
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
-                maximaleDistanzProMinute: 5f,
-                maxiamleHoeheProMinute: 2f,
+                maximaleDistanzProMinute: 30f,
+                maxiamleHoeheProMinute: 15f,
                 laengeDerPause: 5f,
                 saetze: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich wir alle sind auch mal erschöpft",
@@ -146,6 +149,57 @@ namespace HerderGames.Lehrer.AI.Brains
                     "Rauchen am morgen vertreibt Kummer und sorgen",
                     "Jetzt mal ganz ehrlich, stoppt ihr die Zeit wie lange Ich rauche",
                     "Ich rauche nur gelegentlich"
+                )
+            ));
+        }
+
+        protected override void RegisterFragen(InteraktionsMenuFragenManager fragen)
+        {
+            fragen.AddFrage(new InteraktionsMenuFrageNaeheZufaellig(
+                lehrer: Lehrer,
+                player: Player,
+                interaktionsMenuName: "Beleidigen",
+                kosten: 0,
+                annahmeWahrscheinlichkeit: 0f,
+                reputationsAenderungBeiAnnahme: 0f,
+                annahmeAntworten: null,
+                reputationsAenderungBeiAblehnen: -1f,
+                ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Ich bitte dich"    
+                )
+            ));
+            
+            fragen.AddFrage(new InteraktionsMenuFrageNaeheZufaellig(
+                lehrer: Lehrer,
+                player: Player,
+                interaktionsMenuName: "Geldgeschenk anbieten",
+                kosten: 50,
+                annahmeWahrscheinlichkeit: 0.5f,
+                reputationsAenderungBeiAnnahme: 0.5f,
+                annahmeAntworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Danke",
+                    "Das halten wir aber unter uns"
+                ),
+                reputationsAenderungBeiAblehnen: -0.5f,
+                ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Nein danke",
+                    "Das darf ich nicht annehmen"
+                )
+            ));
+            
+            fragen.AddFrage(new InteraktionsMenuFrageSchwaenzenZufaellig(
+                lehrer: Lehrer,
+                player: Player,
+                interaktionsMenuName: "Fragen, aufs Klo zu gehen",
+                kosten: 0,
+                annahmeWahrscheinlichkeit:0.7f,
+                reputationsAenderungBeiAnnahme: -0.1f,
+                annahmeAntworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Ja, du kannst gehen"  
+                ),
+                reputationsAenderungBeiAblehnen: -0.2f,
+                ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Du kannst auch noch bis zum Ende der Stunde warten"
                 )
             ));
         }

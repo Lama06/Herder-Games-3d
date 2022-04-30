@@ -1512,11 +1512,8 @@ GameObject:
   - component: {fileID: 1609019418}
   - component: {fileID: 1609019425}
   - component: {fileID: 1609019405}
-  - component: {fileID: 1609019430}
-  - component: {fileID: 1609019429}
-  - component: {fileID: 1609019428}
-  - component: {fileID: 1609019427}
   - component: {fileID: 1609019431}
+  - component: {fileID: 1609019432}
   m_Layer: 0
   m_Name: Schulten
   m_TagString: Untagged
@@ -1736,97 +1733,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLocation: {fileID: 1049581642}
   MaxViewDistance: 20
---- !u!114 &1609019427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609019403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21766632f0284b90844d212ffbe0ea32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Anbieten Kreide holen zu gehen
-  Kosten: 50
-  AnnahmeWahrscheinlichkeit: 0
-  ReputationsAenderungBeiAnnahme: 0
-  AnnahmeAntworten:
-    MoeglicheSaetze: []
-  ReputationsAenderungBeiAblehnen: 0
-  AblehnenAntworten:
-    MoeglicheSaetze: []
---- !u!114 &1609019428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609019403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Beleidigen
-  Kosten: 0
-  AnnahmeWahrscheinlichkeit: 0
-  ReputationsAenderungBeiAnnahme: 0
-  AnnahmeAntworten:
-    MoeglicheSaetze: []
-  ReputationsAenderungBeiAblehnen: -0.6
-  AblehnenAntworten:
-    MoeglicheSaetze: []
---- !u!114 &1609019429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609019403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Geldgeschenk anbieten
-  Kosten: 50
-  AnnahmeWahrscheinlichkeit: 0
-  ReputationsAenderungBeiAnnahme: 0.4
-  AnnahmeAntworten:
-    MoeglicheSaetze: []
-  ReputationsAenderungBeiAblehnen: -0.5
-  AblehnenAntworten:
-    MoeglicheSaetze:
-    - Ich bitte dich!
---- !u!114 &1609019430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609019403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb782fd60fd45e394be8cab9f7285cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  InteraktionsMenuName: Zigaretten anbieten
-  Kosten: 0
-  AnnahmeWahrscheinlichkeit: 0.7
-  ReputationsAenderungBeiAnnahme: 0.5
-  AnnahmeAntworten:
-    MoeglicheSaetze:
-    - Test1
-  ReputationsAenderungBeiAblehnen: -0.3
-  AblehnenAntworten:
-    MoeglicheSaetze:
-    - Test2
 --- !u!114 &1609019431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,6 +1749,19 @@ MonoBehaviour:
   TimeManager: {fileID: 670363813}
   UnterrichtsRaum: {fileID: 752264926}
   SchuleEingang: {fileID: 288763062}
+--- !u!114 &1609019432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6365b81868b4414bd49b47a127cbff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
 --- !u!1 &1740621246
 GameObject:
   m_ObjectHideFlags: 0

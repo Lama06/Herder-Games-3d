@@ -57,7 +57,7 @@ namespace HerderGames.Lehrer
             ReputationsWert = PlayerPrefs.GetFloat(GetSaveKey());
         }
 
-        public void ResetDataAfterGameOver()
+        public void ResetData()
         {
             ReputationsWert = 0f;
         }

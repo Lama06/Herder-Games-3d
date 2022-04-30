@@ -19,7 +19,7 @@ namespace HerderGames.Player
             SchadenFuerDieSchule = PlayerPrefs.GetInt(SaveKey);
         }
 
-        public void ResetDataAfterGameOver()
+        public void ResetData()
         {
             SchadenFuerDieSchule = 0;
         }
