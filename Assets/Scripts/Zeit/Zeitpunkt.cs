@@ -19,9 +19,9 @@ namespace HerderGames.Zeit
             return Dauer.FromStunden(diff);
         }
 
-        public float ToStunden()
+        private float ToStunden()
         {
-            return Time + (float) Wochentag * 24f + (Kalenderwoche - 1) * 7f * 24f;
+            return Time + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
         }
     }
 }

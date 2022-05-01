@@ -30,9 +30,9 @@ namespace HerderGames.Player
             Geld = PlayerPrefs.GetInt(SaveKey);
         }
 
-        public void ResetData()
+        public void DeleteData()
         {
-            Geld = 0;
+            PlayerPrefs.DeleteKey(SaveKey);
         }
     }
 }

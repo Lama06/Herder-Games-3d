@@ -17,6 +17,9 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private Transform SchuleEingang;
         [SerializeField] private VergiftbaresEssen Kaffeemaschine;
+        [SerializeField] private AlarmManager Alarm;
+
+        private VergiftungsManager Vergiftung;
 
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWegUnterricht = new(
             "Ich hoffe meine Schüler haben den Schimmelreiter gelesen"
@@ -31,6 +34,12 @@ namespace HerderGames.Lehrer.Brains
             "Jetzt mal ganz ehrlich, wir müssen jetzt pö a pö mit dem Schimmelreiter weitermachen",
             "Jetzt mal Hand aus Herz: Ihr findet den Schimmelreiter doch auch spannend"
         );
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Vergiftung = GetComponent<VergiftungsManager>();
+        }
 
         protected override void RegisterGoals(AIController ai)
         {
@@ -55,7 +64,7 @@ namespace HerderGames.Lehrer.Brains
             
             ai.AddGoal(new SchuleVerlassenGoal(
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => GetComponent<VergiftungsManager>().Status == LehrerVergiftungsStatus.VergiftungNormalSyntome),
+                trigger: new CallbackTrigger(() => GetComponent<VergiftungsManager>() is { Vergiftet: true, Syntome: true }),
                 eingang: SchuleEingang.position,
                 ausgang: SchuleEingang.position,
                 saetzeBeimVerlassen: null
@@ -63,7 +72,20 @@ namespace HerderGames.Lehrer.Brains
             
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => GetComponent<VergiftungsManager>().Status == LehrerVergiftungsStatus.VergiftungOrthamolSyntome),
+                trigger: new CallbackTrigger(() => Alarm.IsAlarm()),
+                position: SchuleEingang.position,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "Hilfeee!"
+                ),
+                saetzeAngekommenEinmalig: null,
+                saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                    "Wo brennt es denn?"    
+                )
+            ));
+            
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                trigger: new CallbackTrigger(() => Vergiftung.Vergiftet && Vergiftung.Syntome && Vergiftung.VergiftungsType == VergiftungsType.Orthamol),
                 position: SchuleEingang.position,
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Ich muss mal aus Klo"    

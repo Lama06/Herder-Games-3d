@@ -19,9 +19,9 @@ namespace HerderGames.Player
             SchadenFuerDieSchule = PlayerPrefs.GetInt(SaveKey);
         }
 
-        public void ResetData()
+        public void DeleteData()
         {
-            SchadenFuerDieSchule = 0;
+            PlayerPrefs.DeleteKey(SaveKey);
         }
     }
 }

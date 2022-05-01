@@ -9,16 +9,6 @@ namespace HerderGames.Zeit
         public int Tage;
         public float Time;
 
-        public int GetAnzahlTage()
-        {
-            return Wochen * 7 + Tage;
-        }
-
-        public float ToSekunden()
-        {
-            return ToStunden() / (60 * 60);
-        }
-        
         public float ToStunden()
         {
             return Wochen * 24f * 7f + Tage * 24f + Time;

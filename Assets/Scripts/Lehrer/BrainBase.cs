@@ -9,7 +9,7 @@ namespace HerderGames.Lehrer
     {
         protected Lehrer Lehrer { get; private set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Lehrer = GetComponent<Lehrer>();
             RegisterGoals(Lehrer.AI);

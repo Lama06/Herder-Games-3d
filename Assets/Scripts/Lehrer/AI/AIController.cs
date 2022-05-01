@@ -5,11 +5,8 @@ namespace HerderGames.Lehrer.AI
 {
     [RequireComponent(typeof(Lehrer))]
     public class AIController : MonoBehaviour
-    {
-        private const int GoalPriorityNoGoal = -1;
-        
+    { 
         public List<GoalBase> Goals { get; } = new();
-        private int CurrentGoalPriority = GoalPriorityNoGoal;
         public GoalBase CurrentGoal { get; private set; }
 
         public void AddGoal(GoalBase goal)
@@ -24,11 +21,10 @@ namespace HerderGames.Lehrer.AI
             {
                 CurrentGoal.EndGoal(GoalEndReason.GoalCannotContinue);
                 CurrentGoal = null;
-                CurrentGoalPriority = GoalPriorityNoGoal;
             }
 
-            var (newGoal, newGoalPriority) = GetGoalWithHigherPriorityThatCanStart();
-            if (newGoal == null)
+            var newGoal = GetGoalWithHighestPriorityThatCanStart();
+            if (newGoal == null || newGoal == CurrentGoal)
             {
                 return;
             }
@@ -40,31 +36,25 @@ namespace HerderGames.Lehrer.AI
 
             CurrentGoal = newGoal;
             CurrentGoal.StartGoal();
-            CurrentGoalPriority = newGoalPriority;
         }
 
-        private (GoalBase, int) GetGoalWithHigherPriorityThatCanStart()
+        private GoalBase GetGoalWithHighestPriorityThatCanStart()
         {
-            var priority = -1;
+            GoalBase goalWithHighestPriority = null;
+            
             for (var i = Goals.Count - 1; i >= 0; i--)
             {
-                priority++;
-                if (priority <= CurrentGoalPriority)
-                {
-                    continue;
-                }
-
                 var goal = Goals[i];
-
+                
                 if (!goal.ShouldRun(false))
                 {
                     continue;
                 }
-
-                return (goal, priority);
+                
+                goalWithHighestPriority = goal;
             }
 
-            return (null, GoalPriorityNoGoal);
+            return goalWithHighestPriority;
         }
     }
 }

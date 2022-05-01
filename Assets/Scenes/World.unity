@@ -454,6 +454,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeSpeed: 0.03
+  StartKalenderwoche: 0
+  StartWochentag: 0
+  StartZeit: 7
 --- !u!4 &670363814
 Transform:
   m_ObjectHideFlags: 0
@@ -1720,7 +1723,6 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   LaengeDerVergiftung: 3
   KostenFuerDieSchuleProTagVergiftet: 100
-  Status: 0
 --- !u!114 &1609019425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,6 +1753,8 @@ MonoBehaviour:
   TimeManager: {fileID: 670363813}
   UnterrichtsRaum: {fileID: 752264926}
   SchuleEingang: {fileID: 288763062}
+  Kaffeemaschine: {fileID: 1603995576}
+  Alarm: {fileID: 1836436228}
 --- !u!114 &1609019432
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ namespace HerderGames.Player
         {
             Debug.Log("Game Over");
             GameOver.SchadenFuerDieSchule = Player.Score.SchadenFuerDieSchule;
-            PersistentDataManager.Reset();
+            PersistentDataManager.DeleteData();
             SceneManager.LoadScene("Scenes/GameOver");
         }
 
@@ -47,9 +47,9 @@ namespace HerderGames.Player
             AnzahlVerwarnungen = PlayerPrefs.GetInt(SaveKey);
         }
 
-        public void ResetData()
+        public void DeleteData()
         {
-            AnzahlVerwarnungen = 0;
+            PlayerPrefs.DeleteKey(SaveKey);
         }
     }
 }

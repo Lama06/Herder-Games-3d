@@ -34,7 +34,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return !VergiftbaresEssen.Status.IsBemerkt() && Trigger.Resolve();
+            return !VergiftbaresEssen.VergiftungBemerkt && Trigger.Resolve();
         }
 
         public override IEnumerator Execute()
@@ -42,7 +42,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = VergiftbaresEssen.GetStandpunkt();
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            if (VergiftbaresEssen.Status.IsVergiftet())
+            if (VergiftbaresEssen.Vergiftet)
             {
                 Vergiftung.Vergiften(VergiftbaresEssen);
             }

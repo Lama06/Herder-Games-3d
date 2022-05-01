@@ -44,7 +44,7 @@ namespace HerderGames.Lehrer
 
         private string GetSaveKey()
         {
-            return $"lehrer.{Lehrer.GetId()}.reputation";
+            return $"{Lehrer.GetSaveKeyRoot()}.reputation";
         }
         
         public void SaveData()
@@ -57,9 +57,9 @@ namespace HerderGames.Lehrer
             ReputationsWert = PlayerPrefs.GetFloat(GetSaveKey());
         }
 
-        public void ResetData()
+        public void DeleteData()
         {
-            ReputationsWert = 0f;
+            PlayerPrefs.DeleteKey(GetSaveKey());
         }
     }
 }

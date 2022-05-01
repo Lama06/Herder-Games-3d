@@ -1,6 +1,7 @@
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Util;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,7 +15,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(AIController))]
     [RequireComponent(typeof(InteraktionsMenuFragenManager))]
     [RequireComponent(typeof(BrainBase))]
-    public class Lehrer : MonoBehaviour
+    public class Lehrer : MonoBehaviour, PersistentDataContainer
     {
         [SerializeField] private string Name;
         [SerializeField] private string Id;
@@ -40,6 +41,21 @@ namespace HerderGames.Lehrer
             Brain = GetComponent<BrainBase>();
         }
 
+        public void LoadData()
+        {
+            transform.position = PlayerPrefsUtil.GetVector($"{GetSaveKeyRoot()}.position", transform.position);
+        }
+
+        public void SaveData()
+        {
+            PlayerPrefsUtil.SetVector($"{GetSaveKeyRoot()}.position", transform.position);
+        }
+
+        public void DeleteData()
+        {
+            PlayerPrefsUtil.DeleteVector($"{GetSaveKeyRoot()}.position");
+        }
+
         public string GetName()
         {
             return Name;
@@ -48,6 +64,11 @@ namespace HerderGames.Lehrer
         public string GetId()
         {
             return Id;
+        }
+
+        public string GetSaveKeyRoot()
+        {
+            return $"lehrer.{Id}";
         }
     }
 }
