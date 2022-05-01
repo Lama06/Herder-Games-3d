@@ -34,7 +34,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return VergiftbaresEssen.Status != VergiftungsStatus.VergiftetBemerkt && Trigger.Resolve();
+            return !VergiftbaresEssen.Status.IsBemerkt() && Trigger.Resolve();
         }
 
         public override IEnumerator Execute()

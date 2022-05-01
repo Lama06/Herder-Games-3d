@@ -25,8 +25,8 @@ namespace HerderGames.Lehrer
         public Reputation Reputation { get; private set; }
         public SpracheManager Sprache { get; private set; }
         public AIController AI { get; private set; }
-        public BrainBase Brain { get; private set; }
         public InteraktionsMenuFragenManager FragenManager { get; private set; }
+        public BrainBase Brain { get; private set; }
 
         private void Awake()
         {
@@ -36,8 +36,8 @@ namespace HerderGames.Lehrer
             Reputation = GetComponent<Reputation>();
             Sprache = GetComponent<SpracheManager>();
             AI = GetComponent<AIController>();
-            Brain = GetComponent<BrainBase>();
             FragenManager = GetComponent<InteraktionsMenuFragenManager>();
+            Brain = GetComponent<BrainBase>();
         }
 
         public string GetName()

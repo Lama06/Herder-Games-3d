@@ -33,9 +33,13 @@ namespace HerderGames.Lehrer.AI.Goals
             return Trigger.Resolve();
         }
 
-        public override IEnumerator Execute()
+        public override void OnGoalEnd(GoalEndReason reason)
         {
             IsAngekommen = false;
+        }
+
+        public override IEnumerator Execute()
+        {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.Agent.destination = Standpunkt;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);

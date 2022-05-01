@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using HerderGames.Schule;
 using HerderGames.Zeit;
@@ -13,8 +14,7 @@ namespace HerderGames.Lehrer
         [SerializeField] private int LaengeDerVergiftung;
         [SerializeField] private int KostenFuerDieSchuleProTagVergiftet;
 
-        private bool Vergiftet;
-        public bool Syntome { get; private set; }
+        public LehrerVergiftungsStatus Status { get; private set; }
         private VergiftbaresEssen GrundDerVergiftung;
         private int TageRemaining;
 
@@ -31,39 +31,74 @@ namespace HerderGames.Lehrer
                 yield return new WaitUntil(() => currentWochentag != TimeManager.GetCurrentWochentag());
                 currentWochentag = TimeManager.GetCurrentWochentag();
                 // Wird immer am Anfang eines neuen Wochentages ausgeführt
-                
-                if (!Vergiftet)
+
+                if (!Status.IsVergiftet())
                 {
                     continue;
                 }
 
                 if (TageRemaining <= 0)
                 {
-                    Vergiftet = false;
-                    Syntome = false;
+                    Status = LehrerVergiftungsStatus.NichtVergiftet;
                     GrundDerVergiftung = null;
                     TageRemaining = 0;
                     continue;
                 }
-                
+
                 TageRemaining--;
-                
-                if (!Syntome)
+
+                if (!Status.HasSyntome())
                 {
-                    Syntome = true;
-                    GrundDerVergiftung.Status = VergiftungsStatus.VergiftetBemerkt;
+                    Status = Status.MitSyntomen();
+                    GrundDerVergiftung.Status = GrundDerVergiftung.Status.ToBemerkt();
                 }
-                
+
                 Player.Score.SchadenFuerDieSchule += KostenFuerDieSchuleProTagVergiftet;
             }
         }
 
         public void Vergiften(VergiftbaresEssen grund)
         {
-            Vergiftet = true;
-            Syntome = false;
+            Status = grund.Status switch
+            {
+                _ when grund.Status.IsVergiftetNormal() => LehrerVergiftungsStatus.VergiftetNormalKeineSyntome,
+                _ when grund.Status.IsVergiftetOrthamol() => LehrerVergiftungsStatus.VergiftetOrthamolKeineSyntome,
+                _ => throw new ArgumentOutOfRangeException()
+            };
             GrundDerVergiftung = grund;
             TageRemaining = LaengeDerVergiftung;
+        }
+    }
+
+    public enum LehrerVergiftungsStatus
+    {
+        NichtVergiftet,
+        VergiftetNormalKeineSyntome,
+        VergiftungNormalSyntome,
+        VergiftetOrthamolKeineSyntome,
+        VergiftungOrthamolSyntome
+    }
+
+    public static class LehrerVergiftungsStatusExtensions
+    {
+        public static bool IsVergiftet(this LehrerVergiftungsStatus status)
+        {
+            return status != LehrerVergiftungsStatus.NichtVergiftet;
+        }
+
+        public static bool HasSyntome(this LehrerVergiftungsStatus status)
+        {
+            return status is LehrerVergiftungsStatus.VergiftungNormalSyntome or LehrerVergiftungsStatus.VergiftungOrthamolSyntome;
+        }
+        
+        public static LehrerVergiftungsStatus MitSyntomen(this LehrerVergiftungsStatus status)
+        {
+            return status switch
+            {
+                LehrerVergiftungsStatus.VergiftetNormalKeineSyntome => LehrerVergiftungsStatus.VergiftungNormalSyntome,
+                LehrerVergiftungsStatus.VergiftetOrthamolKeineSyntome => LehrerVergiftungsStatus.VergiftungOrthamolSyntome,
+                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+            };
         }
     }
 }

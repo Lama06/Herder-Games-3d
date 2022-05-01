@@ -9,12 +9,14 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer.Brains
 {
+    [RequireComponent(typeof(VergiftungsManager))]
     public class SchultenBrain : BrainBase
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private Transform SchuleEingang;
+        [SerializeField] private VergiftbaresEssen Kaffeemaschine;
 
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWegUnterricht = new(
             "Ich hoffe meine Schüler haben den Schimmelreiter gelesen"
@@ -50,7 +52,26 @@ namespace HerderGames.Lehrer.Brains
                     "Jetz mal ganz ehrlich wir alle wollen auch mal frei haben"
                 )
             ));
-
+            
+            ai.AddGoal(new SchuleVerlassenGoal(
+                lehrer: Lehrer,
+                trigger: new CallbackTrigger(() => GetComponent<VergiftungsManager>().Status == LehrerVergiftungsStatus.VergiftungNormalSyntome),
+                eingang: SchuleEingang.position,
+                ausgang: SchuleEingang.position,
+                saetzeBeimVerlassen: null
+            ));
+            
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                trigger: new CallbackTrigger(() => GetComponent<VergiftungsManager>().Status == LehrerVergiftungsStatus.VergiftungOrthamolSyntome),
+                position: SchuleEingang.position,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "Ich muss mal aus Klo"    
+                ),
+                saetzeAngekommenEinmalig: null,
+                saetzeAngekommen: null
+            ));
+            
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
                 maximaleDistanzProMinute: 30f,
@@ -76,6 +97,21 @@ namespace HerderGames.Lehrer.Brains
                     "Der Schüler muss gehen"
                 )
             ));
+            
+            ai.AddGoal(new VergiftbaresEssenEssenGoal(
+                lehrer: Lehrer,
+                trigger: new CallbackTrigger(() => StundenPlanRaster.GetCurrentStundenPlanEintrag(TimeManager)?.Stunde == StundenType.Kurzpause),
+                vergiftbaresEssen: Kaffeemaschine,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "Kaffee am Morgen vertreibt Kummer und Sorgen"    
+                ),
+                saetzeAngekommenEinmalig: null,
+                saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                    "Mmhn Lecker"    
+                ),
+                vergiftung: GetComponent<VergiftungsManager>()
+            ));
+
 
             // Unterrichten
             ai.AddGoal(new UnterrichtenGoal(

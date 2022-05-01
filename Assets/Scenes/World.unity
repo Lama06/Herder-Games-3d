@@ -1395,7 +1395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Standpunkt: {fileID: 1740621247}
-  InteraktionsMenuName: Kaffeemaschine vergiften
+  InteraktionsMenuNameNormal: Kaffeemaschine vergiften
+  InteraktionsMenuNameOrthamol: Orthomol in Kafee beimischen
   ZeitZumVergiften: 5
   SchwereDesVerbrechens: 0.5
   SchadenFuerDieSchule: 200
@@ -1719,6 +1720,7 @@ MonoBehaviour:
   Player: {fileID: 1538818858}
   LaengeDerVergiftung: 3
   KostenFuerDieSchuleProTagVergiftet: 100
+  Status: 0
 --- !u!114 &1609019425
 MonoBehaviour:
   m_ObjectHideFlags: 0
