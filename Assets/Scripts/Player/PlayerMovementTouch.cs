@@ -8,7 +8,6 @@ namespace HerderGames.Player
     {
         [SerializeField] private float Sensitivity;
         [SerializeField] private float MaxSpeed;
-        [SerializeField] private UIOverlay Overlay;
         [SerializeField] private Player Player;
 
         private CharacterController Controller;
@@ -23,7 +22,7 @@ namespace HerderGames.Player
         private void Update()
         {
 #if UNITY_ANDROID || UNITY_IOS
-            if (Overlay.GetIsFocused() || Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
+            if (Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
             }

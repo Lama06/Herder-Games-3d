@@ -51,9 +51,7 @@ namespace HerderGames.Player
 
         public UnterrichtenGoal GetNextUnterrichtenGoal()
         {
-            var eintragNext =
-                StundenPlanRaster.GetNaechstenStundenPlanEintragWithType(TimeManager.GetCurrentWochentag(),
-                    TimeManager.GetCurrentTime(), StundenType.Fach);
+            var eintragNext = StundenPlanRaster.GetNaechstenStundenPlanEintragWithType(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime(), StundenType.Fach);
             if (eintragNext == null)
             {
                 return null;
@@ -62,6 +60,11 @@ namespace HerderGames.Player
             foreach (var goal in GetUnterrichtenGoals())
             {
                 var stunde = goal.GetStundeImStundenplan();
+
+                if (stunde == null)
+                {
+                    continue;
+                }
                 
                 if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
                 {

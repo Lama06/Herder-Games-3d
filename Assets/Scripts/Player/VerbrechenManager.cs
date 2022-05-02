@@ -69,6 +69,11 @@ namespace HerderGames.Player
 
         public void VerbrechenStarten(int time, float schwere, Action callback)
         {
+            if (BegehtGeradeEinVerbrechen)
+            {
+                return;
+            }
+
             BegehtGeradeEinVerbrechen = true;
             TimeRemaining = time;
             Schwere = schwere;
@@ -77,6 +82,11 @@ namespace HerderGames.Player
 
         public void VerbrechenAbbrechen()
         {
+            if (!BegehtGeradeEinVerbrechen)
+            {
+                return;
+            }
+            
             BegehtGeradeEinVerbrechen = false;
             TimeRemaining = 0;
             Schwere = 0;

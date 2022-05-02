@@ -1,3 +1,4 @@
+using System;
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
@@ -29,6 +30,8 @@ namespace HerderGames.Lehrer
         public InteraktionsMenuFragenManager FragenManager { get; private set; }
         public BrainBase Brain { get; private set; }
 
+        private Vector3 LastPosition;
+        
         private void Awake()
         {
             Renderer = GetComponent<Renderer>();
@@ -41,6 +44,11 @@ namespace HerderGames.Lehrer
             Brain = GetComponent<BrainBase>();
         }
 
+        private void Update()
+        {
+            LastPosition = transform.position;
+        }
+
         public void LoadData()
         {
             transform.position = PlayerPrefsUtil.GetVector($"{GetSaveKeyRoot()}.position", transform.position);
@@ -48,7 +56,7 @@ namespace HerderGames.Lehrer
 
         public void SaveData()
         {
-            PlayerPrefsUtil.SetVector($"{GetSaveKeyRoot()}.position", transform.position);
+            PlayerPrefsUtil.SetVector($"{GetSaveKeyRoot()}.position", LastPosition);
         }
 
         public void DeleteData()

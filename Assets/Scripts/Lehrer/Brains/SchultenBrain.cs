@@ -10,6 +10,7 @@ using UnityEngine;
 namespace HerderGames.Lehrer.Brains
 {
     [RequireComponent(typeof(VergiftungsManager))]
+    [RequireComponent(typeof(VisionSensor))]
     public class SchultenBrain : BrainBase
     {
         [SerializeField] private Player.Player Player;
@@ -18,8 +19,10 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private Transform SchuleEingang;
         [SerializeField] private VergiftbaresEssen Kaffeemaschine;
         [SerializeField] private AlarmManager Alarm;
+        [SerializeField] private InternetManager Internet;
 
         private VergiftungsManager Vergiftung;
+        private VisionSensor VisionSensor;
 
         private readonly SaetzeMoeglichkeitenMehrmals SaetzeWegUnterricht = new(
             "Ich hoffe meine Schüler haben den Schimmelreiter gelesen"
@@ -39,6 +42,7 @@ namespace HerderGames.Lehrer.Brains
         {
             base.Awake();
             Vergiftung = GetComponent<VergiftungsManager>();
+            VisionSensor = GetComponent<VisionSensor>();
         }
 
         protected override void RegisterGoals(AIController ai)
@@ -68,6 +72,20 @@ namespace HerderGames.Lehrer.Brains
                 eingang: SchuleEingang.position,
                 ausgang: SchuleEingang.position,
                 saetzeBeimVerlassen: null
+            ));
+
+            ai.AddGoal(new InternetReparierenGoal(
+                    lehrer: Lehrer,
+                    trigger: new AlwaysTrueTrigger(),
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Das Internet ist schon wieder kaputt"
+                    ),
+                    null,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Das repariere Ich"    
+                    ),
+                    internet: Internet,
+                    vision: VisionSensor
             ));
             
             ai.AddGoal(new MoveToAndStandAtGoal(

@@ -43,7 +43,12 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve() && (SiehtVerbrechen() || GehtGeradeZuTatort);
+            if (!Trigger.Resolve())
+            {
+                return false;
+            }
+
+            return currentlyRunning ? GehtGeradeZuTatort : SiehtVerbrechen();
         }
 
         public override void OnGoalEnd(GoalEndReason reason)

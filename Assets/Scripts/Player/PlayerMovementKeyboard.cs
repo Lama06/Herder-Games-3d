@@ -1,4 +1,3 @@
-using HerderGames.UI;
 using UnityEngine;
 
 namespace HerderGames.Player
@@ -7,7 +6,6 @@ namespace HerderGames.Player
     public class PlayerMovementKeyboard : MonoBehaviour
     {
         [SerializeField] private float Speed;
-        [SerializeField] private UIOverlay Overlay;
         [SerializeField] private Player Player;
         
         private CharacterController Controller;
@@ -22,7 +20,7 @@ namespace HerderGames.Player
         private void Update()
         {
 #if UNITY_STANDALONE
-            if (Overlay.GetIsFocused() || Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
+            if (Player.VerbrechenManager.BegehtGeradeEinVerbrechen)
             {
                 return;
             }

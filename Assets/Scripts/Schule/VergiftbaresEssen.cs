@@ -29,6 +29,7 @@ namespace HerderGames.Schule
         public void Entgiften()
         {
             Vergiftet = false;
+            VergiftungBemerkt = false;
         }
 
         public void Bemerken()

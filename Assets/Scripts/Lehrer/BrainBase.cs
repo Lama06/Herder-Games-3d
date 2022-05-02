@@ -1,3 +1,4 @@
+using System;
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.Fragen;
 using UnityEngine;
@@ -12,6 +13,10 @@ namespace HerderGames.Lehrer
         protected virtual void Awake()
         {
             Lehrer = GetComponent<Lehrer>();
+        }
+
+        protected virtual void Start()
+        {
             RegisterGoals(Lehrer.AI);
             RegisterFragen(Lehrer.FragenManager);
         }

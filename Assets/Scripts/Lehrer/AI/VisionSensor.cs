@@ -16,7 +16,7 @@ namespace HerderGames.Lehrer.AI
                 return false;
             }
 
-            var vectorToOther = other.transform.position - transform.position;
+            var vectorToOther = other.transform.position - EyeLocation.transform.position;
 
             var hit = Physics.Raycast(EyeLocation.position, vectorToOther, out var raycastHit, MaxViewDistance,
                 Physics.AllLayers, QueryTriggerInteraction.Ignore);

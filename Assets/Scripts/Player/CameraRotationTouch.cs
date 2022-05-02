@@ -12,11 +12,6 @@ namespace HerderGames.Player
         private void Update()
         {
 #if UNITY_ANDROID || UNITY_IOS
-            if (Overlay.GetIsFocused())
-            {
-                return;
-            }
-            
             foreach (var touch in Input.touches)
             {
                 if (!(touch.rawPosition.x <= Screen.width / 2))
