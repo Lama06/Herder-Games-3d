@@ -49,7 +49,7 @@ namespace HerderGames.Schule
         public void DeleteData()
         {
             PlayerPrefs.DeleteKey("alarm.startzeit_exists");
-            PlayerPrefs.DeleteKey("alarm.startzeit");
+            PlayerPrefsUtil.DeleteZeitpunkt("alarm.startzeit");
         }
     }
 }

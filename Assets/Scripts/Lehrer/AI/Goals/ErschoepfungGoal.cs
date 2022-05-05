@@ -34,8 +34,12 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute ||
-                   HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute || MachtGeradePause;
+            if (currentlyRunning)
+            {
+                return MachtGeradePause;
+            }
+
+            return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
         }
 
         public override void OnGoalEnd(GoalEndReason reason)

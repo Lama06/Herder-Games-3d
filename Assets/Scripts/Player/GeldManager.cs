@@ -9,13 +9,18 @@ namespace HerderGames.Player
 
         public bool Pay(int amount)
         {
-            if (amount > Geld)
+            if (!CanPay(amount))
             {
                 return false;
             }
 
             Geld -= amount;
             return true;
+        }
+
+        public bool CanPay(int amount)
+        {
+            return Geld >= amount;
         }
 
         private const string SaveKey = "player.geld";

@@ -1,4 +1,5 @@
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Player;
 using HerderGames.Util;
 
 namespace HerderGames.Lehrer.Fragen
@@ -10,6 +11,7 @@ namespace HerderGames.Lehrer.Fragen
 
         private readonly string InteraktionsMenuName;
         private readonly int Kosten;
+        private readonly Item? RequiredItem;
         private readonly float AnnahmeWahrscheinlichkeit;
 
         private readonly float ReputationsAenderungBeiAnnahme;
@@ -22,18 +24,20 @@ namespace HerderGames.Lehrer.Fragen
             Lehrer lehrer,
             Player.Player player,
             string interaktionsMenuName,
-            int kosten,
             float annahmeWahrscheinlichkeit,
             float reputationsAenderungBeiAnnahme,
             SaetzeMoeglichkeitenEinmalig annahmeAntworten,
             float reputationsAenderungBeiAblehnen,
-            SaetzeMoeglichkeitenEinmalig ablehnenAntworten
+            SaetzeMoeglichkeitenEinmalig ablehnenAntworten,
+            int kosten = 0,
+            Item? requiredItem = null
         )
         {
             Lehrer = lehrer;
             Player = player;
             InteraktionsMenuName = interaktionsMenuName;
             Kosten = kosten;
+            RequiredItem = requiredItem;
             AnnahmeWahrscheinlichkeit = annahmeWahrscheinlichkeit;
             ReputationsAenderungBeiAnnahme = reputationsAenderungBeiAnnahme;
             AnnahmeAntworten = annahmeAntworten;
@@ -56,14 +60,26 @@ namespace HerderGames.Lehrer.Fragen
 
         public override void OnClick(int id)
         {
-            if (!Player.GeldManager.Pay(Kosten))
+            if (!Player.GeldManager.CanPay(Kosten))
             {
                 Player.Chat.SendChatMessage($"Du benötigst {Kosten}€ um diese Aktion durchzuführen");
                 return;
             }
 
+            if (RequiredItem != null && !Player.Inventory.HasItem((Item) RequiredItem))
+            {
+                Player.Chat.SendChatMessage($"Du benötigst dieses Item um die Aktion durchzuführen: {RequiredItem}");
+                return;
+            }
+
             if (Utility.TrueWithPercent(AnnahmeWahrscheinlichkeit))
             {
+                Player.GeldManager.Pay(Kosten);
+                if (RequiredItem != null)
+                {
+                    Player.Inventory.RemoveItem((Item) RequiredItem);
+                }
+                
                 Lehrer.Sprache.Say(AnnahmeAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAnnahme);
                 OnAnnehmen();

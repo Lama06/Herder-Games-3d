@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Goals;
 using UnityEngine;
 
-namespace HerderGames.Lehrer
+namespace HerderGames.Lehrer.Sprache
 {
     public class Gespraech : MonoBehaviour
     {

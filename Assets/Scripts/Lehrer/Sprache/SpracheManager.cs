@@ -1,32 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace HerderGames.Lehrer.Sprache
 {
     [RequireComponent(typeof(Lehrer))]
     public class SpracheManager : MonoBehaviour
     {
-        private const float DefaultDelay = 10;
-        
+        private const float DefaultDelay = 1;
+
         [SerializeField] private Player.Player Player;
         [SerializeField] private float ReichweiteDerStimme = 20;
 
         private Lehrer Lehrer;
-        private List<string> RemainingSaetze;
-        private SaetzeMoeglichkeitenMehrmals _SaetzeMoeglichkeiten;
-        public SaetzeMoeglichkeitenMehrmals SaetzeMoeglichkeiten
-        {
-            set
-            {
-                _SaetzeMoeglichkeiten = value;
-                if (value != null)
-                {
-                    RemainingSaetze = new List<string>(value.MoeglicheSaetze);
-                }
-            }
-        }
+        public ISaetzeMoeglichkeitenMehrmals SaetzeMoeglichkeiten { get; set; }
 
         private void Awake()
         {
@@ -44,28 +30,21 @@ namespace HerderGames.Lehrer.Sprache
             {
                 yield return null;
 
-                if (_SaetzeMoeglichkeiten == null)
+                if (SaetzeMoeglichkeiten == null)
                 {
                     continue;
                 }
 
-                if (_SaetzeMoeglichkeiten.MoeglicheSaetze.Count == 0)
+                var (satz, delay) = SaetzeMoeglichkeiten.GetNextSatz();
+                
+                if (satz == null)
                 {
                     continue;
                 }
-
-                if (RemainingSaetze.Count == 0)
-                {
-                    RemainingSaetze = new List<string>(_SaetzeMoeglichkeiten.MoeglicheSaetze);
-                }
-
-                var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];
-                RemainingSaetze.Remove(satz);
 
                 Say(satz);
-
-                var delay = _SaetzeMoeglichkeiten.UseCustomDelay ? _SaetzeMoeglichkeiten.CustomDelay : DefaultDelay;
-                yield return new WaitForSeconds(delay);
+                
+                yield return new WaitForSeconds(delay ?? DefaultDelay);
             }
         }
 
@@ -79,20 +58,18 @@ namespace HerderGames.Lehrer.Sprache
             Player.Chat.SendChatMessage(Lehrer, satz);
         }
 
-        public void Say(SaetzeMoeglichkeitenEinmalig source)
+        public void Say(ISaetzeMoeglichkeitenEinmalig source)
         {
             if (source == null)
             {
                 return;
             }
-            
-            var moeglichkeiten = source.MoeglicheSaetze;
-            if (moeglichkeiten.Count == 0)
+
+            var satz = source.GetSatz();
+            if (satz == null)
             {
                 return;
             }
-
-            var satz = moeglichkeiten[Random.Range(0, moeglichkeiten.Count)];
 
             Say(satz);
         }

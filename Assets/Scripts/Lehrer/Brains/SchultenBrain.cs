@@ -114,7 +114,7 @@ namespace HerderGames.Lehrer.Brains
             
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
-                maximaleDistanzProMinute: 30f,
+                maximaleDistanzProMinute: 3f,
                 maxiamleHoeheProMinute: 15f,
                 laengeDerPause: 5f,
                 saetze: new SaetzeMoeglichkeitenMehrmals(

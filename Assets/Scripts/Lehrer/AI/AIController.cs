@@ -5,7 +5,7 @@ namespace HerderGames.Lehrer.AI
 {
     [RequireComponent(typeof(Lehrer))]
     public class AIController : MonoBehaviour
-    { 
+    {
         public List<GoalBase> Goals { get; } = new();
         public GoalBase CurrentGoal { get; private set; }
 
@@ -46,7 +46,12 @@ namespace HerderGames.Lehrer.AI
             {
                 var goal = Goals[i];
                 
-                if (!goal.ShouldRun(false))
+                if (goal == CurrentGoal && !goal.ShouldRun(true))
+                {
+                    continue;
+                }
+
+                if (goal != CurrentGoal && !goal.ShouldRun(false))
                 {
                     continue;
                 }

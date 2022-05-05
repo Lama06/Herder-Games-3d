@@ -19,15 +19,30 @@ namespace HerderGames.Zeit
         {
             return CurrentKalenderwoche;
         }
+
+        public void SetCurrentKalenderwoche(int kalenderwoche)
+        {
+            CurrentKalenderwoche = kalenderwoche;
+        }
         
         public Wochentag GetCurrentWochentag()
         {
             return CurrentWochentag;
         }
 
+        public void SetCurrentWochentag(Wochentag wochentag)
+        {
+            CurrentWochentag = wochentag;
+        }
+
         public float GetCurrentTime()
         {
             return CurrentTime;
+        }
+
+        public void SetCurrentTime(float time)
+        {
+            CurrentTime = time;
         }
 
         public Zeitpunkt GetCurrentZeitpunkt()

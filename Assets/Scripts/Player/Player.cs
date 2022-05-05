@@ -11,6 +11,7 @@ namespace HerderGames.Player
     [RequireComponent(typeof(Stundenplan))]
     [RequireComponent(typeof(Score))]
     [RequireComponent(typeof(GeldManager))]
+    [RequireComponent(typeof(Inventory))]
     public class Player : MonoBehaviour, PersistentDataContainer
     {
         public Chat Chat { get; private set; }
@@ -20,6 +21,7 @@ namespace HerderGames.Player
         public Stundenplan Stundenplan { get; private set; }
         public Score Score { get; private set; }
         public GeldManager GeldManager { get; private set; }
+        public Inventory Inventory { get; private set; }
 
         private Vector3 LastPosition;
 
@@ -32,6 +34,7 @@ namespace HerderGames.Player
             Stundenplan = GetComponent<Stundenplan>();
             Score = GetComponent<Score>();
             GeldManager = GetComponent<GeldManager>();
+            Inventory = GetComponent<Inventory>();
         }
 
         private void Update()
@@ -53,7 +56,7 @@ namespace HerderGames.Player
 
         public void DeleteData()
         {
-            PlayerPrefs.DeleteKey("player.position");
+            PlayerPrefsUtil.DeleteVector("player.position");
         }
     }
 }

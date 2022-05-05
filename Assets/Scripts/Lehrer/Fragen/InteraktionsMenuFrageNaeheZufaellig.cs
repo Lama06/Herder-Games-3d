@@ -1,4 +1,5 @@
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Player;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Fragen
@@ -9,22 +10,24 @@ namespace HerderGames.Lehrer.Fragen
             Lehrer lehrer,
             Player.Player player,
             string interaktionsMenuName,
-            int kosten,
             float annahmeWahrscheinlichkeit,
             float reputationsAenderungBeiAnnahme,
             SaetzeMoeglichkeitenEinmalig annahmeAntworten,
             float reputationsAenderungBeiAblehnen,
-            SaetzeMoeglichkeitenEinmalig ablehnenAntworten
+            SaetzeMoeglichkeitenEinmalig ablehnenAntworten,
+            int kosten = 0,
+            Item? requiredItem = null
         ) : base(
             lehrer,
             player,
             interaktionsMenuName,
-            kosten,
             annahmeWahrscheinlichkeit,
             reputationsAenderungBeiAnnahme,
             annahmeAntworten,
             reputationsAenderungBeiAblehnen,
-            ablehnenAntworten
+            ablehnenAntworten,
+            kosten,
+            requiredItem
         )
         {
         }

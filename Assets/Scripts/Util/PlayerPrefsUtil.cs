@@ -15,11 +15,6 @@ namespace HerderGames.Util
             PlayerPrefs.SetInt(path, value ? 1 : 0);
         }
 
-        public static void DeleteBool(string path)
-        {
-            PlayerPrefs.DeleteKey(path);
-        }
-        
         public static void SetVector(string path, Vector3 vector)
         {
             PlayerPrefs.SetFloat($"{path}.x", vector.x);

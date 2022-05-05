@@ -53,31 +53,39 @@ namespace HerderGames.Schule
         {
             bool ShouldShow() => PlayerInTrigger != null && !Vergiftet;
 
-            void AddEintrag(string name, VergiftungsType type, List<int> ids)
+            int AddEintrag(Player.Player player, string name, VergiftungsType type, Item item, string itemMissingMsg)
             {
-                ids.Add(PlayerInTrigger.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
+                return PlayerInTrigger.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                 {
                     Name = name,
                     Callback = _ =>
                     {
+                        if (!player.Inventory.RemoveItem(item))
+                        {
+                            player.Chat.SendChatMessage(itemMissingMsg);
+                            return;
+                        }
+                        
                         PlayerInTrigger.VerbrechenManager.VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens, () =>
                         {
                             PlayerInTrigger.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
                             Vergiften(type);
                         });
                     }
-                }));
+                });
             }
 
             while (true)
             {
                 yield return new WaitUntil(ShouldShow);
                 var player = PlayerInTrigger;
-                var ids = new List<int>();
-                AddEintrag(InteraktionsMenuNameNormal, VergiftungsType.Normal, ids);
-                AddEintrag(InteraktionsMenuNameOrthamol, VergiftungsType.Orthamol, ids);
+                var ids = new List<int>
+                {
+                    AddEintrag(player, InteraktionsMenuNameNormal, VergiftungsType.Normal, Item.Gift, "Du benötigst Gift, um diese Aktion durchzuführen"),
+                    AddEintrag(player, InteraktionsMenuNameOrthamol, VergiftungsType.Orthamol, Item.Orthomol, "Du benötigst Orthomol, um diese Aktion durchzuführen")
+                };
 
-                yield return new WaitUntil(() => !ShouldShow());
+                yield return new WaitWhile(ShouldShow);
                 ids.ForEach(id => player.InteraktionsMenu.RemoveEintrag(id)); // Hier kann nicht PlayerInTrigger benutzt werden, weil er null ist
             }
         }

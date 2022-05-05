@@ -16,11 +16,11 @@ namespace HerderGames.Schule
 
         private void Start()
         {
-            StartCoroutine(ShowInteraktionsMenuEintrag("Internet sabotieren (MIC)", false));
-            StartCoroutine(ShowInteraktionsMenuEintrag("Internet reparieren (MIO)", true));
+            StartCoroutine(ShowInteraktionsMenuEintrag("Internet sabotieren (MIC)", false, true));
+            StartCoroutine(ShowInteraktionsMenuEintrag("Internet reparieren (MIO)", true, false));
         }
 
-        private IEnumerator ShowInteraktionsMenuEintrag(string name, bool micBefore)
+        private IEnumerator ShowInteraktionsMenuEintrag(string name, bool micBefore, bool lanKabelRequired)
         {
             bool ShouldShow() => Mic == micBefore && PlayerInTrigger != null;
 
@@ -33,6 +33,12 @@ namespace HerderGames.Schule
                     Name = name,
                     Callback = _ =>
                     {
+                        if (lanKabelRequired && !player.Inventory.RemoveItem(Item.LanKabel))
+                        {
+                            player.Chat.SendChatMessage("Du brauchst ein Lan Kabel um einen Mic durchzuführen");
+                            return;
+                        }
+                        
                         player.VerbrechenManager.VerbrechenStarten(Zeit, Schwere, () =>
                         {
                             Mic = !micBefore;
