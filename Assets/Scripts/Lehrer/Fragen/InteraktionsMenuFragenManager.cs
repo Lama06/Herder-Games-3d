@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using HerderGames.Player;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace HerderGames.Lehrer.Fragen
     public class InteraktionsMenuFragenManager : MonoBehaviour
     {
         [SerializeField] private Player.Player Player;
+        
+        private Lehrer Lehrer;
         
         private readonly List<FrageEintrag> Fragen = new();
 
@@ -20,11 +23,16 @@ namespace HerderGames.Lehrer.Fragen
             });
         }
 
+        private void Awake()
+        {
+            Lehrer = GetComponent<Lehrer>();
+        }
+
         private void Update()
         {
             foreach (var frage in Fragen)
             {
-                if (frage.Frage.ShouldShow() && !frage.IsShown())
+                if (frage.ShouldShow(Lehrer) && !frage.IsShown())
                 {
                     frage.InteraktionsMenuId = Player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                     {
@@ -33,7 +41,7 @@ namespace HerderGames.Lehrer.Fragen
                     });
                 }
 
-                if (!frage.Frage.ShouldShow() && frage.IsShown())
+                if (!frage.ShouldShow(Lehrer) && frage.IsShown())
                 {
                     Player.InteraktionsMenu.RemoveEintrag((int) frage.InteraktionsMenuId);
                     frage.InteraktionsMenuId = null;
@@ -50,6 +58,11 @@ namespace HerderGames.Lehrer.Fragen
             public bool IsShown()
             {
                 return InteraktionsMenuId != null;
+            }
+
+            public bool ShouldShow(Lehrer lehrer)
+            {
+                return Frage.ShouldShow() && lehrer.InSchule.GetInSchule();
             }
         }
     }

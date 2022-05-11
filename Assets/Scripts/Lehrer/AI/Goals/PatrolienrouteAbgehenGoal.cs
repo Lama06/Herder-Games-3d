@@ -10,13 +10,13 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly IList<Vector3> Punkte;
-        private readonly SaetzeMoeglichkeitenMehrmals Saetze;
+        private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
 
         public PatrolienrouteAbgehenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             IList<Vector3> punkte,
-            SaetzeMoeglichkeitenMehrmals saetze
+            ISaetzeMoeglichkeitenMehrmals saetze
         ) : base(lehrer)
         {
             Trigger = trigger;

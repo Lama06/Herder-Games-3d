@@ -41,12 +41,12 @@ namespace HerderGames.Util
         {
             var kalenderwoche = PlayerPrefs.GetInt($"{path}.kalenderwoche", defaultValue.Kalenderwoche);
             var wochentag = (Wochentag) PlayerPrefs.GetInt($"{path}.wochentag", (int) defaultValue.Wochentag);
-            var zeit = PlayerPrefs.GetFloat($"{path}.zeit", defaultValue.Time);
+            var zeit = PlayerPrefs.GetFloat($"{path}.zeit", defaultValue.Zeit);
             return new Zeitpunkt
             {
                 Kalenderwoche = kalenderwoche,
                 Wochentag = wochentag,
-                Time = zeit
+                Zeit = zeit
             };
         }
 
@@ -54,7 +54,7 @@ namespace HerderGames.Util
         {
             PlayerPrefs.SetInt($"{path}.kalenderwoche", zeitpunkt.Kalenderwoche);
             PlayerPrefs.SetInt($"{path}.wochentag", (int) zeitpunkt.Wochentag);
-            PlayerPrefs.SetFloat($"{path}.time", zeitpunkt.Time);
+            PlayerPrefs.SetFloat($"{path}.time", zeitpunkt.Zeit);
         }
 
         public static void DeleteZeitpunkt(string path)

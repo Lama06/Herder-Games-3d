@@ -9,17 +9,17 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly Vector3 Position;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public MoveToAndStandAtGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             Vector3 position,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            SaetzeMoeglichkeitenMehrmals saetzeAngekommen
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null
         ) : base(lehrer)
         {
             Trigger = trigger;

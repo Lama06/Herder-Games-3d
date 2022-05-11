@@ -11,7 +11,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly float MaximaleDistanzProMinute;
         private readonly float MaxiamleHoeheProMinute;
         private readonly float LaengeDerPause;
-        private readonly SaetzeMoeglichkeitenMehrmals Saetze;
+        private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
 
         private Vector3 LastPosition;
         private readonly List<float> DistanzLetzeMinute = new();
@@ -23,7 +23,7 @@ namespace HerderGames.Lehrer.AI.Goals
             float maximaleDistanzProMinute,
             float maxiamleHoeheProMinute,
             float laengeDerPause,
-            SaetzeMoeglichkeitenMehrmals saetze
+            ISaetzeMoeglichkeitenMehrmals saetze = null
         ) : base(lehrer)
         {
             MaximaleDistanzProMinute = maximaleDistanzProMinute;

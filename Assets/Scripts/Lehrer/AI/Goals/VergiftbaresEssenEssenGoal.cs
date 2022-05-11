@@ -9,19 +9,17 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly VergiftbaresEssen VergiftbaresEssen;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
-        private readonly VergiftungsManager Vergiftung;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public VergiftbaresEssenEssenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             VergiftbaresEssen vergiftbaresEssen,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            SaetzeMoeglichkeitenMehrmals saetzeAngekommen,
-            VergiftungsManager vergiftung
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -29,7 +27,6 @@ namespace HerderGames.Lehrer.AI.Goals
             SaetzeWeg = saetzeWeg;
             SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
-            Vergiftung = vergiftung;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -44,7 +41,7 @@ namespace HerderGames.Lehrer.AI.Goals
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             if (VergiftbaresEssen.Vergiftet)
             {
-                Vergiftung.Vergiften(VergiftbaresEssen);
+                Lehrer.Vergiftung.Vergiften(VergiftbaresEssen);
             }
 
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);

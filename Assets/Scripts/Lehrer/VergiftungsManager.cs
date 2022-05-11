@@ -43,11 +43,11 @@ namespace HerderGames.Lehrer
 
         private IEnumerator ManageVergiftung()
         {
-            var currentWochentag = TimeManager.GetCurrentWochentag();
+            var currentWochentag = TimeManager.CurrentWochentag;
             while (true)
             {
-                yield return new WaitUntil(() => currentWochentag != TimeManager.GetCurrentWochentag());
-                currentWochentag = TimeManager.GetCurrentWochentag();
+                yield return new WaitUntil(() => currentWochentag != TimeManager.CurrentWochentag);
+                currentWochentag = TimeManager.CurrentWochentag;
                 // Wird immer am Anfang eines neuen Wochentages ausgeführt
 
                 if (!Vergiftet)

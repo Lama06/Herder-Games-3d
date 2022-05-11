@@ -1,61 +1,68 @@
+using System;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Player;
 using HerderGames.Util;
 
 namespace HerderGames.Lehrer.Fragen
 {
-    public abstract class InteraktionsMenuFrageZufaellig : InteraktionsMenuFrage
+    public class InteraktionsMenuFrageAnnehmenAblehnen : InteraktionsMenuFrage
     {
-        protected readonly Lehrer Lehrer;
-        protected readonly Player.Player Player;
+        private readonly Lehrer Lehrer;
+        private readonly Player.Player Player;
 
+        private readonly Func<Player.Player, Lehrer, bool> ShouldShowPredicate;
         private readonly string InteraktionsMenuName;
         private readonly int Kosten;
         private readonly Item? RequiredItem;
         private readonly float AnnahmeWahrscheinlichkeit;
 
         private readonly float ReputationsAenderungBeiAnnahme;
-        private readonly SaetzeMoeglichkeitenEinmalig AnnahmeAntworten;
+        private readonly ISaetzeMoeglichkeitenEinmalig AnnahmeAntworten;
+        private readonly Action<Player.Player, Lehrer> OnAnnehmen;
 
         private readonly float ReputationsAenderungBeiAblehnen;
-        private readonly SaetzeMoeglichkeitenEinmalig AblehnenAntworten;
+        private readonly ISaetzeMoeglichkeitenEinmalig AblehnenAntworten;
+        private readonly Action<Player.Player, Lehrer> OnAblehnen;
 
-        protected InteraktionsMenuFrageZufaellig(
+        public InteraktionsMenuFrageAnnehmenAblehnen(
             Lehrer lehrer,
             Player.Player player,
+            Func<Player.Player, Lehrer, bool> shouldShowPredicate,
             string interaktionsMenuName,
             float annahmeWahrscheinlichkeit,
-            float reputationsAenderungBeiAnnahme,
-            SaetzeMoeglichkeitenEinmalig annahmeAntworten,
-            float reputationsAenderungBeiAblehnen,
-            SaetzeMoeglichkeitenEinmalig ablehnenAntworten,
+            float reputationsAenderungBeiAnnahme = 0f,
+            ISaetzeMoeglichkeitenEinmalig annahmeAntworten = null,
+            Action<Player.Player, Lehrer> onAnnehmen = null,
+            float reputationsAenderungBeiAblehnen = 0f,
+            ISaetzeMoeglichkeitenEinmalig ablehnenAntworten = null,
+            Action<Player.Player, Lehrer> onAblehnen = null,
             int kosten = 0,
             Item? requiredItem = null
         )
         {
             Lehrer = lehrer;
             Player = player;
+            ShouldShowPredicate = shouldShowPredicate;
             InteraktionsMenuName = interaktionsMenuName;
             Kosten = kosten;
             RequiredItem = requiredItem;
             AnnahmeWahrscheinlichkeit = annahmeWahrscheinlichkeit;
             ReputationsAenderungBeiAnnahme = reputationsAenderungBeiAnnahme;
             AnnahmeAntworten = annahmeAntworten;
+            OnAnnehmen = onAnnehmen;
             ReputationsAenderungBeiAblehnen = reputationsAenderungBeiAblehnen;
             AblehnenAntworten = ablehnenAntworten;
+            OnAblehnen = onAblehnen;
+        }
+
+        public override bool ShouldShow()
+        {
+            return ShouldShowPredicate(Player, Lehrer);
         }
 
         public override string GetText()
         {
             return InteraktionsMenuName;
-        }
-
-        protected virtual void OnAnnehmen()
-        {
-        }
-
-        protected virtual void OnAblehnen()
-        {
         }
 
         public override void OnClick(int id)
@@ -79,16 +86,22 @@ namespace HerderGames.Lehrer.Fragen
                 {
                     Player.Inventory.RemoveItem((Item) RequiredItem);
                 }
-                
+
                 Lehrer.Sprache.Say(AnnahmeAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAnnahme);
-                OnAnnehmen();
+                if (OnAnnehmen != null)
+                {
+                    OnAnnehmen(Player, Lehrer);   
+                }
             }
             else
             {
                 Lehrer.Sprache.Say(AblehnenAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAblehnen);
-                OnAblehnen();
+                if (OnAblehnen != null)
+                {
+                    OnAblehnen(Player, Lehrer);   
+                }
             }
         }
     }

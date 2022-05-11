@@ -41,22 +41,22 @@ namespace HerderGames.Schule
                             }
 
                             Wochentag naechsterWochentag;
-                            if (TimeManager.GetCurrentTime() < StundenPlanRaster.SchuleBeginn)
+                            if (TimeManager.CurrentTime < Zeit)
                             {
-                                naechsterWochentag = TimeManager.GetCurrentWochentag();
+                                naechsterWochentag = TimeManager.CurrentWochentag;
                             }
-                            else if (TimeManager.GetCurrentWochentag() is Wochentag.Freitag or Wochentag.Samstag)
+                            else if (TimeManager.CurrentWochentag is Wochentag.Freitag or Wochentag.Samstag)
                             {
                                 naechsterWochentag = Wochentag.Montag;
-                                TimeManager.SetCurrentKalenderwoche(TimeManager.GetCurrentKalenderwoche() + 1);
+                                TimeManager.CurrentKalenderwoche += 1;
                             }
                             else
                             {
-                                naechsterWochentag = TimeManager.GetCurrentWochentag().GetNextWochentag();
+                                naechsterWochentag = TimeManager.CurrentWochentag.GetNextWochentag();
                             }
                             
-                            TimeManager.SetCurrentWochentag(naechsterWochentag);
-                            TimeManager.SetCurrentTime(Zeit);
+                            TimeManager.CurrentWochentag = naechsterWochentag;
+                            TimeManager.CurrentTime = Zeit;
                         }
                     })
                 };

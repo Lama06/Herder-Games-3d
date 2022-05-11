@@ -4,7 +4,7 @@ namespace HerderGames.Zeit
     {
         public Wochentag Tag;
         public float Beginn;
-        public float Duration;
+        public float Laenge;
         public float Ende;
         public StundenType Stunde;
         public int FachIndex;

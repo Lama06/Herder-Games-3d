@@ -13,9 +13,9 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly StundenData StundeImStundenplan;
         private readonly float ReputationsAenderungBeiFehlzeit;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
 
         public bool LehrerArrived { get; private set; }
         public bool SchuelerFreigestelltDieseStunde { get; set; }
@@ -27,9 +27,9 @@ namespace HerderGames.Lehrer.AI.Goals
             TriggerBase trigger,
             StundenData stundeImStundenplan,
             float reputationsAenderungBeiFehlzeit,
-            SaetzeMoeglichkeitenMehrmals saetzeAufDemWegZumRaum,
-            SaetzeMoeglichkeitenEinmalig saetzeBegruessung,
-            SaetzeMoeglichkeitenMehrmals saetzeWaehrendUnterricht
+            ISaetzeMoeglichkeitenMehrmals saetzeAufDemWegZumRaum = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeBegruessung = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeWaehrendUnterricht = null
         ) : base(lehrer)
         {
             UnterrichtsRaum = unterrichtsRaum;

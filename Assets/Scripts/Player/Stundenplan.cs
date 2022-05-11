@@ -21,7 +21,7 @@ namespace HerderGames.Player
         private IList<UnterrichtenGoal> GetUnterrichtenGoals()
         {
             var result = new List<UnterrichtenGoal>();
-            
+
             foreach (var lehrer in AlleLehrer)
             {
                 foreach (var goal in lehrer.AI.Goals)
@@ -51,8 +51,8 @@ namespace HerderGames.Player
 
         public UnterrichtenGoal GetNextUnterrichtenGoal()
         {
-            var eintragNext = StundenPlanRaster.GetNaechstenStundenPlanEintragWithType(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime(), StundenType.Fach);
-            if (eintragNext == null)
+            var nextFach = StundenPlanRaster.GetNaechstenStundenPlanEintrag(TimeManager.CurrentWochentag, TimeManager.CurrentTime, eintrag => eintrag.Stunde == StundenType.Fach);
+            if (nextFach == null)
             {
                 return null;
             }
@@ -65,13 +65,13 @@ namespace HerderGames.Player
                 {
                     continue;
                 }
-                
-                if (TimeManager.GetCurrentWochentag() != stunde.Wochentag)
+
+                if (TimeManager.CurrentWochentag != stunde.Wochentag)
                 {
                     continue;
                 }
 
-                if (eintragNext.FachIndex != stunde.FachIndex)
+                if (nextFach.FachIndex != stunde.FachIndex)
                 {
                     continue;
                 }

@@ -10,7 +10,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly Vector3 Standpunkt;
         private readonly Gespraech Gespraech;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
 
         public bool IsAngekommen { get; private set; }
 
@@ -19,7 +19,7 @@ namespace HerderGames.Lehrer.AI.Goals
             TriggerBase trigger,
             Vector3 standpunkt,
             Gespraech gespraech,
-            SaetzeMoeglichkeitenMehrmals saetzeAufDemWeg
+            ISaetzeMoeglichkeitenMehrmals saetzeAufDemWeg = null
         ) : base(lehrer)
         {
             Trigger = trigger;

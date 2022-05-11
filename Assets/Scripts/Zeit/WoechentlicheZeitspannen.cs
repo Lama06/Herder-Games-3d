@@ -41,6 +41,11 @@ namespace HerderGames.Zeit
             return false;
         }
 
+        public bool IsInside(TimeManager timeManager)
+        {
+            return IsInside(timeManager.CurrentWochentag, timeManager.CurrentTime);
+        }
+
         public class Eintrag
         {
             private readonly WochentagAuswahlBase Tage;

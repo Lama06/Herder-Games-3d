@@ -9,19 +9,19 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly Player.Player Player;
-        private readonly Transform SchulleitungsBuero;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly Vector3 SchulleitungsBuero;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public VerbrechenMeldenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             Player.Player player,
-            Transform schulleitungsBuero,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            SaetzeMoeglichkeitenMehrmals saetzeAngekommen
+            Vector3 schulleitungsBuero,
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -40,7 +40,7 @@ namespace HerderGames.Lehrer.AI.Goals
         public override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = SchulleitungsBuero.position;
+            Lehrer.Agent.destination = SchulleitungsBuero;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;

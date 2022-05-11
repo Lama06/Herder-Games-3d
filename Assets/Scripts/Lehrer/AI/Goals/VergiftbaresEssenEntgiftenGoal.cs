@@ -9,17 +9,17 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly VergiftbaresEssen Essen;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
         public VergiftbaresEssenEntgiftenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             VergiftbaresEssen essen,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            SaetzeMoeglichkeitenMehrmals saetzeAngekommen
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen
         ) : base(lehrer)
         {
             Trigger = trigger;

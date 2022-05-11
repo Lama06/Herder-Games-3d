@@ -9,9 +9,13 @@ namespace HerderGames.Lehrer.Sprache
         public readonly float CustomDelay;
         public readonly IList<string> MoeglicheSaetze;
 
+        private List<string> RemainingSaetze;
+
         public SaetzeMoeglichkeitenMehrmals(params string[] saetze)
         {
             MoeglicheSaetze = saetze;
+
+            RemainingSaetze = new List<string>(MoeglicheSaetze);
         }
 
         public SaetzeMoeglichkeitenMehrmals(float delay, params string[] saetze) : this(saetze)
@@ -23,11 +27,19 @@ namespace HerderGames.Lehrer.Sprache
         public (string satz, float? delay) GetNextSatz()
         {
             float? delay = UseCustomDelay ? CustomDelay : null;
+            
             if (MoeglicheSaetze.Count == 0)
             {
                 return (null, delay);
             }
-            var satz = MoeglicheSaetze[Random.Range(0, MoeglicheSaetze.Count)];
+
+            if (RemainingSaetze.Count == 0)
+            {
+                RemainingSaetze = new List<string>(MoeglicheSaetze);
+            }
+            
+            var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];
+            RemainingSaetze.Remove(satz);
             return (satz, delay);
         }
     }

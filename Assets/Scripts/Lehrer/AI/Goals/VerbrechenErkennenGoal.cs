@@ -10,9 +10,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly Player.Player Player;
         private readonly float SchwereMindestens;
-        private readonly SaetzeMoeglichkeitenEinmalig Reaktion;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly VisionSensor Vision;
+        private readonly ISaetzeMoeglichkeitenEinmalig Reaktion;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
 
         private bool GehtGeradeZuTatort;
 
@@ -20,10 +19,9 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer lehrer,
             TriggerBase trigger,
             Player.Player player,
-            float schwereMindestens,
-            SaetzeMoeglichkeitenEinmalig reaktion,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            VisionSensor vision
+            float schwereMindestens = 0f,
+            ISaetzeMoeglichkeitenEinmalig reaktion = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null 
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -31,12 +29,11 @@ namespace HerderGames.Lehrer.AI.Goals
             SchwereMindestens = schwereMindestens;
             Reaktion = reaktion;
             SaetzeWeg = saetzeWeg;
-            Vision = vision;
         }
 
         private bool SiehtVerbrechen()
         {
-            return Vision.CanSee(Player.gameObject) &&
+            return Lehrer.Vision.CanSee(Player.gameObject) &&
                    Player.VerbrechenManager.BegehtGeradeEinVerbrechen &&
                    Player.VerbrechenManager.Schwere >= SchwereMindestens;
         }

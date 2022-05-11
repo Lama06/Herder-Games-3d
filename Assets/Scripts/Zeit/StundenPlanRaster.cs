@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace HerderGames.Zeit
@@ -27,7 +28,7 @@ namespace HerderGames.Zeit
                 {
                     Tag = wochentag,
                     Beginn = time,
-                    Duration = stunde.GetDuration(),
+                    Laenge = stunde.GetDuration(),
                     Ende = time + stunde.GetDuration(),
                     Stunde = stunde,
                     FachIndex = fachIndex,
@@ -80,11 +81,10 @@ namespace HerderGames.Zeit
 
         public static StundenPlanEintrag GetCurrentStundenPlanEintrag(TimeManager timeManager)
         {
-            return GetStundenPlanEintragForTime(timeManager.GetCurrentWochentag(), timeManager.GetCurrentTime());
+            return GetStundenPlanEintragForTime(timeManager.CurrentWochentag, timeManager.CurrentTime);
         }
 
-        public static StundenPlanEintrag GetNaechstenStundenPlanEintragWithType(Wochentag wochentag, float time,
-            StundenType type)
+        public static StundenPlanEintrag GetNaechstenStundenPlanEintrag(Wochentag wochentag, float time, Func<StundenPlanEintrag, bool> predicate)
         {
             var currentStundenDataIndex = GetStundenPlanEintragIndexForTime(wochentag, time);
             if (currentStundenDataIndex == null)
@@ -104,57 +104,13 @@ namespace HerderGames.Zeit
             for (var i = currentStundenDataIndex + 1; i < ablauf.Count; i++)
             {
                 var stunde = ablauf[(int) i];
-                if (stunde.Stunde == type)
+                if (predicate(stunde))
                 {
                     return stunde;
                 }
             }
 
             return null;
-        }
-
-        public static StundenPlanEintrag GetStundenPlanEintragForFach(Wochentag wochentag, int fachIndex)
-        {
-            var tagesAblauf = GetTagesAblauf(wochentag);
-            foreach (var tagesAblaufEintrag in tagesAblauf)
-            {
-                if (tagesAblaufEintrag.Stunde == StundenType.Fach && tagesAblaufEintrag.FachIndex == fachIndex)
-                {
-                    return tagesAblaufEintrag;
-                }
-            }
-
-            return null;
-        }
-
-        public static StundenPlanEintrag GetStundenPlanEintragForKurzpause(Wochentag wochentag, int pauseIndex)
-        {
-            var tagesAblauf = GetTagesAblauf(wochentag);
-            foreach (var tagesAblaufEintrag in tagesAblauf)
-            {
-                if (tagesAblaufEintrag.Stunde == StundenType.Kurzpause &&
-                    tagesAblaufEintrag.KurzpauseIndex == pauseIndex)
-                {
-                    return tagesAblaufEintrag;
-                }
-            }
-
-            return null;
-        }
-
-        public static IList<StundenPlanEintrag> GetAlleStundenPlanEintraegeWithType(Wochentag wochentag,
-            StundenType type)
-        {
-            var result = new List<StundenPlanEintrag>();
-            foreach (var tagesAblaufEintrag in GetTagesAblauf(wochentag))
-            {
-                if (tagesAblaufEintrag.Stunde == type)
-                {
-                    result.Add(tagesAblaufEintrag);
-                }
-            }
-
-            return result;
         }
     }
 }

@@ -199,6 +199,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288763062}
+  - component: {fileID: 288763064}
+  - component: {fileID: 288763063}
   m_Layer: 0
   m_Name: Schule Eingang
   m_TagString: Untagged
@@ -221,6 +223,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &288763063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288763061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d863c864101461097d0bee3fdca9462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 670363813}
+  Zeit: 0
+--- !u!65 &288763064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288763061}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &321342747
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeSpeed: 0.03
-  StartKalenderwoche: 0
+  StartKalenderwoche: 1
   StartWochentag: 0
   StartZeit: 8
 --- !u!4 &670363814
@@ -1716,8 +1745,8 @@ GameObject:
   - component: {fileID: 1609019418}
   - component: {fileID: 1609019425}
   - component: {fileID: 1609019405}
-  - component: {fileID: 1609019431}
   - component: {fileID: 1609019432}
+  - component: {fileID: 1609019433}
   m_Layer: 0
   m_Name: Schulten
   m_TagString: Untagged
@@ -1937,25 +1966,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLocation: {fileID: 1049581642}
   MaxViewDistance: 100
---- !u!114 &1609019431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609019403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0390b34da83749c5b7c7dd274353fb7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  TimeManager: {fileID: 670363813}
-  UnterrichtsRaum: {fileID: 752264926}
-  SchuleEingang: {fileID: 288763062}
-  Kaffeemaschine: {fileID: 1603995576}
-  Alarm: {fileID: 1836436228}
-  Internet: {fileID: 919171754}
 --- !u!114 &1609019432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,6 +1979,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
+--- !u!114 &1609019433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609019403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e530c6ba034ff1b6cde00f7c675db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeManager: {fileID: 670363813}
+  AlarmManager: {fileID: 1836436228}
+  Player: {fileID: 1538818858}
+  UnterrichtsRaum: {fileID: 752264926}
+  SchuleHaupteingang: {fileID: 288763062}
+  AlarmSammelpunkt: {fileID: 288763062}
+  ToiletteLehrerzimmer: {fileID: 752264927}
+  KaffeemaschineMiniRaum: {fileID: 1603995576}
+  LehrerzimmerFach: {fileID: 182248883}
+  Rauchen: {fileID: 288763062}
 --- !u!1 &1649371218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,7 +2260,7 @@ MonoBehaviour:
   LaengeDesAlarms:
     Wochen: 0
     Tage: 2
-    Time: 0
+    Stunden: 0
   SchadenFuerDieSchule: 1000
 --- !u!4 &1836436229
 Transform:

@@ -37,12 +37,7 @@ namespace HerderGames.Zeit
                     continue;
                 }
 
-                result.Add(AnfangEnde switch
-                {
-                    AnfangOderEnde.Anfang => eintrag.Beginn,
-                    AnfangOderEnde.Ende => eintrag.Ende,
-                    _ => throw new ArgumentOutOfRangeException()
-                });
+                result.Add(AnfangEnde.ResolveStunde(eintrag));
 
                 currentIndex++;
             }

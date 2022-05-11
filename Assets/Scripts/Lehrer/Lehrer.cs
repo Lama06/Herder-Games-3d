@@ -12,6 +12,8 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(InDerSchuleState))]
     [RequireComponent(typeof(Reputation))]
+    [RequireComponent(typeof(VergiftungsManager))]
+    [RequireComponent(typeof(VisionSensor))]
     [RequireComponent(typeof(SpracheManager))]
     [RequireComponent(typeof(AIController))]
     [RequireComponent(typeof(InteraktionsMenuFragenManager))]
@@ -25,6 +27,8 @@ namespace HerderGames.Lehrer
         public NavMeshAgent Agent { get; private set; }
         public InDerSchuleState InSchule { get; private set; }
         public Reputation Reputation { get; private set; }
+        public VergiftungsManager Vergiftung { get; private set; }
+        public VisionSensor Vision { get; private set; }
         public SpracheManager Sprache { get; private set; }
         public AIController AI { get; private set; }
         public InteraktionsMenuFragenManager FragenManager { get; private set; }
@@ -38,6 +42,8 @@ namespace HerderGames.Lehrer
             Agent = GetComponent<NavMeshAgent>();
             InSchule = GetComponent<InDerSchuleState>();
             Reputation = GetComponent<Reputation>();
+            Vergiftung = GetComponent<VergiftungsManager>();
+            Vision = GetComponent<VisionSensor>();
             Sprache = GetComponent<SpracheManager>();
             AI = GetComponent<AIController>();
             FragenManager = GetComponent<InteraktionsMenuFragenManager>();

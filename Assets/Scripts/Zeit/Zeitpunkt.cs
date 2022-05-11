@@ -4,7 +4,7 @@ namespace HerderGames.Zeit
     {
         public int Kalenderwoche;
         public Wochentag Wochentag;
-        public float Time;
+        public float Zeit;
 
         public bool IstAmSelbenTagWie(Zeitpunkt other)
         {
@@ -21,7 +21,7 @@ namespace HerderGames.Zeit
 
         private float ToStunden()
         {
-            return Time + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
+            return Zeit + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
         }
     }
 }

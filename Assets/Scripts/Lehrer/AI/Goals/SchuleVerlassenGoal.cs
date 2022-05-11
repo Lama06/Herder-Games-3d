@@ -10,14 +10,14 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly Vector3 Eingang;
         private readonly Vector3 Ausgang;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
 
         public SchuleVerlassenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             Vector3 eingang,
             Vector3 ausgang,
-            SaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen
+            ISaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -27,11 +27,6 @@ namespace HerderGames.Lehrer.AI.Goals
         }
 
         public override bool ShouldRun(bool currentlyRunning)
-        {
-            return ShouldBeOutsideSchool();
-        }
-
-        private bool ShouldBeOutsideSchool()
         {
             return Trigger.Resolve();
         }

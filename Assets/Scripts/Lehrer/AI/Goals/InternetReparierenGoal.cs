@@ -9,9 +9,9 @@ namespace HerderGames.Lehrer.AI.Goals
     public class InternetReparierenGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeWeg;
-        private readonly SaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
-        private readonly SaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
+        private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
+        private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
         private readonly InternetManager InternetManager;
         private readonly VisionSensor Vision;
 
@@ -20,9 +20,9 @@ namespace HerderGames.Lehrer.AI.Goals
         public InternetReparierenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            SaetzeMoeglichkeitenMehrmals saetzeWeg,
-            SaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            SaetzeMoeglichkeitenMehrmals saetzeAngekommen,
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen,
             InternetManager internet,
             VisionSensor vision
         ) : base(lehrer)

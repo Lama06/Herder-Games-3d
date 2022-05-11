@@ -15,7 +15,7 @@ namespace HerderGames.Lehrer.AI.Trigger
 
         public override bool Resolve()
         {
-            return Zeitspannen.IsInside(TimeManager.GetCurrentWochentag(), TimeManager.GetCurrentTime());
+            return Zeitspannen.IsInside(TimeManager.CurrentWochentag, TimeManager.CurrentTime);
         }
     }
 }

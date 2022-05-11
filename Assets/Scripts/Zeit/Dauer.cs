@@ -7,11 +7,11 @@ namespace HerderGames.Zeit
     {
         public int Wochen;
         public int Tage;
-        public float Time;
+        public float Stunden;
 
         public float ToStunden()
         {
-            return Wochen * 24f * 7f + Tage * 24f + Time;
+            return Wochen * 24f * 7f + Tage * 24f + Stunden;
         }
         
         public static Dauer FromStunden(float total)
@@ -26,7 +26,7 @@ namespace HerderGames.Zeit
             {
                 Wochen = wochen,
                 Tage = tage,
-                Time = stunden
+                Stunden = stunden
             };
         }
 

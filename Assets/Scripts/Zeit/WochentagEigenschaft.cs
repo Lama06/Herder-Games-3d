@@ -13,7 +13,7 @@ namespace HerderGames.Zeit
         Schultag
     }
 
-    public static class WochentagTagExtensions
+    public static class WochentagEigenschaftExtensions
     {
         public static ISet<Wochentag> GetWochentage(this WochentagEigenschaft eigenschaft)
         {

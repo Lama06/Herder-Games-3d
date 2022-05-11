@@ -10,40 +10,10 @@ namespace HerderGames.Zeit
         [SerializeField] private int StartKalenderwoche;
         [SerializeField] private Wochentag StartWochentag;
         [SerializeField] private float StartZeit;
-        
-        private int CurrentKalenderwoche;
-        private Wochentag CurrentWochentag;
-        private float CurrentTime;
 
-        public int GetCurrentKalenderwoche()
-        {
-            return CurrentKalenderwoche;
-        }
-
-        public void SetCurrentKalenderwoche(int kalenderwoche)
-        {
-            CurrentKalenderwoche = kalenderwoche;
-        }
-        
-        public Wochentag GetCurrentWochentag()
-        {
-            return CurrentWochentag;
-        }
-
-        public void SetCurrentWochentag(Wochentag wochentag)
-        {
-            CurrentWochentag = wochentag;
-        }
-
-        public float GetCurrentTime()
-        {
-            return CurrentTime;
-        }
-
-        public void SetCurrentTime(float time)
-        {
-            CurrentTime = time;
-        }
+        public int CurrentKalenderwoche { get; set; }
+        public Wochentag CurrentWochentag { get; set; }
+        public float CurrentTime { get; set; }
 
         public Zeitpunkt GetCurrentZeitpunkt()
         {
@@ -51,7 +21,7 @@ namespace HerderGames.Zeit
             {
                 Kalenderwoche = CurrentKalenderwoche,
                 Wochentag = CurrentWochentag,
-                Time = CurrentTime
+                Zeit = CurrentTime
             };
         }
 
@@ -71,12 +41,12 @@ namespace HerderGames.Zeit
             {
                 CurrentTime = 0;
                 CurrentWochentag += 1;
-            }
-
-            if (!CurrentWochentag.IsValid())
-            {
-                CurrentKalenderwoche++;
-                CurrentWochentag = Wochentag.Montag;
+                
+                if (!CurrentWochentag.IsValid())
+                {
+                    CurrentKalenderwoche++;
+                    CurrentWochentag = Wochentag.Montag;
+                }
             }
         }
 
