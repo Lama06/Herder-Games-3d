@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
-  Zeit: 0
+  Zeit: 7
 --- !u!65 &288763064
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
   TimeSpeed: 0.03
   StartKalenderwoche: 1
   StartWochentag: 0
-  StartZeit: 8
+  StartZeit: 7
 --- !u!4 &670363814
 Transform:
   m_ObjectHideFlags: 0
@@ -988,7 +988,7 @@ MonoBehaviour:
   TimeRequired: 5
   Schwere: 0.5
   SchadenFuerDieSchule: 500
-  GeldGewinn: 0
+  GeldGewinn: 100
   HatItemGewinn: 0
   ItemGewinn: 0
 --- !u!65 &929312457
@@ -1346,6 +1346,7 @@ GameObject:
   - component: {fileID: 1538818864}
   - component: {fileID: 1538818867}
   - component: {fileID: 1538818868}
+  - component: {fileID: 1538818869}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1564,8 +1565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc1da304cb14ae98acdc48e125cb461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 0.2
-  MaxSpeed: 20
+  Sensitivity: 0.04
+  MaxSpeed: 15
   Player: {fileID: 1538818858}
 --- !u!114 &1538818867
 MonoBehaviour:
@@ -1590,6 +1591,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bae3337ca5314cf4b53b6a568e85b869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1538818869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538818852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb928de48104f729b1f123eb78935dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1603995575
@@ -2001,6 +2014,7 @@ MonoBehaviour:
   KaffeemaschineMiniRaum: {fileID: 1603995576}
   LehrerzimmerFach: {fileID: 182248883}
   Rauchen: {fileID: 288763062}
+  Schulleitung: {fileID: 1083303379}
 --- !u!1 &1649371218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,7 +2404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0d645efa2f4ff283bcc85578241d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 17
+  Sensitivity: 10
   PlayerBody: {fileID: 1538818857}
   Overlay: {fileID: 1000830740}
 --- !u!1 &1886186170

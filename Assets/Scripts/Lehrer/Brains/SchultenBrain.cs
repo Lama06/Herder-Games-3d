@@ -166,7 +166,7 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch"),
-                reputationsAenderungBeiFehlzeit: -0.3f,
+                reputationsAenderungBeiFehlzeit: -1f,
                 saetzeAufDemWegZumRaum: unterrichtWeg,
                 saetzeBegruessung: unterrichtBegruessung,
                 saetzeWaehrendUnterricht: unterrichtSaetze

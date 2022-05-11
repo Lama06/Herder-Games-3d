@@ -6,7 +6,7 @@ namespace HerderGames.Lehrer.Sprache
     [RequireComponent(typeof(Lehrer))]
     public class SpracheManager : MonoBehaviour
     {
-        private const float DefaultDelay = 1;
+        private const float DefaultDelay = 5;
 
         [SerializeField] private Player.Player Player;
         [SerializeField] private float ReichweiteDerStimme = 20;
