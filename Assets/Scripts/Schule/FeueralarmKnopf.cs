@@ -15,7 +15,7 @@ namespace HerderGames.Schule
         private void OnTriggerEnter(Collider other)
         {
             var player = other.GetComponent<Player.Player>();
-            if (player == null || player.VerbrechenManager.BegehtGeradeEinVerbrechen)
+            if (player == null)
             {
                 return;
             }

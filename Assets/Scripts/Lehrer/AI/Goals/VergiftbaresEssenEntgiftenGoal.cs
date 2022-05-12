@@ -17,9 +17,9 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer lehrer,
             TriggerBase trigger,
             VergiftbaresEssen essen,
-            ISaetzeMoeglichkeitenMehrmals saetzeWeg,
-            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;

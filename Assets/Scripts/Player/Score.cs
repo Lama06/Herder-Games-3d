@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace HerderGames.Player
 {
+    [RequireComponent(typeof(Player))]
     public class Score : MonoBehaviour, PersistentDataContainer
     {
         public int SchadenFuerDieSchule;

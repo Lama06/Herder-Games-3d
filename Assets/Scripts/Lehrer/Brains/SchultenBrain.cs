@@ -24,16 +24,16 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private Transform Rauchen;
         [SerializeField] private Transform Schulleitung;
 
-        private readonly SaetzeMoeglichkeitenMehrmals unterrichtWeg = new(
+        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtWeg = new(
             "Ich hoffe meine Schüler haben den Schimmelreiter gelesen",
             "Jetzt mal ganz ehrlich: Treppensteigen war auch mal einfacher"
         );
 
-        private readonly SaetzeMoeglichkeitenEinmalig unterrichtBegruessung = new(
+        private readonly SaetzeMoeglichkeitenEinmalig UnterrichtBegruessung = new(
             "Na ihr Hasis?"
         );
 
-        private readonly SaetzeMoeglichkeitenMehrmals unterrichtSaetze = new(
+        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtSaetze = new(
             "Jetzt mal ganz ehrlich: Wer hat den Schimmelreiter fertig gelesen",
             "Weiß jemand von euch wie der OHP angeht? Mit solcher modernen Technik bin Ich nicht vertraut",
             "Der Klassenraum sieht heute aber wieder aus. Schmutzfinke!",
@@ -59,23 +59,23 @@ namespace HerderGames.Lehrer.Brains
             "Das ist ja zum Mäuse melken!"
         );
 
-        private readonly SaetzeMoeglichkeitenMehrmals rauchenWeg = new(
+        private readonly SaetzeMoeglichkeitenMehrmals RauchenWeg = new(
             "Hand aufs Herz: Wir alle wollen auch mal Rauchen",
             "Jetzt mal ganz ehrlich: Ich muss noch mal kurz Rauchen gehen",
             "Jetzt mal ganz ehrlich: Rauchen kann auch gut für die Gesundheit sein"
         );
 
-        private readonly SaetzeMoeglichkeitenMehrmals rauchenAngekommen = new(
+        private readonly SaetzeMoeglichkeitenMehrmals RauchenAngekommen = new(
             "Jetzt müsst ihr leider zugucken wie ich rauche weil ich meine Sucht nicht für eine Minute länger unterdrücken kann"
         );
 
-        private readonly SaetzeMoeglichkeitenMehrmals kaffeeWeg = new(
+        private readonly SaetzeMoeglichkeitenMehrmals KaffeeWeg = new(
             "Hand aufs Herz: Kaffee am morgen vertreibt Kummer und Sorgen",
             "Ich hoffe die Kaffeemaschine funktioniert noch",
             "Ihr fragt euch warum ich einen eigenen mini Raum habe? Naja irgendwo müssen die Zigaretten ja hin"
         );
 
-        private readonly SaetzeMoeglichkeitenMehrmals kaffeeAngekommen = new(
+        private readonly SaetzeMoeglichkeitenMehrmals KaffeeAngekommen = new(
             "Jetzt mal ganz ehrlich: Kaffee tut gut!",
             "Jetzt mal ganz ehrlich: Wir alle trinken auch mal Kaffee"
         );
@@ -167,9 +167,9 @@ namespace HerderGames.Lehrer.Brains
                 ),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch"),
                 reputationsAenderungBeiFehlzeit: -1f,
-                saetzeAufDemWegZumRaum: unterrichtWeg,
-                saetzeBegruessung: unterrichtBegruessung,
-                saetzeWaehrendUnterricht: unterrichtSaetze
+                saetzeAufDemWegZumRaum: UnterrichtWeg,
+                saetzeBegruessung: UnterrichtBegruessung,
+                saetzeWaehrendUnterricht: UnterrichtSaetze
             ));
 
             ai.AddGoal(new MoveToAndStandAtGoal(
@@ -191,9 +191,9 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                saetzeWeg: unterrichtWeg,
-                saetzeAngekommenEinmalig: unterrichtBegruessung,
-                saetzeAngekommen: unterrichtSaetze
+                saetzeWeg: UnterrichtWeg,
+                saetzeAngekommenEinmalig: UnterrichtBegruessung,
+                saetzeAngekommen: UnterrichtSaetze
             ));
 
             // Pausen
@@ -243,8 +243,8 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 position: Rauchen.position,
-                saetzeWeg: rauchenWeg,
-                saetzeAngekommen: rauchenAngekommen
+                saetzeWeg: RauchenWeg,
+                saetzeAngekommen: RauchenAngekommen
             ));
 
             ai.AddGoal(new VergiftbaresEssenEssenGoal( // Kaffee
@@ -266,8 +266,8 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 vergiftbaresEssen: KaffeemaschineMiniRaum,
-                saetzeWeg: kaffeeWeg,
-                saetzeAngekommen: kaffeeAngekommen
+                saetzeWeg: KaffeeWeg,
+                saetzeAngekommen: KaffeeAngekommen
             ));
 
             // Vor der Schulzeit
@@ -287,8 +287,8 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 vergiftbaresEssen: KaffeemaschineMiniRaum,
-                saetzeWeg: kaffeeWeg,
-                saetzeAngekommen: kaffeeAngekommen
+                saetzeWeg: KaffeeWeg,
+                saetzeAngekommen: KaffeeAngekommen
             ));
 
             ai.AddGoal(new MoveToAndStandAtGoal( // Lehrerzimmer Fach
@@ -331,8 +331,8 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 position: Rauchen.position,
-                saetzeWeg: rauchenWeg,
-                saetzeAngekommen: rauchenAngekommen
+                saetzeWeg: RauchenWeg,
+                saetzeAngekommen: RauchenAngekommen
             ));
         }
 

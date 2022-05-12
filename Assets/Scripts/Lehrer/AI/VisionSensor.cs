@@ -18,8 +18,7 @@ namespace HerderGames.Lehrer.AI
 
             var vectorToOther = other.transform.position - EyeLocation.transform.position;
 
-            var hit = Physics.Raycast(EyeLocation.position, vectorToOther, out var raycastHit, MaxViewDistance,
-                Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            var hit = Physics.Raycast(EyeLocation.position, vectorToOther, out var raycastHit, MaxViewDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
             return hit && raycastHit.transform.IsChildOf(other.transform);
         }

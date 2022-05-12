@@ -16,7 +16,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer lehrer,
             TriggerBase trigger,
             IList<Vector3> punkte,
-            ISaetzeMoeglichkeitenMehrmals saetze
+            ISaetzeMoeglichkeitenMehrmals saetze = null
         ) : base(lehrer)
         {
             Trigger = trigger;
