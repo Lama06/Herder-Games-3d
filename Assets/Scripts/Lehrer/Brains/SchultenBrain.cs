@@ -62,7 +62,8 @@ namespace HerderGames.Lehrer.Brains
         private readonly SaetzeMoeglichkeitenMehrmals RauchenWeg = new(
             "Hand aufs Herz: Wir alle wollen auch mal Rauchen",
             "Jetzt mal ganz ehrlich: Ich muss noch mal kurz Rauchen gehen",
-            "Jetzt mal ganz ehrlich: Rauchen kann auch gut für die Gesundheit sein"
+            "Jetzt mal ganz ehrlich: Rauchen kann auch gut für die Gesundheit sein",
+            "Mensch Schulten, du musst dir das Rauchen wirklich mal abgewöhnen!"
         );
 
         private readonly SaetzeMoeglichkeitenMehrmals RauchenAngekommen = new(
@@ -103,7 +104,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Normal
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => Lehrer.Vergiftung.Syntome && Lehrer.Vergiftung.VergiftungsType == VergiftungsType.Normal),
+                trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                 eingang: SchuleHaupteingang.position,
                 ausgang: SchuleHaupteingang.position
             ));
@@ -125,7 +126,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Vergiftet: true, VergiftungsType: VergiftungsType.Orthamol}),
+                trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Orthamol}),
                 eingang: ToiletteLehrerzimmer.position,
                 ausgang: ToiletteLehrerzimmer.position,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
@@ -135,13 +136,13 @@ namespace HerderGames.Lehrer.Brains
                     "Hand aufs Herz: Ich hab zu viele Fressalien gegessen"
                 )
             ));
-            
+
             ai.AddGoal(new VerbrechenErkennenGoal(
                 lehrer: Lehrer,
                 trigger: new AlwaysTrueTrigger(),
                 player: Player,
                 reaktion: new SaetzeMoeglichkeitenEinmalig(
-                    "Hey Was machst du denn da? Ich bin sauer! Nein ich bin wütend"    
+                    "Hey Was machst du denn da? Ich bin sauer! Nein ich bin wütend"
                 )
             ));
 
@@ -214,7 +215,7 @@ namespace HerderGames.Lehrer.Brains
                                 new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
                                 new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
                             )
-                        )    
+                        )
                     )
                 ),
                 schulleitungsBuero: Schulleitung.position,
@@ -223,7 +224,7 @@ namespace HerderGames.Lehrer.Brains
                     "Ich bin sauer! Nein das sind nur Zitronen. Ich bin wütend!"
                 )
             ));
-            
+
             ai.AddGoal(new MoveToAndStandAtGoal( // Rauchen
                 lehrer: Lehrer,
                 trigger: new ZeitspanneTrigger(
@@ -346,15 +347,15 @@ namespace HerderGames.Lehrer.Brains
                 annahmeWahrscheinlichkeit: 0.5f,
                 reputationsAenderungBeiAnnahme: 0.3f,
                 annahmeAntworten: new SaetzeMoeglichkeitenEinmalig(
-                    "Du weißt, wie der Hase läuft! Ich hab im Internetz gelesen, dass das gegen Athrose hilft"    
+                    "Du weißt, wie der Hase läuft! Ich hab im Internetz gelesen, dass das gegen Athrose hilft"
                 ),
                 reputationsAenderungBeiAblehnen: -0.1f,
                 ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
-                    "Was will Ich denn mit schwarzem Pfeffer"    
+                    "Was will Ich denn mit schwarzem Pfeffer"
                 ),
                 kosten: 20
             ));
-            
+
             fragen.AddFrage(new InteraktionsMenuFrageEinfach(
                 lehrer: Lehrer,
                 player: Player,
@@ -366,7 +367,7 @@ namespace HerderGames.Lehrer.Brains
                     "Es ist mir egal, ob ihr euch mit Corona ansteckt. Ich will nur nicht die Verantwortung dafür tragen".ZufaelligGrossKlein()
                 )
             ));
-            
+
             fragen.AddFrage(new InteraktionsMenuFrageAnnehmenAblehnen(
                 lehrer: Lehrer,
                 player: Player,

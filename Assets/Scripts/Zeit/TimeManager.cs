@@ -7,6 +7,7 @@ namespace HerderGames.Zeit
     public class TimeManager : MonoBehaviour, PersistentDataContainer
     {
         [SerializeField] private float TimeSpeed;
+        [SerializeField] private float TimeSpeedUnterricht;
         [SerializeField] private int StartKalenderwoche;
         [SerializeField] private Wochentag StartWochentag;
         [SerializeField] private float StartZeit;
@@ -36,7 +37,7 @@ namespace HerderGames.Zeit
 
         private void Update()
         {
-            CurrentTime += TimeSpeed * Time.deltaTime;
+            CurrentTime += (StundenPlanRaster.GetCurrentStundenPlanEintrag(this) is {Stunde: StundenType.Fach} ? TimeSpeedUnterricht : TimeSpeed) * Time.deltaTime;
             if (CurrentTime >= StundenPlanRaster.EndeDesTages)
             {
                 CurrentTime = 0;

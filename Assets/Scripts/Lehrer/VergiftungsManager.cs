@@ -41,6 +41,15 @@ namespace HerderGames.Lehrer
             TageRemaining = LaengeDerVergiftung;
         }
 
+        public void Vergiften(VergiftungsType type)
+        {
+            Vergiftet = true;
+            Syntome = false;
+            VergiftungsType = type;
+            GrundDerVergiftung = null;
+            TageRemaining = LaengeDerVergiftung;
+        }
+
         private IEnumerator ManageVergiftung()
         {
             var currentWochentag = TimeManager.CurrentWochentag;
