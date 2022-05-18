@@ -150,7 +150,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
                 unterrichtsRaum: UnterrichtsRaum,
-                trigger: new CallbackTrigger(() => unterrichtZeit.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: false}),
+                trigger: new CallbackTrigger(() => unterrichtZeit.IsInside(TimeManager)),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 2, "Latein"),
                 reputationsAenderungBeiFehlzeit: -0.4f,
                 saetzeAufDemWegZumRaum: UnterrichtWeg,
@@ -161,7 +161,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                trigger: new CallbackTrigger(() => unterrichtZeitAllgemein.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: false}),
+                trigger: new CallbackTrigger(() => unterrichtZeitAllgemein.IsInside(TimeManager)),
                 saetzeWeg: UnterrichtWeg,
                 saetzeAngekommenEinmalig: UnterrichtBegruessung,
                 saetzeAngekommen: Unterricht

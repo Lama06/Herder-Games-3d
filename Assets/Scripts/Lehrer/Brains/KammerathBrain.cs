@@ -43,6 +43,10 @@ namespace HerderGames.Lehrer.Brains
             "Wenn das Internet nicht bald wieder funktioniert geh ich nach Hause!"
         );
 
+        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtKeinInternetDannach = new(
+            "Ihr könnt jetzt nach Hause gehen, das ist ja nicht auszuhalten! Aber seid vorsichtig!"
+        );
+
         protected override void RegisterGoals(AIController ai)
         {
             ai.AddGoal(new MoveToAndStandAtGoal(
@@ -50,7 +54,7 @@ namespace HerderGames.Lehrer.Brains
                 trigger: new CallbackTrigger(() => AlarmManager.IsAlarm()),
                 position: UnterrichtsRaum.GetLehrerStandpunkt(),
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
-                    "Ach das ist doch bestimmt wiedermal ein Fehlalarm",
+                    "Ach das ist doch bestimmt wiedermal ein Fehlalarm! Das ist ja zum Mäuse melken!",
                     "Diese leichte Beschallung ist ja in Ordnung, aber dieser Alarm geht ja mit der Zeit auch auf die Nerven"
                 )
             ));
@@ -76,7 +80,7 @@ namespace HerderGames.Lehrer.Brains
                 )
             ));
 
-            // Unterricht
+            // Unterricht Kein Internet
 
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
@@ -109,8 +113,28 @@ namespace HerderGames.Lehrer.Brains
                         new WoechentlicheZeitspannen.Eintrag(
                             new ManuelleWochentagAuswahl(Wochentag.Montag),
                             new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), 0f),
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f)),
                                 new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Ende), 0f)
+                            )
+                        )
+                    );
+
+                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                }),
+                saetzeAngekommen: UnterrichtKeinInternetDannach
+            ));
+
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                trigger: new CallbackTrigger(() =>
+                {
+                    var zeit = new WoechentlicheZeitspannen(
+                        new WoechentlicheZeitspannen.Eintrag(
+                            new ManuelleWochentagAuswahl(Wochentag.Montag),
+                            new WoechentlicheZeitspannen.Zeitspanne(
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), 0f),
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f))
                             )
                         )
                     );
@@ -119,6 +143,28 @@ namespace HerderGames.Lehrer.Brains
                 }),
                 saetzeAngekommen: UnterrichtKeinInternet
             ));
+            
+            ai.AddGoal(new MoveToAndStandAtGoal(
+                lehrer: Lehrer,
+                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                trigger: new CallbackTrigger(() =>
+                {
+                    var zeit = new WoechentlicheZeitspannen(
+                        new WoechentlicheZeitspannen.Eintrag(
+                            new ManuelleWochentagAuswahl(Wochentag.Montag),
+                            new WoechentlicheZeitspannen.Zeitspanne(
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f)),
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Ende), 0f)
+                            )
+                        )
+                    );
+
+                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                }),
+                saetzeAngekommen: UnterrichtKeinInternetDannach
+            ));
+            
+            // Unterricht Normal
 
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,

@@ -1938,6 +1938,7 @@ GameObject:
   - component: {fileID: 1603995578}
   - component: {fileID: 1603995577}
   - component: {fileID: 1603995576}
+  - component: {fileID: 1603995582}
   m_Layer: 0
   m_Name: Kafeemaschine
   m_TagString: Untagged
@@ -2056,6 +2057,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1603995582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603995575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa18676e519489f81a619558a0db1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteraktionsMenuName: Computer einschalten
+  UseDefaultUrls: 1
+  Urls: []
+  InteraktionsMenuId: 0
 --- !u!1 &1609019403
 GameObject:
   m_ObjectHideFlags: 0
