@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgb(86, 158, 205); align-items: center; justify-content: space-around;">
-        <ui:Label text="Herder Games!" display-tooltip-when-elided="true" name="Header" style="font-size: 50px; color: rgb(215, 126, 56);" />
-        <ui:Button text="Spiel starten" display-tooltip-when-elided="true" name="StartGame" focusable="false" style="flex-grow: 0; font-size: 30px;" />
-        <ui:Label text="von Andreas, Thomas, Jacob, Tobias, Henri" display-tooltip-when-elided="true" name="Credits" style="color: rgb(0, 0, 0);" />
+        <ui:Label text="Herder Games!" display-tooltip-when-elided="true" name="Header" style="font-size: 50px; color: rgb(215, 126, 56); text-shadow: 3px 3px 1px rgb(166, 174, 183);" />
+        <ui:Button text="Spiel starten" display-tooltip-when-elided="true" name="StartGame" focusable="false" style="flex-grow: 0; font-size: 30px; text-shadow: 3px 3px 1px rgb(26, 153, 236); color: rgb(255, 255, 255); background-color: rgb(215, 126, 56); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding-left: 20px; padding-right: 20px; padding-top: 3px; padding-bottom: 3px;" />
+        <ui:Label text="von Andreas, Thomas, Jacob, Tobias, Henri" display-tooltip-when-elided="true" name="Credits" style="color: rgb(224, 98, 0);" />
     </ui:VisualElement>
 </ui:UXML>

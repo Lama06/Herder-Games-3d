@@ -4,6 +4,19 @@ namespace HerderGames.Zeit
 {
     public class WoechentlicheZeitspannen
     {
+        public static WoechentlicheZeitspannen Stunde(Wochentag tag, StundenType stunde, int index, float davor = 0f, float dannach = 0f)
+        {
+            return new WoechentlicheZeitspannen(
+                new Eintrag(
+                    new ManuelleWochentagAuswahl(tag),
+                    new Zeitspanne(
+                        new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Anfang), davor),
+                        new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Ende), dannach)
+                    )
+                )
+            );
+        }
+        
         private readonly IList<Eintrag> Eintraege;
 
         public WoechentlicheZeitspannen(params Eintrag[] eintraege)

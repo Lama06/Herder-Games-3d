@@ -16,6 +16,7 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private Transform RauchenVorne;
         [SerializeField] private Transform RauchenHinten;
         [SerializeField] private Klassenraum UnterrichtsRaum;
+        [SerializeField] private Transform UnterrichtsStandpunkt;
         [SerializeField] private Transform SchuleEingang;
         [SerializeField] private VergiftbaresEssen Kaffeemaschine;
         [SerializeField] private Transform Sammelpunkt;
@@ -106,7 +107,7 @@ namespace HerderGames.Lehrer.Brains
                 )
             ));
 
-            // Unterrichten
+            #region Unterrichten
 
             var unterrichtZeit = new WoechentlicheZeitspannen(
                 new WoechentlicheZeitspannen.Eintrag(
@@ -130,6 +131,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
                 unterrichtsRaum: UnterrichtsRaum,
+                standpunkt: UnterrichtsStandpunkt.position,
                 trigger: new CallbackTrigger(() => unterrichtZeit.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 2, "Latein"),
                 reputationsAenderungBeiFehlzeit: -0.4f,
@@ -140,7 +142,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: UnterrichtsStandpunkt.position,
                 trigger: new CallbackTrigger(() => unterrichtZeitAllgemein.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                 saetzeWeg: UnterrichtWegKrank,
                 saetzeAngekommenEinmalig: UnterrichtBegruessung,
@@ -150,6 +152,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
                 unterrichtsRaum: UnterrichtsRaum,
+                standpunkt: UnterrichtsStandpunkt.position,
                 trigger: new CallbackTrigger(() => unterrichtZeit.IsInside(TimeManager)),
                 stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 2, "Latein"),
                 reputationsAenderungBeiFehlzeit: -0.4f,
@@ -160,15 +163,17 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: UnterrichtsStandpunkt.position,
                 trigger: new CallbackTrigger(() => unterrichtZeitAllgemein.IsInside(TimeManager)),
                 saetzeWeg: UnterrichtWeg,
                 saetzeAngekommenEinmalig: UnterrichtBegruessung,
                 saetzeAngekommen: Unterricht
             ));
 
-            // Pausen
+            #endregion
 
+            #region Pausen
+            
             ai.AddGoal(new VergiftbaresEssenEssenGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() =>
@@ -243,7 +248,9 @@ namespace HerderGames.Lehrer.Brains
                 saetzeAngekommen: Rauchen
             ));
 
-            // Vor der Schule
+            #endregion
+            
+            #region Vor Der Schule
 
             ai.AddGoal(new VergiftbaresEssenEssenGoal(
                 lehrer: Lehrer,
@@ -304,6 +311,8 @@ namespace HerderGames.Lehrer.Brains
                     "Bitte nicht auf dem Schulhof mit dem Drahtesel fahren!"
                 )
             ));
+            
+            #endregion
         }
 
         protected override void RegisterFragen(InteraktionsMenuFragenManager fragen)

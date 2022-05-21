@@ -190,6 +190,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &277963984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 277963986}
+  - component: {fileID: 277963985}
+  m_Layer: 0
+  m_Name: Schwehmer Raum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &277963985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277963984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a447fac1d2444ca90389823896d849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+--- !u!4 &277963986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277963984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.34, y: 0, z: 19.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &288763061
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +703,7 @@ GameObject:
   - component: {fileID: 613728551}
   - component: {fileID: 613728550}
   - component: {fileID: 613728549}
-  - component: {fileID: 613728548}
+  - component: {fileID: 613728562}
   m_Layer: 0
   m_Name: Kammerath
   m_TagString: Untagged
@@ -666,23 +711,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &613728548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 613728547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc8096446cb4ecc8699bd60e760ad4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1538818858}
-  UnterrichtsRaum: {fileID: 1206751142}
-  TimeManager: {fileID: 670363813}
-  Internet: {fileID: 919171754}
-  AlarmManager: {fileID: 1836436228}
 --- !u!114 &613728549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,6 +922,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613728562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613728547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7379951630e344589a702bf11019f74d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1538818858}
+  UnterrichtsRaum: {fileID: 1206751142}
+  TimeManager: {fileID: 670363813}
+  Internet: {fileID: 919171754}
+  AlarmManager: {fileID: 1836436228}
+  SchulPc: {fileID: 1206751143}
+  LehrerStuhl: {fileID: 1787657475}
 --- !u!1 &670363812
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +974,7 @@ MonoBehaviour:
   TimeSpeedUnterricht: 0.04
   StartKalenderwoche: 1
   StartWochentag: 0
-  StartZeit: 6
+  StartZeit: 9.5
 --- !u!4 &670363814
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,7 +1051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a447fac1d2444ca90389823896d849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LehrerStandpunkt: {fileID: 696644735}
   Name: E202
 --- !u!4 &752264927
 Transform:
@@ -1623,7 +1669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a447fac1d2444ca90389823896d849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LehrerStandpunkt: {fileID: 1787657475}
   Name: E201
 --- !u!4 &1206751143
 Transform:
@@ -1698,8 +1743,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5000001
+  m_Height: 1.9
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1764,7 +1809,7 @@ Transform:
   m_GameObject: {fileID: 1538818852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.23, y: 1.51, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.8, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1860500410}
@@ -2072,7 +2117,6 @@ MonoBehaviour:
   InteraktionsMenuName: Computer einschalten
   UseDefaultUrls: 1
   Urls: []
-  InteraktionsMenuId: 0
 --- !u!1 &1609019403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,6 +2388,7 @@ MonoBehaviour:
   AlarmManager: {fileID: 1836436228}
   Player: {fileID: 1538818858}
   UnterrichtsRaum: {fileID: 752264926}
+  UnterrichtStandpunkt: {fileID: 696644735}
   SchuleHaupteingang: {fileID: 288763062}
   AlarmSammelpunkt: {fileID: 288763062}
   ToiletteLehrerzimmer: {fileID: 752264927}
@@ -2686,7 +2731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860500409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.67, z: 0}
+  m_LocalPosition: {x: 0, y: 0.708, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2741,7 +2786,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 65.2
+  field of view: 75.9
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2819,7 +2864,8 @@ MonoBehaviour:
   TimeManager: {fileID: 670363813}
   RauchenVorne: {fileID: 288763062}
   RauchenHinten: {fileID: 288763062}
-  UnterrichtsRaum: {fileID: 1206751142}
+  UnterrichtsRaum: {fileID: 277963985}
+  UnterrichtsStandpunkt: {fileID: 277963986}
   SchuleEingang: {fileID: 288763062}
   Kaffeemaschine: {fileID: 1603995576}
   Sammelpunkt: {fileID: 288763062}

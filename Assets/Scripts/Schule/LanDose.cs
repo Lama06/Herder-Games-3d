@@ -10,7 +10,7 @@ namespace HerderGames.Schule
         [SerializeField] private string Id;
         [SerializeField] private int Zeit;
         [SerializeField] private float Schwere;
-        
+
         public bool Mic { get; set; }
         private Player.Player PlayerInTrigger;
 
@@ -38,11 +38,8 @@ namespace HerderGames.Schule
                             player.Chat.SendChatMessage("Du brauchst ein Lan Kabel um einen Mic durchzuführen");
                             return;
                         }
-                        
-                        player.VerbrechenManager.VerbrechenStarten(Zeit, Schwere, () =>
-                        {
-                            Mic = !micBefore;
-                        });
+
+                        player.VerbrechenManager.VerbrechenStarten(Zeit, Schwere, () => { Mic = !micBefore; });
                     }
                 });
 

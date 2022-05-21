@@ -1,4 +1,3 @@
-using System;
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Lehrer.AI.Trigger;
@@ -14,55 +13,261 @@ namespace HerderGames.Lehrer.Brains
     {
         [SerializeField] private Player.Player Player;
         [SerializeField] private Klassenraum UnterrichtsRaum;
+        [SerializeField] private Transform SchulPc;
+        [SerializeField] private Transform LehrerStuhl;
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private InternetManager Internet;
         [SerializeField] private AlarmManager AlarmManager;
-        
-        private readonly SaetzeMoeglichkeitenMehrmals Unterricht = new(
-            "Eins Plus Kein Fehler!",
-            "Sechs!",
-            "Das ist ja zum Mäuse melken",
-            "Ich hab vergessen diese geklaufte Folie auf Deutsch zu übersetz....Äähm.....Ich meine ich hab sie extra für euch auf Englisch übersetzt",
-            "Ich...Äähm...Jemand hat gerade geraucht. Eine Nichtraucherin richt das sofort. Vor dem Unterricht Pfefferminz nehmen",
-            "Ihr wollt wissen was Ssshreeadhs in Java sind? Einfach das Buch schenken lassen!",
-            "Schade das die MLPD bei der letzten Wahl nicht gewonnen hat! Das iset ja zum Mäuse melken",
-            "Wenn ihr fragen habt, fragt mich einfach. Vielleicht werde ich die Fragen beantworten, vielleicht werde ich aber auch sagen: Das musst du selber wissen",
-            "Die DDR ist zusammengefallen? Das ist ja zum Mäuse melken!",
-            "Hast du in deinem Leben schon mal Google benutzt?! Sechs!",
-            "Hey, Was machst du da auf Google?! Sechs!",
-            "Ach, Wie ich doch Windows XP vermisse!",
-            "Ich empfehle nicht Informatik in der Oberstufe zu wählen! (weil ich es selber nicht kann)",
-            "Ach sieh mal an, der Beamer spiegelt sich in der Plexiglas scheibe",
-            "Wir haben eine superhohe Inzidenz in Köln und du trägst im Untericht keine Maske? (sagte sie, ohne eine Maske zu tragen)"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtKeinInternet = new(
-            "Ich hab kein Internet! Das ist ja zum Mäuse melken",
-            "Wie soll ich denn jetzt Unterricht machen, wo ich gar nicht aus dem Internet mein Unterrichtsmaterial klauen kann",
-            "Meine komische Spionagesoftware funktioniert nicht! Wie soll ich denn so unterrichten? Ich kann da ja gar nicht mehr die Schüler demütigen!",
-            "Wenn das Internet nicht bald wieder funktioniert geh ich nach Hause!"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtKeinInternetDannach = new(
-            "Ihr könnt jetzt nach Hause gehen, das ist ja nicht auszuhalten! Aber seid vorsichtig!"
-        );
 
         protected override void RegisterGoals(AIController ai)
         {
+            #region Sätze
+
+            var unterricht = new SaetzeMoeglichkeitenMehrmals(
+                "Eins Plus, Kein Fehler!",
+                "Sechs!",
+                "Das ist ja zum Mäuse melken",
+                "Ich hab vergessen diese geklaute Folie auf Deutsch zu übersetz....Äähm.....Ich meine ich hab sie extra für euch auf Englisch übersetzt",
+                "Ich...Äähm...Jemand hat gerade geraucht. Eine Nichtraucherin richt das sofort. Vor dem Unterricht Pfefferminz nehmen.",
+                "Ihr wollt wissen was Ssshreeadhs in Java sind? Einfach das Buch schenken lassen!",
+                "Schade das die MLPD bei der letzten Wahl nicht gewonnen hat! Das ist ja zum Mäuse melken",
+                "Wenn ihr fragen habt, fragt mich einfach. Vielleicht werde ich die Fragen beantworten, vielleicht werde ich aber auch sagen: Das musst du selber wissen",
+                "Die DDR ist zusammengefallen? Das ist ja zum Mäuse melken!",
+                "Hast du in deinem Leben schon mal Google benutzt?! Sechs!",
+                "Hey, Was machst du da auf Google?! Sechs!",
+                "Ach, wie ich doch Windows XP vermisse!",
+                "Ich empfehle nicht Informatik in der Oberstufe zu wählen! (weil ich es selber nicht kann)",
+                "Ach sieh mal an, der Beamer spiegelt sich in der Plexiglas scheibe",
+                "Wir haben eine superhohe Inzidenz in Köln und du trägst im Untericht keine Maske? (sagte sie, ohne eine Maske zu tragen)"
+            );
+
+            var unterrichtKeinInternet = new SaetzeMoeglichkeitenMehrmals(
+                "Ich hab kein Internet! Das ist ja zum Mäuse melken",
+                "Wie soll ich denn jetzt Unterricht machen, wo ich gar nicht aus dem Internet mein Unterrichtsmaterial klauen kann",
+                "Meine komische Spionagesoftware funktioniert nicht! Wie soll ich denn so unterrichten? Ich kann da ja gar nicht mehr die Schüler demütigen!",
+                "Wenn das Internet nicht bald wieder funktioniert geh ich nach Hause!"
+            );
+
+            var unterrichtKeinInternetDannach = new SaetzeMoeglichkeitenMehrmals(
+                "Ihr könnt jetzt nach Hause gehen, das ist ja nicht auszuhalten! Aber seid vorsichtig!"
+            );
+
+            #endregion
+
+            const float unterrichtLaengeWennKeinInternet = 25f;
+
+            void EchtUnterrichten(Wochentag wochentag, int index)
+            {
+                ai.AddGoal(new UnterrichtenGoal(
+                    lehrer: Lehrer,
+                    unterrichtsRaum: UnterrichtsRaum,
+                    standpunkt: LehrerStuhl.position,
+                    trigger: new CallbackTrigger(() =>
+                    {
+                        var zeit = new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(unterrichtLaengeWennKeinInternet))
+                                )
+                            )
+                        );
+
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                    }),
+                    stundeImStundenplan: new UnterrichtenGoal.StundenData(wochentag, index, "Informatik"),
+                    reputationsAenderungBeiFehlzeit: -0.1f,
+                    saetzeWaehrendUnterricht: unterrichtKeinInternet
+                ));
+
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    position: LehrerStuhl.position,
+                    trigger: new CallbackTrigger(() =>
+                    {
+                        var zeit = new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(unterrichtLaengeWennKeinInternet)),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
+                                )
+                            )
+                        );
+
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                    }),
+                    saetzeAngekommen: unterrichtKeinInternetDannach
+                ));
+
+                ai.AddGoal(new UnterrichtenGoal(
+                    lehrer: Lehrer,
+                    unterrichtsRaum: UnterrichtsRaum,
+                    standpunkt: LehrerStuhl.position,
+                    trigger: new ZeitspanneTrigger(
+                        TimeManager,
+                        new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
+                                )
+                            )
+                        )
+                    ),
+                    stundeImStundenplan: new UnterrichtenGoal.StundenData(wochentag, index, "Informatik"),
+                    reputationsAenderungBeiFehlzeit: -0.3f,
+                    saetzeWaehrendUnterricht: unterricht
+                ));
+            }
+
+            void FakeUnterrichten(Wochentag wochentag, int index)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    position: LehrerStuhl.position,
+                    trigger: new CallbackTrigger(() =>
+                    {
+                        var zeit = new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(unterrichtLaengeWennKeinInternet))
+                                )
+                            )
+                        );
+
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                    }),
+                    saetzeAngekommen: unterrichtKeinInternet
+                ));
+
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    position: LehrerStuhl.position,
+                    trigger: new CallbackTrigger(() =>
+                    {
+                        var zeit = new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(unterrichtLaengeWennKeinInternet)),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
+                                )
+                            )
+                        );
+
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                    }),
+                    saetzeAngekommen: unterrichtKeinInternetDannach
+                ));
+
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(
+                        TimeManager,
+                        new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new ManuelleWochentagAuswahl(wochentag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
+                                )
+                            )
+                        )
+                    ),
+                    position: LehrerStuhl.position,
+                    saetzeAngekommen: unterricht
+                ));
+            }
+
+            void SchulPcReparieren(WoechentlicheZeitspannen wann, Vector3 position)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: position,
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Der PC ist schon wieder kaputt. Das ist ja zum Mäuse melken! Mal gucken was ich da machen kann"
+                    ),
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Das ist ja zum Mäuse melken! Wie soll ich denn diesen PC reparieren? Ich bin einfach zu dumm!",
+                        "Das ist ja zum Mäuse melken! Wer hat diesen PC denn schon wieder kaputt gemacht!",
+                        "Ich glaube ich schreibe da einfach defekt dran. Dann hat sich die Sache gegessen"
+                    )
+                ));
+            }
+
+            void SpielSpielen(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar() && wann.IsInside(TimeManager)),
+                    position: LehrerStuhl.position,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht! Wie soll ich denn so meine Spiele spielen!"
+                    )
+                ));
+
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: LehrerStuhl.position,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Mir gehen langsam die Spiele aus, die Ich spielen kann!" +
+                        "Ich sag meinen Schülern einfach, dass sie mir mal neue Spiele mit Mario programmieren sollten!",
+                        "Gut, dass ich mir einen Gaming Stuhl und einen Curved Screen gekauft habe!" +
+                        "Die sind super zum spielen...Äähm ich meine die sind super zum arbeiten",
+                        "Das ist ein gutes Spiel! Aber da fehlen noch ein paar Animationen!"
+                    )
+                ));
+            }
+
+            void ImInternetSurfen(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar() && wann.IsInside(TimeManager)),
+                    position: LehrerStuhl.position,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht!"
+                    )
+                ));
+
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: LehrerStuhl.position,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Mmmhn Wie kann man denn Aufkleber selber basteln?",
+                        "Was? ulrike.strupat@hotmail.com fordert eine Belehrung darüber an, wie man seine 'Anmeldeschlüssel' zurücksetzt???"
+                    )
+                ));
+            }
+
+            #region Hohe Priorität
+
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => AlarmManager.IsAlarm()),
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: LehrerStuhl.position,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ach das ist doch bestimmt wiedermal ein Fehlalarm! Das ist ja zum Mäuse melken!",
                     "Diese leichte Beschallung ist ja in Ordnung, aber dieser Alarm geht ja mit der Zeit auch auf die Nerven"
                 )
             ));
-            
+
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: LehrerStuhl.position,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Mir geht es gerade gar nicht gut! Das ist zum Mäuse melken!",
                     "Kannst du mir mal bitte kurz den Mülleimer reichen?"
@@ -72,7 +277,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Orthamol}),
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: LehrerStuhl.position,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich muss schon wieder auf Klo. Das ist ja zum Mäuse melken",
                     "Ich muss mal ganz dringend auf Toilette! Ach egal, hier in dem Raum stinkt es ja sowieso schon",
@@ -80,135 +285,63 @@ namespace HerderGames.Lehrer.Brains
                 )
             ));
 
-            // Unterricht Kein Internet
+            #endregion
 
-            ai.AddGoal(new UnterrichtenGoal(
-                lehrer: Lehrer,
-                unterrichtsRaum: UnterrichtsRaum,
-                trigger: new CallbackTrigger(() =>
-                {
-                    var zeit = new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f))
-                            )
-                        )
-                    );
+            #region Montag
 
-                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
-                }),
-                stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 1, "Informatik"),
-                reputationsAenderungBeiFehlzeit: -0.1f,
-                saetzeWaehrendUnterricht: UnterrichtKeinInternet
-            ));
-            
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                trigger: new CallbackTrigger(() =>
-                {
-                    var zeit = new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f)),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Ende), 0f)
-                            )
-                        )
-                    );
+            FakeUnterrichten(Wochentag.Montag, 0);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Kurzpause, 0), SchulPc.position);
+            EchtUnterrichten(Wochentag.Montag, 1);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Kurzpause, 1));
+            FakeUnterrichten(Wochentag.Montag, 2);
+            ImInternetSurfen(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Mittagspause, 0));
+            FakeUnterrichten(Wochentag.Montag, 3);
 
-                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
-                }),
-                saetzeAngekommen: UnterrichtKeinInternetDannach
-            ));
+            #endregion
 
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                trigger: new CallbackTrigger(() =>
-                {
-                    var zeit = new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f))
-                            )
-                        )
-                    );
+            #region Dienstag
 
-                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
-                }),
-                saetzeAngekommen: UnterrichtKeinInternet
-            ));
-            
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                trigger: new CallbackTrigger(() =>
-                {
-                    var zeit = new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(25f)),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Ende), 0f)
-                            )
-                        )
-                    );
+            FakeUnterrichten(Wochentag.Dienstag, 0);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Dienstag, StundenType.Kurzpause, 0));
+            FakeUnterrichten(Wochentag.Dienstag, 1);
+            ImInternetSurfen(WoechentlicheZeitspannen.Stunde(Wochentag.Dienstag, StundenType.Kurzpause, 1));
+            FakeUnterrichten(Wochentag.Dienstag, 2);
 
-                    return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
-                }),
-                saetzeAngekommen: UnterrichtKeinInternetDannach
-            ));
-            
-            // Unterricht Normal
+            #endregion
 
-            ai.AddGoal(new UnterrichtenGoal(
-                lehrer: Lehrer,
-                unterrichtsRaum: UnterrichtsRaum,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 1, AnfangOderEnde.Ende), 0f)
-                            )
-                        )
-                    )
-                ),
-                stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 1, "Informatik"),
-                reputationsAenderungBeiFehlzeit: -0.3f,
-                saetzeWaehrendUnterricht: Unterricht
-            ));
+            #region Mittwoch
 
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Ende), 0f)
-                            )
-                        )
-                    )
-                ),
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
-                saetzeAngekommen: Unterricht
-            ));
-            
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                trigger: new AlwaysTrueTrigger(),
-                position: UnterrichtsRaum.GetLehrerStandpunkt()
-            ));
+            FakeUnterrichten(Wochentag.Mittwoch, 0);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Kurzpause, 0));
+            FakeUnterrichten(Wochentag.Mittwoch, 1);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Kurzpause, 1), SchulPc.position);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Lernzeit, 0));
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Mittagspause, 0));
+            FakeUnterrichten(Wochentag.Mittwoch, 2);
+
+            #endregion
+
+            #region Donnerstag
+
+            FakeUnterrichten(Wochentag.Donnernstag, 0);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Kurzpause, 0), SchulPc.position);
+            FakeUnterrichten(Wochentag.Donnernstag, 1);
+            ImInternetSurfen(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Kurzpause, 1));
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Lernzeit, 0));
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Mittagspause, 0));
+            FakeUnterrichten(Wochentag.Donnernstag, 2);
+
+            #endregion
+
+            #region Freitag
+
+            FakeUnterrichten(Wochentag.Freitag, 0);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Freitag, StundenType.Kurzpause, 0));
+            FakeUnterrichten(Wochentag.Freitag, 1);
+            SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Freitag, StundenType.Kurzpause, 1));
+            FakeUnterrichten(Wochentag.Freitag, 2);
+
+            #endregion
         }
 
         protected override void RegisterFragen(InteraktionsMenuFragenManager fragen)
@@ -267,7 +400,7 @@ namespace HerderGames.Lehrer.Brains
                 ),
                 clickCallback: InteraktionsMenuFrageUtil.AusUnterrichtFreistellen()
             ));
-            
+
             fragen.AddFrage(new InteraktionsMenuFrageAnnehmenAblehnen(
                 lehrer: Lehrer,
                 player: Player,
@@ -280,10 +413,7 @@ namespace HerderGames.Lehrer.Brains
                     "Danke das kann ich gut vertragen. Ich bin ja auch so dünn und habe erst 42 Stücke Kuchen gegessen.",
                     "Mmmh, Knusprig!"
                 ),
-                onAnnehmen: (_, _) =>
-                {
-                    Lehrer.Vergiftung.Vergiften(VergiftungsType.Orthamol);
-                },
+                onAnnehmen: (_, _) => Lehrer.Vergiftung.Vergiften(VergiftungsType.Orthamol),
                 reputationsAenderungBeiAblehnen: -0.1f,
                 ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
                     "Ich hab jezt keinen Hunger auf Kuchen! Sechs!"

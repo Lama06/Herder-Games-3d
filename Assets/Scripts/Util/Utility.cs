@@ -1,14 +1,15 @@
 using System;
 using System.Text;
-using Random = UnityEngine.Random;
 
 namespace HerderGames.Util
 {
     public static class Utility
     {
+        private static readonly System.Random Random = new();
+
         public static bool TrueWithPercent(float percentForTrue)
         {
-            var randomNumber = Random.Range(0f, 1f);
+            var randomNumber = UnityEngine.Random.Range(0f, 1f);
             return randomNumber <= percentForTrue;
         }
 
@@ -17,8 +18,10 @@ namespace HerderGames.Util
             var builder = new StringBuilder();
             foreach (var c in text)
             {
-                builder.Append(Random.Range(0, 2) == 0 ? char.ToLower(c) : char.ToUpper(c));
+                // Hier System.Random benutzen, weil diese Methode oft in einem Konstruktor aufgerufen wird, wo UnityEngine.Random nicht funktioniert
+                builder.Append(Random.Next(2) == 0 ? char.ToLower(c) : char.ToUpper(c));
             }
+
             return builder.ToString();
         }
     }

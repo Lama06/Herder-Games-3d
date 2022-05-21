@@ -16,6 +16,7 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Player.Player Player;
         [SerializeField] private Klassenraum UnterrichtsRaum;
+        [SerializeField] private Transform UnterrichtStandpunkt;
         [SerializeField] private Transform SchuleHaupteingang;
         [SerializeField] private Transform AlarmSammelpunkt;
         [SerializeField] private Transform ToiletteLehrerzimmer;
@@ -56,7 +57,9 @@ namespace HerderGames.Lehrer.Brains
             "24 - 2 ... Das sind Summa Sumarum ... 21",
             "In Mathe war Ich damals nie gut",
             "Jetzt bist du im richtigen Boot ... oder Pferd",
-            "Das ist ja zum Mäuse melken!"
+            "Das ist ja zum Mäuse melken!",
+            "Jetzt mal ganz ehrlich, kann mir jemand sagen, wie ich mich am Schul PC abmelde?",
+            "Schwarzer Pfeffer hilft gegen Athrose? Das ist interessant"
         );
 
         private readonly SaetzeMoeglichkeitenMehrmals RauchenWeg = new(
@@ -123,6 +126,17 @@ namespace HerderGames.Lehrer.Brains
                     "Dass ich das auf meine alten Tage noch erleben muss!"
                 )
             ));
+            
+            ai.AddGoal(new ErschoepfungGoal(
+                lehrer: Lehrer,
+                maxiamleHoeheProMinute: 40f,
+                maximaleDistanzProMinute: 15f,
+                laengeDerPause: 3.5f,
+                saetze: new SaetzeMoeglichkeitenMehrmals(
+                    "Jetzt mal ganz ehrlich: Ich brauche mal eine kurze Pause",
+                    "Hand aufs Herz: Wir alle sind auch mal erschöpft!"
+                )
+            ));
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol
                 lehrer: Lehrer,
@@ -145,8 +159,8 @@ namespace HerderGames.Lehrer.Brains
                     "Hey Was machst du denn da? Ich bin sauer! Nein ich bin wütend"
                 )
             ));
-
-            // Unterrichten
+            
+            #region Unterricht
 
             var unterrichtAnfang = TimeUtility.MinutesToFloat(-5);
             var unterrichtEnde = TimeUtility.MinutesToFloat(5);
@@ -154,6 +168,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new UnterrichtenGoal(
                 lehrer: Lehrer,
                 unterrichtsRaum: UnterrichtsRaum,
+                standpunkt: UnterrichtStandpunkt.position,
                 trigger: new ZeitspanneTrigger(
                     TimeManager,
                     new WoechentlicheZeitspannen(
@@ -191,13 +206,15 @@ namespace HerderGames.Lehrer.Brains
                         )
                     )
                 ),
-                position: UnterrichtsRaum.GetLehrerStandpunkt(),
+                position: UnterrichtStandpunkt.position,
                 saetzeWeg: UnterrichtWeg,
                 saetzeAngekommenEinmalig: UnterrichtBegruessung,
                 saetzeAngekommen: UnterrichtSaetze
             ));
-
-            // Pausen
+            
+            #endregion
+            
+            #region Pausen
 
             ai.AddGoal(new VerbrechenMeldenGoal(
                 lehrer: Lehrer,
@@ -270,8 +287,10 @@ namespace HerderGames.Lehrer.Brains
                 saetzeWeg: KaffeeWeg,
                 saetzeAngekommen: KaffeeAngekommen
             ));
+            
+            #endregion
 
-            // Vor der Schulzeit
+            #region Vor Der Schulzeit
 
             ai.AddGoal(new VergiftbaresEssenEssenGoal( // Kaffee
                 lehrer: Lehrer,
@@ -335,6 +354,8 @@ namespace HerderGames.Lehrer.Brains
                 saetzeWeg: RauchenWeg,
                 saetzeAngekommen: RauchenAngekommen
             ));
+            
+            #endregion
         }
 
         protected override void RegisterFragen(InteraktionsMenuFragenManager fragen)

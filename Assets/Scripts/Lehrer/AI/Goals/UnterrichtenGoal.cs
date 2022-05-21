@@ -10,6 +10,7 @@ namespace HerderGames.Lehrer.AI.Goals
     public class UnterrichtenGoal : GoalBase
     {
         private readonly Klassenraum UnterrichtsRaum;
+        private readonly Vector3 Standpunkt;
         private readonly TriggerBase Trigger;
         private readonly StundenData StundeImStundenplan;
         private readonly float ReputationsAenderungBeiFehlzeit;
@@ -22,8 +23,10 @@ namespace HerderGames.Lehrer.AI.Goals
         private Coroutine GoToRoomCoroutine;
         private Coroutine CheckAnwesenheitCoroutine;
 
-        public UnterrichtenGoal(Lehrer lehrer,
+        public UnterrichtenGoal(
+            Lehrer lehrer,
             Klassenraum unterrichtsRaum,
+            Vector3 standpunkt,
             TriggerBase trigger,
             StundenData stundeImStundenplan,
             float reputationsAenderungBeiFehlzeit,
@@ -33,6 +36,7 @@ namespace HerderGames.Lehrer.AI.Goals
         ) : base(lehrer)
         {
             UnterrichtsRaum = unterrichtsRaum;
+            Standpunkt = standpunkt;
             Trigger = trigger;
             StundeImStundenplan = stundeImStundenplan;
             ReputationsAenderungBeiFehlzeit = reputationsAenderungBeiFehlzeit;
@@ -63,7 +67,7 @@ namespace HerderGames.Lehrer.AI.Goals
         public IEnumerator GoToRoom()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWegZumRaum;
-            Lehrer.Agent.destination = UnterrichtsRaum.GetLehrerStandpunkt();
+            Lehrer.Agent.destination = Standpunkt;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             yield return new WaitForSeconds(5);
             Lehrer.Sprache.Say(SaetzeBegruessung);
