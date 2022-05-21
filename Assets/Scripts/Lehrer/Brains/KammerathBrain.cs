@@ -109,15 +109,7 @@ namespace HerderGames.Lehrer.Brains
                     standpunkt: LehrerStuhl.position,
                     trigger: new ZeitspanneTrigger(
                         TimeManager,
-                        new WoechentlicheZeitspannen(
-                            new WoechentlicheZeitspannen.Eintrag(
-                                new ManuelleWochentagAuswahl(wochentag),
-                                new WoechentlicheZeitspannen.Zeitspanne(
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
-                                )
-                            )
-                        )
+                        WoechentlicheZeitspannen.Stunde(wochentag, StundenType.Fach, index)
                     ),
                     stundeImStundenplan: new UnterrichtenGoal.StundenData(wochentag, index, "Informatik"),
                     reputationsAenderungBeiFehlzeit: -0.3f,
@@ -173,27 +165,19 @@ namespace HerderGames.Lehrer.Brains
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(
                         TimeManager,
-                        new WoechentlicheZeitspannen(
-                            new WoechentlicheZeitspannen.Eintrag(
-                                new ManuelleWochentagAuswahl(wochentag),
-                                new WoechentlicheZeitspannen.Zeitspanne(
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
-                                )
-                            )
-                        )
+                        WoechentlicheZeitspannen.Stunde(wochentag, StundenType.Fach, index)
                     ),
                     position: LehrerStuhl.position,
                     saetzeAngekommen: unterricht
                 ));
             }
 
-            void SchulPcReparieren(WoechentlicheZeitspannen wann, Vector3 position)
+            void SchulPcReparieren(WoechentlicheZeitspannen wann)
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: position,
+                    position: SchulPc.position,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Der PC ist schon wieder kaputt. Das ist ja zum Mäuse melken! Mal gucken was ich da machen kann"
                     ),
@@ -290,7 +274,7 @@ namespace HerderGames.Lehrer.Brains
             #region Montag
 
             FakeUnterrichten(Wochentag.Montag, 0);
-            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Kurzpause, 0), SchulPc.position);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Kurzpause, 0));
             EchtUnterrichten(Wochentag.Montag, 1);
             SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Montag, StundenType.Kurzpause, 1));
             FakeUnterrichten(Wochentag.Montag, 2);
@@ -314,7 +298,7 @@ namespace HerderGames.Lehrer.Brains
             FakeUnterrichten(Wochentag.Mittwoch, 0);
             SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Kurzpause, 0));
             FakeUnterrichten(Wochentag.Mittwoch, 1);
-            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Kurzpause, 1), SchulPc.position);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Kurzpause, 1));
             SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Lernzeit, 0));
             SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Mittwoch, StundenType.Mittagspause, 0));
             FakeUnterrichten(Wochentag.Mittwoch, 2);
@@ -324,7 +308,7 @@ namespace HerderGames.Lehrer.Brains
             #region Donnerstag
 
             FakeUnterrichten(Wochentag.Donnernstag, 0);
-            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Kurzpause, 0), SchulPc.position);
+            SchulPcReparieren(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Kurzpause, 0));
             FakeUnterrichten(Wochentag.Donnernstag, 1);
             ImInternetSurfen(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Kurzpause, 1));
             SpielSpielen(WoechentlicheZeitspannen.Stunde(Wochentag.Donnernstag, StundenType.Lernzeit, 0));
