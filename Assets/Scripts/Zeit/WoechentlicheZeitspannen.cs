@@ -4,24 +4,47 @@ namespace HerderGames.Zeit
 {
     public class WoechentlicheZeitspannen
     {
-        public static WoechentlicheZeitspannen Stunde(Wochentag tag, StundenType stunde, int index, float davor = 0f, float dannach = 0f)
-        {
-            return new WoechentlicheZeitspannen(
-                new Eintrag(
-                    new ManuelleWochentagAuswahl(tag),
-                    new Zeitspanne(
-                        new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Anfang), davor),
-                        new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Ende), dannach)
-                    )
-                )
-            );
-        }
-        
         private readonly IList<Eintrag> Eintraege;
 
         public WoechentlicheZeitspannen(params Eintrag[] eintraege)
         {
             Eintraege = eintraege;
+        }
+        
+        public WoechentlicheZeitspannen(
+            Wochentag tag,
+            ZeitRelativitaetBase relativAnfang,
+            float anfangOffset,
+            ZeitRelativitaetBase relativEnde,
+            float endeOffset
+        ) : this(
+            new Eintrag(
+                new ManuelleWochentagAuswahl(tag),
+                new Zeitspanne(
+                    new Zeitpunkt(relativAnfang, anfangOffset),
+                    new Zeitpunkt(relativEnde, endeOffset)
+                )
+            )
+        )
+        {
+        }
+
+        public WoechentlicheZeitspannen(
+            Wochentag tag,
+            StundenType stunde,
+            int index,
+            float anfang = 0f,
+            float ende = 0f
+        ) : this(
+            new Eintrag(
+                new ManuelleWochentagAuswahl(tag),
+                new Zeitspanne(
+                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Anfang), anfang),
+                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Ende), ende)
+                )
+            )
+        )
+        {
         }
 
         public IList<(Wochentag, float, float)> Resolve()
@@ -32,10 +55,10 @@ namespace HerderGames.Zeit
             {
                 result.AddRange(eintrag.Resolve());
             }
-            
+
             return result;
         }
-        
+
         public bool IsInside(Wochentag tag, float time)
         {
             foreach (var (wochentag, start, end) in Resolve())
@@ -73,7 +96,7 @@ namespace HerderGames.Zeit
             public IList<(Wochentag, float, float)> Resolve()
             {
                 var result = new List<(Wochentag, float, float)>();
-                
+
                 foreach (var wochentag in Tage.ResolveWochentage())
                 {
                     foreach (var zeitspanne in Zeitspannen)

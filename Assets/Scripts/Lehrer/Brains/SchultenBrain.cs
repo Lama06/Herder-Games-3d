@@ -7,6 +7,7 @@ using HerderGames.Schule;
 using HerderGames.Util;
 using HerderGames.Zeit;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace HerderGames.Lehrer.Brains
 {
@@ -24,84 +25,215 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private Transform LehrerzimmerFach;
         [SerializeField] private Transform Rauchen;
         [SerializeField] private Transform Schulleitung;
-
-        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtWeg = new(
-            "Ich hoffe meine Schüler haben den Schimmelreiter gelesen",
-            "Jetzt mal ganz ehrlich: Treppensteigen war auch mal einfacher"
-        );
-
-        private readonly SaetzeMoeglichkeitenEinmalig UnterrichtBegruessung = new(
-            "Na ihr Hasis?"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals UnterrichtSaetze = new(
-            "Jetzt mal ganz ehrlich: Wer hat den Schimmelreiter fertig gelesen",
-            "Weiß jemand von euch wie der OHP angeht? Mit solcher modernen Technik bin Ich nicht vertraut",
-            "Der Klassenraum sieht heute aber wieder aus. Schmutzfinke!",
-            "An alle Damen und Herren der Schöpfung: Wie hat euch das Buch gefallen?",
-            "Als nächstes lesen wie Gedichte von Göthe der Flöte",
-            "Der PC geht schon wieder nicht an. Das ist ja zum Mäuse melken!",
-            "Das ist mir wumpe",
-            "Wir müssen jeztzt pö a pö die Stilmittel durcharbeiten",
-            "Hand aufs Herz: Warum habt ihr das Buch noch nicht gelsen? Ihr wisst doch wie der Hase läuft?",
-            "Nehmt auf dem Ausflug bitte genug Fressalien mit",
-            "Warum habt ihr das nicht aufgeschrieben? Ich hab euch das doch gerade in die Feder hineindiktiert",
-            "Wie der Franzose sage Hälfte Hälfte",
-            "Als ich in der neuten am Gymnasium war, hab ich sowas gewusst",
-            "Jetzt mal unter uns: Hat jemand von euch ncoh schwarzen Pfeffer zu Hause",
-            "Das ist ein schöner Alt deutscher Begriff",
-            "Hauke Haien: Der Teufel himself",
-            "Ihr wollt wissen, was in der Arbeit drankommt? Das weiß ich selber nicht, ich tue aber so und meine, dass es offensichtlich wäre",
-            "Dar würde ich mir einen grünen Stift nehmen und das zwei mal unterstreichen",
-            "25 durch 5? Nach Adam Riese wären das ... 4",
-            "24 - 2 ... Das sind Summa Sumarum ... 21",
-            "In Mathe war Ich damals nie gut",
-            "Jetzt bist du im richtigen Boot ... oder Pferd",
-            "Das ist ja zum Mäuse melken!",
-            "Jetzt mal ganz ehrlich, kann mir jemand sagen, wie ich mich am Schul PC abmelde?",
-            "Schwarzer Pfeffer hilft gegen Athrose? Das ist interessant"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals RauchenWeg = new(
-            "Hand aufs Herz: Wir alle wollen auch mal Rauchen",
-            "Jetzt mal ganz ehrlich: Ich muss noch mal kurz Rauchen gehen",
-            "Jetzt mal ganz ehrlich: Rauchen kann auch gut für die Gesundheit sein",
-            "Mensch Schulten, du musst dir das Rauchen wirklich mal abgewöhnen!"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals RauchenAngekommen = new(
-            "Jetzt müsst ihr leider zugucken wie ich rauche weil ich meine Sucht nicht für eine Minute länger unterdrücken kann"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals KaffeeWeg = new(
-            "Hand aufs Herz: Kaffee am morgen vertreibt Kummer und Sorgen",
-            "Ich hoffe die Kaffeemaschine funktioniert noch",
-            "Ihr fragt euch warum ich einen eigenen mini Raum habe? Naja irgendwo müssen die Zigaretten ja hin"
-        );
-
-        private readonly SaetzeMoeglichkeitenMehrmals KaffeeAngekommen = new(
-            "Jetzt mal ganz ehrlich: Kaffee tut gut!",
-            "Jetzt mal ganz ehrlich: Wir alle trinken auch mal Kaffee"
-        );
+        [SerializeField] private Transform Drucker;
+        [SerializeField] private Transform E202ZigarettenSchrank;
 
         protected override void RegisterGoals(AIController ai)
         {
+            #region Sätze
+
+            var unterrichtWeg = new SaetzeMoeglichkeitenMehrmals(
+                "Ich hoffe meine Schüler haben den Schimmelreiter gelesen",
+                "Jetzt mal ganz ehrlich: Treppensteigen war auch mal einfacher"
+            );
+
+            var unterrichtBegruessung = new SaetzeMoeglichkeitenEinmalig(
+                "Na ihr Hasis?"
+            );
+
+            var unterrichtSaetze = new SaetzeMoeglichkeitenMehrmals(
+                "Jetzt mal ganz ehrlich: Wer hat den Schimmelreiter fertig gelesen",
+                "Weiß jemand von euch wie der OHP angeht? Mit solcher modernen Technik bin Ich nicht vertraut",
+                "Der Klassenraum sieht heute aber wieder aus. Schmutzfinke!",
+                "An alle Damen und Herren der Schöpfung: Wie hat euch das Buch gefallen?",
+                "Als nächstes lesen wie Gedichte von Göthe der Flöte",
+                "Der PC geht schon wieder nicht an. Das ist ja zum Mäuse melken!",
+                "Das ist mir wumpe",
+                "Wir müssen jeztzt pö a pö die Stilmittel durcharbeiten",
+                "Hand aufs Herz: Warum habt ihr das Buch noch nicht gelsen? Ihr wisst doch wie der Hase läuft?",
+                "Nehmt auf dem Ausflug bitte genug Fressalien mit",
+                "Warum habt ihr das nicht aufgeschrieben? Ich hab euch das doch gerade in die Feder hineindiktiert",
+                "Wie der Franzose sage Hälfte Hälfte",
+                "Als ich in der neuten am Gymnasium war, hab ich sowas gewusst",
+                "Jetzt mal unter uns: Hat jemand von euch ncoh schwarzen Pfeffer zu Hause",
+                "Das ist ein schöner Alt deutscher Begriff",
+                "Hauke Haien: Der Teufel himself",
+                "Ihr wollt wissen, was in der Arbeit drankommt? Das weiß ich selber nicht, ich tue aber so und meine, dass es offensichtlich wäre",
+                "Dar würde ich mir einen grünen Stift nehmen und das zwei mal unterstreichen",
+                "25 durch 5? Nach Adam Riese wären das ... 4",
+                "24 - 2 ... Das sind Summa Sumarum ... 21",
+                "In Mathe war Ich damals nie gut",
+                "Jetzt bist du im richtigen Boot ... oder Pferd",
+                "Das ist ja zum Mäuse melken!",
+                "Jetzt mal ganz ehrlich, kann mir jemand sagen, wie ich mich am Schul PC abmelde?",
+                "Schwarzer Pfeffer hilft gegen Athrose? Das ist interessant",
+                "Also wenn ich mir diese Gruselfilme, die ihr guckt, angucken müsste, würde ich mich hinter meinem Ohrensessel verkriechen!",
+                "Gar nichts muss man ... außer sterben! Das sagte schon Göthe die Flöte.",
+                "Moni hat Cooroni",
+                "Also ich fand diesen graphische Würfelkonstruktions Übergang in deiner Präsentation sehr toll und gar nicht redundant.",
+                "Klimaschutz ist ein sehr wichtiges Thema! Das liegt mir wirklich sehr am Herz. Sieht man ja auch daran, dass meine Echtschlangenleder Tasche fair-trade ist.",
+                "Ne Tschick war so ein schlechtes Buch das lese ich nie wieder",
+                "Der Schimmelreiter ist ein wunderbares Buch genauso wie der Autor Theodor Sturm ein vorbildlicher Mensch war"
+            );
+
+            #endregion
+
+            var unterrichtVerspaetung = TimeUtility.FloatToMinutes(-5f);
+            var unterrichtUeberziehung = TimeUtility.FloatToMinutes(5f);
+
+            void EchtUnterrichten(WoechentlicheZeitspannen wann, UnterrichtenGoal.StundenData stunde)
+            {
+                ai.AddGoal(new UnterrichtenGoal(
+                    lehrer: Lehrer,
+                    unterrichtsRaum: UnterrichtsRaum,
+                    standpunkt: UnterrichtStandpunkt.position,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    stundeImStundenplan: stunde,
+                    reputationsAenderungBeiFehlzeit: -1f,
+                    saetzeAufDemWegZumRaum: unterrichtWeg,
+                    saetzeBegruessung: unterrichtBegruessung,
+                    saetzeWaehrendUnterricht: unterrichtSaetze
+                ));
+            }
+
+            void FakeUnterrichten(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: UnterrichtStandpunkt.position,
+                    saetzeWeg: unterrichtWeg,
+                    saetzeAngekommenEinmalig: unterrichtBegruessung,
+                    saetzeAngekommen: unterrichtSaetze
+                ));
+            }
+
+            void RauchenGehenVorne(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: Rauchen.position,
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Hand aufs Herz: Wir alle wollen auch mal Rauchen",
+                        "Jetzt mal ganz ehrlich: Ich muss noch mal kurz Rauchen gehen",
+                        "Jetzt mal ganz ehrlich: Rauchen kann auch gut für die Gesundheit sein",
+                        "Mensch Schulten, du musst dir das Rauchen wirklich mal abgewöhnen!"
+                    ),
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Jetzt müsst ihr leider zugucken wie ich rauche weil ich meine Sucht nicht für eine Minute länger unterdrücken kann",
+                        "Hoppala, wo sind denn die ganzen Zigaretten hin? Naja dann muss ich gleich halt noch mal zu E202"
+                    )
+                ));
+            }
+
+            void KaffeeTrinkenGehenMiniraum(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new VergiftbaresEssenEssenGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    vergiftbaresEssen: KaffeemaschineMiniRaum,
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Hand aufs Herz: Kaffee am morgen vertreibt Kummer und Sorgen",
+                        "Ich hoffe die Kaffeemaschine funktioniert noch",
+                        "Ihr fragt euch warum ich einen eigenen Mini Raum habe? Naja irgendwo müssen die Zigaretten ja hin"
+                    ),
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Jetzt mal ganz ehrlich: Kaffee tut gut!",
+                        "Jetzt mal ganz ehrlich: Wir alle trinken auch mal Kaffee"
+                    )
+                ));
+            }
+
+            void ZumLehrerzimmerFachGehen(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: LehrerzimmerFach.position,
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Mmmhhm mal gucken ob in meinem Fach was liegt. Da hat bestimmt jemand in der Nacht was reigelegt",
+                        "Ich muss nochmal kurz ins Lehrerzimmer"
+                    ),
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Komisch, warum liegt denn gar nichts in meinem Fach. " +
+                        "Ich bin doch gestern schon als letzte gegangen und heute erst als erste wieder in die Schule gekommen"
+                    )
+                ));
+            }
+
+            void LehrerzimmerDruckenGehen(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    position: Drucker.position,
+                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                        "Ich muss noch mal kurz ein paar Arbeitsblätter ausdrucken gehen.",
+                        "Hoffentlich reicht mein Druckerkontigent noch."
+                    ),
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Hoppala, warum ist mein Druckerkontingent denn schon aufgebraucht?",
+                        "Wie kann mein Druckerkontigent denn schon leer sein?? Ich drucke doch nur täglich ca 2000 Blätter. Das sollte doch eigentlich drinnen sein!"
+                    )
+                ));
+            }
+
+            void E202ZigarettenHolen(WoechentlicheZeitspannen wann)
+            {
+                ai.AddGoal(new SchuleVerlassenGoal(
+                    lehrer: Lehrer,
+                    trigger: new ZeitspanneTrigger(TimeManager, wann),
+                    ausgang: E202ZigarettenSchrank.position,
+                    eingang: E202ZigarettenSchrank.position,
+                    saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
+                        "Ich muss noch mal kurz zu E202 und dort Zigarre...Äähm...etwas holen.",
+                        "Ich hab meine Schlangenledertasche in E202 vergessen."
+                    )
+                ));
+            }
+
+            #region Hohe Priorität
+
             var zeitInSchule = new WoechentlicheZeitspannen(
                 new WoechentlicheZeitspannen.Eintrag(
-                    new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                    new ManuelleWochentagAuswahl(Wochentag.Montag),
+                    new WoechentlicheZeitspannen.Zeitspanne(
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -2f),
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung)
+                    )
+                ),
+                new WoechentlicheZeitspannen.Eintrag(
+                    new ManuelleWochentagAuswahl(Wochentag.Dienstag),
+                    new WoechentlicheZeitspannen.Zeitspanne(
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -2f),
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), 1f)
+                    )
+                ),
+                new WoechentlicheZeitspannen.Eintrag(
+                    new EigenschaftWochentagAuswahl(WochentagEigenschaft.LangtagNormal),
                     new WoechentlicheZeitspannen.Zeitspanne(
                         new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -2f),
                         new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), 0.5f)
                     )
+                ),
+                new WoechentlicheZeitspannen.Eintrag(
+                    new ManuelleWochentagAuswahl(Wochentag.Freitag),
+                    new WoechentlicheZeitspannen.Zeitspanne(
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -2f),
+                        new WoechentlicheZeitspannen.Zeitpunkt(new SchuleEndeZeitRelativitaet(), 1.5f)
+                    )
                 )
             );
+
             ai.AddGoal(new SchuleVerlassenGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => !zeitInSchule.IsInside(TimeManager)),
                 eingang: SchuleHaupteingang.position,
                 ausgang: SchuleHaupteingang.position,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
-                    "Jetzt mal ganz ehrlich, Wir alle wollen auch mal frei haben!"
+                    "Jetzt mal ganz ehrlich, Wir alle wollen auch mal frei haben!",
+                    "Hand aufs Herz: Den Feierabend hab ich mir verdient!"
                 )
             ));
 
@@ -126,7 +258,7 @@ namespace HerderGames.Lehrer.Brains
                     "Dass ich das auf meine alten Tage noch erleben muss!"
                 )
             ));
-            
+
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
                 maxiamleHoeheProMinute: 40f,
@@ -159,62 +291,6 @@ namespace HerderGames.Lehrer.Brains
                     "Hey Was machst du denn da? Ich bin sauer! Nein ich bin wütend"
                 )
             ));
-            
-            #region Unterricht
-
-            var unterrichtAnfang = TimeUtility.MinutesToFloat(-5);
-            var unterrichtEnde = TimeUtility.MinutesToFloat(5);
-
-            ai.AddGoal(new UnterrichtenGoal(
-                lehrer: Lehrer,
-                unterrichtsRaum: UnterrichtsRaum,
-                standpunkt: UnterrichtStandpunkt.position,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new ManuelleWochentagAuswahl(Wochentag.Montag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Anfang), unterrichtAnfang),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, 0, AnfangOderEnde.Ende), unterrichtEnde)
-                            )
-                        )
-                    )
-                ),
-                stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch"),
-                reputationsAenderungBeiFehlzeit: -1f,
-                saetzeAufDemWegZumRaum: UnterrichtWeg,
-                saetzeBegruessung: UnterrichtBegruessung,
-                saetzeWaehrendUnterricht: UnterrichtSaetze
-            ));
-
-            ai.AddGoal(new MoveToAndStandAtGoal(
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Anfang), unterrichtAnfang),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, AnfangOderEnde.Ende), unterrichtEnde)
-                            ),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Anfang), unterrichtAnfang),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Lernzeit, AnfangOderEnde.Ende), unterrichtEnde)
-                            )
-                        )
-                    )
-                ),
-                position: UnterrichtStandpunkt.position,
-                saetzeWeg: UnterrichtWeg,
-                saetzeAngekommenEinmalig: UnterrichtBegruessung,
-                saetzeAngekommen: UnterrichtSaetze
-            ));
-            
-            #endregion
-            
-            #region Pausen
 
             ai.AddGoal(new VerbrechenMeldenGoal(
                 lehrer: Lehrer,
@@ -242,117 +318,306 @@ namespace HerderGames.Lehrer.Brains
                 )
             ));
 
-            ai.AddGoal(new MoveToAndStandAtGoal( // Rauchen
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f))
-                            ),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f))
-                            )
-                        )
-                    )
-                ),
-                position: Rauchen.position,
-                saetzeWeg: RauchenWeg,
-                saetzeAngekommen: RauchenAngekommen
+            #endregion
+
+            #region Montag
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new SchuleBeginnZeitRelativitaet(), -2f,
+                new SchuleBeginnZeitRelativitaet(), -1.5f
+            ));
+            KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new SchuleBeginnZeitRelativitaet(), -1.5f,
+                new SchuleBeginnZeitRelativitaet(), -1f
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new SchuleBeginnZeitRelativitaet(), -1f,
+                new SchuleBeginnZeitRelativitaet(), -0.5f
+            ));
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new SchuleBeginnZeitRelativitaet(), -0.5f,
+                new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
 
-            ai.AddGoal(new VergiftbaresEssenEssenGoal( // Kaffee
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Kurzpause, AnfangOderEnde.Ende), 0f)
-                            ),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f)),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
-                            )
-                        )
-                    )
-                ),
-                vergiftbaresEssen: KaffeemaschineMiniRaum,
-                saetzeWeg: KaffeeWeg,
-                saetzeAngekommen: KaffeeAngekommen
+            EchtUnterrichten(
+                new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung),
+                new UnterrichtenGoal.StundenData(Wochentag.Montag, 0, "Deutsch")
+            );
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(30f)
+            ));
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(30f),
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(
+                Wochentag.Montag,
+                new StundeZeitRelativitaet(StundenType.Fach, 3, AnfangOderEnde.Anfang), unterrichtVerspaetung,
+                new StundeZeitRelativitaet(StundenType.Fach, 3, AnfangOderEnde.Ende), unterrichtUeberziehung
+            ));
+
+            #endregion
+            
+            #region Dienstag
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleBeginnZeitRelativitaet(), -2f,
+                new SchuleBeginnZeitRelativitaet(), -1.5f
+            ));
+            KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleBeginnZeitRelativitaet(), -1.5f,
+                new SchuleBeginnZeitRelativitaet(), -1f
+            ));
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleBeginnZeitRelativitaet(), -1f,
+                new SchuleBeginnZeitRelativitaet(), -0.5f
+            ));
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleBeginnZeitRelativitaet(), -0.5f,
+                new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
+                new SchuleEndeZeitRelativitaet(), 0.5f
+            ));
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Dienstag,
+                new SchuleEndeZeitRelativitaet(), 0.5f,
+                new SchuleBeginnZeitRelativitaet(), 1f
             ));
             
             #endregion
 
-            #region Vor Der Schulzeit
+            #region Mittwoch
 
-            ai.AddGoal(new VergiftbaresEssenEssenGoal( // Kaffee
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -2f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -1.5f)
-                            )
-                        )
-                    )
-                ),
-                vergiftbaresEssen: KaffeemaschineMiniRaum,
-                saetzeWeg: KaffeeWeg,
-                saetzeAngekommen: KaffeeAngekommen
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new SchuleBeginnZeitRelativitaet(), -2f,
+                new SchuleBeginnZeitRelativitaet(), -0.5f
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new SchuleBeginnZeitRelativitaet(), -0.5f,
+                new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
 
-            ai.AddGoal(new MoveToAndStandAtGoal( // Lehrerzimmer Fach
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -1.5f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -1f)
-                            )
-                        )
-                    )
-                ),
-                position: LehrerzimmerFach.position,
-                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
-                    "Mmmhhm mal gucken ob in meinem Fach was liegt. Da hat bestimmt jemand in der Nacht was reigelegt",
-                    "Ich muss nochmal kurz ins Lehrerzimmer"
-                ),
-                saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
-                    "Komisch, warum liegt denn gar nichts in meinem Fach. " +
-                    "Ich bin doch gestern schon als letzte gegangen und heute erst als erste wieder in die Schule gekommen"
-                )
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
-            ai.AddGoal(new MoveToAndStandAtGoal( // Rauchen
-                lehrer: Lehrer,
-                trigger: new ZeitspanneTrigger(
-                    TimeManager,
-                    new WoechentlicheZeitspannen(
-                        new WoechentlicheZeitspannen.Eintrag(
-                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                            new WoechentlicheZeitspannen.Zeitspanne(
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), -1f),
-                                new WoechentlicheZeitspannen.Zeitpunkt(new SchuleBeginnZeitRelativitaet(), 0f)
-                            )
-                        )
-                    )
-                ),
-                position: Rauchen.position,
-                saetzeWeg: RauchenWeg,
-                saetzeAngekommen: RauchenAngekommen
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Lernzeit, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Mittagspause, 0, unterrichtUeberziehung, unterrichtVerspaetung));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Mittwoch,
+                new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
+                new SchuleEndeZeitRelativitaet(), 0.5f
+            ));
+            
+            #endregion
+
+            #region Donnernstag
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new SchuleBeginnZeitRelativitaet(), -2f,
+                new SchuleBeginnZeitRelativitaet(), -0.5f
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new SchuleBeginnZeitRelativitaet(), -0.5f,
+                new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Lernzeit, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+
+            RauchenGehenVorne(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Mittagspause, 0, unterrichtUeberziehung, unterrichtVerspaetung));
+
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Donnernstag,
+                new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
+                new SchuleEndeZeitRelativitaet(), 0.5f
+            ));
+
+            #endregion
+            
+            #region Freitag
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleBeginnZeitRelativitaet(), -2f,
+                new SchuleBeginnZeitRelativitaet(), -1.5f
+            ));
+            LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleBeginnZeitRelativitaet(), -1.5f,
+                new SchuleBeginnZeitRelativitaet(), -0.5f
+            ));
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleBeginnZeitRelativitaet(), -0.5f,
+                new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
+            ));
+            
+            FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
+            
+            RauchenGehenVorne(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
+                new SchuleEndeZeitRelativitaet(), 0.5f
+            ));
+            ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleEndeZeitRelativitaet(), 0.5f,
+                new SchuleEndeZeitRelativitaet(), 1f
+            ));
+            E202ZigarettenHolen(new WoechentlicheZeitspannen(
+                Wochentag.Freitag,
+                new SchuleEndeZeitRelativitaet(), 1f,
+                new SchuleEndeZeitRelativitaet(), 1.5f
             ));
             
             #endregion
@@ -403,6 +668,18 @@ namespace HerderGames.Lehrer.Brains
                 reputationsAenderungBeiAblehnen: -0.1f,
                 ablehnenAntworten: new SaetzeMoeglichkeitenEinmalig(
                     "Jetzt mal ganz ehrlich: Du schaffst es auch noch bis zur Pause"
+                )
+            ));
+            
+            fragen.AddFrage(new InteraktionsMenuFrageEinfach(
+                lehrer: Lehrer,
+                player: Player,
+                shouldShowPredicate: InteraktionsMenuFrageUtil.ShowNearby(),
+                interaktionsMenuName: "Fragen, warum wir den Schimmelreiter lesen",
+                reputationsAenderung: -0.1f,
+                antworten: new SaetzeMoeglichkeitenEinmalig(
+                    "Ich bitte dich! Es handelt sich um veraltete Weltliteratur, die unnötige Probleme thematisiert, bei denen Ich so tun kann, als hätten sie auch " +
+                    "heutzutage noch irgendwie Relevanz in irgendeiner Form!"
                 )
             ));
         }
