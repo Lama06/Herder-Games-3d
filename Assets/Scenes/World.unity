@@ -936,11 +936,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
   UnterrichtsRaum: {fileID: 1206751142}
+  SchulPc: {fileID: 1206751143}
+  LehrerStuhl: {fileID: 1787657475}
   TimeManager: {fileID: 670363813}
   Internet: {fileID: 919171754}
   AlarmManager: {fileID: 1836436228}
-  SchulPc: {fileID: 1206751143}
-  LehrerStuhl: {fileID: 1787657475}
 --- !u!1 &670363812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,7 +2321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609019403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: 1.52, z: 7.27}
+  m_LocalPosition: {x: 2.22, y: 1.44, z: 6.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2396,6 +2396,8 @@ MonoBehaviour:
   LehrerzimmerFach: {fileID: 182248883}
   Rauchen: {fileID: 288763062}
   Schulleitung: {fileID: 1083303379}
+  Drucker: {fileID: 0}
+  E202ZigarettenSchrank: {fileID: 0}
 --- !u!1 &1649371218
 GameObject:
   m_ObjectHideFlags: 0

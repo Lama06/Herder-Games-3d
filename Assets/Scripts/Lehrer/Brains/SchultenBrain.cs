@@ -7,7 +7,6 @@ using HerderGames.Schule;
 using HerderGames.Util;
 using HerderGames.Zeit;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace HerderGames.Lehrer.Brains
 {
@@ -261,8 +260,8 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
-                maxiamleHoeheProMinute: 40f,
-                maximaleDistanzProMinute: 15f,
+                maxiamleHoeheProMinute: 15f,
+                maximaleDistanzProMinute: 40f,
                 laengeDerPause: 3.5f,
                 saetze: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: Ich brauche mal eine kurze Pause",
@@ -368,8 +367,8 @@ namespace HerderGames.Lehrer.Brains
             ));
             KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
@@ -457,7 +456,7 @@ namespace HerderGames.Lehrer.Brains
             LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new SchuleEndeZeitRelativitaet(), 0.5f,
-                new SchuleBeginnZeitRelativitaet(), 1f
+                new SchuleEndeZeitRelativitaet(), 1f
             ));
             
             #endregion
