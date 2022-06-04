@@ -84,8 +84,8 @@ namespace HerderGames.Lehrer.Brains
 
             #endregion
 
-            var unterrichtVerspaetung = TimeUtility.FloatToMinutes(-5f);
-            var unterrichtUeberziehung = TimeUtility.FloatToMinutes(5f);
+            var unterrichtVerspaetung = TimeUtility.MinutesToFloat(-5f);
+            var unterrichtUeberziehung = TimeUtility.MinutesToFloat(5f);
 
             void EchtUnterrichten(WoechentlicheZeitspannen wann, UnterrichtenGoal.StundenData stunde)
             {
@@ -366,11 +366,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
@@ -379,11 +379,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
@@ -392,16 +392,16 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
-                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
-                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(30f)
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f)
             ));
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
-                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(30f),
+                new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f),
                 new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
@@ -441,11 +441,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
             
@@ -454,11 +454,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
             
@@ -503,11 +503,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Mittwoch,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
                 Wochentag.Mittwoch,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
@@ -551,11 +551,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Donnernstag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             KaffeeTrinkenGehenMiniraum(new WoechentlicheZeitspannen(
                 Wochentag.Donnernstag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
 
@@ -596,11 +596,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
             
@@ -609,11 +609,11 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f)
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
             ));
             ZumLehrerzimmerFachGehen(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
-                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.FloatToMinutes(15f),
+                new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
             
