@@ -14,6 +14,7 @@ namespace HerderGames.Lehrer.Brains
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private AlarmManager AlarmManager;
+        [SerializeField] private InternetManager Internet;
         [SerializeField] private Player.Player Player;
         [SerializeField] private Klassenraum UnterrichtsRaum;
         [SerializeField] private Transform UnterrichtStandpunkt;
@@ -72,7 +73,13 @@ namespace HerderGames.Lehrer.Brains
                 "Also ich fand diesen graphische Würfelkonstruktions Übergang in deiner Präsentation sehr toll und gar nicht redundant.",
                 "Klimaschutz ist ein sehr wichtiges Thema! Das liegt mir wirklich sehr am Herz. Sieht man ja auch daran, dass meine Echtschlangenleder Tasche fair-trade ist.",
                 "Ne Tschick war so ein schlechtes Buch das lese ich nie wieder",
-                "Der Schimmelreiter ist ein wunderbares Buch genauso wie der Autor Theodor Sturm ein vorbildlicher Mensch war"
+                "Der Schimmelreiter ist ein wunderbares Buch genauso wie der Autor Theodor Sturm ein vorbildlicher Mensch war",
+                "Ich lebe übrigens ein sehr bescheidendes Leben in einer kleinen rieseigen Villa im Hahnenwald Villenviertel."
+            );
+
+            var druckenWeg = new SaetzeMoeglichkeitenMehrmals(
+                "Ich muss noch mal kurz ein paar Arbeitsblätter ausdrucken gehen.",
+                "Hoffentlich reicht mein Druckerkontigent noch."
             );
 
             #endregion
@@ -121,7 +128,8 @@ namespace HerderGames.Lehrer.Brains
                     ),
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Jetzt müsst ihr leider zugucken wie ich rauche weil ich meine Sucht nicht für eine Minute länger unterdrücken kann",
-                        "Hoppala, wo sind denn die ganzen Zigaretten hin? Naja dann muss ich gleich halt noch mal zu E202"
+                        "Hoppala, wo sind denn die ganzen Zigaretten hin? Naja dann muss ich gleich halt noch mal zu E202",
+                        "Ohgottogottogott Diese Warnhinweise machen wir ja schon Angst!"
                     )
                 ));
             }
@@ -165,12 +173,20 @@ namespace HerderGames.Lehrer.Brains
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
+                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar()),
+                    position: Drucker.position,
+                    saetzeWeg: druckenWeg,
+                    saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
+                        "Ohgottogottogott, warum kann Ich denn nichts drucken? Warum funktioniert das Internet denn nicht?",
+                        "Das Internet funktioniert nicht jetzt kann ich gar nicht meine hunterttausend Arbeitsblätter ausfrucken!"
+                    )
+                ));
+                
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
                     position: Drucker.position,
-                    saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
-                        "Ich muss noch mal kurz ein paar Arbeitsblätter ausdrucken gehen.",
-                        "Hoffentlich reicht mein Druckerkontigent noch."
-                    ),
+                    saetzeWeg: druckenWeg,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Hoppala, warum ist mein Druckerkontingent denn schon aufgebraucht?",
                         "Wie kann mein Druckerkontigent denn schon leer sein?? Ich drucke doch nur täglich ca 2000 Blätter. Das sollte doch eigentlich drinnen sein!"
@@ -509,7 +525,7 @@ namespace HerderGames.Lehrer.Brains
             
             #endregion
 
-            #region Donnernstag
+            #region Donnerstag
 
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Donnernstag,

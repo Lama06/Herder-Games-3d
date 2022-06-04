@@ -6,6 +6,42 @@ using UnityEngine;
 
 namespace HerderGames.Player
 {
+    /*
+     * Stundenplan:
+     *
+     * Montag:
+     *
+     * - Schulten
+     * - Kammerath
+     * - Schwehmer
+     * -
+     *
+     * Dienstag:
+     *
+     * -
+     * -
+     * -
+     * 
+     * Mittwoch:
+     * 
+     * -
+     * -
+     * -
+     * 
+     * Donnerstag:
+     * 
+     * -
+     * -
+     * -
+     * 
+     * Freitag:
+     *
+     * -
+     * -
+     * -
+     * 
+     */
+    
     [RequireComponent(typeof(Player))]
     public class Stundenplan : MonoBehaviour
     {
