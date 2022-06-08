@@ -19,7 +19,7 @@ namespace HerderGames.Player
         private void Update()
         {
 #if UNITY_STANDALONE
-            if (Overlay.GetIsFocused())
+            if (Overlay.IsFocused)
             {
                 return;
             }

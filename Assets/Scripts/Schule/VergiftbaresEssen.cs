@@ -53,11 +53,11 @@ namespace HerderGames.Schule
         {
             bool ShouldShow() => PlayerInTrigger != null && !Vergiftet;
 
-            int AddEintrag(Player.Player player, string name, VergiftungsType type, Item item, string itemMissingMsg)
+            int AddEintrag(Player.Player player, string interaktionsMenuName, VergiftungsType type, Item item, string itemMissingMsg)
             {
                 return PlayerInTrigger.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                 {
-                    Name = name,
+                    Name = interaktionsMenuName,
                     Callback = _ =>
                     {
                         if (!player.Inventory.RemoveItem(item))
@@ -106,36 +106,27 @@ namespace HerderGames.Schule
             }
         }
 
-        private string GetSaveKeyRoot()
-        {
-            return $"essen.{Id}";
-        }
+        private string SaveKeyRoot => $"essen.{Id}";
 
         public void LoadData()
         {
-            Vergiftet = PlayerPrefsUtil.GetBool($"{GetSaveKeyRoot()}.vergiftet", false);
-            VergiftungsTyp = (VergiftungsType) PlayerPrefs.GetInt($"{GetSaveKeyRoot()}.vergiftungs_type", 0);
-            VergiftungBemerkt = PlayerPrefsUtil.GetBool($"{GetSaveKeyRoot()}.vergiftung_bemerkt", false);
+            Vergiftet = PlayerPrefsUtil.GetBool($"{SaveKeyRoot}.vergiftet", false);
+            VergiftungsTyp = (VergiftungsType) PlayerPrefs.GetInt($"{SaveKeyRoot}.vergiftungs_type", 0);
+            VergiftungBemerkt = PlayerPrefsUtil.GetBool($"{SaveKeyRoot}.vergiftung_bemerkt", false);
         }
 
         public void SaveData()
         {
-            PlayerPrefsUtil.SetBool($"{GetSaveKeyRoot()}.vergiftet", Vergiftet);
-            PlayerPrefs.SetInt($"{GetSaveKeyRoot()}.vergiftungs_type", (int) VergiftungsTyp);
-            PlayerPrefsUtil.SetBool($"{GetSaveKeyRoot()}.vergiftung_bemerkt", VergiftungBemerkt);
+            PlayerPrefsUtil.SetBool($"{SaveKeyRoot}.vergiftet", Vergiftet);
+            PlayerPrefs.SetInt($"{SaveKeyRoot}.vergiftungs_type", (int) VergiftungsTyp);
+            PlayerPrefsUtil.SetBool($"{SaveKeyRoot}.vergiftung_bemerkt", VergiftungBemerkt);
         }
 
         public void DeleteData()
         {
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.ergiftet");
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.vergiftungs_type");
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.vergiftung_bemerkt");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.ergiftet");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.vergiftungs_type");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.vergiftung_bemerkt");
         }
-    }
-    
-    public enum VergiftungsType
-    {
-        Normal,
-        Orthamol
     }
 }

@@ -9,11 +9,8 @@ namespace HerderGames.Zeit
         public int Tage;
         public float Stunden;
 
-        public float ToStunden()
-        {
-            return Wochen * 24f * 7f + Tage * 24f + Stunden;
-        }
-        
+        public float Laenge => Wochen * 24f * 7f + Tage * 24f + Stunden;
+
         public static Dauer FromStunden(float total)
         {
             var wochen = (int) (total / (24f * 7f));
@@ -32,7 +29,7 @@ namespace HerderGames.Zeit
 
         public bool IsLongerThan(Dauer other)
         {
-            return ToStunden() > other.ToStunden();
+            return Laenge > other.Laenge;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace HerderGames.Schule
                 return;
             }
 
-            if (AlarmManager.IsAlarm())
+            if (AlarmManager.IsAlarm)
             {
                 return;
             }

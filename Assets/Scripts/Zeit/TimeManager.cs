@@ -16,23 +16,23 @@ namespace HerderGames.Zeit
         public Wochentag CurrentWochentag { get; set; }
         public float CurrentTime { get; set; }
 
-        public Zeitpunkt GetCurrentZeitpunkt()
+        public Zeitpunkt CurrentZeitpunkt => new()
         {
-            return new Zeitpunkt
-            {
-                Kalenderwoche = CurrentKalenderwoche,
-                Wochentag = CurrentWochentag,
-                Zeit = CurrentTime
-            };
-        }
+            Kalenderwoche = CurrentKalenderwoche,
+            Wochentag = CurrentWochentag,
+            Zeit = CurrentTime
+        };
 
-        public string GetDisplayText()
+        public string DisplayText
         {
-            var builder = new StringBuilder();
-            builder.Append("Woche: ").Append(CurrentKalenderwoche).Append("\n");
-            builder.Append("Wochentag: ").Append(CurrentWochentag).Append("\n");
-            builder.Append("Zeit: ").Append(TimeUtility.FormatTime(CurrentTime));
-            return builder.ToString();
+            get
+            {
+                var builder = new StringBuilder();
+                builder.Append("Woche: ").Append(CurrentKalenderwoche).Append("\n");
+                builder.Append("Wochentag: ").Append(CurrentWochentag).Append("\n");
+                builder.Append("Zeit: ").Append(TimeUtility.FormatTime(CurrentTime));
+                return builder.ToString();
+            }
         }
 
         private void Update()
@@ -42,7 +42,7 @@ namespace HerderGames.Zeit
             {
                 CurrentTime = 0;
                 CurrentWochentag += 1;
-                
+
                 if (!CurrentWochentag.IsValid())
                 {
                     CurrentKalenderwoche++;

@@ -21,14 +21,10 @@ namespace HerderGames.UI
 #if UNITY_STANDALONE
             Cursor.lockState = CursorLockMode.None;
 #endif
-
-            var startButton = GetStartButton();
-            startButton.clicked += () => { SceneManager.LoadScene("Scenes/World"); };
+            
+            StartButton.clicked += () => { SceneManager.LoadScene("Scenes/World"); };
         }
 
-        private Button GetStartButton()
-        {
-            return Document.rootVisualElement.Q<Button>("StartGame");
-        }
+        private Button StartButton => Document.rootVisualElement.Q<Button>("StartGame");
     }
 }

@@ -109,7 +109,7 @@ namespace HerderGames.Lehrer.Brains
                     standpunkt: LehrerStuhl.position,
                     trigger: new ZeitspanneTrigger(
                         TimeManager,
-                        new  WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
+                        new WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
                     ),
                     stundeImStundenplan: new UnterrichtenGoal.StundenData(wochentag, index, "Informatik"),
                     reputationsAenderungBeiFehlzeit: -0.3f,
@@ -165,7 +165,7 @@ namespace HerderGames.Lehrer.Brains
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(
                         TimeManager,
-                        new  WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
+                        new WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
                     ),
                     position: LehrerStuhl.position,
                     saetzeAngekommen: unterricht
@@ -240,7 +240,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm()),
+                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
                 position: LehrerStuhl.position,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ach das ist doch bestimmt wiedermal ein Fehlalarm! Das ist ja zum Mäuse melken!",

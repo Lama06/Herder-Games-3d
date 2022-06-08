@@ -23,16 +23,10 @@ namespace HerderGames.Player
             AnzahlVerwarnungen++;
             if (AnzahlVerwarnungen >= 3)
             {
-                OnGameOver();
+                GameOver.SchadenFuerDieSchule = Player.Score.SchadenFuerDieSchule;
+                PersistentDataManager.DeleteData();
+                SceneManager.LoadScene("Scenes/GameOver");
             }
-        }
-
-        private void OnGameOver()
-        {
-            Debug.Log("Game Over");
-            GameOver.SchadenFuerDieSchule = Player.Score.SchadenFuerDieSchule;
-            PersistentDataManager.DeleteData();
-            SceneManager.LoadScene("Scenes/GameOver");
         }
 
         private const string SaveKey = "player.verwarnungen";

@@ -36,7 +36,7 @@ namespace HerderGames.Schule
             InteraktionsMenuId = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
             {
                 Name = InteraktionsMenuName,
-                Callback = id =>
+                Callback = _ =>
                 {
                     string url;
                     

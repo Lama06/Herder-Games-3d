@@ -13,15 +13,12 @@ namespace HerderGames.Zeit
         
         public Dauer Diff(Zeitpunkt other)
         {
-            var bigger = ToStunden() > other.ToStunden() ? this : other;
-            var smaller = ToStunden() > other.ToStunden() ? other : this;
-            var diff = bigger.ToStunden() - smaller.ToStunden();
+            var bigger = StundenSeitBeginn > other.StundenSeitBeginn ? this : other;
+            var smaller = StundenSeitBeginn > other.StundenSeitBeginn ? other : this;
+            var diff = bigger.StundenSeitBeginn - smaller.StundenSeitBeginn;
             return Dauer.FromStunden(diff);
         }
 
-        private float ToStunden()
-        {
-            return Zeit + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
-        }
+        private float StundenSeitBeginn => Zeit + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
     }
 }

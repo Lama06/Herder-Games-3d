@@ -20,7 +20,7 @@ namespace HerderGames.Schule
             StartCoroutine(ShowInteraktionsMenuEintrag("Internet reparieren (MIO)", true, false));
         }
 
-        private IEnumerator ShowInteraktionsMenuEintrag(string name, bool micBefore, bool lanKabelRequired)
+        private IEnumerator ShowInteraktionsMenuEintrag(string interaktionsMenuName, bool micBefore, bool lanKabelRequired)
         {
             bool ShouldShow() => Mic == micBefore && PlayerInTrigger != null;
 
@@ -30,7 +30,7 @@ namespace HerderGames.Schule
                 var player = PlayerInTrigger;
                 var id = player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                 {
-                    Name = name,
+                    Name = interaktionsMenuName,
                     Callback = _ =>
                     {
                         if (lanKabelRequired && !player.Inventory.RemoveItem(Item.LanKabel))

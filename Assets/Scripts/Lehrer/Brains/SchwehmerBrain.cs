@@ -12,6 +12,7 @@ namespace HerderGames.Lehrer.Brains
     public class SchwehmerBrain : BrainBase
     {
         [SerializeField] private Player.Player Player;
+        [SerializeField] private InternetManager Internet;
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Transform RauchenVorne;
         [SerializeField] private Transform RauchenHinten;
@@ -28,7 +29,7 @@ namespace HerderGames.Lehrer.Brains
         {
             var unterrichtVerspaetung = TimeUtility.MinutesToFloat(-4f);
             var unterrichtUeberziehung = TimeUtility.MinutesToFloat(7f);
-            
+
             #region Sätze
 
             var unterrichtWeg = new SaetzeMoeglichkeitenMehrmals(
@@ -86,11 +87,26 @@ namespace HerderGames.Lehrer.Brains
                     unterrichtsRaum: UnterrichtsRaum,
                     standpunkt: UnterrichtsStandpunkt.position,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
-                    stundeImStundenplan: new UnterrichtenGoal.StundenData(Wochentag.Montag, 2, "Latein"),
-                    reputationsAenderungBeiFehlzeit: -0.4f,
+                    stundeImStundenplan: stunde,
+                    reputationsAenderungBeiFehlzeit: -0.2f,
                     saetzeAufDemWegZumRaum: unterrichtWegKrank,
                     saetzeBegruessung: unterrichtBegruessung,
                     saetzeWaehrendUnterricht: unterrichtKrank
+                ));
+
+                ai.AddGoal(new UnterrichtenGoal(
+                    lehrer: Lehrer,
+                    unterrichtsRaum: UnterrichtsRaum,
+                    standpunkt: UnterrichtsStandpunkt.position,
+                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar()),
+                    stundeImStundenplan: stunde,
+                    reputationsAenderungBeiFehlzeit: -0.4f,
+                    saetzeAufDemWegZumRaum: unterrichtWeg,
+                    saetzeBegruessung: unterrichtBegruessung,
+                    saetzeWaehrendUnterricht: new SaetzeMoeglichkeitenMehrmals(
+                        "Ach das Internet geht schon wieder nicht! Das trage ich direkt in meine Tabelle ein!",
+                        "Das Internet ist wieder kaputt! Ich sage doch, wir müssen die Digitalisierung rückgängig machen dann kriegen wir mal wieder richtig Stoff durch!"
+                    )
                 ));
 
                 ai.AddGoal(new UnterrichtenGoal(
@@ -160,19 +176,19 @@ namespace HerderGames.Lehrer.Brains
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), davor,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
                 ), RauchenVorne.position);
-                
+
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f)
                 ), RauchenHinten.position);
-                
+
                 KaffeTrinken(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(45f)
                 ));
-                
+
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(45f),
@@ -245,7 +261,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm()),
+                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
                 position: Sammelpunkt.position,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich hoffe die Lateinbücher werdens überleben",
@@ -264,9 +280,9 @@ namespace HerderGames.Lehrer.Brains
             ));
 
             #endregion
-            
+
             #region Montag
-            
+
             RauchenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
@@ -277,50 +293,50 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Montag, 0, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
 
             KurzpauseRauchenRoutine(Wochentag.Montag, 1, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             Unterrichten(
                 new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung),
                 new UnterrichtenGoal.StundenData(Wochentag.Montag, 2, "Latein")
             );
-            
+
             MittagspauseRauchenRoutine(Wochentag.Montag, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Montag, StundenType.Fach, 3, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
             ), RauchenHinten.position);
-            
+
             #endregion
 
             #region Dienstag
-            
+
             RauchenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ), RauchenVorne.position);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Dienstag, 0, unterrichtVerspaetung, unterrichtUeberziehung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Dienstag, 1, unterrichtVerspaetung, unterrichtUeberziehung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             LateinNachhilfe(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
@@ -331,11 +347,11 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleEndeZeitRelativitaet(), 1.5f,
                 new SchuleEndeZeitRelativitaet(), 2f
             ), RauchenHinten.position);
-            
+
             #endregion
 
             #region Mittwoch
-            
+
             RauchenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Mittwoch,
                 new SchuleBeginnZeitRelativitaet(), -1f,
@@ -346,19 +362,19 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Mittwoch, 0, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Mittwoch, 1, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Lernzeit, 0, unterrichtVerspaetung, unterrichtUeberziehung));
 
             MittagspauseRauchenRoutine(Wochentag.Mittwoch, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
 
             RauchenGehen(new WoechentlicheZeitspannen(
@@ -366,7 +382,7 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
             ), RauchenHinten.position);
-            
+
             #endregion
 
             #region Donnerstag
@@ -378,17 +394,17 @@ namespace HerderGames.Lehrer.Brains
             ), RauchenVorne.position);
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Donnernstag, 0, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Donnernstag, 1, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Lernzeit, 0, unterrichtVerspaetung, unterrichtUeberziehung));
 
             MittagspauseRauchenRoutine(Wochentag.Donnernstag, unterrichtUeberziehung, unterrichtVerspaetung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
 
             RauchenGehen(new WoechentlicheZeitspannen(
@@ -396,7 +412,7 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
             ), RauchenVorne.position);
-            
+
             #endregion
 
             #region Freitag
@@ -411,23 +427,23 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Freitag, 0, unterrichtVerspaetung, unterrichtUeberziehung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             KurzpauseRauchenRoutine(Wochentag.Freitag, 1, unterrichtVerspaetung, unterrichtUeberziehung);
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
             ), RauchenHinten.position);
-            
+
             #endregion
         }
 
@@ -451,12 +467,13 @@ namespace HerderGames.Lehrer.Brains
                 reputationsAenderung: -0.6f,
                 antworten: new SaetzeMoeglichkeitenEinmalig("STOP! ... Und ja, es trifft mich!")
             ));
-            
+
             fragen.AddFrage(new InteraktionsMenuFrageEinfach(
                 lehrer: Lehrer,
                 player: Player,
                 shouldShowPredicate: InteraktionsMenuFrageUtil.ShowNearby(),
                 interaktionsMenuName: "Zigaretten schenken",
+                kosten: 20,
                 reputationsAenderung: 0.5f,
                 antworten: new SaetzeMoeglichkeitenEinmalig("Danke dir! Meine sind mir gerade ausgegangen und ich hatte schon Angst dass meine Lunge sich mal ein paar Minuten erholen kann!")
             ));

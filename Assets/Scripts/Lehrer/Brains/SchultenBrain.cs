@@ -181,7 +181,7 @@ namespace HerderGames.Lehrer.Brains
                         "Das Internet funktioniert nicht jetzt kann ich gar nicht meine hunterttausend Arbeitsblätter ausfrucken!"
                     )
                 ));
-                
+
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
@@ -261,7 +261,7 @@ namespace HerderGames.Lehrer.Brains
 
             ai.AddGoal(new MoveToAndStandAtGoal( // Feueralarm
                 lehrer: Lehrer,
-                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm()),
+                trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
                 position: AlarmSammelpunkt.position,
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Hilfeee!!!",
@@ -412,9 +412,9 @@ namespace HerderGames.Lehrer.Brains
             ));
 
             #endregion
-            
+
             #region Dienstag
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new SchuleBeginnZeitRelativitaet(), -2f,
@@ -435,9 +435,9 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
@@ -448,9 +448,9 @@ namespace HerderGames.Lehrer.Brains
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
@@ -461,9 +461,9 @@ namespace HerderGames.Lehrer.Brains
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Dienstag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
@@ -474,7 +474,7 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleEndeZeitRelativitaet(), 0.5f,
                 new SchuleEndeZeitRelativitaet(), 1f
             ));
-            
+
             #endregion
 
             #region Mittwoch
@@ -516,13 +516,13 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Mittagspause, 0, unterrichtUeberziehung, unterrichtVerspaetung));
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Mittwoch, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Mittwoch,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
             ));
-            
+
             #endregion
 
             #region Donnerstag
@@ -564,7 +564,7 @@ namespace HerderGames.Lehrer.Brains
             RauchenGehenVorne(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Mittagspause, 0, unterrichtUeberziehung, unterrichtVerspaetung));
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             LehrerzimmerDruckenGehen(new WoechentlicheZeitspannen(
                 Wochentag.Donnernstag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
@@ -572,9 +572,9 @@ namespace HerderGames.Lehrer.Brains
             ));
 
             #endregion
-            
+
             #region Freitag
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new SchuleBeginnZeitRelativitaet(), -2f,
@@ -590,9 +590,9 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), unterrichtUeberziehung,
@@ -603,9 +603,9 @@ namespace HerderGames.Lehrer.Brains
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 0, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 1, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), unterrichtUeberziehung,
@@ -616,9 +616,9 @@ namespace HerderGames.Lehrer.Brains
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
                 new StundeZeitRelativitaet(StundenType.Kurzpause, 1, AnfangOderEnde.Ende), unterrichtVerspaetung
             ));
-            
+
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Freitag, StundenType.Fach, 2, unterrichtVerspaetung, unterrichtUeberziehung));
-            
+
             RauchenGehenVorne(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
@@ -634,7 +634,7 @@ namespace HerderGames.Lehrer.Brains
                 new SchuleEndeZeitRelativitaet(), 1f,
                 new SchuleEndeZeitRelativitaet(), 1.5f
             ));
-            
+
             #endregion
         }
 
@@ -685,7 +685,7 @@ namespace HerderGames.Lehrer.Brains
                     "Jetzt mal ganz ehrlich: Du schaffst es auch noch bis zur Pause"
                 )
             ));
-            
+
             fragen.AddFrage(new InteraktionsMenuFrageEinfach(
                 lehrer: Lehrer,
                 player: Player,

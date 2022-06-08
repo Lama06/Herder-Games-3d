@@ -6,9 +6,6 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Lehrer))]
     public class Reputation : MonoBehaviour, PersistentDataContainer
     {
-        [SerializeField] private float MisstrauensFaktor = 1;
-        [SerializeField] private float GutmuetigkeitsFaktor = 1;
-
         private Lehrer Lehrer;
         public float ReputationsWert { get; set; }
 
@@ -19,16 +16,6 @@ namespace HerderGames.Lehrer
 
         public void AddReputation(float amount)
         {
-            switch (amount)
-            {
-                case < 0f:
-                    amount *= MisstrauensFaktor;
-                    break;
-                case > 0f:
-                    amount *= GutmuetigkeitsFaktor;
-                    break;
-            }
-
             ReputationsWert += amount;
         }
 

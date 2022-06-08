@@ -15,7 +15,7 @@ namespace HerderGames.UI
         [SerializeField] private Player.Player Player;
 
         private UIDocument Document;
-        private bool IsFocused;
+        public bool IsFocused { get; private set; }
 
         private void Awake()
         {
@@ -25,9 +25,8 @@ namespace HerderGames.UI
         private void Start()
         {
 #if UNITY_ANDROID || UNITY_IOS
-            var oeffnenBtn = GetInteraktionsMenuOeffnenButton();
-            oeffnenBtn.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
-            oeffnenBtn.clicked += ToggleFocus;
+            InteraktionsMenuOeffnenButton.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+            InteraktionsMenuOeffnenButton.clicked += ToggleFocus;
 #endif
         }
 
@@ -50,7 +49,7 @@ namespace HerderGames.UI
         private void ToggleFocus()
         {
             IsFocused = !IsFocused;
-            SetElementVisibility(GetInteraktionsMenu(), IsFocused);
+            SetElementVisibility(InteraktionsMenu, IsFocused);
 #if UNITY_STANDALONE
             Cursor.lockState = IsFocused ? CursorLockMode.None : CursorLockMode.Locked;
 #endif
@@ -58,35 +57,34 @@ namespace HerderGames.UI
 
         private void UpdateGeld()
         {
-            GetGeld().text = $"Geld: {Player.GeldManager.Geld}€";
+            Geld.text = $"Geld: {Player.GeldManager.Geld}€";
         }
 
         private void UpdateZeit()
         {
             var text = new StringBuilder();
-            text.Append(TimeManager.GetDisplayText());
-            GetZeit().text = text.ToString();
+            text.Append(TimeManager.DisplayText);
+            Zeit.text = text.ToString();
         }
 
         private void UpdateStundenplan()
         {
-            GetStundenplan().text = Player.Stundenplan.GetDisplayText();
+            Stundenplan.text = Player.Stundenplan.GetDisplayText();
         }
 
         private void UpdateInteraktionsMenu()
         {
             // Es dürfen nicht in jedem Frame alle Buttons entfernt und komplett neu generiert werden,
             // weil sonst das Klicken auf die Buttons nicht funktioniert
-
-            var interaktionsMenu = GetInteraktionsMenu();
+            
             var fehlendeEintraege = new Dictionary<int, InteraktionsMenuEintrag>(Player.InteraktionsMenu.Eintraege);
 
-            foreach (var button in interaktionsMenu.Query<Button>().ToList())
+            foreach (var button in InteraktionsMenu.Query<Button>().ToList())
             {
                 var id = (int) button.userData;
                 if (!Player.InteraktionsMenu.Eintraege.ContainsKey(id))
                 {
-                    interaktionsMenu.Remove(button);
+                    InteraktionsMenu.Remove(button);
                     continue;
                 }
 
@@ -101,14 +99,13 @@ namespace HerderGames.UI
                     text = eintrag.Name,
                     focusable = false
                 };
-                interaktionsMenu.Add(newButton);
+                InteraktionsMenu.Add(newButton);
             }
         }
 
         private void UpdateChat()
         {
-            var chat = GetChatWindow();
-            chat.Clear();
+            ChatWindow.Clear();
             foreach (var message in Player.Chat.GetMessages())
             {
                 var label = new Label(message)
@@ -118,44 +115,21 @@ namespace HerderGames.UI
                         whiteSpace = new StyleEnum<WhiteSpace>(WhiteSpace.Normal)
                     }
                 };
-                chat.Add(label);
+                ChatWindow.Add(label);
             }
         }
 
-        public bool GetIsFocused()
-        {
-            return IsFocused;
-        }
+        private Label Geld => Document.rootVisualElement.Q<Label>("Geld");
 
-        private Label GetGeld()
-        {
-            return Document.rootVisualElement.Q<Label>("Geld");
-        }
+        private Label Zeit => Document.rootVisualElement.Q<Label>("Zeit");
 
-        private Label GetZeit()
-        {
-            return Document.rootVisualElement.Q<Label>("Zeit");
-        }
+        private Label Stundenplan => Document.rootVisualElement.Q<Label>("Stundenplan");
 
-        private Label GetStundenplan()
-        {
-            return Document.rootVisualElement.Q<Label>("Stundenplan");
-        }
+        private VisualElement InteraktionsMenu => Document.rootVisualElement.Q<VisualElement>("InteraktionsMenu");
 
-        private VisualElement GetInteraktionsMenu()
-        {
-            return Document.rootVisualElement.Q<VisualElement>("InteraktionsMenu");
-        }
+        private Button InteraktionsMenuOeffnenButton => Document.rootVisualElement.Q<Button>("InteraktionsMenuOeffnen");
 
-        private Button GetInteraktionsMenuOeffnenButton()
-        {
-            return Document.rootVisualElement.Q<Button>("InteraktionsMenuOeffnen");
-        }
-
-        private VisualElement GetChatWindow()
-        {
-            return Document.rootVisualElement.Q<VisualElement>("Chat");
-        }
+        private VisualElement ChatWindow => Document.rootVisualElement.Q<VisualElement>("Chat");
 
         private static void SetElementVisibility(VisualElement element, bool visible)
         {

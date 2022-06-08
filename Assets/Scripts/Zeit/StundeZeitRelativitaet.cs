@@ -32,13 +32,12 @@ namespace HerderGames.Zeit
                     continue;
                 }
 
+                currentIndex++;
+                
                 if (Index != null && Index != currentIndex)
                 {
-                    currentIndex++;
                     continue;
                 }
-                
-                currentIndex++;
 
                 result.Add(AnfangEnde.ResolveStunde(eintrag));
             }

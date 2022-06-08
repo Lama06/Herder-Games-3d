@@ -63,7 +63,7 @@ namespace HerderGames.Util
                 catch (MissingReferenceException e)
                 {
                     Debug.Log($"Ein {nameof(PersistentDataContainer)} hat wahrscheinlich versucht in seiner SaveData() Methode auf sein GameObject zuzugreifen, " +
-                              $"obwohl das schon deaktiviert: {e}");
+                              $"obwohl das schon deaktiviert ist: {e}");
                 }
             }
 
@@ -77,7 +77,7 @@ namespace HerderGames.Util
                 container.DeleteData();
             }
 
-            // Wenn die Daten nach dem Löschen gespeichert werden, werden die daten vor der Löschung wiederhergestellt
+            // Wenn die Daten nach dem Löschen gespeichert werden, werden die Daten vor der Löschung wiederhergestellt
             ShouldSaveData = false;
         }
     }

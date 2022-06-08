@@ -10,7 +10,7 @@ namespace HerderGames.Zeit
         {
             Eintraege = eintraege;
         }
-        
+
         public WoechentlicheZeitspannen(
             Wochentag tag,
             ZeitRelativitaetBase relativAnfang,
@@ -33,14 +33,14 @@ namespace HerderGames.Zeit
             Wochentag tag,
             StundenType stunde,
             int index,
-            float anfang = 0f,
-            float ende = 0f
+            float anfangOffset = 0f,
+            float endeOffset = 0f
         ) : this(
             new Eintrag(
                 new ManuelleWochentagAuswahl(tag),
                 new Zeitspanne(
-                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Anfang), anfang),
-                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Ende), ende)
+                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Anfang), anfangOffset),
+                    new Zeitpunkt(new StundeZeitRelativitaet(stunde, index, AnfangOderEnde.Ende), endeOffset)
                 )
             )
         )

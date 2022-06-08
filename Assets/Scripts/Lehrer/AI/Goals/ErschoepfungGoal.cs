@@ -12,8 +12,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly float MaxiamleHoeheProMinute;
         private readonly float LaengeDerPause;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
-
-        private Vector3 LastPosition;
+        
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
         private bool MachtGeradePause;
@@ -84,20 +83,21 @@ namespace HerderGames.Lehrer.AI.Goals
                 liste.Add(eintrag);
             }
 
-            LastPosition = Lehrer.transform.position;
+            var lastPosition = Lehrer.transform.position;
+            
             yield return null;
 
             while (true)
             {
                 var currentPosition = Lehrer.transform.position;
 
-                var distance = GetXAndZDistance(LastPosition, currentPosition);
+                var distance = GetXAndZDistance(lastPosition, currentPosition);
                 AddEintrag(DistanzLetzeMinute, distance);
 
-                var hoehe = GetYDistance(LastPosition, currentPosition);
+                var hoehe = GetYDistance(lastPosition, currentPosition);
                 AddEintrag(HoeheLetzteMinute, hoehe);
 
-                LastPosition = currentPosition;
+                lastPosition = currentPosition;
 
                 yield return new WaitForSeconds(1f);
             }

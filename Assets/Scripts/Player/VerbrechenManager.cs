@@ -22,6 +22,7 @@ namespace HerderGames.Player
         private void Start()
         {
             StartCoroutine(TickTime());
+            StartCoroutine(ListenForCancel());
         }
 
         private IEnumerator TickTime()
@@ -34,6 +35,15 @@ namespace HerderGames.Player
                     {
                         Player.Chat.SendChatMessage($"Verbrechen in {TimeRemaining} Sekunden beendet");   
                     }
+                    else
+                    {
+                        Player.Chat.SendChatMessage("Verbrechen wurde beendet");
+                        Callback();
+                        BegehtGeradeEinVerbrechen = false;
+                        TimeRemaining = 0;
+                        Callback = null;
+                        Schwere = 0;
+                    }
                     yield return new WaitForSeconds(1);
                     TimeRemaining--;
                 }
@@ -42,28 +52,17 @@ namespace HerderGames.Player
             }
         }
 
-        private void Update()
+        private IEnumerator ListenForCancel()
         {
-            if (!BegehtGeradeEinVerbrechen)
+            while (true)
             {
-                return;
-            }
+                if (BegehtGeradeEinVerbrechen && Input.GetKeyDown(KeyCode.C))
+                {
+                    VerbrechenAbbrechen();
+                    Player.Chat.SendChatMessage("Verbrechen abgebrochen");
+                }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                VerbrechenAbbrechen();
-                Player.Chat.SendChatMessage("Verbrechen abgebrochen");
-                return;
-            }
-
-            if (TimeRemaining <= 0)
-            {
-                Player.Chat.SendChatMessage("Verbrechen wurde beendet");
-                Callback();
-                BegehtGeradeEinVerbrechen = false;
-                TimeRemaining = 0;
-                Callback = null;
-                Schwere = 0;
+                yield return null;
             }
         }
 

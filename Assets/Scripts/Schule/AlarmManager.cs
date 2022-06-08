@@ -13,14 +13,11 @@ namespace HerderGames.Schule
         
         private Zeitpunkt AlarmStartZeitpunkt;
 
-        public bool IsAlarm()
-        {
-            return AlarmStartZeitpunkt != null && LaengeDesAlarms.IsLongerThan(TimeManager.GetCurrentZeitpunkt().Diff(AlarmStartZeitpunkt));
-        }
+        public bool IsAlarm => AlarmStartZeitpunkt != null && LaengeDesAlarms.IsLongerThan(TimeManager.CurrentZeitpunkt.Diff(AlarmStartZeitpunkt));
 
         public void AlarmStarten()
         {
-            AlarmStartZeitpunkt = TimeManager.GetCurrentZeitpunkt();
+            AlarmStartZeitpunkt = TimeManager.CurrentZeitpunkt;
             Player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
             Player.Chat.SendChatMessageDurchsage("Achtung, das ist ist kein Probealarm. In der Schule gibt es einen Brand.");
         }

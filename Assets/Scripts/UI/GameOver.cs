@@ -22,22 +22,13 @@ namespace HerderGames.UI
 #if UNITY_STANDALONE
             Cursor.lockState = CursorLockMode.None;
 #endif
-
-            var restartButton = GetRestartButton();
-            restartButton.clicked += () => { SceneManager.LoadScene("Scenes/World"); };
-
-            var schaden = GetSchaden();
-            schaden.text = $"Schaden für die Schule, der durch dich entstanden ist: {SchadenFuerDieSchule}€";
+            
+            RestartButton.clicked += () => SceneManager.LoadScene("Scenes/World");
+            Schaden.text = $"Schaden für die Schule, der durch dich entstanden ist: {SchadenFuerDieSchule}€";
         }
 
-        private TextElement GetSchaden()
-        {
-            return Document.rootVisualElement.Q<TextElement>("Schaden");
-        }
+        private TextElement Schaden => Document.rootVisualElement.Q<TextElement>("Schaden");
 
-        private Button GetRestartButton()
-        {
-            return Document.rootVisualElement.Q<Button>("Restart");
-        }
+        private Button RestartButton => Document.rootVisualElement.Q<Button>("Restart");
     }
 }
