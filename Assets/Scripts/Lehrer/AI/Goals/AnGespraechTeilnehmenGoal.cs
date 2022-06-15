@@ -33,7 +33,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return Trigger.Resolve();
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             IsAngekommen = false;
         }

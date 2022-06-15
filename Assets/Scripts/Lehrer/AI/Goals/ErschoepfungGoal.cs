@@ -41,7 +41,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             MachtGeradePause = false;
         }

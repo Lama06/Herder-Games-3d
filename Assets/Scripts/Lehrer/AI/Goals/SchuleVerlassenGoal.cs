@@ -44,7 +44,7 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.InSchule.SetInSchule(false);
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             if (Lehrer.InSchule.GetInSchule())
             {

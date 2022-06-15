@@ -56,7 +56,7 @@ namespace HerderGames.Lehrer.AI.Goals
             CheckAnwesenheitCoroutine = Lehrer.AI.StartCoroutine(CheckAnwesenheit());
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;

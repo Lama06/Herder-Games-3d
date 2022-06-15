@@ -17,49 +17,34 @@ namespace HerderGames.Lehrer.AI
 
         private void Update()
         {
-            if (CurrentGoal != null && !CurrentGoal.ShouldRun(true))
-            {
-                CurrentGoal.EndGoal(GoalEndReason.GoalCannotContinue);
-                CurrentGoal = null;
-            }
-
-            var newGoal = GetGoalWithHighestPriorityThatCanStart();
-            if (newGoal == null || newGoal == CurrentGoal)
+            var mostImportantGoal = GetGoalWithHighestPriorityThatCanStart();
+            if (mostImportantGoal == null || mostImportantGoal == CurrentGoal)
             {
                 return;
             }
 
-            if (CurrentGoal != null)
-            {
-                CurrentGoal.EndGoal(GoalEndReason.OtherGoalWithHigherPriority);
-            }
+            CurrentGoal?.EndGoal();
 
-            CurrentGoal = newGoal;
+            CurrentGoal = mostImportantGoal;
             CurrentGoal.StartGoal();
         }
 
         private GoalBase GetGoalWithHighestPriorityThatCanStart()
         {
-            GoalBase goalWithHighestPriority = null;
-            
-            for (var i = Goals.Count - 1; i >= 0; i--)
+            foreach (var goal in Goals)
             {
-                var goal = Goals[i];
-                
-                if (goal == CurrentGoal && !goal.ShouldRun(true))
+                if (goal == CurrentGoal && goal.ShouldRun(true))
                 {
-                    continue;
+                    return goal;
                 }
 
-                if (goal != CurrentGoal && !goal.ShouldRun(false))
+                if (goal != CurrentGoal && goal.ShouldRun(false))
                 {
-                    continue;
+                    return goal;
                 }
-                
-                goalWithHighestPriority = goal;
             }
 
-            return goalWithHighestPriority;
+            return null;
         }
     }
 }

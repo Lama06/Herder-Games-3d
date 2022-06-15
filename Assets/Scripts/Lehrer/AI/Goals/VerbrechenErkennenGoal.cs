@@ -48,7 +48,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return currentlyRunning ? GehtGeradeZuTatort : SiehtVerbrechen();
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             GehtGeradeZuTatort = false;
         }

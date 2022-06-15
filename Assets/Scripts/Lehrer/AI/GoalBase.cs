@@ -29,15 +29,15 @@ namespace HerderGames.Lehrer.AI
         {
         }
 
-        public void EndGoal(GoalEndReason reason)
+        public void EndGoal()
         {
-            OnGoalEnd(reason);
+            OnGoalEnd();
             Lehrer.AI.StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             Lehrer.Agent.destination = Lehrer.transform.position;
         }
 
-        public virtual void OnGoalEnd(GoalEndReason reason)
+        public virtual void OnGoalEnd()
         {
         }
 

@@ -58,7 +58,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return currentlyRunning ? GehtGeradeHin : GetMicInVision() != null;
         }
 
-        public override void OnGoalEnd(GoalEndReason reason)
+        public override void OnGoalEnd()
         {
             GehtGeradeHin = false;
         }
