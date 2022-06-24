@@ -24,11 +24,12 @@ namespace HerderGames.Lehrer.Brains
         [SerializeField] private AlarmManager AlarmManager;
         [SerializeField] private Transform Toilette;
         [SerializeField] private Transform EingangFahhradKontrolle;
+        [SerializeField] private Transform Schulleitung;
 
         protected override void RegisterGoals(AIController ai)
         {
-            var unterrichtVerspaetung = TimeUtility.MinutesToFloat(-4f);
-            var unterrichtUeberziehung = TimeUtility.MinutesToFloat(7f);
+            var unterrichtVerspaetung = TimeUtility.MinutesToHours(-4f);
+            var unterrichtUeberziehung = TimeUtility.MinutesToHours(7f);
 
             #region Sätze
 
@@ -159,12 +160,12 @@ namespace HerderGames.Lehrer.Brains
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), davor,
-                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
+                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f)
                 ), RauchenVorne.position);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
+                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f),
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Ende), dannach
                 ), RauchenHinten.position);
             }
@@ -174,24 +175,24 @@ namespace HerderGames.Lehrer.Brains
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), davor,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f)
                 ), RauchenVorne.position);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(15f),
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(30f)
                 ), RauchenHinten.position);
 
                 KaffeTrinken(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(30f),
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(45f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(30f),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(45f)
                 ));
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToFloat(45f),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(45f),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), dannach
                 ), RauchenVorne.position);
             }
@@ -276,6 +277,36 @@ namespace HerderGames.Lehrer.Brains
                 ausgang: Toilette.position,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich muss mal dringend auf Toilette eilen"
+                )
+            ));
+            
+            ai.AddGoal(new VerbrechenErkennenGoal(
+                lehrer: Lehrer,
+                trigger: new AlwaysTrueTrigger(),
+                player: Player,
+                reaktion: new SaetzeMoeglichkeitenEinmalig(
+                    "Ich bin ein böster Drache und ich werde dich fressen, wenn du das nochmal machst"
+                )
+            ));
+            
+            ai.AddGoal(new VerbrechenMeldenGoal(
+                lehrer: Lehrer,
+                trigger: new ZeitspanneTrigger(
+                    TimeManager,
+                    new WoechentlicheZeitspannen(
+                            new WoechentlicheZeitspannen.Eintrag(
+                                new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                                new WoechentlicheZeitspannen.Zeitspanne(
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
+                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
+                                )
+                            )
+                    )
+                ),
+                player: Player,
+                schulleitungsBuero: Schulleitung.position,
+                saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
+                    "Jetzt kann ich sogar nicht rauchen, weil ich diesen Schüler melden muss"
                 )
             ));
 

@@ -14,6 +14,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
+        private bool Fertig;
+        
         public VerbrechenMeldenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
@@ -34,19 +36,35 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve() && Lehrer.Reputation.ShouldGoToSchulleitung();
+            if (!Trigger.Resolve())
+            {
+                return false;
+            }
+
+            if (currentlyRunning)
+            {
+                return !Fertig;
+            }
+            
+            return Lehrer.Reputation.ShouldGoToSchulleitung();
+        }
+
+        public override void OnGoalStart()
+        {
+            Fertig = false;
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
+            Lehrer.Agent.destination = SchulleitungsBuero;
         }
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = SchulleitungsBuero;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             yield return new WaitForSeconds(5);
             Player.Verwarnungen.Add();
             Lehrer.Reputation.ResetAfterMelden();
+            Fertig = true;
         }
     }
 }

@@ -13,6 +13,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
 
+        private bool Fertig;
+        
         public VergiftbaresEssenEntgiftenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
@@ -31,17 +33,33 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Essen.Vergiftet && Essen.VergiftungBemerkt && Trigger.Resolve();
+            if (!Trigger.Resolve())
+            {
+                return false;
+            }
+
+            if (currentlyRunning)
+            {
+                return !Fertig;
+            }
+            
+            return Essen.Vergiftet && Essen.VergiftungBemerkt;
+        }
+
+        public override void OnGoalStart()
+        {
+            Fertig = false;
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
+            Lehrer.Agent.destination = Essen.GetStandpunkt();
         }
 
         public override IEnumerator Execute()
         {
-            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = Essen.GetStandpunkt();
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Essen.Entgiften();
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
+            Fertig = true;
         }
     }
 }

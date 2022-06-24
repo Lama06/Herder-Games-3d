@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class ErschoepfungGoal : GoalBase
     {
+        private readonly TriggerBase Trigger;
         private readonly float MaximaleDistanzProMinute;
         private readonly float MaxiamleHoeheProMinute;
         private readonly float LaengeDerPause;
@@ -15,16 +17,18 @@ namespace HerderGames.Lehrer.AI.Goals
         
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
-        private bool MachtGeradePause;
+        private bool Fertig;
 
         public ErschoepfungGoal(
             Lehrer lehrer,
+            TriggerBase trigger,
             float maximaleDistanzProMinute,
             float maxiamleHoeheProMinute,
             float laengeDerPause,
             ISaetzeMoeglichkeitenMehrmals saetze = null
         ) : base(lehrer)
         {
+            Trigger = trigger;
             MaximaleDistanzProMinute = maximaleDistanzProMinute;
             MaxiamleHoeheProMinute = maxiamleHoeheProMinute;
             LaengeDerPause = laengeDerPause;
@@ -33,27 +37,31 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
+            if (!Trigger.Resolve())
+            {
+                return false;
+            }
+            
             if (currentlyRunning)
             {
-                return MachtGeradePause;
+                return !Fertig;
             }
 
             return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
         }
 
-        public override void OnGoalEnd()
+        public override void OnGoalStart()
         {
-            MachtGeradePause = false;
+            Fertig = false;
+            DistanzLetzeMinute.Clear();
+            HoeheLetzteMinute.Clear();
+            Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
         }
 
         public override IEnumerator Execute()
         {
-            DistanzLetzeMinute.Clear();
-            HoeheLetzteMinute.Clear();
-            MachtGeradePause = true;
-            Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             yield return new WaitForSeconds(LaengeDerPause);
-            MachtGeradePause = false;
+            Fertig = true;
         }
 
         public override void OnGoalEnable()

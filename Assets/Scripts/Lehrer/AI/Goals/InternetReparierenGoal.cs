@@ -15,7 +15,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly InternetManager InternetManager;
         private readonly VisionSensor Vision;
 
-        private bool GehtGeradeHin;
+        private bool Fertig;
+        private LanDose LanDose;
 
         public InternetReparierenGoal(
             Lehrer lehrer,
@@ -55,27 +56,30 @@ namespace HerderGames.Lehrer.AI.Goals
                 return false;
             }
 
-            return currentlyRunning ? GehtGeradeHin : GetMicInVision() != null;
+            if (currentlyRunning)
+            {
+                return !Fertig;
+            }
+
+            LanDose = GetMicInVision();
+            return LanDose != null;
         }
 
-        public override void OnGoalEnd()
+        public override void OnGoalStart()
         {
-            GehtGeradeHin = false;
+            Fertig = false;
+            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
+            Lehrer.Agent.destination = LanDose.transform.position;
         }
 
         public override IEnumerator Execute()
         {
-            var lanDose = GetMicInVision();
-
-            GehtGeradeHin = true;
-            Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = lanDose.transform.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             yield return new WaitForSeconds(3f);
-            lanDose.Mic = false;
-            GehtGeradeHin = false;
+            LanDose.Mic = false;
+            Fertig = true;
         }
     }
 }
