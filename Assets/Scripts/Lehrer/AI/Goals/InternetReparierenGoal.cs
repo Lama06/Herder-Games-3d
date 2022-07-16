@@ -65,15 +65,11 @@ namespace HerderGames.Lehrer.AI.Goals
             return LanDose != null;
         }
 
-        public override void OnGoalStart()
+        public override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = LanDose.transform.position;
-        }
-
-        public override IEnumerator Execute()
-        {
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;

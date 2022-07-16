@@ -46,15 +46,11 @@ namespace HerderGames.Lehrer.AI.Goals
             return Essen.Vergiftet && Essen.VergiftungBemerkt;
         }
 
-        public override void OnGoalStart()
+        public override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = Essen.GetStandpunkt();
-        }
-
-        public override IEnumerator Execute()
-        {
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Essen.Entgiften();

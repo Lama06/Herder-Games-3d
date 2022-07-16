@@ -50,16 +50,12 @@ namespace HerderGames.Lehrer.AI.Goals
             return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
         }
 
-        public override void OnGoalStart()
+        public override IEnumerator Execute()
         {
             Fertig = false;
             DistanzLetzeMinute.Clear();
             HoeheLetzteMinute.Clear();
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
-        }
-
-        public override IEnumerator Execute()
-        {
             yield return new WaitForSeconds(LaengeDerPause);
             Fertig = true;
         }

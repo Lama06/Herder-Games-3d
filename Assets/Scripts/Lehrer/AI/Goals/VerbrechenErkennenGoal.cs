@@ -55,7 +55,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return SiehtVerbrechen();
         }
 
-        public override void OnGoalStart()
+        public override IEnumerator Execute()
         {
             Fertig = false;
             Player.Chat.SendChatMessage(WarningMsg);
@@ -64,10 +64,6 @@ namespace HerderGames.Lehrer.AI.Goals
             Lehrer.Reputation.AddReputation(-Player.VerbrechenManager.Schwere);
             Player.VerbrechenManager.VerbrechenAbbrechen();
             Lehrer.Agent.destination = Player.transform.position;
-        }
-
-        public override IEnumerator Execute()
-        {
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             yield return new WaitForSeconds(5f);
             Fertig = true;

@@ -49,15 +49,11 @@ namespace HerderGames.Lehrer.AI.Goals
             return Lehrer.Reputation.ShouldGoToSchulleitung();
         }
 
-        public override void OnGoalStart()
+        public override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = SchulleitungsBuero;
-        }
-
-        public override IEnumerator Execute()
-        {
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
