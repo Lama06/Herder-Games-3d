@@ -88,33 +88,30 @@ namespace HerderGames.Lehrer
             }
         }
 
-        private string GetSaveKeyRoot()
-        {
-            return $"{Lehrer.GetSaveKeyRoot()}.vergiftung";
-        }
+        private string SaveKeyRoot => $"{Lehrer.GetSaveKeyRoot()}.vergiftung";
 
         public void SaveData()
         {
-            PlayerPrefsUtil.SetBool($"{GetSaveKeyRoot()}.vergiftet", Vergiftet);
-            PlayerPrefsUtil.SetBool($"{GetSaveKeyRoot()}.syntome", Syntome);
-            PlayerPrefs.SetInt($"{GetSaveKeyRoot()}.vergiftungs_type", (int) VergiftungsType);
-            PlayerPrefs.SetInt($"{GetSaveKeyRoot()}.tage_remaining", TageRemaining);
+            PlayerPrefsUtil.SetBool($"{SaveKeyRoot}.vergiftet", Vergiftet);
+            PlayerPrefsUtil.SetBool($"{SaveKeyRoot}.syntome", Syntome);
+            PlayerPrefs.SetInt($"{SaveKeyRoot}.vergiftungs_type", (int) VergiftungsType);
+            PlayerPrefs.SetInt($"{SaveKeyRoot}.tage_remaining", TageRemaining);
         }
 
         public void LoadData()
         {
-            Vergiftet = PlayerPrefsUtil.GetBool($"{GetSaveKeyRoot()}.vergiftet", false);
-            Syntome = PlayerPrefsUtil.GetBool($"{GetSaveKeyRoot()}.syntome", false);
-            VergiftungsType = (VergiftungsType) PlayerPrefs.GetInt($"{GetSaveKeyRoot()}.vergiftungs_type", 0);
-            TageRemaining = PlayerPrefs.GetInt($"{GetSaveKeyRoot()}.tage_remaining", 0);
+            Vergiftet = PlayerPrefsUtil.GetBool($"{SaveKeyRoot}.vergiftet", false);
+            Syntome = PlayerPrefsUtil.GetBool($"{SaveKeyRoot}.syntome", false);
+            VergiftungsType = (VergiftungsType) PlayerPrefs.GetInt($"{SaveKeyRoot}.vergiftungs_type", 0);
+            TageRemaining = PlayerPrefs.GetInt($"{SaveKeyRoot}.tage_remaining", 0);
         }
 
         public void DeleteData()
         {
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.vergiftet");
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.syntome");
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.vergiftungs_type");
-            PlayerPrefs.DeleteKey($"{GetSaveKeyRoot()}.tage_remaining");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.vergiftet");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.syntome");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.vergiftungs_type");
+            PlayerPrefs.DeleteKey($"{SaveKeyRoot}.tage_remaining");
         }
     }
 }

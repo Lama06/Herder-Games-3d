@@ -10,7 +10,7 @@ namespace HerderGames.Zeit
 
     public static class AnfangOderEndeExtensions
     {
-        public static float ResolveStunde(this AnfangOderEnde anfangEnde, StundenPlanEintrag eintrag)
+        public static float ForStunde(this AnfangOderEnde anfangEnde, StundenPlanEintrag eintrag)
         {
             return anfangEnde switch
             {

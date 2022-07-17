@@ -20,7 +20,7 @@ namespace HerderGames.Zeit
         {
         }
 
-        public override IList<float> Resolve(Wochentag tag)
+        public override IEnumerable<float> GetZeitVerschiebungen(Wochentag tag)
         {
             var result = new List<float>();
 
@@ -39,7 +39,7 @@ namespace HerderGames.Zeit
                     continue;
                 }
 
-                result.Add(AnfangEnde.ResolveStunde(eintrag));
+                result.Add(AnfangEnde.ForStunde(eintrag));
             }
 
             return result;

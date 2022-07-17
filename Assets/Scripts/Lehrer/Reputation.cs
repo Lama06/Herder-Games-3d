@@ -19,34 +19,28 @@ namespace HerderGames.Lehrer
             ReputationsWert += amount;
         }
 
-        public bool ShouldGoToSchulleitung()
-        {
-            return ReputationsWert <= -1f;
-        }
+        public bool ShouldGoToSchulleitung => ReputationsWert <= -1f;
 
         public void ResetAfterMelden()
         {
             ReputationsWert = -0.5f;
         }
 
-        private string GetSaveKey()
-        {
-            return $"{Lehrer.GetSaveKeyRoot()}.reputation";
-        }
-        
+        private string SaveKey => $"{Lehrer.GetSaveKeyRoot()}.reputation";
+
         public void SaveData()
         {
-            PlayerPrefs.SetFloat(GetSaveKey(), ReputationsWert);
+            PlayerPrefs.SetFloat(SaveKey, ReputationsWert);
         }
 
         public void LoadData()
         {
-            ReputationsWert = PlayerPrefs.GetFloat(GetSaveKey());
+            ReputationsWert = PlayerPrefs.GetFloat(SaveKey);
         }
 
         public void DeleteData()
         {
-            PlayerPrefs.DeleteKey(GetSaveKey());
+            PlayerPrefs.DeleteKey(SaveKey);
         }
     }
 }

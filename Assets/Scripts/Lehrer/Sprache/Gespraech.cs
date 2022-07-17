@@ -57,20 +57,17 @@ namespace HerderGames.Lehrer.Sprache
             return goal.IsAngekommen;
         }
 
-        private bool AlleAnwesend()
-        {
-            return Teilnehmer.Length == Anwesend.Count;
-        }
+        private bool AlleAnwesend => Teilnehmer.Length == Anwesend.Count;
 
         private IEnumerator ManageDialog()
         {
             while (true)
             {
-                yield return new WaitUntil(AlleAnwesend);
+                yield return new WaitUntil(() => AlleAnwesend);
 
                 foreach (var eintrag in Dialog)
                 {
-                    if (!AlleAnwesend())
+                    if (!AlleAnwesend)
                     {
                         goto OuterContinue;
                     }

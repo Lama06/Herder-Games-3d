@@ -5,7 +5,7 @@ namespace HerderGames.Zeit
 {
     public class SchuleEndeZeitRelativitaet : ZeitRelativitaetBase
     {
-        public override IList<float> Resolve(Wochentag tag)
+        public override IEnumerable<float> GetZeitVerschiebungen(Wochentag tag)
         {
             var letzteStunde = StundenPlanRaster.GetTagesAblauf(tag).Last();
             return new List<float> {letzteStunde.Ende};

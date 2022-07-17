@@ -70,7 +70,7 @@ namespace HerderGames.Lehrer.Brains
                                 new WoechentlicheZeitspannen.Zeitspanne(
                                     new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
                                     new WoechentlicheZeitspannen.Zeitpunkt(
-                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(unterrichtLaengeWennKeinInternet))
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), unterrichtLaengeWennKeinInternet.MinutesToHours())
                                 )
                             )
                         );
@@ -92,7 +92,7 @@ namespace HerderGames.Lehrer.Brains
                                 new ManuelleWochentagAuswahl(wochentag),
                                 new WoechentlicheZeitspannen.Zeitspanne(
                                     new WoechentlicheZeitspannen.Zeitpunkt(
-                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(unterrichtLaengeWennKeinInternet)),
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), unterrichtLaengeWennKeinInternet.MinutesToHours()),
                                     new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
                                 )
                             )
@@ -130,7 +130,7 @@ namespace HerderGames.Lehrer.Brains
                                 new WoechentlicheZeitspannen.Zeitspanne(
                                     new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), 0f),
                                     new WoechentlicheZeitspannen.Zeitpunkt(
-                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(unterrichtLaengeWennKeinInternet))
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), unterrichtLaengeWennKeinInternet.MinutesToHours())
                                 )
                             )
                         );
@@ -150,7 +150,7 @@ namespace HerderGames.Lehrer.Brains
                                 new ManuelleWochentagAuswahl(wochentag),
                                 new WoechentlicheZeitspannen.Zeitspanne(
                                     new WoechentlicheZeitspannen.Zeitpunkt(
-                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(unterrichtLaengeWennKeinInternet)),
+                                        new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Anfang), unterrichtLaengeWennKeinInternet.MinutesToHours()),
                                     new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Fach, index, AnfangOderEnde.Ende), 0f)
                                 )
                             )

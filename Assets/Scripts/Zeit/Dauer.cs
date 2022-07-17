@@ -27,9 +27,14 @@ namespace HerderGames.Zeit
             };
         }
 
-        public bool IsLongerThan(Dauer other)
+        public static bool operator >(Dauer a, Dauer b)
         {
-            return Laenge > other.Laenge;
+            return a.Laenge > b.Laenge;
+        }
+
+        public static bool operator <(Dauer a, Dauer b)
+        {
+            return a.Laenge < b.Laenge;
         }
     }
 }

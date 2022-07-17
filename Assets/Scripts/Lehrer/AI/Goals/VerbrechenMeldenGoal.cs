@@ -46,7 +46,7 @@ namespace HerderGames.Lehrer.AI.Goals
                 return !Fertig;
             }
             
-            return Lehrer.Reputation.ShouldGoToSchulleitung();
+            return Lehrer.Reputation.ShouldGoToSchulleitung;
         }
 
         public override IEnumerator Execute()

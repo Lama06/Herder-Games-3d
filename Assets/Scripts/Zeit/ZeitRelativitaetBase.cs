@@ -4,6 +4,6 @@ namespace HerderGames.Zeit
 {
     public abstract class ZeitRelativitaetBase
     {
-        public abstract IList<float> Resolve(Wochentag tag);
+        public abstract IEnumerable<float> GetZeitVerschiebungen(Wochentag tag);
     }
 }

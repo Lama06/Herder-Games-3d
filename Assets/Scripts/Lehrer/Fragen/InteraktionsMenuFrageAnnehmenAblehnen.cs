@@ -11,7 +11,6 @@ namespace HerderGames.Lehrer.Fragen
         private readonly Player.Player Player;
 
         private readonly Func<Player.Player, Lehrer, bool> ShouldShowPredicate;
-        private readonly string InteraktionsMenuName;
         private readonly int Kosten;
         private readonly Item? RequiredItem;
         private readonly float AnnahmeWahrscheinlichkeit;
@@ -43,7 +42,7 @@ namespace HerderGames.Lehrer.Fragen
             Lehrer = lehrer;
             Player = player;
             ShouldShowPredicate = shouldShowPredicate;
-            InteraktionsMenuName = interaktionsMenuName;
+            Text = interaktionsMenuName;
             Kosten = kosten;
             RequiredItem = requiredItem;
             AnnahmeWahrscheinlichkeit = annahmeWahrscheinlichkeit;
@@ -55,17 +54,11 @@ namespace HerderGames.Lehrer.Fragen
             OnAblehnen = onAblehnen;
         }
 
-        public override bool ShouldShow()
-        {
-            return ShouldShowPredicate(Player, Lehrer);
-        }
+        public override bool ShouldShow => ShouldShowPredicate(Player, Lehrer);
 
-        public override string GetText()
-        {
-            return InteraktionsMenuName;
-        }
+        public override string Text { get; }
 
-        public override void OnClick(int id)
+        public override void OnClick()
         {
             if (!Player.GeldManager.CanPay(Kosten))
             {

@@ -55,7 +55,7 @@ namespace HerderGames.Schule
 
             int AddEintrag(Player.Player player, string interaktionsMenuName, VergiftungsType type, Item item, string itemMissingMsg)
             {
-                return PlayerInTrigger.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
+                return player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                 {
                     Name = interaktionsMenuName,
                     Callback = _ =>
@@ -66,9 +66,9 @@ namespace HerderGames.Schule
                             return;
                         }
                         
-                        PlayerInTrigger.VerbrechenManager.VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens, () =>
+                        player.VerbrechenManager.VerbrechenStarten(ZeitZumVergiften, SchwereDesVerbrechens, () =>
                         {
-                            PlayerInTrigger.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
+                            player.Score.SchadenFuerDieSchule += SchadenFuerDieSchule;
                             Vergiften(type);
                         });
                     }

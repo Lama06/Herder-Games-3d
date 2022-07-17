@@ -86,12 +86,12 @@ namespace HerderGames.Zeit
 
         public static StundenPlanEintrag GetNaechstenStundenPlanEintrag(Wochentag wochentag, float time, Func<StundenPlanEintrag, bool> predicate)
         {
-            var currentStundenDataIndex = GetStundenPlanEintragIndexForTime(wochentag, time);
-            if (currentStundenDataIndex == null)
+            var currentStundenPlanEintragIndex = GetStundenPlanEintragIndexForTime(wochentag, time);
+            if (currentStundenPlanEintragIndex == null)
             {
                 if (time < SchuleBeginn)
                 {
-                    currentStundenDataIndex = -1;   
+                    currentStundenPlanEintragIndex = -1;   
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace HerderGames.Zeit
             
             var ablauf = GetTagesAblauf(wochentag);
 
-            for (var i = currentStundenDataIndex + 1; i < ablauf.Count; i++)
+            for (var i = currentStundenPlanEintragIndex + 1; i < ablauf.Count; i++)
             {
                 var stunde = ablauf[(int) i];
                 if (predicate(stunde))

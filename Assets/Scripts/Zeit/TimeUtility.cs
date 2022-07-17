@@ -2,17 +2,17 @@ namespace HerderGames.Zeit
 {
     public static class TimeUtility
     {
-        public static float MinutesToHours(float min)
+        public static float MinutesToHours(this float min)
         {
             return min / 60f;
         }
 
-        public static float HoursToMinutes(float f)
+        public static float HoursToMinutes(this float f)
         {
             return f * 60f;
         }
         
-        public static string FormatTime(float time)
+        public static string FormatTime(this float time)
         {
             var hours = (int) time;
             var hoursText = hours.ToString();
@@ -21,7 +21,7 @@ namespace HerderGames.Zeit
                 hoursText = "0" + hoursText;
             }
 
-            var minutes = (int) HoursToMinutes(time - hours);
+            var minutes = (int) (time - hours).HoursToMinutes();
             var minutesText = minutes.ToString();
             if (minutesText.Length == 1)
             {

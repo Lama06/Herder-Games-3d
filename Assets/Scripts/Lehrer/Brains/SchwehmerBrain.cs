@@ -28,8 +28,8 @@ namespace HerderGames.Lehrer.Brains
 
         protected override void RegisterGoals(AIController ai)
         {
-            var unterrichtVerspaetung = TimeUtility.MinutesToHours(-4f);
-            var unterrichtUeberziehung = TimeUtility.MinutesToHours(7f);
+            var unterrichtVerspaetung = (-4f).MinutesToHours();
+            var unterrichtUeberziehung = 7f.MinutesToHours();
 
             #region Sätze
 
@@ -160,12 +160,12 @@ namespace HerderGames.Lehrer.Brains
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), davor,
-                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f)
+                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), 15f.MinutesToHours()
                 ), RauchenVorne.position);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f),
+                    new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), 15f.MinutesToHours(),
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Ende), dannach
                 ), RauchenHinten.position);
             }
@@ -175,24 +175,24 @@ namespace HerderGames.Lehrer.Brains
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), davor,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 15f.MinutesToHours()
                 ), RauchenVorne.position);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(15f),
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(30f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 15f.MinutesToHours(),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 30f.MinutesToHours()
                 ), RauchenHinten.position);
 
                 KaffeTrinken(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(30f),
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(45f)
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 30f.MinutesToHours(),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 45f.MinutesToHours()
                 ));
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
-                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), TimeUtility.MinutesToHours(45f),
+                    new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 45f.MinutesToHours(),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), dannach
                 ), RauchenVorne.position);
             }

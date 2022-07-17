@@ -16,7 +16,7 @@ namespace HerderGames.Zeit
 
     public static class WochentagExtensions
     {
-        public static IList<StundenType> GetAblauf(this Wochentag tag)
+        public static IEnumerable<StundenType> GetAblauf(this Wochentag tag)
         {
             return tag switch
             {

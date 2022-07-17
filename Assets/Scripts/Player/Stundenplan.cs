@@ -54,100 +54,112 @@ namespace HerderGames.Player
             AlleLehrer = FindObjectsOfType<Lehrer.Lehrer>();
         }
 
-        private IList<UnterrichtenGoal> GetUnterrichtenGoals()
+        private IEnumerable<UnterrichtenGoal> UnterrichtenGoals
         {
-            var result = new List<UnterrichtenGoal>();
-
-            foreach (var lehrer in AlleLehrer)
+            get
             {
-                foreach (var goal in lehrer.AI.Goals)
+                var result = new List<UnterrichtenGoal>();
+
+                foreach (var lehrer in AlleLehrer)
                 {
-                    if (goal is UnterrichtenGoal unterrichten)
+                    foreach (var goal in lehrer.AI.Goals)
                     {
-                        result.Add(unterrichten);
+                        if (goal is UnterrichtenGoal unterrichten)
+                        {
+                            result.Add(unterrichten);
+                        }
                     }
                 }
-            }
 
-            return result;
+                return result;
+            }
         }
 
-        public UnterrichtenGoal GetCurrenttUnterrichtenGoal()
+        public UnterrichtenGoal CurrenttUnterrichtenGoal
         {
-            foreach (var lehrer in AlleLehrer)
+            get
             {
-                if (lehrer.AI.CurrentGoal is UnterrichtenGoal {SchuelerFreigestelltDieseStunde: false} unterrichten)
+                foreach (var lehrer in AlleLehrer)
                 {
-                    return unterrichten;
+                    if (lehrer.AI.CurrentGoal is UnterrichtenGoal {SchuelerFreigestelltDieseStunde: false} unterrichten)
+                    {
+                        return unterrichten;
+                    }
                 }
-            }
 
-            return null;
-        }
-
-        public UnterrichtenGoal GetNextUnterrichtenGoal()
-        {
-            var nextFach = StundenPlanRaster.GetNaechstenStundenPlanEintrag(TimeManager.CurrentWochentag, TimeManager.CurrentTime, eintrag => eintrag.Stunde == StundenType.Fach);
-            if (nextFach == null)
-            {
                 return null;
             }
-
-            foreach (var goal in GetUnterrichtenGoals())
-            {
-                var stunde = goal.GetStundeImStundenplan();
-
-                if (stunde == null)
-                {
-                    continue;
-                }
-
-                if (TimeManager.CurrentWochentag != stunde.Wochentag)
-                {
-                    continue;
-                }
-
-                if (nextFach.FachIndex != stunde.FachIndex)
-                {
-                    continue;
-                }
-
-                return goal;
-            }
-
-            return null;
         }
 
-        public string GetDisplayText()
+        public UnterrichtenGoal NextUnterrichtenGoal
         {
-            var current = GetCurrenttUnterrichtenGoal();
-            var next = GetNextUnterrichtenGoal();
-
-            var builder = new StringBuilder();
-
-            void AppendFach(UnterrichtenGoal goal)
+            get
             {
-                if (goal == null)
+                var nextFach = StundenPlanRaster.GetNaechstenStundenPlanEintrag(TimeManager.CurrentWochentag, TimeManager.CurrentTime, eintrag => eintrag.Stunde == StundenType.Fach);
+                if (nextFach == null)
                 {
-                    builder.Append("Keine");
+                    return null;
                 }
-                else
+
+                foreach (var goal in UnterrichtenGoals)
                 {
-                    builder.Append(goal.GetStundeImStundenplan().Fach);
-                    builder.Append(" (in ").Append(goal.GetKlassenraum().GetName()).Append(")");
-                    builder.Append(" (bei ").Append(goal.Lehrer.GetName()).Append(")");
+                    var stunde = goal.GetStundeImStundenplan();
+
+                    if (stunde == null)
+                    {
+                        continue;
+                    }
+
+                    if (TimeManager.CurrentWochentag != stunde.Wochentag)
+                    {
+                        continue;
+                    }
+
+                    if (nextFach.FachIndex != stunde.FachIndex)
+                    {
+                        continue;
+                    }
+
+                    return goal;
                 }
+
+                return null;
             }
+        }
 
-            builder.Append("Aktuelle Stunde: ");
-            AppendFach(current);
+        public string DisplayText
+        {
+            get
+            {
+                var current = CurrenttUnterrichtenGoal;
+                var next = NextUnterrichtenGoal;
 
-            builder.Append("\n");
+                var builder = new StringBuilder();
 
-            builder.Append("Nächste Stunde: ");
-            AppendFach(next);
+                void AppendFach(UnterrichtenGoal goal)
+                {
+                    if (goal == null)
+                    {
+                        builder.Append("Keine");
+                    }
+                    else
+                    {
+                        builder.Append(goal.GetStundeImStundenplan().Fach);
+                        builder.Append(" (in ").Append(goal.GetKlassenraum().GetName()).Append(")");
+                        builder.Append(" (bei ").Append(goal.Lehrer.GetName()).Append(")");
+                    }
+                }
 
-            return builder.ToString();
+                builder.Append("Aktuelle Stunde: ");
+                AppendFach(current);
+
+                builder.Append("\n");
+
+                builder.Append("Nächste Stunde: ");
+                AppendFach(next);
+
+                return builder.ToString();
+            }
         }
     }
 }

@@ -62,14 +62,12 @@ namespace HerderGames.UI
 
         private void UpdateZeit()
         {
-            var text = new StringBuilder();
-            text.Append(TimeManager.DisplayText);
-            Zeit.text = text.ToString();
+            Zeit.text = TimeManager.DisplayText;
         }
 
         private void UpdateStundenplan()
         {
-            Stundenplan.text = Player.Stundenplan.GetDisplayText();
+            Stundenplan.text = Player.Stundenplan.DisplayText;
         }
 
         private void UpdateInteraktionsMenu()

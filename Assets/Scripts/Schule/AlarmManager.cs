@@ -10,10 +10,10 @@ namespace HerderGames.Schule
         [SerializeField] private Player.Player Player;
         [SerializeField] private Dauer LaengeDesAlarms;
         [SerializeField] private int SchadenFuerDieSchule;
-        
+
         private Zeitpunkt AlarmStartZeitpunkt;
 
-        public bool IsAlarm => AlarmStartZeitpunkt != null && LaengeDesAlarms.IsLongerThan(TimeManager.CurrentZeitpunkt.Diff(AlarmStartZeitpunkt));
+        public bool IsAlarm => AlarmStartZeitpunkt != null && LaengeDesAlarms > TimeManager.CurrentZeitpunkt - AlarmStartZeitpunkt;
 
         public void AlarmStarten()
         {
@@ -30,7 +30,7 @@ namespace HerderGames.Schule
                 AlarmStartZeitpunkt = null;
                 return;
             }
-            
+
             AlarmStartZeitpunkt = PlayerPrefsUtil.GetZeitpunkt("alarm.startzeit", new Zeitpunkt());
         }
 

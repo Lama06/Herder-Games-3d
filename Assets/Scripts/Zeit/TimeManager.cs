@@ -30,14 +30,18 @@ namespace HerderGames.Zeit
                 var builder = new StringBuilder();
                 builder.Append("Woche: ").Append(CurrentKalenderwoche).Append("\n");
                 builder.Append("Wochentag: ").Append(CurrentWochentag).Append("\n");
-                builder.Append("Zeit: ").Append(TimeUtility.FormatTime(CurrentTime));
+                builder.Append("Zeit: ").Append(CurrentTime.FormatTime());
                 return builder.ToString();
             }
         }
 
+        private float CurrentTimeSpeed => StundenPlanRaster.GetCurrentStundenPlanEintrag(this) is {Stunde: StundenType.Fach}
+            ? TimeSpeedUnterricht
+            : TimeSpeed;
+
         private void Update()
         {
-            CurrentTime += (StundenPlanRaster.GetCurrentStundenPlanEintrag(this) is {Stunde: StundenType.Fach} ? TimeSpeedUnterricht : TimeSpeed) * Time.deltaTime;
+            CurrentTime += CurrentTimeSpeed * Time.deltaTime;
             if (CurrentTime >= StundenPlanRaster.EndeDesTages)
             {
                 CurrentTime = 0;

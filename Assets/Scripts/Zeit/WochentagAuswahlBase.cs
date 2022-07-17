@@ -4,6 +4,6 @@ namespace HerderGames.Zeit
 {
     public abstract class WochentagAuswahlBase
     {
-        public abstract ISet<Wochentag> ResolveWochentage();
+        public abstract ISet<Wochentag> Wochentage { get; }
     }
 }

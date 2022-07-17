@@ -47,7 +47,7 @@ namespace HerderGames.Zeit
         {
         }
 
-        public IList<(Wochentag, float, float)> Resolve()
+        public IEnumerable<(Wochentag, float, float)> Resolve()
         {
             var result = new List<(Wochentag, float, float)>();
 
@@ -93,11 +93,11 @@ namespace HerderGames.Zeit
                 Zeitspannen = zeitspannen;
             }
 
-            public IList<(Wochentag, float, float)> Resolve()
+            public IEnumerable<(Wochentag, float, float)> Resolve()
             {
                 var result = new List<(Wochentag, float, float)>();
 
-                foreach (var wochentag in Tage.ResolveWochentage())
+                foreach (var wochentag in Tage.Wochentage)
                 {
                     foreach (var zeitspanne in Zeitspannen)
                     {
@@ -123,7 +123,7 @@ namespace HerderGames.Zeit
                 Ende = ende;
             }
 
-            public IList<(float, float)> Resolve(Wochentag tag)
+            public IEnumerable<(float, float)> Resolve(Wochentag tag)
             {
                 var zeitenAnfang = Anfang.Resolve(tag);
                 var zeitenEnde = Ende.Resolve(tag);
@@ -162,7 +162,7 @@ namespace HerderGames.Zeit
             {
                 var result = new List<float>();
 
-                foreach (var baseTime in RelativZu.Resolve(tag))
+                foreach (var baseTime in RelativZu.GetZeitVerschiebungen(tag))
                 {
                     result.Add(baseTime + Offset);
                 }

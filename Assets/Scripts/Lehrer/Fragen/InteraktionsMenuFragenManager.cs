@@ -36,8 +36,8 @@ namespace HerderGames.Lehrer.Fragen
                 {
                     frage.InteraktionsMenuId = Player.InteraktionsMenu.AddEintrag(new InteraktionsMenuEintrag
                     {
-                        Name = frage.Frage.GetText(),
-                        Callback = frage.Frage.OnClick
+                        Name = frage.Frage.Text,
+                        Callback = _ => frage.Frage.OnClick()
                     });
                 }
 
@@ -62,7 +62,7 @@ namespace HerderGames.Lehrer.Fragen
 
             public bool ShouldShow(Lehrer lehrer)
             {
-                return Frage.ShouldShow() && lehrer.InSchule.GetInSchule();
+                return Frage.ShouldShow && lehrer.InSchule.GetInSchule();
             }
         }
     }

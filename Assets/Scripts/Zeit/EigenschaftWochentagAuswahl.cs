@@ -13,19 +13,22 @@ namespace HerderGames.Zeit
             Eigenschaft = eigenschaft;
         }
 
-        public override ISet<Wochentag> ResolveWochentage()
+        public override ISet<Wochentag> Wochentage
         {
-            var result = new HashSet<Wochentag>();
-
-            foreach (var wochentag in Enum.GetValues(typeof(Wochentag)).Cast<Wochentag>())
+            get
             {
-                if (wochentag.GetEigenschaften().Contains(Eigenschaft))
-                {
-                    result.Add(wochentag);
-                }
-            }
+                var result = new HashSet<Wochentag>();
 
-            return result;
+                foreach (var wochentag in Enum.GetValues(typeof(Wochentag)).Cast<Wochentag>())
+                {
+                    if (wochentag.GetEigenschaften().Contains(Eigenschaft))
+                    {
+                        result.Add(wochentag);
+                    }
+                }
+
+                return result;
+            }
         }
     }
 }

@@ -11,14 +11,11 @@ namespace HerderGames.Zeit
             return other.Kalenderwoche == Kalenderwoche && other.Wochentag == Wochentag;
         }
         
-        public Dauer Diff(Zeitpunkt other)
+        public static Dauer operator -(Zeitpunkt a, Zeitpunkt b)
         {
-            var bigger = StundenSeitBeginn > other.StundenSeitBeginn ? this : other;
-            var smaller = StundenSeitBeginn > other.StundenSeitBeginn ? other : this;
-            var diff = bigger.StundenSeitBeginn - smaller.StundenSeitBeginn;
-            return Dauer.FromStunden(diff);
+            return Dauer.FromStunden(a.StundenSeitNull - b.StundenSeitNull);
         }
 
-        private float StundenSeitBeginn => Zeit + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
+        private float StundenSeitNull => Zeit + (float) Wochentag * 24f + Kalenderwoche * 7f * 24f;
     }
 }
