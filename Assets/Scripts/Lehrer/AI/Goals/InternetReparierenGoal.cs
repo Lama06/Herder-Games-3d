@@ -36,22 +36,25 @@ namespace HerderGames.Lehrer.AI.Goals
             Vision = vision;
         }
 
-        private LanDose GetMicInVision()
+        private LanDose MicInVision
         {
-            foreach (var lanDose in InternetManager.LanDosen)
+            get
             {
-                if (lanDose.Mic && Vision.CanSee(lanDose.gameObject))
+                foreach (var lanDose in InternetManager.LanDosen)
                 {
-                    return lanDose;
+                    if (lanDose.Mic && Vision.CanSee(lanDose.gameObject))
+                    {
+                        return lanDose;
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
         }
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            if (!Trigger.Resolve())
+            if (!Trigger.ShouldRun)
             {
                 return false;
             }
@@ -61,11 +64,11 @@ namespace HerderGames.Lehrer.AI.Goals
                 return !Fertig;
             }
 
-            LanDose = GetMicInVision();
+            LanDose = MicInVision;
             return LanDose != null;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;

@@ -52,7 +52,7 @@ namespace HerderGames.Player
 
         public void DeleteData()
         {
-            foreach (var item in Enum.GetValues(typeof(Item)))
+            foreach (var item in Enum.GetValues(typeof(Item)).Cast<Item>())
             {
                 PlayerPrefs.DeleteKey($"{SaveKey}.items.{item.ToString()}");
             }

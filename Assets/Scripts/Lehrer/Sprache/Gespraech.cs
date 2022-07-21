@@ -49,7 +49,7 @@ namespace HerderGames.Lehrer.Sprache
                 return false;
             }
 
-            if (goal.GetGespraech() != this)
+            if (goal.Gespraech != this)
             {
                 return false;
             }

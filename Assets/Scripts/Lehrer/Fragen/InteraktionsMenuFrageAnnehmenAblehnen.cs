@@ -82,19 +82,13 @@ namespace HerderGames.Lehrer.Fragen
 
                 Lehrer.Sprache.Say(AnnahmeAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAnnahme);
-                if (OnAnnehmen != null)
-                {
-                    OnAnnehmen(Player, Lehrer);   
-                }
+                OnAnnehmen?.Invoke(Player, Lehrer);
             }
             else
             {
                 Lehrer.Sprache.Say(AblehnenAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAblehnen);
-                if (OnAblehnen != null)
-                {
-                    OnAblehnen(Player, Lehrer);   
-                }
+                OnAblehnen?.Invoke(Player, Lehrer);
             }
         }
     }

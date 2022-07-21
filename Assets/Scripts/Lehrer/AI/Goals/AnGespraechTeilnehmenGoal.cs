@@ -9,7 +9,7 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly Vector3 Standpunkt;
-        private readonly Gespraech Gespraech;
+        public Gespraech Gespraech { get; }
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
 
         public bool IsAngekommen { get; private set; }
@@ -30,15 +30,10 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve();
+            return Trigger.ShouldRun;
         }
 
-        public override void OnGoalEnd()
-        {
-            IsAngekommen = false;
-        }
-
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.Agent.destination = Standpunkt;
@@ -47,9 +42,9 @@ namespace HerderGames.Lehrer.AI.Goals
             IsAngekommen = true;
         }
 
-        public Gespraech GetGespraech()
+        protected override void OnGoalEnd()
         {
-            return Gespraech;
+            IsAngekommen = false;
         }
     }
 }

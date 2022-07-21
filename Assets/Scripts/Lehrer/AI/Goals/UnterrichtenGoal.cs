@@ -47,16 +47,16 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve();
+            return Trigger.ShouldRun;
         }
 
-        public override void OnGoalStart()
+        protected override void OnGoalStart()
         {
             GoToRoomCoroutine = Lehrer.AI.StartCoroutine(GoToRoom());
             CheckAnwesenheitCoroutine = Lehrer.AI.StartCoroutine(CheckAnwesenheit());
         }
 
-        public override void OnGoalEnd()
+        protected override void OnGoalEnd()
         {
             LehrerArrived = false;
             SchuelerFreigestelltDieseStunde = false;

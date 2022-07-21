@@ -11,9 +11,6 @@ namespace HerderGames.Lehrer.AI.Trigger
             Callback = callback;
         }
 
-        public override bool Resolve()
-        {
-            return Callback();
-        }
+        public override bool ShouldRun => Callback();
     }
 }

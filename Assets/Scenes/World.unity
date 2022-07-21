@@ -806,8 +806,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
 --- !u!114 &613728556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2199,8 +2197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
 --- !u!114 &1609019409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2386,6 +2382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeManager: {fileID: 670363813}
   AlarmManager: {fileID: 1836436228}
+  Internet: {fileID: 919171754}
   Player: {fileID: 1538818858}
   UnterrichtsRaum: {fileID: 752264926}
   UnterrichtStandpunkt: {fileID: 696644735}
@@ -2396,8 +2393,8 @@ MonoBehaviour:
   LehrerzimmerFach: {fileID: 182248883}
   Rauchen: {fileID: 288763062}
   Schulleitung: {fileID: 1083303379}
-  Drucker: {fileID: 0}
-  E202ZigarettenSchrank: {fileID: 0}
+  Drucker: {fileID: 182248883}
+  E202ZigarettenSchrank: {fileID: 182248883}
 --- !u!1 &1649371218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,17 +2860,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1538818858}
+  Internet: {fileID: 919171754}
   TimeManager: {fileID: 670363813}
   RauchenVorne: {fileID: 288763062}
   RauchenHinten: {fileID: 288763062}
   UnterrichtsRaum: {fileID: 277963985}
   UnterrichtsStandpunkt: {fileID: 277963986}
   SchuleEingang: {fileID: 288763062}
-  Kaffeemaschine: {fileID: 1603995576}
+  KaffeemaschineRaucherLehrerzimmer: {fileID: 1603995576}
   Sammelpunkt: {fileID: 288763062}
   AlarmManager: {fileID: 1836436228}
   Toilette: {fileID: 182248883}
   EingangFahhradKontrolle: {fileID: 288763062}
+  Schulleitung: {fileID: 288763062}
 --- !u!114 &1877910392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2969,8 +2968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe962dd7e0174e3193d20e7c1ab1459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MisstrauensFaktor: 1
-  GutmuetigkeitsFaktor: 1
 --- !u!114 &1877910399
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -156,21 +156,24 @@ namespace HerderGames.Lehrer.Brains
         {
             private int Current;
 
-            public (string satz, float? delay) GetNextSatz()
+            public (string satz, float? delay) NextSatz
             {
-                if (Random.Range(0, 100) == 0)
+                get
                 {
-                    Current = 0;
-                    return ("Mist jetzt hab ich mich verzählt! Das ist frauenfeindlich!!".ZufaelligGrossKlein(), 5f);
-                }
+                    if (Random.Range(0, 100) == 0)
+                    {
+                        Current = 0;
+                        return ("Mist jetzt hab ich mich verzählt! Das ist frauenfeindlich!!".ZufaelligGrossKlein(), 5f);
+                    }
 
-                Current++;
-                if (Current % 6 == 0) // Frau Strupat kann nicht zählen
-                {
                     Current++;
-                }
+                    if (Current % 6 == 0) // Frau Strupat kann nicht zählen
+                    {
+                        Current++;
+                    }
 
-                return (Current.ToString(), 1);
+                    return (Current.ToString(), 1);
+                }
             }
         }
     }

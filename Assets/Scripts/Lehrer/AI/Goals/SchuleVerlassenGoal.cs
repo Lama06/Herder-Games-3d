@@ -28,31 +28,26 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve();
+            return Trigger.ShouldRun;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
-            if (!Lehrer.InSchule.GetInSchule())
-            {
-                yield break;
-            }
-
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeBeimVerlassen;
             Lehrer.Agent.destination = Ausgang;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            Lehrer.InSchule.SetInSchule(false);
+            Lehrer.InSchule.InSchule = false;
         }
 
-        public override void OnGoalEnd()
+        protected override void OnGoalEnd()
         {
-            if (Lehrer.InSchule.GetInSchule())
+            if (Lehrer.InSchule.InSchule)
             {
                 return;
             }
 
             Lehrer.Agent.Warp(Eingang);
-            Lehrer.InSchule.SetInSchule(true);
+            Lehrer.InSchule.InSchule = true;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            if (!Trigger.Resolve())
+            if (!Trigger.ShouldRun)
             {
                 return false;
             }
@@ -49,7 +49,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return Lehrer.Reputation.ShouldGoToSchulleitung;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;

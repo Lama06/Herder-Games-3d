@@ -2,6 +2,6 @@ namespace HerderGames.Lehrer.Sprache
 {
     public interface ISaetzeMoeglichkeitenEinmalig
     {
-        public string GetSatz();
+        public string Satz { get; }
     }
 }

@@ -24,23 +24,26 @@ namespace HerderGames.Lehrer.Sprache
             CustomDelay = delay;
         }
 
-        public (string satz, float? delay) GetNextSatz()
+        public (string satz, float? delay) NextSatz
         {
-            float? delay = UseCustomDelay ? CustomDelay : null;
-            
-            if (MoeglicheSaetze.Count == 0)
+            get
             {
-                return (null, delay);
-            }
+                float? delay = UseCustomDelay ? CustomDelay : null;
 
-            if (RemainingSaetze.Count == 0)
-            {
-                RemainingSaetze = new List<string>(MoeglicheSaetze);
+                if (MoeglicheSaetze.Count == 0)
+                {
+                    return (null, delay);
+                }
+
+                if (RemainingSaetze.Count == 0)
+                {
+                    RemainingSaetze = new List<string>(MoeglicheSaetze);
+                }
+
+                var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];
+                RemainingSaetze.Remove(satz);
+                return (satz, delay);
             }
-            
-            var satz = RemainingSaetze[Random.Range(0, RemainingSaetze.Count)];
-            RemainingSaetze.Remove(satz);
-            return (satz, delay);
         }
     }
 }

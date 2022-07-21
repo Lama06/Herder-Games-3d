@@ -65,10 +65,7 @@ namespace HerderGames.Lehrer.Fragen
 
             Lehrer.Sprache.Say(Antworten);
             Lehrer.Reputation.AddReputation(ReputationsAenderung);
-            if (ClickCallback != null)
-            {
-                ClickCallback(Player, Lehrer);
-            }
+            ClickCallback?.Invoke(Player, Lehrer);
         }
     }
 }

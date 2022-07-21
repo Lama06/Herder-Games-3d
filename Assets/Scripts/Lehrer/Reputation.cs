@@ -26,7 +26,7 @@ namespace HerderGames.Lehrer
             ReputationsWert = -0.5f;
         }
 
-        private string SaveKey => $"{Lehrer.GetSaveKeyRoot()}.reputation";
+        private string SaveKey => $"{Lehrer.SaveKeyRoot}.reputation";
 
         public void SaveData()
         {

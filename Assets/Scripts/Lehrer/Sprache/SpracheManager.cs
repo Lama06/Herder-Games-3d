@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,9 +20,14 @@ namespace HerderGames.Lehrer.Sprache
             Lehrer = GetComponent<Lehrer>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             StartCoroutine(SaySaetzeMehrmals());
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator SaySaetzeMehrmals()
@@ -35,7 +41,7 @@ namespace HerderGames.Lehrer.Sprache
                     continue;
                 }
 
-                var (satz, delay) = SaetzeMoeglichkeiten.GetNextSatz();
+                var (satz, delay) = SaetzeMoeglichkeiten.NextSatz;
                 
                 if (satz == null)
                 {
@@ -65,7 +71,7 @@ namespace HerderGames.Lehrer.Sprache
                 return;
             }
 
-            var satz = source.GetSatz();
+            var satz = source.Satz;
             if (satz == null)
             {
                 return;

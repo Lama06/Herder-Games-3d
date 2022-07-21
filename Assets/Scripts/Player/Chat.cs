@@ -24,16 +24,19 @@ namespace HerderGames.Player
         {
             SendChatMessage($"[Durchsage] {durchsage}");
         }
-        
-        public IEnumerable<string> GetMessages()
-        {
-            var strings = new List<string>();
-            foreach (var message in Messages)
-            {
-                strings.Add(message.Text);
-            }
 
-            return strings;
+        public IEnumerable<string> ChatMessages
+        {
+            get
+            {
+                var strings = new List<string>();
+                foreach (var message in Messages)
+                {
+                    strings.Add(message.Text);
+                }
+
+                return strings;
+            }
         }
 
         private void Update()
@@ -57,7 +60,7 @@ namespace HerderGames.Player
 
             public void Update()
             {
-                TimeSinceSent += UnityEngine.Time.deltaTime;
+                TimeSinceSent += Time.deltaTime;
             }
 
             public bool ShouldBeRemoved(float maxTime)

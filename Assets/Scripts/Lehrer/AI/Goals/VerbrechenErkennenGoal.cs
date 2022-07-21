@@ -8,9 +8,9 @@ namespace HerderGames.Lehrer.AI.Goals
     public class VerbrechenErkennenGoal : GoalBase
     {
         private const string WarningMsg = "Achtung: Ein Lehrer hat gemerkt, dass du ein Verbrechen begehen wolltest. " +
-            "Pass auf, dass er nicht zur Schulleitung geht und dich meldet. " +
-            "Versuche deine Beziehung zum Lehrer wieder zu verbessern.";
-        
+                                          "Pass auf, dass er nicht zur Schulleitung geht und dich meldet. " +
+                                          "Versuche deine Beziehung zum Lehrer wieder zu verbessern.";
+
         private readonly TriggerBase Trigger;
         private readonly Player.Player Player;
         private readonly float SchwereMindestens;
@@ -35,14 +35,13 @@ namespace HerderGames.Lehrer.AI.Goals
             SaetzeWeg = saetzeWeg;
         }
 
-        private bool SiehtVerbrechen()
-        {
-            return Lehrer.Vision.CanSee(Player.gameObject) && Player.VerbrechenManager.BegehtGeradeEinVerbrechen && Player.VerbrechenManager.Schwere >= SchwereMindestens;
-        }
+        private bool SiehtVerbrechen => Lehrer.Vision.CanSee(Player.gameObject) &&
+                                        Player.VerbrechenManager.BegehtGeradeEinVerbrechen &&
+                                        Player.VerbrechenManager.Schwere >= SchwereMindestens;
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            if (!Trigger.Resolve())
+            if (!Trigger.ShouldRun)
             {
                 return false;
             }
@@ -51,11 +50,11 @@ namespace HerderGames.Lehrer.AI.Goals
             {
                 return !Fertig;
             }
-            
-            return SiehtVerbrechen();
+
+            return SiehtVerbrechen;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Fertig = false;
             Player.Chat.SendChatMessage(WarningMsg);

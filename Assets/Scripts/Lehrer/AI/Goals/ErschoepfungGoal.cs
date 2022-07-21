@@ -37,7 +37,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            if (!Trigger.Resolve())
+            if (!Trigger.ShouldRun)
             {
                 return false;
             }
@@ -50,7 +50,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Fertig = false;
             DistanzLetzeMinute.Clear();
@@ -77,7 +77,7 @@ namespace HerderGames.Lehrer.AI.Goals
                 return Mathf.Abs(pos1.x - pos2.x) + Mathf.Abs(pos1.z - pos2.z);
             }
 
-            void AddEintrag(List<float> liste, float eintrag)
+            void AddEintrag(IList<float> liste, float eintrag)
             {
                 if (liste.Count >= 60)
                 {

@@ -26,10 +26,10 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            return Trigger.Resolve();
+            return Trigger.ShouldRun;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             while (true)

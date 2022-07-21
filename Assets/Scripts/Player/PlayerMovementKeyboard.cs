@@ -30,7 +30,7 @@ namespace HerderGames.Player
 
             var movement = transform.right * x + transform.forward * y;
 
-            Controller.Move(movement * UnityEngine.Time.deltaTime * Speed);
+            Controller.Move(movement * Time.deltaTime * Speed);
 #endif
         }
     }

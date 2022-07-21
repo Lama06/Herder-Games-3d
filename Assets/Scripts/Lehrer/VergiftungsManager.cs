@@ -88,7 +88,7 @@ namespace HerderGames.Lehrer
             }
         }
 
-        private string SaveKeyRoot => $"{Lehrer.GetSaveKeyRoot()}.vergiftung";
+        private string SaveKeyRoot => $"{Lehrer.SaveKeyRoot}.vergiftung";
 
         public void SaveData()
         {

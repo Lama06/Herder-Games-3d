@@ -2,6 +2,6 @@ namespace HerderGames.Lehrer.AI.Trigger
 {
     public abstract class TriggerBase
     {
-        public abstract bool Resolve();
+        public abstract bool ShouldRun { get; }
     }
 }

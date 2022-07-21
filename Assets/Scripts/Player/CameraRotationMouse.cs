@@ -24,8 +24,8 @@ namespace HerderGames.Player
                 return;
             }
 
-            var mouseX = Input.GetAxis("Mouse X") * Sensitivity * UnityEngine.Time.deltaTime;
-            var mouseY = Input.GetAxis("Mouse Y") * Sensitivity * UnityEngine.Time.deltaTime;
+            var mouseX = Input.GetAxis("Mouse X") * Sensitivity * Time.deltaTime;
+            var mouseY = Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
 
             PlayerBody.Rotate(new Vector3(0, mouseX, 0));
             transform.Rotate(new Vector3(-mouseY, 0, 0));

@@ -10,7 +10,7 @@ namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(Renderer))]
     [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(InDerSchuleState))]
+    [RequireComponent(typeof(InDerSchuleStatus))]
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(VergiftungsManager))]
     [RequireComponent(typeof(VisionSensor))]
@@ -25,7 +25,7 @@ namespace HerderGames.Lehrer
 
         public Renderer Renderer { get; private set; }
         public NavMeshAgent Agent { get; private set; }
-        public InDerSchuleState InSchule { get; private set; }
+        public InDerSchuleStatus InSchule { get; private set; }
         public Reputation Reputation { get; private set; }
         public VergiftungsManager Vergiftung { get; private set; }
         public VisionSensor Vision { get; private set; }
@@ -40,7 +40,7 @@ namespace HerderGames.Lehrer
         {
             Renderer = GetComponent<Renderer>();
             Agent = GetComponent<NavMeshAgent>();
-            InSchule = GetComponent<InDerSchuleState>();
+            InSchule = GetComponent<InDerSchuleStatus>();
             Reputation = GetComponent<Reputation>();
             Vergiftung = GetComponent<VergiftungsManager>();
             Vision = GetComponent<VisionSensor>();
@@ -57,17 +57,17 @@ namespace HerderGames.Lehrer
 
         public void LoadData()
         {
-            transform.position = PlayerPrefsUtil.GetVector($"{GetSaveKeyRoot()}.position", transform.position);
+            transform.position = PlayerPrefsUtil.GetVector($"{SaveKeyRoot}.position", transform.position);
         }
 
         public void SaveData()
         {
-            PlayerPrefsUtil.SetVector($"{GetSaveKeyRoot()}.position", LastPosition);
+            PlayerPrefsUtil.SetVector($"{SaveKeyRoot}.position", LastPosition);
         }
 
         public void DeleteData()
         {
-            PlayerPrefsUtil.DeleteVector($"{GetSaveKeyRoot()}.position");
+            PlayerPrefsUtil.DeleteVector($"{SaveKeyRoot}.position");
         }
 
         public string GetName()
@@ -80,9 +80,6 @@ namespace HerderGames.Lehrer
             return Id;
         }
 
-        public string GetSaveKeyRoot()
-        {
-            return $"lehrer.{Id}";
-        }
+        public string SaveKeyRoot => $"lehrer.{Id}";
     }
 }

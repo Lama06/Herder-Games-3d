@@ -33,7 +33,7 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public override bool ShouldRun(bool currentlyRunning)
         {
-            if (!Trigger.Resolve())
+            if (!Trigger.ShouldRun)
             {
                 return false;
             }
@@ -46,7 +46,7 @@ namespace HerderGames.Lehrer.AI.Goals
             return Essen.Vergiftet && Essen.VergiftungBemerkt;
         }
 
-        public override IEnumerator Execute()
+        protected override IEnumerator Execute()
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;

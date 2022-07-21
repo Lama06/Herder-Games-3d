@@ -12,14 +12,18 @@ namespace HerderGames.Lehrer.Sprache
         {
             MoeglicheSaetze = saetze.ToList();
         }
-        
-        public string GetSatz()
+
+        public string Satz
         {
-            if (MoeglicheSaetze.Count == 0)
+            get
             {
-                return null;
+                if (MoeglicheSaetze.Count == 0)
+                {
+                    return null;
+                }
+
+                return MoeglicheSaetze[Random.Range(0, MoeglicheSaetze.Count)];
             }
-            return MoeglicheSaetze[Random.Range(0, MoeglicheSaetze.Count)];
         }
     }
 }

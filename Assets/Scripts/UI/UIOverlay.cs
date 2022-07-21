@@ -104,7 +104,7 @@ namespace HerderGames.UI
         private void UpdateChat()
         {
             ChatWindow.Clear();
-            foreach (var message in Player.Chat.GetMessages())
+            foreach (var message in Player.Chat.ChatMessages)
             {
                 var label = new Label(message)
                 {

@@ -25,7 +25,7 @@ namespace HerderGames.Lehrer.AI
             OnGoalStart();
         }
 
-        public virtual void OnGoalStart()
+        protected virtual void OnGoalStart()
         {
         }
 
@@ -37,11 +37,11 @@ namespace HerderGames.Lehrer.AI
             Lehrer.Agent.destination = Lehrer.transform.position;
         }
 
-        public virtual void OnGoalEnd()
+        protected virtual void OnGoalEnd()
         {
         }
 
-        public virtual IEnumerator Execute()
+        protected virtual IEnumerator Execute()
         {
             yield return null;
         }
