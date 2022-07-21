@@ -2,15 +2,16 @@ using System;
 
 namespace HerderGames.Zeit
 {
-    [Serializable]
     public class Dauer
     {
-        public int Wochen;
-        public int Tage;
-        public float Stunden;
-
+        public int Wochen { get; private set; }
+        public int Tage { get; private set; }
+        public float Stunden { get; private set; }
+        
         public float Laenge => Wochen * 24f * 7f + Tage * 24f + Stunden;
 
+        private Dauer() { }
+        
         public static Dauer FromStunden(float total)
         {
             var wochen = (int) (total / (24f * 7f));

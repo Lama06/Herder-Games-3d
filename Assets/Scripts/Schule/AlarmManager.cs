@@ -8,12 +8,12 @@ namespace HerderGames.Schule
     {
         [SerializeField] private TimeManager TimeManager;
         [SerializeField] private Player.Player Player;
-        [SerializeField] private Dauer LaengeDesAlarms;
+        [SerializeField] private float LaengeDesAlarms;
         [SerializeField] private int SchadenFuerDieSchule;
 
         private Zeitpunkt AlarmStartZeitpunkt;
 
-        public bool IsAlarm => AlarmStartZeitpunkt != null && LaengeDesAlarms > TimeManager.CurrentZeitpunkt - AlarmStartZeitpunkt;
+        public bool IsAlarm => AlarmStartZeitpunkt != null && Dauer.FromStunden(LaengeDesAlarms) > TimeManager.CurrentZeitpunkt - AlarmStartZeitpunkt;
 
         public void AlarmStarten()
         {
