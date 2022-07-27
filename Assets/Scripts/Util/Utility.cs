@@ -5,7 +5,7 @@ namespace HerderGames.Util
 {
     public static class Utility
     {
-        private static readonly System.Random Random = new();
+        private static readonly Random Random = new();
 
         public static bool TrueWithPercent(float percentForTrue)
         {

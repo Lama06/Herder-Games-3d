@@ -103,7 +103,7 @@ namespace HerderGames.Player
 
                 foreach (var goal in UnterrichtenGoals)
                 {
-                    var stunde = goal.GetStundeImStundenplan();
+                    var stunde = goal.StundeImStundenplan;
 
                     if (stunde == null)
                     {
@@ -144,9 +144,9 @@ namespace HerderGames.Player
                     }
                     else
                     {
-                        builder.Append(goal.GetStundeImStundenplan().Fach);
-                        builder.Append(" (in ").Append(goal.GetKlassenraum().GetName()).Append(")");
-                        builder.Append(" (bei ").Append(goal.Lehrer.GetName()).Append(")");
+                        builder.Append(goal.StundeImStundenplan.Fach);
+                        builder.Append(" (in ").Append(goal.UnterrichtsRaum.Name).Append(")");
+                        builder.Append(" (bei ").Append(goal.Lehrer.Name).Append(")");
                     }
                 }
 

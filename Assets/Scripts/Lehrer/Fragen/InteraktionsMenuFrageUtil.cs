@@ -8,7 +8,7 @@ namespace HerderGames.Lehrer.Fragen
     {
         public static Func<Player.Player, Lehrer, bool> ShowWhileKannSchwaenzen()
         {
-            return (_, lehrer) => lehrer.AI.CurrentGoal is UnterrichtenGoal {LehrerArrived: true, SchuelerFreigestelltDieseStunde: false} unterrichten && unterrichten.GetKlassenraum().PlayerInside;
+            return (_, lehrer) => lehrer.AI.CurrentGoal is UnterrichtenGoal {LehrerArrived: true, SchuelerFreigestelltDieseStunde: false} unterrichten && unterrichten.UnterrichtsRaum.PlayerInside;
         }
 
         public static Func<Player.Player, Lehrer, bool> ShowNearby()

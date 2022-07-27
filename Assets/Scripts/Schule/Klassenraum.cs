@@ -4,10 +4,12 @@ namespace HerderGames.Schule
 {
     public class Klassenraum : MonoBehaviour
     {
-        [SerializeField] private string Name;
-        
+        [SerializeField] [InspectorName("Name")]
+        private string _Name;
+
+        public string Name => _Name;
         public bool PlayerInside { get; private set; }
-        
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<Player.Player>() != null)
@@ -22,11 +24,6 @@ namespace HerderGames.Schule
             {
                 PlayerInside = false;
             }
-        }
-
-        public string GetName()
-        {
-            return Name;
         }
     }
 }

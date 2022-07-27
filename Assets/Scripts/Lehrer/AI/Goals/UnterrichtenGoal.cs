@@ -9,10 +9,10 @@ namespace HerderGames.Lehrer.AI.Goals
 {
     public class UnterrichtenGoal : GoalBase
     {
-        private readonly Klassenraum UnterrichtsRaum;
+        public Klassenraum UnterrichtsRaum { get; }
         private readonly Vector3 Standpunkt;
         private readonly TriggerBase Trigger;
-        private readonly StundenData StundeImStundenplan;
+        public StundenData StundeImStundenplan { get; }
         private readonly float ReputationsAenderungBeiFehlzeit;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
@@ -89,16 +89,6 @@ namespace HerderGames.Lehrer.AI.Goals
             }
         }
 
-        public Klassenraum GetKlassenraum()
-        {
-            return UnterrichtsRaum;
-        }
-
-        public StundenData GetStundeImStundenplan()
-        {
-            return StundeImStundenplan;
-        }
-        
         public class StundenData
         {
             public readonly Wochentag Wochentag;

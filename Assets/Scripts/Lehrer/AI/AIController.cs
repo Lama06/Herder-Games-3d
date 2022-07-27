@@ -18,14 +18,15 @@ namespace HerderGames.Lehrer.AI
         private void Update()
         {
             var mostImportantGoal = GoalWithHighestPriorityThatCanStart;
-            if (mostImportantGoal == null || mostImportantGoal == CurrentGoal)
+
+            if (mostImportantGoal == CurrentGoal)
             {
                 return;
             }
 
             CurrentGoal?.EndGoal();
             CurrentGoal = mostImportantGoal;
-            CurrentGoal.StartGoal();
+            CurrentGoal?.StartGoal();
         }
 
         private GoalBase GoalWithHighestPriorityThatCanStart
@@ -34,12 +35,8 @@ namespace HerderGames.Lehrer.AI
             {
                 foreach (var goal in Goals)
                 {
-                    if (goal == CurrentGoal && goal.ShouldRun(true))
-                    {
-                        return goal;
-                    }
-
-                    if (goal != CurrentGoal && goal.ShouldRun(false))
+                    var currentlyRunning = goal == CurrentGoal;
+                    if (goal.ShouldRun(currentlyRunning))
                     {
                         return goal;
                     }

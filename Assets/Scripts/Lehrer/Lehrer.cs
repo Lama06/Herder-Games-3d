@@ -20,9 +20,11 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(BrainBase))]
     public class Lehrer : MonoBehaviour, PersistentDataContainer
     {
-        [SerializeField] private string Name;
-        [SerializeField] private string Id;
+        [SerializeField] [InspectorName("Name")] private string _Name;
+        [SerializeField] [InspectorName("Id")] private string _Id;
 
+        public string Name => _Name;
+        public string Id => _Id;
         public Renderer Renderer { get; private set; }
         public NavMeshAgent Agent { get; private set; }
         public InDerSchuleStatus InSchule { get; private set; }
@@ -68,16 +70,6 @@ namespace HerderGames.Lehrer
         public void DeleteData()
         {
             PlayerPrefsUtil.DeleteVector($"{SaveKeyRoot}.position");
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public string GetId()
-        {
-            return Id;
         }
 
         public string SaveKeyRoot => $"lehrer.{Id}";

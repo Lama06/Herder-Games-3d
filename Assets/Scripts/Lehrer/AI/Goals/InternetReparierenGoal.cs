@@ -9,11 +9,10 @@ namespace HerderGames.Lehrer.AI.Goals
     public class InternetReparierenGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
+        private readonly InternetManager InternetManager;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
-        private readonly InternetManager InternetManager;
-        private readonly VisionSensor Vision;
 
         private bool Fertig;
         private LanDose LanDose;
@@ -21,19 +20,17 @@ namespace HerderGames.Lehrer.AI.Goals
         public InternetReparierenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            ISaetzeMoeglichkeitenMehrmals saetzeWeg,
-            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig,
-            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen,
             InternetManager internet,
-            VisionSensor vision
+            ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
+            ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
+            InternetManager = internet;
             SaetzeWeg = saetzeWeg;
             SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
-            InternetManager = internet;
-            Vision = vision;
         }
 
         private LanDose MicInVision
@@ -42,7 +39,7 @@ namespace HerderGames.Lehrer.AI.Goals
             {
                 foreach (var lanDose in InternetManager.LanDosen)
                 {
-                    if (lanDose.Mic && Vision.CanSee(lanDose.gameObject))
+                    if (lanDose.Mic && Lehrer.Vision.CanSee(lanDose.gameObject))
                     {
                         return lanDose;
                     }
