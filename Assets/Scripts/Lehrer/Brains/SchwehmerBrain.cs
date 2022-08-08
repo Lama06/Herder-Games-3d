@@ -99,7 +99,7 @@ namespace HerderGames.Lehrer.Brains
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
                     standpunkt: UnterrichtsStandpunkt.position,
-                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar()),
+                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -0.4f,
                     saetzeAufDemWegZumRaum: unterrichtWeg,

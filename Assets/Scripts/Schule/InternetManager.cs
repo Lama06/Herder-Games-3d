@@ -11,17 +11,20 @@ namespace HerderGames.Schule
             LanDosen = FindObjectsOfType<LanDose>();
         }
 
-        public bool IsInternetVerfuegbar()
+        public bool IsInternetVerfuegbar
         {
-            foreach (var lanDose in LanDosen)
+            get
             {
-                if (lanDose.Mic)
+                foreach (var lanDose in LanDosen)
                 {
-                    return false;
+                    if (lanDose.Mic)
+                    {
+                        return false;
+                    }
                 }
-            }
 
-            return true;
+                return true;
+            }
         }
     }
 }

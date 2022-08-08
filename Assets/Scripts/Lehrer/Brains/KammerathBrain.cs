@@ -75,7 +75,7 @@ namespace HerderGames.Lehrer.Brains
                             )
                         );
 
-                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar;
                     }),
                     stundeImStundenplan: new UnterrichtenGoal.StundenData(wochentag, index, "Informatik"),
                     reputationsAenderungBeiFehlzeit: -0.1f,
@@ -98,7 +98,7 @@ namespace HerderGames.Lehrer.Brains
                             )
                         );
 
-                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar;
                     }),
                     saetzeAngekommen: unterrichtKeinInternetDannach
                 ));
@@ -135,7 +135,7 @@ namespace HerderGames.Lehrer.Brains
                             )
                         );
 
-                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar;
                     }),
                     saetzeAngekommen: unterrichtKeinInternet
                 ));
@@ -156,7 +156,7 @@ namespace HerderGames.Lehrer.Brains
                             )
                         );
 
-                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar();
+                        return zeit.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar;
                     }),
                     saetzeAngekommen: unterrichtKeinInternetDannach
                 ));
@@ -193,7 +193,7 @@ namespace HerderGames.Lehrer.Brains
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar() && wann.IsInside(TimeManager)),
+                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar && wann.IsInside(TimeManager)),
                     position: LehrerStuhl.position,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht! Wie soll ich denn so meine Spiele spielen!"
@@ -218,7 +218,7 @@ namespace HerderGames.Lehrer.Brains
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar() && wann.IsInside(TimeManager)),
+                    trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar && wann.IsInside(TimeManager)),
                     position: LehrerStuhl.position,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht!"

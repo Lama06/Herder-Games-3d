@@ -173,7 +173,7 @@ namespace HerderGames.Lehrer.Brains
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar()),
+                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
                     position: Drucker.position,
                     saetzeWeg: druckenWeg,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
