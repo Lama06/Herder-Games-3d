@@ -3,16 +3,18 @@ using UnityEngine;
 namespace HerderGames.Player
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Player))]
     public class PlayerMovementKeyboard : MonoBehaviour
     {
         [SerializeField] private float Speed;
-        [SerializeField] private Player Player;
-        
+
+        private Player Player;
         private CharacterController Controller;
 
         private void Awake()
         {
 #if UNITY_STANDALONE
+            Player = GetComponent<Player>();
             Controller = GetComponent<CharacterController>();
 #endif
         }

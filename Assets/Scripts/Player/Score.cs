@@ -6,7 +6,7 @@ namespace HerderGames.Player
     [RequireComponent(typeof(Player))]
     public class Score : MonoBehaviour, PersistentDataContainer
     {
-        public int SchadenFuerDieSchule;
+        public int SchadenFuerDieSchule { get; set; }
 
         private const string SaveKey = "player.schaden";
 

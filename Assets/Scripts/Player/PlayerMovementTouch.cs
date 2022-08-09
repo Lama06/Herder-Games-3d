@@ -4,17 +4,19 @@ using UnityEngine;
 namespace HerderGames.Player
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Player))]
     public class PlayerMovementTouch : MonoBehaviour
     {
         [SerializeField] private float Sensitivity;
         [SerializeField] private float MaxSpeed;
-        [SerializeField] private Player Player;
 
+        private Player Player;
         private CharacterController Controller;
 
         private void Awake()
         {
 #if UNITY_ANDROID || UNITY_IOS
+            Player = GetComponent<Player>();
             Controller = GetComponent<CharacterController>();
 #endif
         }

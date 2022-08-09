@@ -6,7 +6,8 @@ namespace HerderGames.Player
     [RequireComponent(typeof(Player))]
     public class GeldManager : MonoBehaviour, PersistentDataContainer
     {
-        public int Geld;
+        [SerializeField] private int StartGeld;
+        public int Geld { get; set; }
 
         public bool Pay(int amount)
         {
@@ -33,7 +34,7 @@ namespace HerderGames.Player
 
         public void LoadData()
         {
-            Geld = PlayerPrefs.GetInt(SaveKey);
+            Geld = PlayerPrefs.GetInt(SaveKey, StartGeld);
         }
 
         public void DeleteData()
