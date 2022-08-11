@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 2352996632339214140}
   - component: {fileID: 2026670740945909392}
   - component: {fileID: 745057620131367564}
-  - component: {fileID: 6660778371000966408}
+  - component: {fileID: 1529081043042424234}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 237
+  m_VersionIndex: 240
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -363,7 +363,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1366637573892485416}
   m_Mesh: {fileID: 0}
---- !u!64 &6660778371000966408
+--- !u!64 &1529081043042424234
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 3479094605054847837}
   - component: {fileID: 2748418847885009007}
   - component: {fileID: 1424807554592911498}
-  - component: {fileID: 8942161094565322796}
+  - component: {fileID: 6480848098961730678}
   m_Layer: 0
   m_Name: Rahmen
   m_TagString: Untagged
@@ -2206,12 +2206,12 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 17
+  m_VersionIndex: 20
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!64 &8942161094565322796
+--- !u!64 &6480848098961730678
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
