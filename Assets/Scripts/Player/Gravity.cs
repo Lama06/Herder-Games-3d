@@ -7,16 +7,10 @@ namespace HerderGames.Player
     [RequireComponent(typeof(CharacterController))]
     public class Gravity : MonoBehaviour
     {
-        [SerializeField] private Transform GroundCheckPosition;
-        [SerializeField] private float GroundCheckRadius;
         [SerializeField] private float FallSpeedIncrease;
-
         private CharacterController CharacterController;
-        
         private float FallSpeed;
 
-        private bool IsOnGround => Physics.CheckSphere(GroundCheckPosition.position, GroundCheckRadius);
-        
         private void Awake()
         {
             CharacterController = GetComponent<CharacterController>();
@@ -24,9 +18,9 @@ namespace HerderGames.Player
 
         private void Update()
         {
-            if (!IsOnGround)
+            if (!CharacterController.isGrounded)
             {
-                FallSpeed += FallSpeedIncrease;
+                FallSpeed += FallSpeedIncrease * Time.deltaTime;
                 CharacterController.Move(new Vector3(0f, -FallSpeed * Time.deltaTime, 0f));
             }
             else
