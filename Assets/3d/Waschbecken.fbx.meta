@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -37,7 +37,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
@@ -80,7 +80,57 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Waschbecken(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cube
+      parentName: Waschbecken(Clone)
+      position: {x: -0, y: 0.29246634, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.24219656, y: 0.24219656, z: 0.24219656}
+    - name: Cylinder
+      parentName: Waschbecken(Clone)
+      position: {x: -0.18688038, y: 0.25313842, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.02212019, y: 0.02212019, z: 0.039573625}
+    - name: Cylinder.001
+      parentName: Waschbecken(Clone)
+      position: {x: 0.08368264, y: 0.020760626, z: -0.0076692104}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.015600207, y: 0.024027444, z: 0.0396111}
+    - name: Cylinder.002
+      parentName: Waschbecken(Clone)
+      position: {x: 0.046951562, y: 0.024786018, z: 0.09807334}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: -0.026440248, y: -0.026440248, z: -0.026440248}
+    - name: Cylinder.003
+      parentName: Waschbecken(Clone)
+      position: {x: -0.19769013, y: 0.21267341, z: 0.1073353}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 0.013555663, y: 0.013555663, z: 0.013555663}
+    - name: Cylinder.004
+      parentName: Waschbecken(Clone)
+      position: {x: -0.19727798, y: 0.2526028, z: 0.10713919}
+      rotation: {x: -0.61537945, y: -0.34829313, z: 0.34829313, w: 0.6153795}
+      scale: {x: 0.005118703, y: 0.005118702, z: 0.005118703}
+    - name: Cylinder.005
+      parentName: Waschbecken(Clone)
+      position: {x: -0.18965866, y: 0.24705674, z: 0.08925198}
+      rotation: {x: 0.000000021855694, y: -2.74302e-16, z: -0.000000012550597, w: 1}
+      scale: {x: 0.005118703, y: 0.005118702, z: 0.005118703}
+    - name: Cylinder.006
+      parentName: Waschbecken(Clone)
+      position: {x: -0.18965866, y: 0.24705674, z: 0.11906669}
+      rotation: {x: 0.000000021855694, y: -2.74302e-16, z: -0.000000012550597, w: 1}
+      scale: {x: 0.005118703, y: 0.005118702, z: 0.005118703}
+    - name: Cylinder.007
+      parentName: Waschbecken(Clone)
+      position: {x: -0.1767748, y: 0.23820417, z: 0.10663862}
+      rotation: {x: -0.6293462, y: -0.32237142, z: 0.32237142, w: 0.62934625}
+      scale: {x: 0.005118703, y: 0.005118702, z: 0.005118703}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -91,7 +141,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
