@@ -8,8 +8,8 @@ using UnityEngine.AI;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(Renderer))]
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(InDerSchuleStatus))]
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(VergiftungsManager))]
@@ -25,8 +25,8 @@ namespace HerderGames.Lehrer
 
         public string Name => _Name;
         public string Id => _Id;
-        public Renderer Renderer { get; private set; }
         public NavMeshAgent Agent { get; private set; }
+        public Animator Animator { get; private set; }
         public InDerSchuleStatus InSchule { get; private set; }
         public Reputation Reputation { get; private set; }
         public VergiftungsManager Vergiftung { get; private set; }
@@ -40,8 +40,8 @@ namespace HerderGames.Lehrer
         
         private void Awake()
         {
-            Renderer = GetComponent<Renderer>();
             Agent = GetComponent<NavMeshAgent>();
+            Animator = GetComponent<Animator>();
             InSchule = GetComponent<InDerSchuleStatus>();
             Reputation = GetComponent<Reputation>();
             Vergiftung = GetComponent<VergiftungsManager>();

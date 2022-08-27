@@ -14,6 +14,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly float MaxiamleHoeheProMinute;
         private readonly float LaengeDerPause;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
+        private readonly AnimationType Animation;
         
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
@@ -25,7 +26,8 @@ namespace HerderGames.Lehrer.AI.Goals
             float maximaleDistanzProMinute,
             float maxiamleHoeheProMinute,
             float laengeDerPause,
-            ISaetzeMoeglichkeitenMehrmals saetze = null
+            ISaetzeMoeglichkeitenMehrmals saetze = null,
+            AnimationType animation = AnimationType.IDLE
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -33,6 +35,7 @@ namespace HerderGames.Lehrer.AI.Goals
             MaxiamleHoeheProMinute = maxiamleHoeheProMinute;
             LaengeDerPause = laengeDerPause;
             Saetze = saetze;
+            Animation = animation;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -56,6 +59,7 @@ namespace HerderGames.Lehrer.AI.Goals
             DistanzLetzeMinute.Clear();
             HoeheLetzteMinute.Clear();
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
+            Lehrer.Animator.Play(Animation.AnimationName());
             yield return new WaitForSeconds(LaengeDerPause);
             Fertig = true;
         }

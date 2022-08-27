@@ -5,7 +5,7 @@ namespace HerderGames.Lehrer
     [RequireComponent(typeof(Lehrer))]
     public class InDerSchuleStatus : MonoBehaviour
     {
-        [SerializeField] private bool Status = true;
+        private bool Status;
 
         private Lehrer Lehrer;
 
@@ -16,7 +16,7 @@ namespace HerderGames.Lehrer
 
         private void Start()
         {
-            InSchule = Status;
+            InSchule = true;
         }
 
         public bool InSchule
@@ -30,7 +30,10 @@ namespace HerderGames.Lehrer
                     collider.enabled = value;
                 }
 
-                Lehrer.Renderer.enabled = value;
+                foreach (var renderer in Lehrer.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = value;
+                }
 
                 // Der NavMeshAgent Component muss deaktiviert werden, weil sonst andere Lehrer nicht zum Ausgang navigieren können,
                 // wenn dort bereits ein anderer Lehrer steht, weil die beiden NavMeshAgents nicht kollidiren wollen (obwohl

@@ -1,4 +1,5 @@
 using System.Collections;
+using HerderGames.Lehrer;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI
@@ -35,6 +36,7 @@ namespace HerderGames.Lehrer.AI
             Lehrer.AI.StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             Lehrer.Agent.destination = Lehrer.transform.position;
+            Lehrer.Animator.Play(AnimationType.IDLE.AnimationName());
         }
 
         protected virtual void OnGoalEnd()

@@ -283,7 +283,8 @@ namespace HerderGames.Lehrer.Brains
                 saetze: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: Ich brauche mal eine kurze Pause",
                     "Hand aufs Herz: Wir alle sind auch mal erschöpft!"
-                )
+                ),
+                animation: AnimationType.PAIN
             ));
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol
