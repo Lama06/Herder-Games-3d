@@ -1,6 +1,7 @@
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -13,8 +14,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
-        private readonly AnimationType AnimationWeg;
-        private readonly AnimationType AnimationAngekommen;
+        private readonly AbstractAnimation AnimationWeg;
+        private readonly AbstractAnimation AnimationAngekommen;
 
         public MoveToAndStandAtGoal(
             Lehrer lehrer,
@@ -23,8 +24,8 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
-            AnimationType animationWeg = AnimationType.WALKING,
-            AnimationType animationAngekommen = AnimationType.IDLE
+            AbstractAnimation animationWeg = null,
+            AbstractAnimation animationAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -43,11 +44,11 @@ namespace HerderGames.Lehrer.AI.Goals
 
         protected override IEnumerator Execute()
         {
-            Lehrer.Animator.Play(AnimationWeg.AnimationName());
+            Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = Position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            Lehrer.Animator.Play(AnimationAngekommen.AnimationName());
+            Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
         }

@@ -1,5 +1,6 @@
 using System;
 using HerderGames.Lehrer.AI;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Util;
@@ -10,6 +11,7 @@ namespace HerderGames.Lehrer
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AnimationManager))]
     [RequireComponent(typeof(InDerSchuleStatus))]
     [RequireComponent(typeof(Reputation))]
     [RequireComponent(typeof(VergiftungsManager))]
@@ -27,6 +29,7 @@ namespace HerderGames.Lehrer
         public string Id => _Id;
         public NavMeshAgent Agent { get; private set; }
         public Animator Animator { get; private set; }
+        public AnimationManager AnimationManager { get; private set; }
         public InDerSchuleStatus InSchule { get; private set; }
         public Reputation Reputation { get; private set; }
         public VergiftungsManager Vergiftung { get; private set; }
@@ -42,6 +45,7 @@ namespace HerderGames.Lehrer
         {
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
+            AnimationManager = GetComponent<AnimationManager>();
             InSchule = GetComponent<InDerSchuleStatus>();
             Reputation = GetComponent<Reputation>();
             Vergiftung = GetComponent<VergiftungsManager>();

@@ -36,7 +36,7 @@ namespace HerderGames.Lehrer.AI
             Lehrer.AI.StopCoroutine(ExecuteCoroutine);
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             Lehrer.Agent.destination = Lehrer.transform.position;
-            Lehrer.Animator.Play(AnimationType.IDLE.AnimationName());
+            Lehrer.AnimationManager.CurrentAnimation = null;
         }
 
         protected virtual void OnGoalEnd()

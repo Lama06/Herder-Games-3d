@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly float MaxiamleHoeheProMinute;
         private readonly float LaengeDerPause;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
-        private readonly AnimationType Animation;
+        private readonly AbstractAnimation Animation;
         
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
@@ -27,7 +28,7 @@ namespace HerderGames.Lehrer.AI.Goals
             float maxiamleHoeheProMinute,
             float laengeDerPause,
             ISaetzeMoeglichkeitenMehrmals saetze = null,
-            AnimationType animation = AnimationType.IDLE
+            AbstractAnimation animation = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -59,7 +60,7 @@ namespace HerderGames.Lehrer.AI.Goals
             DistanzLetzeMinute.Clear();
             HoeheLetzteMinute.Clear();
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
-            Lehrer.Animator.Play(Animation.AnimationName());
+            Lehrer.AnimationManager.CurrentAnimation = Animation;
             yield return new WaitForSeconds(LaengeDerPause);
             Fertig = true;
         }

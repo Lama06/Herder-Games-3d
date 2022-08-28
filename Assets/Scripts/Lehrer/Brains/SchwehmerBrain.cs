@@ -1,6 +1,7 @@
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;

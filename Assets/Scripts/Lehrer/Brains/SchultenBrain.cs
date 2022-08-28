@@ -1,6 +1,7 @@
 using HerderGames.Lehrer.AI;
 using HerderGames.Lehrer.AI.Goals;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Fragen;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
@@ -84,6 +85,22 @@ namespace HerderGames.Lehrer.Brains
 
             #endregion
 
+            #region Animationen
+
+            var gehenAnimation = new ShuffleAnimation(
+                new ShuffleAnimation.Choice(3,
+                    new RepeatAnimation(
+                        new TimelineAnimation(
+                            new SimpleAnimation(AnimationType.GehenKrank, 3f),
+                            new SimpleAnimation(AnimationType.Rueckenschmerzen, 3f)
+                        )
+                    )
+                ),
+                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.SchmerzBoden, 4f))
+            );
+
+            #endregion
+
             var unterrichtVerspaetung = (-5f).MinutesToHours();
             var unterrichtUeberziehung = 5f.MinutesToHours();
 
@@ -98,7 +115,8 @@ namespace HerderGames.Lehrer.Brains
                     reputationsAenderungBeiFehlzeit: -1f,
                     saetzeAufDemWegZumRaum: unterrichtWeg,
                     saetzeBegruessung: unterrichtBegruessung,
-                    saetzeWaehrendUnterricht: unterrichtSaetze
+                    saetzeWaehrendUnterricht: unterrichtSaetze,
+                    animationWeg: gehenAnimation
                 ));
             }
 
@@ -110,7 +128,8 @@ namespace HerderGames.Lehrer.Brains
                     position: UnterrichtStandpunkt.position,
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
-                    saetzeAngekommen: unterrichtSaetze
+                    saetzeAngekommen: unterrichtSaetze,
+                    animationWeg: gehenAnimation
                 ));
             }
 
@@ -130,7 +149,8 @@ namespace HerderGames.Lehrer.Brains
                         "Jetzt müsst ihr leider zugucken wie ich rauche weil ich meine Sucht nicht für eine Minute länger unterdrücken kann",
                         "Hoppala, wo sind denn die ganzen Zigaretten hin? Naja dann muss ich gleich halt noch mal zu E202",
                         "Ohgottogottogott Diese Warnhinweise machen wir ja schon Angst!"
-                    )
+                    ),
+                    animationWeg: gehenAnimation
                 ));
             }
 
@@ -283,8 +303,7 @@ namespace HerderGames.Lehrer.Brains
                 saetze: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: Ich brauche mal eine kurze Pause",
                     "Hand aufs Herz: Wir alle sind auch mal erschöpft!"
-                ),
-                animation: AnimationType.PAIN
+                )
             ));
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol

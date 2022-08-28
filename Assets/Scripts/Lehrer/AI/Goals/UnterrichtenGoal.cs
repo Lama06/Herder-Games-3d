@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
 using HerderGames.Zeit;
@@ -17,6 +18,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWegZumRaum;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeBegruessung;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWaehrendUnterricht;
+        private readonly AbstractAnimation AnimationWeg;
+        private readonly AbstractAnimation AnimationAngekommen;
 
         public bool LehrerArrived { get; private set; }
         public bool SchuelerFreigestelltDieseStunde { get; set; }
@@ -32,7 +35,9 @@ namespace HerderGames.Lehrer.AI.Goals
             float reputationsAenderungBeiFehlzeit,
             ISaetzeMoeglichkeitenMehrmals saetzeAufDemWegZumRaum = null,
             ISaetzeMoeglichkeitenEinmalig saetzeBegruessung = null,
-            ISaetzeMoeglichkeitenMehrmals saetzeWaehrendUnterricht = null
+            ISaetzeMoeglichkeitenMehrmals saetzeWaehrendUnterricht = null,
+            AbstractAnimation animationWeg = null,
+            AbstractAnimation animationAngekommen = null
         ) : base(lehrer)
         {
             UnterrichtsRaum = unterrichtsRaum;
@@ -43,6 +48,8 @@ namespace HerderGames.Lehrer.AI.Goals
             SaetzeAufDemWegZumRaum = saetzeAufDemWegZumRaum;
             SaetzeBegruessung = saetzeBegruessung;
             SaetzeWaehrendUnterricht = saetzeWaehrendUnterricht;
+            AnimationWeg = animationWeg;
+            AnimationAngekommen = animationAngekommen;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -66,10 +73,11 @@ namespace HerderGames.Lehrer.AI.Goals
 
         public IEnumerator GoToRoom()
         {
+            Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWegZumRaum;
             Lehrer.Agent.destination = Standpunkt;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
-            yield return new WaitForSeconds(5);
+            Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeBegruessung);
             LehrerArrived = true;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWaehrendUnterricht;
