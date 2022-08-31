@@ -10,7 +10,7 @@ namespace HerderGames.Lehrer.Animation
         private readonly AnimationType Animation;
         private readonly float Seconds;
 
-        public SimpleAnimation(AnimationType animation, float seconds)
+        public SimpleAnimation(AnimationType animation, float seconds = float.PositiveInfinity)
         {
             Animation = animation;
             Seconds = seconds;

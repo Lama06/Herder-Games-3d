@@ -47,15 +47,17 @@ namespace HerderGames.Lehrer.Animation
 
         private void Update()
         {
-            if (_CurrentAnimation == null)
-            {
-                return;
-            }
+            var animationClip = Lehrer.Animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+            var animationSpeed = animationClip.averageSpeed;
+            Lehrer.Agent.speed = animationSpeed.x + animationSpeed.z;
 
-            var success = _CurrentAnimation.Enumerator.MoveNext();
-            if (!success)
+            if (_CurrentAnimation != null)
             {
-                _CurrentAnimation = null;
+                var success = _CurrentAnimation.Enumerator.MoveNext();
+                if (!success)
+                {
+                    _CurrentAnimation = null;
+                }   
             }
         }
 

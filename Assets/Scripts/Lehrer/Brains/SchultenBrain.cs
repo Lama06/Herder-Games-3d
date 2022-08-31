@@ -87,17 +87,16 @@ namespace HerderGames.Lehrer.Brains
 
             #region Animationen
 
-            var gehenAnimation = new ShuffleAnimation(
-                new ShuffleAnimation.Choice(3,
-                    new RepeatAnimation(
-                        new TimelineAnimation(
-                            new SimpleAnimation(AnimationType.GehenKrank, 3f),
-                            new SimpleAnimation(AnimationType.Rueckenschmerzen, 3f)
-                        )
-                    )
-                ),
-                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.SchmerzBoden, 4f))
-            );
+            var idleAnimation = new SimpleAnimation(AnimationType.Stehen);
+
+            var gehenAnimation = new SimpleAnimation(AnimationType.GehenKrank);
+
+            var unterrichtenAnimation = new RepeatAnimation(new ShuffleAnimation(
+                new ShuffleAnimation.Choice(10, new SimpleAnimation(AnimationType.Reden, 5)),
+                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.RedenAggressiv, 10)),
+                new ShuffleAnimation.Choice(2, new SimpleAnimation(AnimationType.Rueckenschmerzen, 5)),
+                new ShuffleAnimation.Choice(2, new SimpleAnimation(AnimationType.Stehen, 8))
+            ));
 
             #endregion
 
@@ -116,7 +115,8 @@ namespace HerderGames.Lehrer.Brains
                     saetzeAufDemWegZumRaum: unterrichtWeg,
                     saetzeBegruessung: unterrichtBegruessung,
                     saetzeWaehrendUnterricht: unterrichtSaetze,
-                    animationWeg: gehenAnimation
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimation
                 ));
             }
 
@@ -129,7 +129,8 @@ namespace HerderGames.Lehrer.Brains
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
                     saetzeAngekommen: unterrichtSaetze,
-                    animationWeg: gehenAnimation
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimation
                 ));
             }
 
@@ -150,7 +151,12 @@ namespace HerderGames.Lehrer.Brains
                         "Hoppala, wo sind denn die ganzen Zigaretten hin? Naja dann muss ich gleich halt noch mal zu E202",
                         "Ohgottogottogott Diese Warnhinweise machen wir ja schon Angst!"
                     ),
-                    animationWeg: gehenAnimation
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: new RepeatAnimation(new ShuffleAnimation(
+                        new ShuffleAnimation.Choice(3, new SimpleAnimation(AnimationType.Rauchen, 20)),
+                        new ShuffleAnimation.Choice(4, new SimpleAnimation(AnimationType.Rueckenschmerzen, 3)),
+                        new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.Stehen, 5))
+                    ))
                 ));
             }
 
@@ -168,7 +174,9 @@ namespace HerderGames.Lehrer.Brains
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Jetzt mal ganz ehrlich: Kaffee tut gut!",
                         "Jetzt mal ganz ehrlich: Wir alle trinken auch mal Kaffee"
-                    )
+                    ),
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: new SimpleAnimation(AnimationType.Trinken)
                 ));
             }
 
@@ -185,7 +193,9 @@ namespace HerderGames.Lehrer.Brains
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Komisch, warum liegt denn gar nichts in meinem Fach. " +
                         "Ich bin doch gestern schon als letzte gegangen und heute erst als erste wieder in die Schule gekommen"
-                    )
+                    ),
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: idleAnimation
                 ));
             }
 
@@ -199,7 +209,9 @@ namespace HerderGames.Lehrer.Brains
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Ohgottogottogott, warum kann Ich denn nichts drucken? Warum funktioniert das Internet denn nicht?",
                         "Das Internet funktioniert nicht jetzt kann ich gar nicht meine hunterttausend Arbeitsblätter ausfrucken!"
-                    )
+                    ),
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: idleAnimation
                 ));
 
                 ai.AddGoal(new MoveToAndStandAtGoal(
@@ -210,7 +222,9 @@ namespace HerderGames.Lehrer.Brains
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Hoppala, warum ist mein Druckerkontingent denn schon aufgebraucht?",
                         "Wie kann mein Druckerkontigent denn schon leer sein?? Ich drucke doch nur täglich ca 2000 Blätter. Das sollte doch eigentlich drinnen sein!"
-                    )
+                    ),
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: idleAnimation
                 ));
             }
 
@@ -224,7 +238,8 @@ namespace HerderGames.Lehrer.Brains
                     saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                         "Ich muss noch mal kurz zu E202 und dort Zigarre...Äähm...etwas holen.",
                         "Ich hab meine Schlangenledertasche in E202 vergessen."
-                    )
+                    ),
+                    animationBeimVerlassen: gehenAnimation
                 ));
             }
 
@@ -269,14 +284,16 @@ namespace HerderGames.Lehrer.Brains
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich, Wir alle wollen auch mal frei haben!",
                     "Hand aufs Herz: Den Feierabend hab ich mir verdient!"
-                )
+                ),
+                animationBeimVerlassen: gehenAnimation
             ));
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Normal
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                 eingang: SchuleHaupteingang.position,
-                ausgang: SchuleHaupteingang.position
+                ausgang: SchuleHaupteingang.position,
+                animationBeimVerlassen: gehenAnimation
             ));
 
             ai.AddGoal(new MoveToAndStandAtGoal( // Feueralarm
@@ -291,19 +308,25 @@ namespace HerderGames.Lehrer.Brains
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Oh nein! Ich habe meine Zigaretten im Raum vergessen!",
                     "Dass ich das auf meine alten Tage noch erleben muss!"
-                )
+                ),
+                animationWeg: new SimpleAnimation(AnimationType.BetrunkenRennen),
+                animationAngekommen: idleAnimation
             ));
 
             ai.AddGoal(new ErschoepfungGoal(
                 lehrer: Lehrer,
                 trigger: new AlwaysTrueTrigger(),
-                maxiamleHoeheProMinute: 15f,
+                maxiamleHoeheProMinute: 5f,
                 maximaleDistanzProMinute: 40f,
                 laengeDerPause: 3.5f,
                 saetze: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: Ich brauche mal eine kurze Pause",
                     "Hand aufs Herz: Wir alle sind auch mal erschöpft!"
-                )
+                ),
+                animation: new RepeatAnimation(new TimelineAnimation(
+                    new SimpleAnimation(AnimationType.SchmerzBoden, 6),
+                    new SimpleAnimation(AnimationType.Rueckenschmerzen, 4)
+                ))
             ));
 
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol
@@ -316,7 +339,8 @@ namespace HerderGames.Lehrer.Brains
                     "Mmmhhhhm Ich mag mein Orthomol!",
                     "Jetzt mal ganz ehrlich wir alle müssen mal auf Toilette",
                     "Hand aufs Herz: Ich hab zu viele Fressalien gegessen"
-                )
+                ),
+                animationBeimVerlassen: gehenAnimation
             ));
 
             ai.AddGoal(new VerbrechenErkennenGoal(
@@ -325,7 +349,9 @@ namespace HerderGames.Lehrer.Brains
                 player: Player,
                 reaktion: new SaetzeMoeglichkeitenEinmalig(
                     "Hey Was machst du denn da? Ich bin sauer! Nein ich bin wütend"
-                )
+                ),
+                animationWeg: new SimpleAnimation(AnimationType.BetrunkenRennen),
+                animationAngekommen: new SimpleAnimation(AnimationType.RedenAggressiv)
             ));
 
             ai.AddGoal(new VerbrechenMeldenGoal(
@@ -351,7 +377,9 @@ namespace HerderGames.Lehrer.Brains
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: So kann das nicht weiter gehen!",
                     "Ich bin sauer! Nein das sind nur Zitronen. Ich bin wütend!"
-                )
+                ),
+                animationWeg: gehenAnimation,
+                animationAngekommen: new SimpleAnimation(AnimationType.RedenAggressiv)
             ));
 
             #endregion

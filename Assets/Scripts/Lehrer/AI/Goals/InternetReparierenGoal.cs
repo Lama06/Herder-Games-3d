@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using HerderGames.Schule;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly AbstractAnimation AnimationWeg;
+        private readonly AbstractAnimation AnimationAngekommen;
 
         private bool Fertig;
         private LanDose LanDose;
@@ -23,7 +26,9 @@ namespace HerderGames.Lehrer.AI.Goals
             InternetManager internet,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
-            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
+            AbstractAnimation animationWeg = null,
+            AbstractAnimation animationAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -31,6 +36,8 @@ namespace HerderGames.Lehrer.AI.Goals
             SaetzeWeg = saetzeWeg;
             SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
+            AnimationWeg = animationWeg;
+            AnimationAngekommen = animationAngekommen;
         }
 
         private LanDose MicInVision
@@ -68,12 +75,13 @@ namespace HerderGames.Lehrer.AI.Goals
         protected override IEnumerator Execute()
         {
             Fertig = false;
+            Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.Agent.destination = LanDose.transform.position;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
-            yield return new WaitForSeconds(3f);
             LanDose.Mic = false;
             Fertig = true;
         }

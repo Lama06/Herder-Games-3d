@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -11,19 +12,22 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly Vector3 Eingang;
         private readonly Vector3 Ausgang;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
+        private readonly AbstractAnimation AnimationBeimVerlassen;
 
         public SchuleVerlassenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             Vector3 eingang,
             Vector3 ausgang,
-            ISaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen = null
+            ISaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen = null,
+            AbstractAnimation animationBeimVerlassen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
             Eingang = eingang;
             Ausgang = ausgang;
             SaetzeBeimVerlassen = saetzeBeimVerlassen;
+            AnimationBeimVerlassen = animationBeimVerlassen;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -34,6 +38,7 @@ namespace HerderGames.Lehrer.AI.Goals
         protected override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeBeimVerlassen;
+            Lehrer.AnimationManager.CurrentAnimation = AnimationBeimVerlassen;
             Lehrer.Agent.destination = Ausgang;
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
             Lehrer.InSchule.InSchule = false;

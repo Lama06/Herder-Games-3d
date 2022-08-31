@@ -12,7 +12,10 @@ namespace HerderGames.Lehrer.Animation
         Reden,
         Rueckenschmerzen,
         SchmerzBoden,
-        Winken
+        Winken,
+        Trinken,
+        BetrunkenRennen,
+        Aggressiv
     }
 
     public static class AnimationTypeExtensions
@@ -30,6 +33,9 @@ namespace HerderGames.Lehrer.Animation
                 AnimationType.Rueckenschmerzen => "Rückenschmerzen",
                 AnimationType.SchmerzBoden => "Schmerz Boden",
                 AnimationType.Winken => "Winken",
+                AnimationType.Trinken => "Trinken",
+                AnimationType.BetrunkenRennen => "Betrunken Rennen",
+                AnimationType.Aggressiv => "Aggressiv",
                 _ => throw new ArgumentOutOfRangeException(nameof(animationType), animationType, null)
             };
         }

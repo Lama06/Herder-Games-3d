@@ -1,5 +1,6 @@
 using System.Collections;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
+        private readonly AbstractAnimation AnimationWeg;
+        private readonly AbstractAnimation AnimationAngekommen;
 
         private bool Fertig;
         
@@ -23,7 +26,9 @@ namespace HerderGames.Lehrer.AI.Goals
             Vector3 schulleitungsBuero,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
-            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null
+            ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
+            AbstractAnimation animationWeg = null,
+            AbstractAnimation animationAngekommen = null
         ) : base(lehrer)
         {
             Trigger = trigger;
@@ -32,6 +37,8 @@ namespace HerderGames.Lehrer.AI.Goals
             SaetzeWeg = saetzeWeg;
             SaetzeAngekommenEinmalig = saetzeAngekommenEinmalig;
             SaetzeAngekommen = saetzeAngekommen;
+            AnimationWeg = animationWeg;
+            AnimationAngekommen = animationAngekommen;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -53,11 +60,17 @@ namespace HerderGames.Lehrer.AI.Goals
         {
             Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
+            Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Agent.destination = SchulleitungsBuero;
+            
             yield return NavMeshUtil.WaitForNavMeshAgentToArrive(Lehrer.Agent);
+            
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
+            Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
+            
             yield return new WaitForSeconds(5);
+            
             Player.Verwarnungen.Add();
             Lehrer.Reputation.ResetAfterMelden();
             Fertig = true;

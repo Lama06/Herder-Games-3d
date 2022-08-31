@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
+using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
 using UnityEngine;
 
@@ -11,17 +12,20 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly TriggerBase Trigger;
         private readonly IList<Vector3> Punkte;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
+        private readonly AbstractAnimation Animation;
 
         public PatrolienrouteAbgehenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             IList<Vector3> punkte,
-            ISaetzeMoeglichkeitenMehrmals saetze = null
+            ISaetzeMoeglichkeitenMehrmals saetze = null,
+            AbstractAnimation animation = null
         ) : base(lehrer)
         {
             Trigger = trigger;
             Punkte = punkte;
             Saetze = saetze;
+            Animation = animation;
         }
 
         public override bool ShouldRun(bool currentlyRunning)
@@ -32,6 +36,8 @@ namespace HerderGames.Lehrer.AI.Goals
         protected override IEnumerator Execute()
         {
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
+            Lehrer.AnimationManager.CurrentAnimation = Animation;
+            
             while (true)
             {
                 foreach (var punkt in Punkte)

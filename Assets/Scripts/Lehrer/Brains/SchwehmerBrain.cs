@@ -68,6 +68,11 @@ namespace HerderGames.Lehrer.Brains
                 "Ich bräuchte mal eine Feder"
             );
 
+            var unterrichtKeinInternet = new SaetzeMoeglichkeitenMehrmals(
+                "Ach das Internet geht schon wieder nicht! Das trage ich direkt in meine Tabelle ein!",
+                "Das Internet ist wieder kaputt! Ich sage doch, wir müssen die Digitalisierung rückgängig machen dann kriegen wir mal wieder richtig Stoff durch!"
+            );
+
             var rauchenWeg = new SaetzeMoeglichkeitenMehrmals(
                 "Ich hab ja noch 5 Minuten, da kann ich ja noch eine Rauchen gehen"
             );
@@ -82,6 +87,30 @@ namespace HerderGames.Lehrer.Brains
 
             #endregion
 
+            #region Animationen
+
+            var gehenAnimation = new SimpleAnimation(AnimationType.Gehen);
+
+            var unterrichtenAnimationNormal = new RepeatAnimation(new ShuffleAnimation(
+                new ShuffleAnimation.Choice(10, new SimpleAnimation(AnimationType.Reden, 7f)),
+                new ShuffleAnimation.Choice(2, new SimpleAnimation(AnimationType.RedenAggressiv, 7f)),
+                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.Stehen, 7f))
+            ));
+
+            var unterrichtenAnimationKeinInternet = new RepeatAnimation(new ShuffleAnimation(
+                new ShuffleAnimation.Choice(10, new SimpleAnimation(AnimationType.RedenAggressiv, 7f)),
+                new ShuffleAnimation.Choice(2, new SimpleAnimation(AnimationType.Reden, 7f)),
+                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.Stehen, 7f))
+            ));
+
+            var unterrichtenAnimationKrank = new RepeatAnimation(new ShuffleAnimation(
+                new ShuffleAnimation.Choice(10, new SimpleAnimation(AnimationType.Stehen, 7f)),
+                new ShuffleAnimation.Choice(2, new SimpleAnimation(AnimationType.RedenAggressiv, 7f)),
+                new ShuffleAnimation.Choice(1, new SimpleAnimation(AnimationType.Stehen, 7f))
+            ));
+
+            #endregion
+
             void Unterrichten(WoechentlicheZeitspannen wann, UnterrichtenGoal.StundenData stunde)
             {
                 ai.AddGoal(new UnterrichtenGoal(
@@ -93,7 +122,9 @@ namespace HerderGames.Lehrer.Brains
                     reputationsAenderungBeiFehlzeit: -0.2f,
                     saetzeAufDemWegZumRaum: unterrichtWegKrank,
                     saetzeBegruessung: unterrichtBegruessung,
-                    saetzeWaehrendUnterricht: unterrichtKrank
+                    saetzeWaehrendUnterricht: unterrichtKrank,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationKrank
                 ));
 
                 ai.AddGoal(new UnterrichtenGoal(
@@ -105,10 +136,9 @@ namespace HerderGames.Lehrer.Brains
                     reputationsAenderungBeiFehlzeit: -0.4f,
                     saetzeAufDemWegZumRaum: unterrichtWeg,
                     saetzeBegruessung: unterrichtBegruessung,
-                    saetzeWaehrendUnterricht: new SaetzeMoeglichkeitenMehrmals(
-                        "Ach das Internet geht schon wieder nicht! Das trage ich direkt in meine Tabelle ein!",
-                        "Das Internet ist wieder kaputt! Ich sage doch, wir müssen die Digitalisierung rückgängig machen dann kriegen wir mal wieder richtig Stoff durch!"
-                    )
+                    saetzeWaehrendUnterricht: unterrichtKeinInternet,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationKeinInternet
                 ));
 
                 ai.AddGoal(new UnterrichtenGoal(
@@ -120,7 +150,9 @@ namespace HerderGames.Lehrer.Brains
                     reputationsAenderungBeiFehlzeit: -0.4f,
                     saetzeAufDemWegZumRaum: unterrichtWeg,
                     saetzeBegruessung: unterrichtBegruessung,
-                    saetzeWaehrendUnterricht: unterricht
+                    saetzeWaehrendUnterricht: unterricht,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationNormal
                 ));
             }
 
@@ -133,6 +165,17 @@ namespace HerderGames.Lehrer.Brains
                     saetzeWeg: unterrichtWegKrank,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
                     saetzeAngekommen: unterrichtKrank
+                ));
+                
+                ai.AddGoal(new MoveToAndStandAtGoal(
+                    lehrer: Lehrer,
+                    position: UnterrichtsStandpunkt.position,
+                    trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
+                    saetzeWeg: unterrichtWeg,
+                    saetzeAngekommenEinmalig: unterrichtBegruessung,
+                    saetzeAngekommen: unterrichtKeinInternet,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationKeinInternet
                 ));
 
                 ai.AddGoal(new MoveToAndStandAtGoal(
@@ -280,7 +323,7 @@ namespace HerderGames.Lehrer.Brains
                     "Ich muss mal dringend auf Toilette eilen"
                 )
             ));
-            
+
             ai.AddGoal(new VerbrechenErkennenGoal(
                 lehrer: Lehrer,
                 trigger: new AlwaysTrueTrigger(),
@@ -289,19 +332,19 @@ namespace HerderGames.Lehrer.Brains
                     "Ich bin ein böster Drache und ich werde dich fressen, wenn du das nochmal machst"
                 )
             ));
-            
+
             ai.AddGoal(new VerbrechenMeldenGoal(
                 lehrer: Lehrer,
                 trigger: new ZeitspanneTrigger(
                     TimeManager,
                     new WoechentlicheZeitspannen(
-                            new WoechentlicheZeitspannen.Eintrag(
-                                new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
-                                new WoechentlicheZeitspannen.Zeitspanne(
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
-                                    new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
-                                )
+                        new WoechentlicheZeitspannen.Eintrag(
+                            new EigenschaftWochentagAuswahl(WochentagEigenschaft.Schultag),
+                            new WoechentlicheZeitspannen.Zeitspanne(
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 0f),
+                                new WoechentlicheZeitspannen.Zeitpunkt(new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), 0f)
                             )
+                        )
                     )
                 ),
                 player: Player,
