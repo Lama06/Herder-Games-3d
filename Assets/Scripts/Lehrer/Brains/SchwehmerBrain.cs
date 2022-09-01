@@ -164,7 +164,9 @@ namespace HerderGames.Lehrer.Brains
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                     saetzeWeg: unterrichtWegKrank,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
-                    saetzeAngekommen: unterrichtKrank
+                    saetzeAngekommen: unterrichtKrank,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationKrank
                 ));
                 
                 ai.AddGoal(new MoveToAndStandAtGoal(
@@ -184,7 +186,9 @@ namespace HerderGames.Lehrer.Brains
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager)),
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
-                    saetzeAngekommen: unterricht
+                    saetzeAngekommen: unterricht,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: unterrichtenAnimationNormal
                 ));
             }
 
@@ -195,7 +199,11 @@ namespace HerderGames.Lehrer.Brains
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
                     position: position,
                     saetzeWeg: rauchenWeg,
-                    saetzeAngekommen: rauchen
+                    saetzeAngekommen: rauchen,
+                    animationWeg: gehenAnimation,
+                    animationAngekommen: new RepeatAnimation(new ShuffleAnimation(
+                        new ShuffleAnimation.Choice() 
+                    ))
                 ));
             }
 
