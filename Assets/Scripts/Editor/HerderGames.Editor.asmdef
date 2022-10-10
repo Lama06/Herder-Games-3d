@@ -1,0 +1,18 @@
+{
+    "name": "HerderGames.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:875bbb2bd18ee7a49bf42052fc386430"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
