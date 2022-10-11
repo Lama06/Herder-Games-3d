@@ -116,7 +116,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: UnterrichtsStandpunkt.position,
+                    standpunkt: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -0.2f,
@@ -130,7 +130,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: UnterrichtsStandpunkt.position,
+                    standpunkt: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -0.4f,
@@ -144,7 +144,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: UnterrichtsStandpunkt.position,
+                    standpunkt: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager)),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -0.4f,
@@ -160,7 +160,7 @@ namespace HerderGames.Lehrer.Brains
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: UnterrichtsStandpunkt.position,
+                    position: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
                     saetzeWeg: unterrichtWegKrank,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
@@ -171,7 +171,7 @@ namespace HerderGames.Lehrer.Brains
                 
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: UnterrichtsStandpunkt.position,
+                    position: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
@@ -182,7 +182,7 @@ namespace HerderGames.Lehrer.Brains
 
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: UnterrichtsStandpunkt.position,
+                    position: UnterrichtsStandpunkt,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager)),
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
@@ -192,7 +192,7 @@ namespace HerderGames.Lehrer.Brains
                 ));
             }
 
-            void RauchenGehen(WoechentlicheZeitspannen wann, Vector3 position)
+            void RauchenGehen(WoechentlicheZeitspannen wann, Transform position)
             {
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
@@ -213,13 +213,13 @@ namespace HerderGames.Lehrer.Brains
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), davor,
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), 15f.MinutesToHours()
-                ), RauchenVorne.position);
+                ), RauchenVorne);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Anfang), 15f.MinutesToHours(),
                     new StundeZeitRelativitaet(StundenType.Kurzpause, index, AnfangOderEnde.Ende), dannach
-                ), RauchenHinten.position);
+                ), RauchenHinten);
             }
 
             void MittagspauseRauchenRoutine(Wochentag wochentag, float davor, float dannach)
@@ -228,13 +228,13 @@ namespace HerderGames.Lehrer.Brains
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), davor,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 15f.MinutesToHours()
-                ), RauchenVorne.position);
+                ), RauchenVorne);
 
                 RauchenGehen(new WoechentlicheZeitspannen(
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 15f.MinutesToHours(),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 30f.MinutesToHours()
-                ), RauchenHinten.position);
+                ), RauchenHinten);
 
                 KaffeTrinken(new WoechentlicheZeitspannen(
                     wochentag,
@@ -246,7 +246,7 @@ namespace HerderGames.Lehrer.Brains
                     wochentag,
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Anfang), 45f.MinutesToHours(),
                     new StundeZeitRelativitaet(StundenType.Mittagspause, AnfangOderEnde.Ende), dannach
-                ), RauchenVorne.position);
+                ), RauchenVorne);
             }
 
             void FahrradKontrolle(WoechentlicheZeitspannen wann)
@@ -254,7 +254,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: EingangFahhradKontrolle.position,
+                    position: EingangFahhradKontrolle,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Absteigen bitte!",
                         "Bitte nicht auf dem Schulhof mit dem Drahtesel fahren!"
@@ -279,7 +279,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: UnterrichtsStandpunkt.position,
+                    position: UnterrichtsStandpunkt,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Hat Frau Kropp in der letzten Woche denn keine Nachhilfe gemacht? Komisch, dass die immer krank ist.",
                         "Auch in der Nachhilfe gilt: Lieber weniger sorgfältig als mehr sorgfältig"
@@ -308,14 +308,14 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new SchuleVerlassenGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => !zeitInDerSchule.IsInside(TimeManager)),
-                eingang: SchuleEingang.position,
-                ausgang: SchuleEingang.position
+                eingang: SchuleEingang,
+                ausgang: SchuleEingang
             ));
 
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
-                position: Sammelpunkt.position,
+                position: Sammelpunkt,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich hoffe die Lateinbücher werdens überleben",
                     "Ich hoffe die Lernplanlösungen werdens überleben"
@@ -325,8 +325,8 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new SchuleVerlassenGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Orthamol}),
-                eingang: Toilette.position,
-                ausgang: Toilette.position,
+                eingang: Toilette,
+                ausgang: Toilette,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich muss mal dringend auf Toilette eilen"
                 )
@@ -356,7 +356,7 @@ namespace HerderGames.Lehrer.Brains
                     )
                 ),
                 player: Player,
-                schulleitungsBuero: Schulleitung.position,
+                schulleitungsBuero: Schulleitung,
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt kann ich sogar nicht rauchen, weil ich diesen Schüler melden muss"
                 )
@@ -370,7 +370,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Montag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), -0.5f
-            ), RauchenVorne.position);
+            ), RauchenVorne);
             FahrradKontrolle(new WoechentlicheZeitspannen(
                 Wochentag.Montag,
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
@@ -398,7 +398,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Montag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
-            ), RauchenHinten.position);
+            ), RauchenHinten);
 
             #endregion
 
@@ -408,7 +408,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Dienstag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
-            ), RauchenVorne.position);
+            ), RauchenVorne);
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Dienstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
 
@@ -429,7 +429,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Dienstag,
                 new SchuleEndeZeitRelativitaet(), 1.5f,
                 new SchuleEndeZeitRelativitaet(), 2f
-            ), RauchenHinten.position);
+            ), RauchenHinten);
 
             #endregion
 
@@ -439,7 +439,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Mittwoch,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), -0.5f
-            ), RauchenVorne.position);
+            ), RauchenVorne);
             FahrradKontrolle(new WoechentlicheZeitspannen(
                 Wochentag.Mittwoch,
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
@@ -464,7 +464,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Mittwoch,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
-            ), RauchenHinten.position);
+            ), RauchenHinten);
 
             #endregion
 
@@ -474,7 +474,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Donnernstag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), unterrichtVerspaetung
-            ), RauchenVorne.position);
+            ), RauchenVorne);
 
             FakeUnterrichten(new WoechentlicheZeitspannen(Wochentag.Donnernstag, StundenType.Fach, 0, unterrichtVerspaetung, unterrichtUeberziehung));
 
@@ -494,7 +494,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Donnernstag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
-            ), RauchenVorne.position);
+            ), RauchenVorne);
 
             #endregion
 
@@ -504,7 +504,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Freitag,
                 new SchuleBeginnZeitRelativitaet(), -1f,
                 new SchuleBeginnZeitRelativitaet(), -0.5f
-            ), RauchenHinten.position);
+            ), RauchenHinten);
             FahrradKontrolle(new WoechentlicheZeitspannen(
                 Wochentag.Freitag,
                 new SchuleBeginnZeitRelativitaet(), -0.5f,
@@ -525,7 +525,7 @@ namespace HerderGames.Lehrer.Brains
                 Wochentag.Freitag,
                 new SchuleEndeZeitRelativitaet(), unterrichtUeberziehung,
                 new SchuleEndeZeitRelativitaet(), 0.5f
-            ), RauchenHinten.position);
+            ), RauchenHinten);
 
             #endregion
         }

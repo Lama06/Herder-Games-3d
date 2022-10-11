@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
@@ -10,14 +11,14 @@ namespace HerderGames.Lehrer.AI.Goals
     public class PatrolienrouteAbgehenGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
-        private readonly IList<Vector3> Punkte;
+        private readonly IList<Transform> Punkte;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
         private readonly AbstractAnimation Animation;
 
         public PatrolienrouteAbgehenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            IList<Vector3> punkte,
+            IList<Transform> punkte,
             ISaetzeMoeglichkeitenMehrmals saetze = null,
             AbstractAnimation animation = null
         ) : base(lehrer)
@@ -28,29 +29,30 @@ namespace HerderGames.Lehrer.AI.Goals
             Animation = animation;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return Trigger.ShouldRun;
-        }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
 
-        protected override IEnumerator Execute()
-        {
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             Lehrer.AnimationManager.CurrentAnimation = Animation;
-            
+
             while (true)
             {
                 foreach (var punkt in Punkte)
                 {
-                    Lehrer.Agent.destination = punkt;
-                    yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+                    foreach (var _ in NavMeshUtil.Pathfind(Lehrer, punkt))
+                    {
+                        yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                    }
                 }
 
                 // Den ersten und letzten Punkt überspringen, damit der Lehrer nicht doppelt zum selben Punkt läuft
                 for (var i = Punkte.Count - 2; i >= 1; i--)
                 {
-                    Lehrer.Agent.destination = Punkte[i];
-                    yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+                    foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Punkte[i]))
+                    {
+                        yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace HerderGames.Lehrer
             {
                 Status = value;
 
-                foreach (var collider in GetComponents<Collider>())
+                foreach (var collider in GetComponentsInChildren<Collider>())
                 {
                     collider.enabled = value;
                 }
@@ -34,11 +34,6 @@ namespace HerderGames.Lehrer
                 {
                     renderer.enabled = value;
                 }
-
-                // Der NavMeshAgent Component muss deaktiviert werden, weil sonst andere Lehrer nicht zum Ausgang navigieren können,
-                // wenn dort bereits ein anderer Lehrer steht, weil die beiden NavMeshAgents nicht kollidiren wollen (obwohl
-                // sie unsichtbar sind)
-                Lehrer.Agent.enabled = value;
 
                 // Damit der Lehrer nicht redet, während er nicht in der Schule ist
                 Lehrer.Sprache.enabled = value;

@@ -51,7 +51,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: Klassenraum,
-                    standpunkt: UnterrichtsStandpunkt.position,
+                    standpunkt: UnterrichtsStandpunkt,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -1f,
@@ -65,7 +65,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: UnterrichtsStandpunkt.position,
+                    position: UnterrichtsStandpunkt,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
                     saetzeAngekommen: unterricht
                 ));
@@ -76,7 +76,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal( // Freistunde Steine zählen
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: MauerSteineZaehlen.position,
+                    position: MauerSteineZaehlen,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Ich geh jetzt Steine zählen damit ich meinen Schülern eine Sechs geben kann wenn sie sich verzählen HAHAHA".ZufaelligGrossKlein()
                     ),
@@ -89,7 +89,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: Tonkeller.position,
+                    position: Tonkeller,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Hey mach Platz, ich muss in den Tonkeller! Das ist frauenfeindlich! " +
                         "Ich bin lesbisch und ich stehe dazu! Ich bin eine wahre Feministin".ZufaelligGrossKlein()
@@ -105,7 +105,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: Buecherregal.position,
+                    position: Buecherregal,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Warum fehlt denn eine Seite in meinem wichtigsten Buch?!".ZufaelligGrossKlein()
                     )
@@ -117,7 +117,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: Lehrerzimmer.position
+                    position: Lehrerzimmer
                 ));
             }
 

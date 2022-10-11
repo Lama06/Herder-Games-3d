@@ -77,7 +77,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: LehrerStuhl.position,
+                    standpunkt: LehrerStuhl,
                     trigger: new CallbackTrigger(() =>
                     {
                         var zeit = new WoechentlicheZeitspannen(
@@ -104,7 +104,7 @@ namespace HerderGames.Lehrer.Brains
                 // Kein Internet 2
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     trigger: new CallbackTrigger(() =>
                     {
                         var zeit = new WoechentlicheZeitspannen(
@@ -130,7 +130,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: LehrerStuhl.position,
+                    standpunkt: LehrerStuhl,
                     trigger: new ZeitspanneTrigger(
                         TimeManager,
                         new WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
@@ -148,7 +148,7 @@ namespace HerderGames.Lehrer.Brains
                 // Kein Internet 1
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     trigger: new CallbackTrigger(() =>
                     {
                         var zeit = new WoechentlicheZeitspannen(
@@ -172,7 +172,7 @@ namespace HerderGames.Lehrer.Brains
                 // Kein Internet 2
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     trigger: new CallbackTrigger(() =>
                     {
                         var zeit = new WoechentlicheZeitspannen(
@@ -200,7 +200,7 @@ namespace HerderGames.Lehrer.Brains
                         TimeManager,
                         new WoechentlicheZeitspannen(wochentag, StundenType.Fach, index)
                     ),
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     saetzeAngekommen: unterricht,
                     animationWeg: gehenAnimation,
                     animationAngekommen: unterrichtAnimation
@@ -212,7 +212,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: SchulPc.position,
+                    position: SchulPc,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Der PC ist schon wieder kaputt. Das ist ja zum Mäuse melken! Mal gucken was ich da machen kann"
                     ),
@@ -237,7 +237,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar && wann.IsInside(TimeManager)),
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht! Wie soll ich denn so meine Spiele spielen!"
                     ),
@@ -251,7 +251,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Mir gehen langsam die Spiele aus, die Ich spielen kann!" +
                         "Ich sag meinen Schülern einfach, dass sie mir mal neue Spiele mit Mario programmieren sollten!",
@@ -269,7 +269,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new CallbackTrigger(() => !Internet.IsInternetVerfuegbar && wann.IsInside(TimeManager)),
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Das ist ja zum Mäuse melken! Das Internet funktioniert schon wieder nicht!"
                     ),
@@ -283,7 +283,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: LehrerStuhl.position,
+                    position: LehrerStuhl,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Mmmhn Wie kann man denn Aufkleber selber basteln?",
                         "Was? ulrike.strupat@hotmail.com fordert eine Belehrung darüber an, wie man seine 'Anmeldeschlüssel' zurücksetzt???"
@@ -298,7 +298,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
-                position: LehrerStuhl.position,
+                position: LehrerStuhl,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ach das ist doch bestimmt wiedermal ein Fehlalarm! Das ist ja zum Mäuse melken!",
                     "Diese leichte Beschallung ist ja in Ordnung, aber dieser Alarm geht ja mit der Zeit auch auf die Nerven"
@@ -313,7 +313,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
-                position: LehrerStuhl.position,
+                position: LehrerStuhl,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Mir geht es gerade gar nicht gut! Das ist zum Mäuse melken!",
                     "Kannst du mir mal bitte kurz den Mülleimer reichen?"
@@ -325,7 +325,7 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new MoveToAndStandAtGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Orthamol}),
-                position: LehrerStuhl.position,
+                position: LehrerStuhl,
                 saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                     "Ich muss schon wieder auf Klo. Das ist ja zum Mäuse melken",
                     "Ich muss mal ganz dringend auf Toilette! Ach egal, hier in dem Raum stinkt es ja sowieso schon",

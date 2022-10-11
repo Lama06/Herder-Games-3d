@@ -1,51 +1,23 @@
+using System;
 using System.Collections;
-using HerderGames.Lehrer;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace HerderGames.Lehrer.AI
 {
     public abstract class GoalBase
     {
         public Lehrer Lehrer { get; }
-        private Coroutine ExecuteCoroutine;
 
         protected GoalBase(Lehrer lehrer)
         {
             Lehrer = lehrer;
         }
 
-        public virtual void OnGoalEnable()
-        {
-        }
+        public abstract IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback);
 
-        public abstract bool ShouldRun(bool currentlyRunning);
-
-        public void StartGoal()
+        public virtual IEnumerable UpdateGoal()
         {
-            ExecuteCoroutine = Lehrer.AI.StartCoroutine(Execute());
-            OnGoalStart();
-        }
-
-        protected virtual void OnGoalStart()
-        {
-        }
-
-        public void EndGoal()
-        {
-            OnGoalEnd();
-            Lehrer.AI.StopCoroutine(ExecuteCoroutine);
-            Lehrer.Sprache.SaetzeMoeglichkeiten = null;
-            Lehrer.Agent.ResetPath();
-            Lehrer.AnimationManager.CurrentAnimation = null;
-        }
-
-        protected virtual void OnGoalEnd()
-        {
-        }
-
-        protected virtual IEnumerator Execute()
-        {
-            yield return null;
+            yield break;
         }
     }
 }

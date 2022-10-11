@@ -1,4 +1,5 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -36,18 +37,17 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return !VergiftbaresEssen.VergiftungBemerkt && Trigger.ShouldRun;
-        }
+            yield return new GoalStatus.CanStartIf(VergiftbaresEssen.VergiftungBemerkt && Trigger.ShouldRun);
 
-        protected override IEnumerator Execute()
-        {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = VergiftbaresEssen.GetStandpunkt();
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, VergiftbaresEssen.GetStandpunkt()))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && !VergiftbaresEssen.VergiftungBemerkt);
+            }
             
             if (VergiftbaresEssen.Vergiftet)
             {

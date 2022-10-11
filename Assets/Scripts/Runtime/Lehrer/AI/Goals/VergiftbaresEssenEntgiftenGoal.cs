@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -16,8 +18,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationWeg;
         private readonly AbstractAnimation AnimationAngekommen;
 
-        private bool Fertig;
-        
         public VergiftbaresEssenEntgiftenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
@@ -38,35 +38,22 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            if (!Trigger.ShouldRun)
-            {
-                return false;
-            }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && Essen.Vergiftet && Essen.VergiftungBemerkt);
 
-            if (currentlyRunning)
-            {
-                return !Fertig;
-            }
-            
-            return Essen.Vergiftet && Essen.VergiftungBemerkt;
-        }
-
-        protected override IEnumerator Execute()
-        {
-            Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
-            Lehrer.Agent.destination = Essen.GetStandpunkt();
-            
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Essen.GetStandpunkt()))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && Essen.Vergiftet && Essen.VergiftungBemerkt);
+            }
             
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Essen.Entgiften();
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
-            Fertig = true;
         }
     }
 }

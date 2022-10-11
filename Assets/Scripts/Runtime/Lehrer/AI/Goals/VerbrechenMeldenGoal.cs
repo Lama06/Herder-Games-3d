@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
@@ -10,20 +13,18 @@ namespace HerderGames.Lehrer.AI.Goals
     {
         private readonly TriggerBase Trigger;
         private readonly Player.Player Player;
-        private readonly Vector3 SchulleitungsBuero;
+        private readonly Transform SchulleitungsBuero;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
         private readonly AbstractAnimation AnimationWeg;
         private readonly AbstractAnimation AnimationAngekommen;
 
-        private bool Fertig;
-        
         public VerbrechenMeldenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
             Player.Player player,
-            Vector3 schulleitungsBuero,
+            Transform schulleitungsBuero,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
@@ -41,39 +42,29 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            if (!Trigger.ShouldRun)
-            {
-                return false;
-            }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && Lehrer.Reputation.ShouldGoToSchulleitung);
 
-            if (currentlyRunning)
-            {
-                return !Fertig;
-            }
-            
-            return Lehrer.Reputation.ShouldGoToSchulleitung;
-        }
-
-        protected override IEnumerator Execute()
-        {
-            Fertig = false;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
-            Lehrer.Agent.destination = SchulleitungsBuero;
-            
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, SchulleitungsBuero))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && Lehrer.Reputation.ShouldGoToSchulleitung);
+            }
             
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             
-            yield return new WaitForSeconds(5);
+            foreach (var _ in IteratorUtil.WaitForSeconds(5))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
             
             Player.Verwarnungen.Add();
             Lehrer.Reputation.ResetAfterMelden();
-            Fertig = true;
         }
     }
 }

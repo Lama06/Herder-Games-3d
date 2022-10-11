@@ -108,7 +108,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new UnterrichtenGoal(
                     lehrer: Lehrer,
                     unterrichtsRaum: UnterrichtsRaum,
-                    standpunkt: UnterrichtStandpunkt.position,
+                    standpunkt: UnterrichtStandpunkt,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
                     stundeImStundenplan: stunde,
                     reputationsAenderungBeiFehlzeit: -1f,
@@ -125,7 +125,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: UnterrichtStandpunkt.position,
+                    position: UnterrichtStandpunkt,
                     saetzeWeg: unterrichtWeg,
                     saetzeAngekommenEinmalig: unterrichtBegruessung,
                     saetzeAngekommen: unterrichtSaetze,
@@ -139,7 +139,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: Rauchen.position,
+                    position: Rauchen,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Hand aufs Herz: Wir alle wollen auch mal Rauchen",
                         "Jetzt mal ganz ehrlich: Ich muss noch mal kurz Rauchen gehen",
@@ -185,7 +185,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: LehrerzimmerFach.position,
+                    position: LehrerzimmerFach,
                     saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                         "Mmmhhm mal gucken ob in meinem Fach was liegt. Da hat bestimmt jemand in der Nacht was reigelegt",
                         "Ich muss nochmal kurz ins Lehrerzimmer"
@@ -204,7 +204,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new CallbackTrigger(() => wann.IsInside(TimeManager) && !Internet.IsInternetVerfuegbar),
-                    position: Drucker.position,
+                    position: Drucker,
                     saetzeWeg: druckenWeg,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Ohgottogottogott, warum kann Ich denn nichts drucken? Warum funktioniert das Internet denn nicht?",
@@ -217,7 +217,7 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new MoveToAndStandAtGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    position: Drucker.position,
+                    position: Drucker,
                     saetzeWeg: druckenWeg,
                     saetzeAngekommen: new SaetzeMoeglichkeitenMehrmals(
                         "Hoppala, warum ist mein Druckerkontingent denn schon aufgebraucht?",
@@ -233,8 +233,8 @@ namespace HerderGames.Lehrer.Brains
                 ai.AddGoal(new SchuleVerlassenGoal(
                     lehrer: Lehrer,
                     trigger: new ZeitspanneTrigger(TimeManager, wann),
-                    ausgang: E202ZigarettenSchrank.position,
-                    eingang: E202ZigarettenSchrank.position,
+                    ausgang: E202ZigarettenSchrank,
+                    eingang: E202ZigarettenSchrank,
                     saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                         "Ich muss noch mal kurz zu E202 und dort Zigarre...Äähm...etwas holen.",
                         "Ich hab meine Schlangenledertasche in E202 vergessen."
@@ -279,8 +279,8 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new SchuleVerlassenGoal(
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => !zeitInSchule.IsInside(TimeManager)),
-                eingang: SchuleHaupteingang.position,
-                ausgang: SchuleHaupteingang.position,
+                eingang: SchuleHaupteingang,
+                ausgang: SchuleHaupteingang,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich, Wir alle wollen auch mal frei haben!",
                     "Hand aufs Herz: Den Feierabend hab ich mir verdient!"
@@ -291,15 +291,15 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Normal
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Normal}),
-                eingang: SchuleHaupteingang.position,
-                ausgang: SchuleHaupteingang.position,
+                eingang: SchuleHaupteingang,
+                ausgang: SchuleHaupteingang,
                 animationBeimVerlassen: gehenAnimation
             ));
 
             ai.AddGoal(new MoveToAndStandAtGoal( // Feueralarm
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => AlarmManager.IsAlarm),
-                position: AlarmSammelpunkt.position,
+                position: AlarmSammelpunkt,
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Hilfeee!!!",
                     "Rettet mich!!!",
@@ -332,8 +332,8 @@ namespace HerderGames.Lehrer.Brains
             ai.AddGoal(new SchuleVerlassenGoal( // Krankheit Orthomol
                 lehrer: Lehrer,
                 trigger: new CallbackTrigger(() => Lehrer.Vergiftung is {Syntome: true, VergiftungsType: VergiftungsType.Orthamol}),
-                eingang: ToiletteLehrerzimmer.position,
-                ausgang: ToiletteLehrerzimmer.position,
+                eingang: ToiletteLehrerzimmer,
+                ausgang: ToiletteLehrerzimmer,
                 saetzeBeimVerlassen: new SaetzeMoeglichkeitenMehrmals(
                     "Aus dem Weg, Ich muss mal ganz dringend auf Toilette",
                     "Mmmhhhhm Ich mag mein Orthomol!",
@@ -373,7 +373,7 @@ namespace HerderGames.Lehrer.Brains
                         )
                     )
                 ),
-                schulleitungsBuero: Schulleitung.position,
+                schulleitungsBuero: Schulleitung,
                 saetzeWeg: new SaetzeMoeglichkeitenMehrmals(
                     "Jetzt mal ganz ehrlich: So kann das nicht weiter gehen!",
                     "Ich bin sauer! Nein das sind nur Zitronen. Ich bin wütend!"

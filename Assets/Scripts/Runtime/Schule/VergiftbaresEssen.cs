@@ -21,9 +21,9 @@ namespace HerderGames.Schule
         public bool VergiftungBemerkt { get; private set; }
         private Player.Player PlayerInTrigger;
 
-        public Vector3 GetStandpunkt()
+        public Transform GetStandpunkt()
         {
-            return Standpunkt.position;
+            return Standpunkt;
         }
 
         public void Entgiften()

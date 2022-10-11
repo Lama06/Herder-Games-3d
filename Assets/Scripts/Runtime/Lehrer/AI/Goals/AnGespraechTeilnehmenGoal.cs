@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -9,7 +11,7 @@ namespace HerderGames.Lehrer.AI.Goals
     public class AnGespraechTeilnehmenGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
-        private readonly Vector3 Standpunkt;
+        private readonly Transform Standpunkt;
         public Gespraech Gespraech { get; }
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAufDemWeg;
         private readonly AbstractAnimation AnimationWeg;
@@ -20,7 +22,7 @@ namespace HerderGames.Lehrer.AI.Goals
         public AnGespraechTeilnehmenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            Vector3 standpunkt,
+            Transform standpunkt,
             Gespraech gespraech,
             ISaetzeMoeglichkeitenMehrmals saetzeAufDemWeg = null,
             AbstractAnimation animationWeg = null,
@@ -35,25 +37,28 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return Trigger.ShouldRun;
-        }
-
-        protected override IEnumerator Execute()
-        {
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
-            Lehrer.Agent.destination = Standpunkt;
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Standpunkt))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
+            
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
+            
             IsAngekommen = true;
-        }
+            goalEndCallback.Add(() => IsAngekommen = false);
 
-        protected override void OnGoalEnd()
-        {
-            IsAngekommen = false;
+            while (Trigger.ShouldRun)
+            {
+                yield return new GoalStatus.Continue();
+            }
         }
     }
 }

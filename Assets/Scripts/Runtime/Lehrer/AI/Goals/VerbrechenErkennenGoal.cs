@@ -1,8 +1,9 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
-using UnityEngine;
+using HerderGames.Util;
 
 namespace HerderGames.Lehrer.AI.Goals
 {
@@ -21,8 +22,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationWeg;
         private readonly AbstractAnimation AnimationAngekommen;
 
-        private bool Fertig;
-
         public VerbrechenErkennenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
@@ -40,6 +39,7 @@ namespace HerderGames.Lehrer.AI.Goals
             SchwereMindestens = schwereMindestens;
             Reaktion = reaktion;
             SaetzeWeg = saetzeWeg;
+            SaetzeAngekommen = saetzeAngekommen;
             AnimationWeg = animationWeg;
             AnimationAngekommen = animationAngekommen;
         }
@@ -48,40 +48,29 @@ namespace HerderGames.Lehrer.AI.Goals
                                         Player.VerbrechenManager.BegehtGeradeEinVerbrechen &&
                                         Player.VerbrechenManager.Schwere >= SchwereMindestens;
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            if (!Trigger.ShouldRun)
-            {
-                return false;
-            }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && SiehtVerbrechen);
 
-            if (currentlyRunning)
-            {
-                return !Fertig;
-            }
-
-            return SiehtVerbrechen;
-        }
-
-        protected override IEnumerator Execute()
-        {
-            Fertig = false;
             Player.Chat.SendChatMessage(WarningMsg);
             Lehrer.Sprache.Say(Reaktion);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Reputation.AddReputation(-Player.VerbrechenManager.Schwere);
             Player.VerbrechenManager.VerbrechenAbbrechen();
-            Lehrer.Agent.destination = Player.transform.position;
-            
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Player.transform.position))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
             
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
             
-            yield return new WaitForSeconds(5f);
-            
-            Fertig = true;
+            foreach (var _ in IteratorUtil.WaitForSeconds(5))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
         }
     }
 }

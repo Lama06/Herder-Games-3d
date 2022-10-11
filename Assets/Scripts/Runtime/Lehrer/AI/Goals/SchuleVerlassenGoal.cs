@@ -1,4 +1,5 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -9,16 +10,16 @@ namespace HerderGames.Lehrer.AI.Goals
     public class SchuleVerlassenGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
-        private readonly Vector3 Eingang;
-        private readonly Vector3 Ausgang;
+        private readonly Transform Eingang;
+        private readonly Transform Ausgang;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeBeimVerlassen;
         private readonly AbstractAnimation AnimationBeimVerlassen;
 
         public SchuleVerlassenGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            Vector3 eingang,
-            Vector3 ausgang,
+            Transform eingang,
+            Transform ausgang,
             ISaetzeMoeglichkeitenMehrmals saetzeBeimVerlassen = null,
             AbstractAnimation animationBeimVerlassen = null
         ) : base(lehrer)
@@ -30,29 +31,29 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationBeimVerlassen = animationBeimVerlassen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return Trigger.ShouldRun;
-        }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
 
-        protected override IEnumerator Execute()
-        {
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeBeimVerlassen;
             Lehrer.AnimationManager.CurrentAnimation = AnimationBeimVerlassen;
-            Lehrer.Agent.destination = Ausgang;
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
-            Lehrer.InSchule.InSchule = false;
-        }
 
-        protected override void OnGoalEnd()
-        {
-            if (Lehrer.InSchule.InSchule)
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Ausgang))
             {
-                return;
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
             }
 
-            Lehrer.Agent.Warp(Eingang);
-            Lehrer.InSchule.InSchule = true;
+            Lehrer.InSchule.InSchule = false;
+            goalEndCallback.Add(() =>
+            {
+                Lehrer.InSchule.InSchule = true;
+                Lehrer.Agent.Warp(Eingang.position);
+            });
+
+            while (Trigger.ShouldRun)
+            {
+                yield return new GoalStatus.Continue();
+            }
         }
     }
 }

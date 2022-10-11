@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -11,7 +13,7 @@ namespace HerderGames.Lehrer.AI.Goals
     public class UnterrichtenGoal : GoalBase
     {
         public Klassenraum UnterrichtsRaum { get; }
-        private readonly Vector3 Standpunkt;
+        private readonly Transform Standpunkt;
         private readonly TriggerBase Trigger;
         public StundenData StundeImStundenplan { get; }
         private readonly float ReputationsAenderungBeiFehlzeit;
@@ -29,7 +31,7 @@ namespace HerderGames.Lehrer.AI.Goals
         public UnterrichtenGoal(
             Lehrer lehrer,
             Klassenraum unterrichtsRaum,
-            Vector3 standpunkt,
+            Transform standpunkt,
             TriggerBase trigger,
             StundenData stundeImStundenplan,
             float reputationsAenderungBeiFehlzeit,
@@ -52,48 +54,36 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return Trigger.ShouldRun;
-        }
-
-        protected override void OnGoalStart()
-        {
-            GoToRoomCoroutine = Lehrer.AI.StartCoroutine(GoToRoom());
-            CheckAnwesenheitCoroutine = Lehrer.AI.StartCoroutine(CheckAnwesenheit());
-        }
-
-        protected override void OnGoalEnd()
-        {
-            LehrerArrived = false;
-            SchuelerFreigestelltDieseStunde = false;
-            Lehrer.AI.StopCoroutine(GoToRoomCoroutine);
-            Lehrer.AI.StopCoroutine(CheckAnwesenheitCoroutine);
-        }
-
-        public IEnumerator GoToRoom()
-        {
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            
+            goalEndCallback.Add(() => SchuelerFreigestelltDieseStunde = false);
+            
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWegZumRaum;
-            Lehrer.Agent.destination = Standpunkt;
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Standpunkt))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
+            
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeBegruessung);
-            LehrerArrived = true;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWaehrendUnterricht;
-        }
+            LehrerArrived = true;
+            goalEndCallback.Add(() => LehrerArrived = false);
 
-        private IEnumerator CheckAnwesenheit()
-        {
-            while (true)
+            var schuelerBestraft = false;
+            while (Trigger.ShouldRun)
             {
-                if (LehrerArrived && !UnterrichtsRaum.PlayerInside && !SchuelerFreigestelltDieseStunde)
+                if (!schuelerBestraft && LehrerArrived && !UnterrichtsRaum.PlayerInside && !SchuelerFreigestelltDieseStunde)
                 {
                     Lehrer.Reputation.AddReputation(ReputationsAenderungBeiFehlzeit);
-                    yield break;
+                    schuelerBestraft = true;
                 }
 
-                yield return null;
+                yield return new GoalStatus.Continue();
             }
         }
 

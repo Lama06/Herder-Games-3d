@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer;
 using HerderGames.Lehrer.Animation;
@@ -10,7 +12,7 @@ namespace HerderGames.Lehrer.AI.Goals
     public class MoveToAndStandAtGoal : GoalBase
     {
         private readonly TriggerBase Trigger;
-        private readonly Vector3 Position;
+        private readonly Transform Position;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeWeg;
         private readonly ISaetzeMoeglichkeitenEinmalig SaetzeAngekommenEinmalig;
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
@@ -20,7 +22,7 @@ namespace HerderGames.Lehrer.AI.Goals
         public MoveToAndStandAtGoal(
             Lehrer lehrer,
             TriggerBase trigger,
-            Vector3 position,
+            Transform position,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
@@ -37,20 +39,26 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            return Trigger.ShouldRun;
-        }
-
-        protected override IEnumerator Execute()
-        {
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = Position;
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Position))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
+            
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
+
+            while (Trigger.ShouldRun)
+            {
+                yield return new GoalStatus.Continue();
+            }
         }
     }
 }

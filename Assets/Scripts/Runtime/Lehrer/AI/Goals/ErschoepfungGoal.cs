@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.AI.Goals
@@ -16,10 +18,9 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly float LaengeDerPause;
         private readonly ISaetzeMoeglichkeitenMehrmals Saetze;
         private readonly AbstractAnimation Animation;
-        
+
         private readonly List<float> DistanzLetzeMinute = new();
         private readonly List<float> HoeheLetzteMinute = new();
-        private bool Fertig;
 
         public ErschoepfungGoal(
             Lehrer lehrer,
@@ -39,38 +40,23 @@ namespace HerderGames.Lehrer.AI.Goals
             Animation = animation;
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            if (!Trigger.ShouldRun)
-            {
-                return false;
-            }
-            
-            if (currentlyRunning)
-            {
-                return !Fertig;
-            }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute ||
+                                                   HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute);
 
-            return DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute;
-        }
-
-        protected override IEnumerator Execute()
-        {
-            Fertig = false;
             DistanzLetzeMinute.Clear();
             HoeheLetzteMinute.Clear();
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             Lehrer.AnimationManager.CurrentAnimation = Animation;
-            yield return new WaitForSeconds(LaengeDerPause);
-            Fertig = true;
+
+            foreach (var _ in IteratorUtil.WaitForSeconds(LaengeDerPause))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+            }
         }
 
-        public override void OnGoalEnable()
-        {
-            Lehrer.AI.StartCoroutine(RecordDistanz());
-        }
-
-        public IEnumerator RecordDistanz()
+        public override IEnumerable UpdateGoal()
         {
             float GetYDistance(Vector3 pos1, Vector3 pos2)
             {
@@ -93,7 +79,7 @@ namespace HerderGames.Lehrer.AI.Goals
             }
 
             var lastPosition = Lehrer.transform.position;
-            
+
             yield return null;
 
             while (true)
@@ -108,7 +94,10 @@ namespace HerderGames.Lehrer.AI.Goals
 
                 lastPosition = currentPosition;
 
-                yield return new WaitForSeconds(1f);
+                foreach (var _ in IteratorUtil.WaitForSeconds(1))
+                {
+                    yield return null;
+                }
             }
         }
     }

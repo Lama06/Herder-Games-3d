@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
 using HerderGames.Lehrer.Sprache;
@@ -16,9 +18,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly ISaetzeMoeglichkeitenMehrmals SaetzeAngekommen;
         private readonly AbstractAnimation AnimationWeg;
         private readonly AbstractAnimation AnimationAngekommen;
-
-        private bool Fertig;
-        private LanDose LanDose;
 
         public InternetReparierenGoal(
             Lehrer lehrer,
@@ -56,34 +55,24 @@ namespace HerderGames.Lehrer.AI.Goals
             }
         }
 
-        public override bool ShouldRun(bool currentlyRunning)
+        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
         {
-            if (!Trigger.ShouldRun)
-            {
-                return false;
-            }
+            var lanDose = MicInVision;
 
-            if (currentlyRunning)
-            {
-                return !Fertig;
-            }
+            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && lanDose != null && lanDose.Mic);
 
-            LanDose = MicInVision;
-            return LanDose != null;
-        }
-
-        protected override IEnumerator Execute()
-        {
-            Fertig = false;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
-            Lehrer.Agent.destination = LanDose.transform.position;
-            yield return NavMeshUtil.Pathfind(Lehrer.Agent);
+
+            foreach (var _ in NavMeshUtil.Pathfind(Lehrer, lanDose.transform))
+            {
+                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && lanDose.Mic);
+            }
+
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
-            LanDose.Mic = false;
-            Fertig = true;
+            lanDose.Mic = false;
         }
     }
 }
