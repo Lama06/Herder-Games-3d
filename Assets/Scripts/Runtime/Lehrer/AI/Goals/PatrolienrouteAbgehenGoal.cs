@@ -29,9 +29,14 @@ namespace HerderGames.Lehrer.AI.Goals
             Animation = animation;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            if (!Trigger.ShouldRun)
+            {
+                yield break;
+            }
+
+            yield return null;
 
             Lehrer.Sprache.SaetzeMoeglichkeiten = Saetze;
             Lehrer.AnimationManager.CurrentAnimation = Animation;
@@ -42,7 +47,12 @@ namespace HerderGames.Lehrer.AI.Goals
                 {
                     foreach (var _ in NavMeshUtil.Pathfind(Lehrer, punkt))
                     {
-                        yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                        if (!Trigger.ShouldRun)
+                        {
+                            yield break;
+                        }
+
+                        yield return null;
                     }
                 }
 
@@ -51,7 +61,12 @@ namespace HerderGames.Lehrer.AI.Goals
                 {
                     foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Punkte[i]))
                     {
-                        yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                        if (!Trigger.ShouldRun)
+                        {
+                            yield break;
+                        }
+
+                        yield return null;
                     }
                 }
             }

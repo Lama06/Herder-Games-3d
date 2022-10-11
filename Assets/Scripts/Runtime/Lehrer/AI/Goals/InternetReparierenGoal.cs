@@ -55,18 +55,28 @@ namespace HerderGames.Lehrer.AI.Goals
             }
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
             var lanDose = MicInVision;
 
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && lanDose != null && lanDose.Mic);
+            if (!Trigger.ShouldRun || lanDose == null || !lanDose.Mic)
+            {
+                yield break;
+            }
+
+            yield return null;
 
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, lanDose.transform))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && lanDose.Mic);
+                if (!Trigger.ShouldRun || !lanDose.Mic)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
 
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;

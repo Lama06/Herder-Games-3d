@@ -54,25 +54,36 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            if (!Trigger.ShouldRun)
+            {
+                yield break;
+            }
+
+            yield return null;
             
-            goalEndCallback.Add(() => SchuelerFreigestelltDieseStunde = false);
+            unexpectedGoalEndCallback.Push(() => SchuelerFreigestelltDieseStunde = false); // 1
             
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWegZumRaum;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Standpunkt))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    unexpectedGoalEndCallback.Pop()(); // 1
+                    yield break;
+                }
+
+                yield return null;
             }
             
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.Say(SaetzeBegruessung);
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWaehrendUnterricht;
             LehrerArrived = true;
-            goalEndCallback.Add(() => LehrerArrived = false);
+            unexpectedGoalEndCallback.Push(() => LehrerArrived = false); // 2
 
             var schuelerBestraft = false;
             while (Trigger.ShouldRun)
@@ -83,8 +94,11 @@ namespace HerderGames.Lehrer.AI.Goals
                     schuelerBestraft = true;
                 }
 
-                yield return new GoalStatus.Continue();
+                yield return null;
             }
+
+            unexpectedGoalEndCallback.Pop()(); // 1
+            unexpectedGoalEndCallback.Pop()(); // 2
         }
 
         public class StundenData

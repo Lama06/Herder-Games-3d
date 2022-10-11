@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
@@ -48,9 +49,14 @@ namespace HerderGames.Lehrer.AI.Goals
                                         Player.VerbrechenManager.BegehtGeradeEinVerbrechen &&
                                         Player.VerbrechenManager.Schwere >= SchwereMindestens;
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && SiehtVerbrechen);
+            if (!Trigger.ShouldRun || !SiehtVerbrechen)
+            {
+                yield break;
+            }
+
+            yield return null;
 
             Player.Chat.SendChatMessage(WarningMsg);
             Lehrer.Sprache.Say(Reaktion);
@@ -61,7 +67,12 @@ namespace HerderGames.Lehrer.AI.Goals
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Player.transform.position))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
             
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
@@ -69,7 +80,12 @@ namespace HerderGames.Lehrer.AI.Goals
             
             foreach (var _ in IteratorUtil.WaitForSeconds(5))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+                
+                yield return null;
             }
         }
     }

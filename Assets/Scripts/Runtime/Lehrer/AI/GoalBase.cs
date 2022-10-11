@@ -13,7 +13,7 @@ namespace HerderGames.Lehrer.AI
             Lehrer = lehrer;
         }
 
-        public abstract IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback);
+        public abstract IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback);
 
         public virtual IEnumerable UpdateGoal()
         {

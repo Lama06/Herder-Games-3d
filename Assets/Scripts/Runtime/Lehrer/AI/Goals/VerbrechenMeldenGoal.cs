@@ -42,16 +42,24 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && Lehrer.Reputation.ShouldGoToSchulleitung);
+            if (!Trigger.ShouldRun || !Lehrer.Reputation.ShouldGoToSchulleitung)
+            {
+                yield break;
+            }
 
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, SchulleitungsBuero))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && Lehrer.Reputation.ShouldGoToSchulleitung);
+                if (!Trigger.ShouldRun || !Lehrer.Reputation.ShouldGoToSchulleitung)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
             
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
@@ -60,7 +68,12 @@ namespace HerderGames.Lehrer.AI.Goals
             
             foreach (var _ in IteratorUtil.WaitForSeconds(5))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
             
             Player.Verwarnungen.Add();

@@ -37,28 +37,40 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
-            
+            if (!Trigger.ShouldRun)
+            {
+                yield break;
+            }
+
+            yield return null;
+
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAufDemWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Standpunkt))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
             
             Lehrer.AnimationManager.CurrentAnimation = AnimationAngekommen;
             Lehrer.Sprache.SaetzeMoeglichkeiten = null;
             
             IsAngekommen = true;
-            goalEndCallback.Add(() => IsAngekommen = false);
+            unexpectedGoalEndCallback.Push(() => IsAngekommen = false);
 
             while (Trigger.ShouldRun)
             {
-                yield return new GoalStatus.Continue();
+                yield return null;
             }
+
+            unexpectedGoalEndCallback.Pop()();
         }
     }
 }

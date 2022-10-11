@@ -40,10 +40,19 @@ namespace HerderGames.Lehrer.AI.Goals
             Animation = animation;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute ||
-                                                   HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute);
+            if (!Trigger.ShouldRun)
+            {
+                yield break;
+            }
+
+            if (!(DistanzLetzeMinute.Sum() >= MaximaleDistanzProMinute || HoeheLetzteMinute.Sum() >= MaxiamleHoeheProMinute))
+            {
+                yield break;
+            }
+
+            yield return null;
 
             DistanzLetzeMinute.Clear();
             HoeheLetzteMinute.Clear();
@@ -52,7 +61,12 @@ namespace HerderGames.Lehrer.AI.Goals
 
             foreach (var _ in IteratorUtil.WaitForSeconds(LaengeDerPause))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
         }
 

@@ -9,28 +9,11 @@ namespace HerderGames.Lehrer.AI
     public class AIController : MonoBehaviour
     {
         public List<GoalBase> Goals { get; } = new();
-        public GoalBase CurrentGoal => _CurrentGoalData?.Goal;
+        public GoalBase CurrentGoal => CurrentGoalData?.Goal;
 
-        private GoalData _CurrentGoalData;
+        private GoalData CurrentGoalData;
         private readonly List<IEnumerator> GoalUpdateEnumerators = new();
         private Lehrer Lehrer;
-
-        private GoalData CurrentGoalData
-        {
-            get => _CurrentGoalData;
-            set
-            {
-                if (_CurrentGoalData != null)
-                {
-                    foreach (var action in _CurrentGoalData.EndedCallback)
-                    {
-                        action();
-                    }
-                }
-
-                _CurrentGoalData = value;
-            }
-        }
 
         public void AddGoal(GoalBase goal)
         {
@@ -55,6 +38,14 @@ namespace HerderGames.Lehrer.AI
             var moreImportantGoal = FindGoalWithHigherPriorityThatCanStart();
             if (moreImportantGoal != null)
             {
+                if (CurrentGoalData != null)
+                {
+                    foreach (var action in CurrentGoalData.UnexpectedGoalEndCallback)
+                    {
+                        action();
+                    }
+                }
+                
                 CurrentGoalData = moreImportantGoal;
             }
 
@@ -63,14 +54,8 @@ namespace HerderGames.Lehrer.AI
                 var success = CurrentGoalData.Enumerator.MoveNext();
                 if (!success)
                 {
+                    // Hier nicht UnexpectedGoalEndCallback ausführen, weil das Goal ja selber benndet wurde
                     CurrentGoalData = null;
-                }
-                else
-                {
-                    if (!CurrentGoalData.Enumerator.Current.ShouldContinue())
-                    {
-                        CurrentGoalData = null;
-                    }
                 }
             }
         }
@@ -92,28 +77,21 @@ namespace HerderGames.Lehrer.AI
         {
             foreach (var goal in Goals)
             {
-                if (goal == CurrentGoalData?.Goal)
+                if (CurrentGoalData != null && goal == CurrentGoalData.Goal)
                 {
                     return null;
                 }
 
-                var goalEndCallback = new List<Action>()
-                {
-                    () =>
-                    {
-                        Lehrer.AnimationManager.CurrentAnimation = null;
-                        Lehrer.Sprache.SaetzeMoeglichkeiten = null;
-                    }
-                };
-                var goalEnumerator = goal.ExecuteGoal(goalEndCallback).GetEnumerator();
-                goalEnumerator.MoveNext();
-                if (((GoalStatus.CanStartIf) goalEnumerator.Current).Value)
+                var unexpectedGoalEndCallback = new Stack<Action>();
+                var goalEnumerator = goal.ExecuteGoal(unexpectedGoalEndCallback).GetEnumerator();
+                var success = goalEnumerator.MoveNext();
+                if (success)
                 {
                     return new GoalData
                     {
                         Goal = goal,
                         Enumerator = goalEnumerator,
-                        EndedCallback = goalEndCallback
+                        UnexpectedGoalEndCallback = unexpectedGoalEndCallback
                     };
                 }
             }
@@ -124,8 +102,8 @@ namespace HerderGames.Lehrer.AI
         private class GoalData
         {
             public GoalBase Goal;
-            public IEnumerator<GoalStatus> Enumerator;
-            public List<Action> EndedCallback;
+            public IEnumerator Enumerator;
+            public Stack<Action> UnexpectedGoalEndCallback;
         }
     }
 }

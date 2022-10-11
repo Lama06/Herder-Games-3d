@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using HerderGames.Lehrer.AI.Trigger;
 using HerderGames.Lehrer.Animation;
@@ -31,20 +32,30 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationBeimVerlassen = animationBeimVerlassen;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun);
+            if (!Trigger.ShouldRun)
+            {
+                yield break;
+            }
+
+            yield return null;
 
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeBeimVerlassen;
             Lehrer.AnimationManager.CurrentAnimation = AnimationBeimVerlassen;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Ausgang))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun);
+                if (!Trigger.ShouldRun)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
 
             Lehrer.InSchule.InSchule = false;
-            goalEndCallback.Add(() =>
+            unexpectedGoalEndCallback.Push(() =>
             {
                 Lehrer.InSchule.InSchule = true;
                 Lehrer.Agent.Warp(Eingang.position);
@@ -52,8 +63,10 @@ namespace HerderGames.Lehrer.AI.Goals
 
             while (Trigger.ShouldRun)
             {
-                yield return new GoalStatus.Continue();
+                yield return null;
             }
+
+            unexpectedGoalEndCallback.Pop()();
         }
     }
 }

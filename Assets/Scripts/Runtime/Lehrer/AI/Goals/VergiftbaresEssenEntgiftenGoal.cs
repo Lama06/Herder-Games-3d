@@ -38,18 +38,28 @@ namespace HerderGames.Lehrer.AI.Goals
             AnimationAngekommen = animationAngekommen;
         }
 
-        public override IEnumerable<GoalStatus> ExecuteGoal(IList<Action> goalEndCallback)
+        public override IEnumerable ExecuteGoal(Stack<Action> unexpectedGoalEndCallback)
         {
-            yield return new GoalStatus.CanStartIf(Trigger.ShouldRun && Essen.Vergiftet && Essen.VergiftungBemerkt);
+            if (!Trigger.ShouldRun || !Essen.Vergiftet || !Essen.VergiftungBemerkt)
+            {
+                yield break;
+            }
+
+            yield return null;
 
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeWeg;
             Lehrer.AnimationManager.CurrentAnimation = AnimationWeg;
 
             foreach (var _ in NavMeshUtil.Pathfind(Lehrer, Essen.GetStandpunkt()))
             {
-                yield return new GoalStatus.ContinueIf(Trigger.ShouldRun && Essen.Vergiftet && Essen.VergiftungBemerkt);
+                if (!Trigger.ShouldRun || !Essen.Vergiftet || !Essen.VergiftungBemerkt)
+                {
+                    yield break;
+                }
+
+                yield return null;
             }
-            
+
             Lehrer.Sprache.Say(SaetzeAngekommenEinmalig);
             Essen.Entgiften();
             Lehrer.Sprache.SaetzeMoeglichkeiten = SaetzeAngekommen;
