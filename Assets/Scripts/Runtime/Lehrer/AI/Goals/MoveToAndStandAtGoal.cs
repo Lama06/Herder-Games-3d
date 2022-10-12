@@ -20,7 +20,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationAngekommen;
 
         public MoveToAndStandAtGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             Transform position,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
@@ -28,7 +27,7 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenEinmalig saetzeAngekommenEinmalig = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             Position = position;

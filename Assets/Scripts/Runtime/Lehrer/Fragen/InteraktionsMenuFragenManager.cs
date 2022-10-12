@@ -1,40 +1,53 @@
-using System;
 using System.Collections.Generic;
 using HerderGames.Player;
-using UnityEngine;
 
 namespace HerderGames.Lehrer.Fragen
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class InteraktionsMenuFragenManager : MonoBehaviour
+    public class InteraktionsMenuFragenManager
     {
-        [SerializeField] private Player.Player Player;
-
+        private readonly Lehrer Lehrer;
         private readonly List<FrageEintrag> Fragen = new();
-
+        private bool _Enabled;
+        
+        public InteraktionsMenuFragenManager(Lehrer lehrer)
+        {
+            Lehrer = lehrer;
+        }
+        
+        public bool Enabled
+        {
+            get => _Enabled;
+            set
+            {
+                if (!value)
+                {
+                    foreach (var frage in Fragen)
+                    {
+                        frage.Shown = false;
+                    }
+                }
+                
+                _Enabled = value;
+            }
+        }
+        
         public void AddFrage(InteraktionsMenuFrage frage)
         {
+            frage.InitLehrer(Lehrer);
+            
             Fragen.Add(new FrageEintrag
             {
-                Player = Player,
+                Player = Lehrer.Player,
                 Frage = frage,
                 InteraktionsMenuId = null
             });
         }
 
-        private void Update()
+        public void Update()
         {
             foreach (var frage in Fragen)
             {
                 frage.Update();
-            }
-        }
-
-        private void OnDisable()
-        {
-            foreach (var frage in Fragen)
-            {
-                frage.Shown = false;
             }
         }
 

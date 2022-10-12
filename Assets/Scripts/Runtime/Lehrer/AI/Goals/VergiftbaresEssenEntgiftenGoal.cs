@@ -19,7 +19,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationAngekommen;
 
         public VergiftbaresEssenEntgiftenGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             VergiftbaresEssen essen,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
@@ -27,7 +26,7 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             Essen = essen;

@@ -1,37 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HerderGames.Lehrer.AI
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class AIController : MonoBehaviour
+    public class AIController
     {
+        private readonly Lehrer Lehrer;
         public List<GoalBase> Goals { get; } = new();
         public GoalBase CurrentGoal => CurrentGoalData?.Goal;
-
         private GoalData CurrentGoalData;
         private readonly List<IEnumerator> GoalUpdateEnumerators = new();
-        private Lehrer Lehrer;
 
+        public AIController(Lehrer lehrer)
+        {
+            Lehrer = lehrer;
+        }
+        
         public void AddGoal(GoalBase goal)
         {
             Goals.Add(goal);
+            goal.InitLehrer(Lehrer);
             GoalUpdateEnumerators.Add(goal.UpdateGoal().GetEnumerator());
         }
 
-        private void Awake()
-        {
-            Lehrer = GetComponent<Lehrer>();
-        }
-
-        private void Start()
-        {
-            Lehrer.Agent.enabled = false;
-        }
-
-        private void Update()
+        public void Update()
         {
             UpdateGoals();
 

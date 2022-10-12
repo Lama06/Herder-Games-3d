@@ -24,7 +24,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationAngekommen;
 
         public VerbrechenErkennenGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             Player.Player player,
             float schwereMindestens = 0f,
@@ -33,7 +32,7 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             Player = player;

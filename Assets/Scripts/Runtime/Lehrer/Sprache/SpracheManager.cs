@@ -1,38 +1,50 @@
 using System;
 using System.Collections;
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Sprache
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class SpracheManager : MonoBehaviour
+    public class SpracheManager
     {
         private const float DefaultDelay = 5;
 
-        [SerializeField] private Player.Player Player;
-        [SerializeField] private float ReichweiteDerStimme = 7;
-
-        private Lehrer Lehrer;
+        private readonly Lehrer Lehrer;
+        private bool _Enabled;
+        private Coroutine SaySaetzeMehrmalsCoroutine;
         public ISaetzeMoeglichkeitenMehrmals SaetzeMoeglichkeiten { get; set; }
 
-        private void Awake()
+        public SpracheManager(Lehrer lehrer)
         {
-            Lehrer = GetComponent<Lehrer>();
+            Lehrer = lehrer;
         }
 
-        private void OnEnable()
+        public bool Enabled
         {
-            StartCoroutine(SaySaetzeMehrmals());
+            get => _Enabled;
+            set
+            {
+                if (_Enabled == value)
+                {
+                    return;
+                }
+
+                _Enabled = value;
+
+                if (_Enabled)
+                {
+                    SaySaetzeMehrmalsCoroutine = Lehrer.StartCoroutine(SaySaetzeMehrmals());
+                }
+                else
+                {
+                    Lehrer.StopCoroutine(SaySaetzeMehrmalsCoroutine);
+                }
+            }
         }
 
-        private void OnDisable()
+        public void Awake()
         {
-            StopAllCoroutines();
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawWireSphere(transform.position, ReichweiteDerStimme);
+            Enabled = true;
         }
 
         private IEnumerator SaySaetzeMehrmals()
@@ -47,26 +59,29 @@ namespace HerderGames.Lehrer.Sprache
                 }
 
                 var (satz, delay) = SaetzeMoeglichkeiten.NextSatz;
-                
+
                 if (satz == null)
                 {
                     continue;
                 }
 
                 Say(satz);
-                
-                yield return new WaitForSeconds(delay ?? DefaultDelay);
+
+                foreach (var _ in IteratorUtil.WaitForSeconds(delay ?? DefaultDelay))
+                {
+                    yield return null;
+                }
             }
         }
 
         public void Say(string satz)
         {
-            if (!(Vector3.Distance(transform.position, Player.transform.position) < ReichweiteDerStimme))
+            if (!(Vector3.Distance(Lehrer.transform.position, Lehrer.Player.transform.position) < Lehrer.Configuration.ReichweiteDerStimme))
             {
                 return;
             }
 
-            Player.Chat.SendChatMessage(Lehrer, satz);
+            Lehrer.Player.Chat.SendChatMessage(Lehrer, satz);
         }
 
         public void Say(ISaetzeMoeglichkeitenEinmalig source)

@@ -3,17 +3,16 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class Reputation : MonoBehaviour, PersistentDataContainer
+    public class Reputation : PersistentDataContainer
     {
-        private Lehrer Lehrer;
         public float ReputationsWert { get; set; }
+        private readonly Lehrer Lehrer;
 
-        private void Awake()
+        public Reputation(Lehrer lehrer)
         {
-            Lehrer = GetComponent<Lehrer>();
+            Lehrer = lehrer;
         }
-
+        
         public void AddReputation(float amount)
         {
             ReputationsWert += amount;

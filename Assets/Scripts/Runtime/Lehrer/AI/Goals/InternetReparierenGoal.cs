@@ -20,7 +20,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation AnimationAngekommen;
 
         public InternetReparierenGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             InternetManager internet,
             ISaetzeMoeglichkeitenMehrmals saetzeWeg = null,
@@ -28,7 +27,7 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenMehrmals saetzeAngekommen = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             InternetManager = internet;

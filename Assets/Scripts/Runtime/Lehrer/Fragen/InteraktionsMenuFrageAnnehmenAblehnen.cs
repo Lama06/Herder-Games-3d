@@ -7,9 +7,6 @@ namespace HerderGames.Lehrer.Fragen
 {
     public class InteraktionsMenuFrageAnnehmenAblehnen : InteraktionsMenuFrage
     {
-        private readonly Lehrer Lehrer;
-        private readonly Player.Player Player;
-
         private readonly Func<Player.Player, Lehrer, bool> ShouldShowPredicate;
         private readonly int Kosten;
         private readonly Item? RequiredItem;
@@ -24,8 +21,6 @@ namespace HerderGames.Lehrer.Fragen
         private readonly Action<Player.Player, Lehrer> OnAblehnen;
 
         public InteraktionsMenuFrageAnnehmenAblehnen(
-            Lehrer lehrer,
-            Player.Player player,
             Func<Player.Player, Lehrer, bool> shouldShowPredicate,
             string interaktionsMenuName,
             float annahmeWahrscheinlichkeit,
@@ -39,8 +34,6 @@ namespace HerderGames.Lehrer.Fragen
             Item? requiredItem = null
         )
         {
-            Lehrer = lehrer;
-            Player = player;
             ShouldShowPredicate = shouldShowPredicate;
             Text = interaktionsMenuName;
             Kosten = kosten;
@@ -54,41 +47,41 @@ namespace HerderGames.Lehrer.Fragen
             OnAblehnen = onAblehnen;
         }
 
-        public override bool ShouldShow => ShouldShowPredicate(Player, Lehrer);
+        public override bool ShouldShow => ShouldShowPredicate(Lehrer.Player, Lehrer);
 
         public override string Text { get; }
 
         public override void OnClick()
         {
-            if (!Player.GeldManager.CanPay(Kosten))
+            if (!Lehrer.Player.GeldManager.CanPay(Kosten))
             {
-                Player.Chat.SendChatMessage($"Du benötigst {Kosten}€ um diese Aktion durchzuführen");
+                Lehrer.Player.Chat.SendChatMessage($"Du benötigst {Kosten}€ um diese Aktion durchzuführen");
                 return;
             }
 
-            if (RequiredItem != null && !Player.Inventory.HasItem((Item) RequiredItem))
+            if (RequiredItem != null && !Lehrer.Player.Inventory.HasItem((Item) RequiredItem))
             {
-                Player.Chat.SendChatMessage($"Du benötigst dieses Item um die Aktion durchzuführen: {RequiredItem}");
+                Lehrer.Player.Chat.SendChatMessage($"Du benötigst dieses Item um die Aktion durchzuführen: {RequiredItem}");
                 return;
             }
 
             if (Utility.TrueWithPercent(AnnahmeWahrscheinlichkeit))
             {
-                Player.GeldManager.Pay(Kosten);
+                Lehrer.Player.GeldManager.Pay(Kosten);
                 if (RequiredItem != null)
                 {
-                    Player.Inventory.RemoveItem((Item) RequiredItem);
+                    Lehrer.Player.Inventory.RemoveItem((Item) RequiredItem);
                 }
 
                 Lehrer.Sprache.Say(AnnahmeAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAnnahme);
-                OnAnnehmen?.Invoke(Player, Lehrer);
+                OnAnnehmen?.Invoke(Lehrer.Player, Lehrer);
             }
             else
             {
                 Lehrer.Sprache.Say(AblehnenAntworten);
                 Lehrer.Reputation.AddReputation(ReputationsAenderungBeiAblehnen);
-                OnAblehnen?.Invoke(Player, Lehrer);
+                OnAblehnen?.Invoke(Lehrer.Player, Lehrer);
             }
         }
     }

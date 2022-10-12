@@ -29,7 +29,6 @@ namespace HerderGames.Lehrer.AI.Goals
         private Coroutine CheckAnwesenheitCoroutine;
 
         public UnterrichtenGoal(
-            Lehrer lehrer,
             Klassenraum unterrichtsRaum,
             Transform standpunkt,
             TriggerBase trigger,
@@ -40,7 +39,7 @@ namespace HerderGames.Lehrer.AI.Goals
             ISaetzeMoeglichkeitenMehrmals saetzeWaehrendUnterricht = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             UnterrichtsRaum = unterrichtsRaum;
             Standpunkt = standpunkt;

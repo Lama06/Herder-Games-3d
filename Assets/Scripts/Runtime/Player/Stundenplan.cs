@@ -146,7 +146,7 @@ namespace HerderGames.Player
                     {
                         builder.Append(goal.StundeImStundenplan.Fach);
                         builder.Append(" (in ").Append(goal.UnterrichtsRaum.Name).Append(")");
-                        builder.Append(" (bei ").Append(goal.Lehrer.Name).Append(")");
+                        builder.Append(" (bei ").Append(goal.Lehrer.Configuration.Name).Append(")");
                     }
                 }
 

@@ -23,14 +23,13 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly List<float> HoeheLetzteMinute = new();
 
         public ErschoepfungGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             float maximaleDistanzProMinute,
             float maxiamleHoeheProMinute,
             float laengeDerPause,
             ISaetzeMoeglichkeitenMehrmals saetze = null,
             AbstractAnimation animation = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             MaximaleDistanzProMinute = maximaleDistanzProMinute;

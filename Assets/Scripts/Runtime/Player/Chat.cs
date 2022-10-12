@@ -17,7 +17,7 @@ namespace HerderGames.Player
 
         public void SendChatMessage(Lehrer.Lehrer sender, string msg)
         {
-            SendChatMessage($"[{sender.Name}] {msg}");
+            SendChatMessage($"[{sender.Configuration.Name}] {msg}");
         }
 
         public void SendChatMessageDurchsage(string durchsage)

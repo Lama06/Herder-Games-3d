@@ -20,14 +20,13 @@ namespace HerderGames.Lehrer.AI.Goals
         public bool IsAngekommen { get; private set; }
 
         public AnGespraechTeilnehmenGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             Transform standpunkt,
             Gespraech gespraech,
             ISaetzeMoeglichkeitenMehrmals saetzeAufDemWeg = null,
             AbstractAnimation animationWeg = null,
             AbstractAnimation animationAngekommen = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             Standpunkt = standpunkt;

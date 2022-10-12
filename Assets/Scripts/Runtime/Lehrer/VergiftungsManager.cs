@@ -6,30 +6,23 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    [RequireComponent(typeof(Lehrer))]
-    public class VergiftungsManager : MonoBehaviour, PersistentDataContainer
+    public class VergiftungsManager : PersistentDataContainer
     {
-        [SerializeField] private TimeManager TimeManager;
-        [SerializeField] private Player.Player Player;
-        [SerializeField] private int LaengeDerVergiftung = 2;
-        [SerializeField] private int KostenFuerDieSchuleProTagVergiftet = 100;
-
+        private readonly Lehrer Lehrer;
         public bool Vergiftet { get; private set; }
         public bool Syntome { get; private set; }
         public VergiftungsType VergiftungsType { get; private set; }
         private int TageRemaining;
         private VergiftbaresEssen GrundDerVergiftung;
 
-        private Lehrer Lehrer;
-
-        private void Awake()
+        public VergiftungsManager(Lehrer lehrer)
         {
-            Lehrer = GetComponent<Lehrer>();
+            Lehrer = lehrer;
         }
 
-        private void Start()
+        public void Awake()
         {
-            StartCoroutine(ManageVergiftung());
+            Lehrer.StartCoroutine(ManageVergiftung());
         }
 
         public void Vergiften(VergiftbaresEssen grund)
@@ -38,7 +31,7 @@ namespace HerderGames.Lehrer
             Syntome = false;
             VergiftungsType = grund.VergiftungsTyp;
             GrundDerVergiftung = grund;
-            TageRemaining = LaengeDerVergiftung;
+            TageRemaining = Lehrer.Configuration.LaengeVergiftung;
         }
 
         public void Vergiften(VergiftungsType type)
@@ -47,16 +40,16 @@ namespace HerderGames.Lehrer
             Syntome = false;
             VergiftungsType = type;
             GrundDerVergiftung = null;
-            TageRemaining = LaengeDerVergiftung;
+            TageRemaining = Lehrer.Configuration.LaengeVergiftung;
         }
 
         private IEnumerator ManageVergiftung()
         {
-            var currentWochentag = TimeManager.CurrentWochentag;
+            var currentWochentag = Lehrer.TimeManager.CurrentWochentag;
             while (true)
             {
-                yield return new WaitUntil(() => currentWochentag != TimeManager.CurrentWochentag);
-                currentWochentag = TimeManager.CurrentWochentag;
+                yield return new WaitUntil(() => currentWochentag != Lehrer.TimeManager.CurrentWochentag);
+                currentWochentag = Lehrer.TimeManager.CurrentWochentag;
                 // Wird immer am Anfang eines neuen Wochentages ausgeführt
 
                 if (!Vergiftet)
@@ -84,7 +77,7 @@ namespace HerderGames.Lehrer
                     }
                 }
 
-                Player.Score.SchadenFuerDieSchule += KostenFuerDieSchuleProTagVergiftet;
+                Lehrer.Player.Score.SchadenFuerDieSchule += Lehrer.Configuration.KostenProTagVergiftet;
             }
         }
 

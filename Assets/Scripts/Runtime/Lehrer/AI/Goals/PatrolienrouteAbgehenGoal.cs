@@ -16,12 +16,11 @@ namespace HerderGames.Lehrer.AI.Goals
         private readonly AbstractAnimation Animation;
 
         public PatrolienrouteAbgehenGoal(
-            Lehrer lehrer,
             TriggerBase trigger,
             IList<Transform> punkte,
             ISaetzeMoeglichkeitenMehrmals saetze = null,
             AbstractAnimation animation = null
-        ) : base(lehrer)
+        )
         {
             Trigger = trigger;
             Punkte = punkte;
