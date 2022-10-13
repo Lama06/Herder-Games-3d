@@ -115,16 +115,25 @@ namespace HerderGames.Lehrer
         public void LoadData()
         {
             transform.position = PlayerPrefsUtil.GetVector($"{SaveKeyRoot}.position", transform.position);
+            
+            Reputation.LoadData();
+            Vergiftung.LoadData();
         }
 
         public void SaveData()
         {
             PlayerPrefsUtil.SetVector($"{SaveKeyRoot}.position", LastPosition);
+            
+            Reputation.SaveData();
+            Vergiftung.SaveData();
         }
 
         public void DeleteData()
         {
             PlayerPrefsUtil.DeleteVector($"{SaveKeyRoot}.position");
+            
+            Reputation.DeleteData();
+            Vergiftung.DeleteData();
         }
     }
 }

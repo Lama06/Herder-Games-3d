@@ -45,6 +45,11 @@ namespace HerderGames.Lehrer.Fragen
 
         public void Update()
         {
+            if (!_Enabled)
+            {
+                return;
+            }
+            
             foreach (var frage in Fragen)
             {
                 frage.Update();

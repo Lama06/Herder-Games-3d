@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    public class VergiftungsManager : PersistentDataContainer
+    public class VergiftungsManager
     {
         private readonly Lehrer Lehrer;
         public bool Vergiftet { get; private set; }

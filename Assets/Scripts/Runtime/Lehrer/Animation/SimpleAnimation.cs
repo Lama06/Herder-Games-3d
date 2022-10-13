@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using HerderGames.Util;
 using UnityEngine;
 
 namespace HerderGames.Lehrer.Animation
@@ -24,17 +25,9 @@ namespace HerderGames.Lehrer.Animation
             lehrer.Animator.SetBool(Animation.AnimationType().ParameterName(), true);
             unexpectedAnimationEndCallback.Push(() => lehrer.Animator.SetBool(Animation.AnimationType().ParameterName(), false));
             
-            var remainingTime = Seconds;
-            while (true)
+            foreach (var _ in IteratorUtil.WaitForSeconds(Seconds))
             {
                 yield return null;
-
-                remainingTime -= Time.deltaTime;
-
-                if (remainingTime <= 0f)
-                {
-                    break;
-                }
             }
 
             unexpectedAnimationEndCallback.Pop()();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HerderGames.Lehrer
 {
-    public class Reputation : PersistentDataContainer
+    public class Reputation
     {
         public float ReputationsWert { get; set; }
         private readonly Lehrer Lehrer;
